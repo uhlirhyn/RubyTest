@@ -38,7 +38,7 @@ class Graph
 		open = [@nodes[root_id-1]]
 		closed = {}
 
-		print "#{root_id} "			# vypis jeho navstevu
+		print "#{root_id}"			# vypis jeho navstevu
 		closed[root_id-1] = 1	# toto id bylo navstiveno			
 
 		begin 
@@ -49,7 +49,7 @@ class Graph
 				if closed[n.id-1] == nil
 					open[open.size] = n
 					closed[n.id-1] = 1		# toto id bylo navstiveno			
-					print "#{n.id} "		# vypis jeho navstevu
+					print " #{n.id}"		# vypis jeho navstevu
 				end 
 			end
 
@@ -79,7 +79,7 @@ class Graph
 			open.delete_at(0)		# zmensi pole
 			if closed[first.id-1] == nil	
 				closed[first.id-1] = 1		# toto id bylo navstiveno			
-				print "#{first.id} "		# vypis jeho navstevu
+				print "#{first.id} "			# vypis jeho navstevu
 				open = first.nodes + open	# do open pridej sousedy aktualniho uzlu, pokud uz nejsou v closed
 			end
 
@@ -138,7 +138,7 @@ for i in 1..t
 
 		# over jestli neni list sousedu prazdny
 		if buf_a[1] != "0" 
-			for u in 1..buf_a.size-1
+			for u in 2..buf_a.size-1
 				node_b = newgraph.getOrCreateNode(buf_a[u].to_i)
 				node.addEdge(node_b)
 				node_b.addEdge(node)
