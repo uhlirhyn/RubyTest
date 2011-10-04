@@ -101,26 +101,6 @@ class Graph
 	attr_reader :nodes
 	attr_accessor :bd
 
-	private
-	def innerReadDFS(node,closed)
-
-		while closed.size == @nodes.size  
-			closed[node.id-1] = 1		# toto id bylo navstiveno			
-			print "#{node.id} "			# vypis jeho navstevu
-
-			node.nodes.each do			# pro kazdeho potomka proved zanoreni 
-				|n|						# rekurze se postara o backtracking 
-				if closed[n.id-1] == nil
-					innerReadDFS(n,closed)
-				end 
-			end
-
-		end 
-
-		print "\n"
-
-	end
-
 end
 
 # init
