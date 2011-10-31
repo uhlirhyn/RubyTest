@@ -10,11 +10,21 @@ class TennisScorer
 	end
 
 	def rec_p
-		@rec = (@rec + 15) % 60
+		if @rec != 45 
+			@rec = @rec + 15
+		else 
+			@rec = 0
+			@ser = 0
+		end	
 	end
 
 	def ser_p
-		@ser = (@ser + 15) % 60
+		if @ser != 45 
+			@ser = @ser + 15
+		else 
+			@rec = 0
+			@ser = 0
+		end	
 	end
 
 end
