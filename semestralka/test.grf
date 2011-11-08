@@ -1,8 +1,15 @@
-n=10	# počet položek v batohu
+n=10	# pocet polozek v batohu
 m=50	# nosnost batohu
-w={4,2,5,6,2,8,2,5}		# váhy věcí
-c={7,8,9,5,5,96,3,2}	# ceny věcí
+#w={4,2,5,6,2,8,2,5}		# vahy veci
+#c={7,8,9,5,5,96,3,2}	# ceny veci
 
 knap a,b,c {
 
+	{
+
+		if a==b {
+			knap(a,b,c+1)
+		}
+
+	}
 }
