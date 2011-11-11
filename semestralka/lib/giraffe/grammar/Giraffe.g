@@ -7,92 +7,131 @@ output = AST;
 
 
 @header {
-require './lib/giraffe/env.rb'
+require './lib/giraffe/tree/blockTree.rb'
+require './lib/giraffe/tree/assignTree.rb'
+require './lib/giraffe/tree/printTree.rb'
+require './lib/giraffe/tree/printlTree.rb'
+require './lib/giraffe/tree/ifTree.rb'
+require './lib/giraffe/tree/whileTree.rb'
+require './lib/giraffe/tree/doTree.rb'
 }
 
 @members {
-@@progEnv = Env.new
+
 }
 
-program	:	block ;
+program	:	block {@programTree = $block.tree};
 
-env
-	:	LCB! { @@progEnv.raise } 
-		block 
-		RCB! { @@progEnv.descend }
+env returns [tree]
+	:	LCB! 
+		block {$tree = $block.tree}
+		RCB!
 	;
 
-block
-	:	instruction instructionRest;
-
-instructionRest
-	: 	(( COMMENT!? '\r'!? '\n'!) | SEMICOLON!) block
-	|	;
-
-instruction
-	:	assignment
-	|	call
-	|	func
-	|	env
-	|	forCycle
-	|	ifInstruction
-	|	whileCycle
-	|	doCycle
-	|	;
-
-ifInstruction 	
-	:	IF^ condition env ifRest 
-		{ if $condition.result
-			puts "alt\#1"
-		  end
-		}
+block returns [tree]
+	:	{$tree = BlockTree.new}
+		instruction  
+		{$tree.addInstruction!($instruction.tree) unless $instruction.tree == nil}
+		instructionRest 
+		{$tree.addInstructions!($instructionRest.list)}		
 	;
 
-ifRest	:	ELSE env
-	|	(ELSEIF | ELIF) condition env
-	|	;
+instructionRest returns [list]
+	: 	{$list = []}
+		(( COMMENT!? '\r'!? '\n'!) | SEMICOLON!) 
+		instruction 
+		{$list << $instruction.tree unless $instruction.tree == nil}		
+		op=instructionRest
+		{$list = $list + $op.list}				
+	|	{$list = []}
+	;
 
-whileCycle
- 	:	WHILE condition env;
+instruction returns [tree]
+	:	assignment {$tree = $assignment.tree}
+	|	call {$tree = $call.tree}
+	|	func {$tree = $func.tree}
+	|	env {$tree = $env.tree}
+	|	forCycle {$tree = $forCycle.tree}
+	|	ifInstruction {$tree = $ifInstruction.tree}
+	|	whileCycle {$tree = $whileCycle.tree}
+	|	doCycle {$tree = $doCycle.tree}
+	|	printInstruction {$tree = $printInstruction.tree}
+	|	printlInstruction {$tree = $printlInstruction.tree}
+	|	{$tree = nil} 
+	;
 
-doCycle	:	DO env WHILE condition;
+printInstruction returns [tree]
+ 	:	PRINT  	(	STRING {$tree = PrintTree.new($STRING.text)}
+ 			|	expression {$tree = PrintTree.new($expression.tree)}
+ 			) 
+ 	;
+ 	
+printlInstruction returns [tree]
+ 	:	PRINTL 	(	STRING {$tree = PrintlTree.new($STRING.text)}
+ 			|	expression {$tree = PrintlTree.new($expression.tree)}
+ 			) 
+ 	;
 
-forCycle
+ifInstruction returns [tree]	
+	:	IF^ condition env ifRest
+		{$tree = IfTree.new($condition.tree,$env.tree,$ifRest.tree}
+	;
+
+ifRest returns [tree]
+	:	ELSE env {$tree = $env.tree}
+	|	(ELSEIF | ELIF) condition env ifRest 
+		{$tree = IfTree.new($condition.tree,$env.tree,$ifRest.tree}	
+	|	{$tree = nil}
+	;
+
+whileCycle returns [tree]
+ 	:	WHILE condition env
+ 		{$tree = WhileTree.new($condition.tree,$env.tree}
+ 	;
+
+doCycle	returns [tree]
+	:	DO env WHILE condition
+ 		{$tree = DoTree.new($condition.tree,$env.tree}
+ 	;
+
+forCycle returns [tree]
 	:	FOR assignment COMMA! condition COMMA! assignment env;
 	
-func 	:	ID^ params? env;
+func returns [tree]
+	:	ID^ params? env;
 
-params	:	ID paramRest;
+params returns [tree]
+	:	ID paramRest;
 
-paramRest
+paramRest returns [tree]
 	:	COMMA! params
 	|	;
 	
-call 
+call returns [tree]
 	:	ID^ LB! args? RB!;
 	
-args 
+args returns [tree]
 	:	expression argsRest; 
 	
-argsRest
+argsRest returns [tree]
 	:	COMMA! args
 	|	;
 
 // OR (closer to root -> will process after AND)
 
-condition returns [result]
+condition returns [tree]
 	:	orOperand {$result = $orOperand.result}
 		(OR^ op=condition {$result = $result || $op.result})?
 	;
 
 // AND (further from root -> will process before OR)
 
-orOperand returns [result]
-	:	andOperand {$result = $andOperand.result}
+orOperand returns [tree]
+	:	boolOperand {$result = $boolOperand.result}
 		(AND^ op=orOperand {$result = $result && $op.result})?
 	;
 
-andOperand returns [result]
+andOperand returns [tree]
 	:	boolOperand {$result = $boolOperand.result} (
 			EQ^ op=andOperand {$result = $result == $op.result}
 		| 	NE^ op=andOperand {$result = $result != $op.result}
@@ -100,21 +139,35 @@ andOperand returns [result]
 		| 	GT^ op=andOperand {$result = $result > $op.result}
 		| 	LE^ op=andOperand {$result = $result <= $op.result}
 		| 	GE^ op=andOperand {$result = $result >= $op.result}
-		)?
+		)?				
 	;
 	
-boolOperand returns [result]
+boolOperand returns [tree]
 	:	bool {$result = $bool.result}
 	|	NOT LB! condition RB! {$result = !$condition.result}
 	|	op1=expression (
-			EQ^ (
-				bool {$result = $op1.result == $bool.result}
-			| 	op2=expression {$result = $op1.result == $op2.result}) 
+			EQ^ (	op2=bool {$result = $op1.result == $op2.result}
+				|	op2=expression {$result = $op1.result == $op2.result}) 
+			|
+			NE^ (	op2=bool {$result = $op1.result != $op2.result}
+				| 	op2=expression {$result = $op1.result != $op2.result}) 
+			|
+			LT^ (	op2=bool {$result = $op1.result < $op2.result}
+				|	op2=expression {$result = $op1.result < $op2.result}) 
+			|
+			GT^ (	op2=bool {$result = $op1.result > $op2.result}
+				| 	op2=expression {$result = $op1.result > $op2.result}) 
+			|
+			LE^ (	op2=bool {$result = $op1.result <= $op2.result}
+				| 	op2=expression {$result = $op1.result <= $op2.result}) 
+			|
+			GE^ (	op2=bool {$result = $op1.result >= $op2.result}
+				| 	op2=expression {$result = $op1.result >= $op2.result}) 
 		) 
 	;
 
 // add / substract (closer to root -> will process later)
-expression returns [result]
+expression returns [tree]
 	:	addOperand {$result = $addOperand.result}
 		(
 			PLUS^ op=expression {$result = $result + $op.result}
@@ -122,7 +175,7 @@ expression returns [result]
 		)?
 	;
 
-addOperand returns [result]
+addOperand returns [tree]
 	:	mulOperand {$result = $mulOperand.result}
 		(
 			MUL^ op=addOperand {$result = $result * $op.result}
@@ -131,20 +184,20 @@ addOperand returns [result]
 		)?
 	;
 
-mulOperand returns [result]
+mulOperand returns [tree]
 	:	PLUS mulOperandRest {$result = $mulOperandRest.result}
 	|	MINUS mulOperandRest {$result = -$mulOperandRest.result}
 	|	mulOperandRest {$result = $mulOperandRest.result}
 	;
 
-mulOperandRest returns [result]
-	:	ID {puts "VAR-LOOKUP"}
+mulOperandRest returns [tree]
+	:	ID {$result = @@progEnv.varLookup($ID.text)}
 	|	LB! expression RB! {$result = $expression.result}
 	|	INT {$result = $INT.text.to_i}
 	|	FLOAT {$result = $FLOAT.text.to_f}
 	|	call {puts "CALL-LOOKUP"};
 
-value returns [result]
+value returns [tree]
 	: 	expression {$result = $expression.result}
 	|	STRING {$result = $STRING.text}
 	|	CHAR {$result = $CHAR.text}
@@ -153,12 +206,14 @@ value returns [result]
 assignment
 	:	ID ASSIGN^ value { @@progEnv.varSet($ID.text,$value.result) } ;	
 
-bool returns [result]	
+bool returns [tree]	
 	:	TRUE {$result = true}
 	| 	FALSE {$result = true}
 	;
 
 
+PRINT	:	'print';
+PRINTL	:	'printl';
 TRUE	:	'true';
 FALSE	:	'false';
 FOR	:	'for';

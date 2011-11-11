@@ -29,7 +29,7 @@ module Giraffe
             @env = @env.superEnv
         end
 
-        def varLookup(id) 
+        def var(id) 
             lookupEnv = @env
 
             while lookupEnv != nil 
@@ -41,7 +41,7 @@ module Giraffe
             raise EnvVariableMiss
         end
 
-        def varSet(id,val=nil)
+        def var!(id,val=nil)
             puts "ENV: #{id}=#{val}"
             @env.var[id] = val
         end
