@@ -4,21 +4,8 @@ require './lib/giraffe/grammar/GiraffeParser'
 require './lib/giraffe/options.rb'
 require './lib/giraffe/console.rb'
 
-printf "======================<[ giraffe! ]>======================\n"
-
 
 module Giraffe
-
-    def Giraffe.traverse(tree,level)
-
-        (level+1).times { printf("  ") } 
-        puts("[#{tree.type}]: #{tree.text}")
-        tree.children.each do
-            |c|
-            traverse(c,level+1)
-        end
-
-    end
 
     def Giraffe.launch
 
@@ -39,15 +26,9 @@ module Giraffe
             for file in ARGV
                 input = ANTLR3::FileStream.new( file )
                 parser = Parser.new( input )
-                tree = parser.program.tree
-                puts( "tree: #{ tree.inspect }" )
-                nodes = ANTLR3::AST::CommonTreeNodeStream.new(
-                    tree, :token_stream => parser.input
-                )
-                #GiraffeWalker::TreeParser.new( nodes ).program
+                program = parser.program.result
 
-                traverse(tree,0)
-
+                program.run
             end
 
         end
@@ -56,4 +37,10 @@ module Giraffe
 
 end
 
+t = Time.new
+
+printf "==[ #{t.strftime('%k:%M:%S.%9N')} ]===========<[ giraffe! ]>======================\n\n"
+
 Giraffe.launch
+
+printf "\n==[ #{t.strftime('%k:%M:%S.%9N')} ]===========<[ giraffe! ]>======================\n"

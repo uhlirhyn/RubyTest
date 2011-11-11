@@ -7,7 +7,7 @@ module Giraffe
         end
 
         def run(env)
-            puts(@text)
+            puts(@text.run(env))
         end
 
     end

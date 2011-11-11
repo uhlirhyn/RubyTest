@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Jul 31, 2010 19:34:52
 # Ruby runtime library version: 1.8.11
 # Input grammar file: Giraffe.g
-# Generated at: 2011-11-11 02:35:25
+# Generated at: 2011-11-11 21:45:53
 # 
 
 # ~~~> start load path setup
@@ -66,17 +66,17 @@ module Giraffe
   module TokenData
 
     # define the token constants
-    define_tokens( :EXPONENT => 42, :LT => 28, :WHILE => 18, :RB => 23, 
-                   :MOD => 37, :OCTAL_ESC => 47, :CHAR => 38, :FOR => 20, 
-                   :DO => 19, :FLOAT => 11, :NOT => 32, :AND => 25, :RCB => 5, 
-                   :ID => 9, :EOF => -1, :IF => 14, :ESC_SEQ => 44, :LCB => 4, 
-                   :COMMA => 21, :PLUS => 33, :EQ => 26, :COMMENT => 6, 
-                   :T__50 => 50, :NE => 27, :GE => 31, :T__49 => 49, :UNICODE_ESC => 46, 
-                   :ELSE => 15, :HEX_DIGIT => 45, :INT => 10, :SEMICOLON => 7, 
-                   :MINUS => 34, :MUL => 35, :TRUE => 40, :PRINT => 8, :ELSEIF => 16, 
-                   :PRINTL => 13, :COLON => 48, :ELIF => 17, :WS => 43, 
-                   :OR => 24, :ASSIGN => 39, :GT => 29, :LB => 22, :DIV => 36, 
-                   :FALSE => 41, :LE => 30, :STRING => 12 )
+    define_tokens( :EXPONENT => 42, :LT => 27, :WHILE => 15, :RB => 21, 
+                   :MOD => 35, :OCTAL_ESC => 47, :CHAR => 38, :DO => 16, 
+                   :FOR => 17, :FLOAT => 37, :NOT => 24, :AND => 23, :ID => 19, 
+                   :RCB => 5, :EOF => -1, :IF => 11, :ESC_SEQ => 44, :LCB => 4, 
+                   :COMMA => 18, :PLUS => 31, :EQ => 25, :COMMENT => 6, 
+                   :T__50 => 50, :NE => 26, :GE => 30, :T__49 => 49, :UNICODE_ESC => 46, 
+                   :ELSE => 12, :HEX_DIGIT => 45, :SEMICOLON => 7, :INT => 36, 
+                   :MINUS => 32, :MUL => 33, :TRUE => 40, :PRINT => 8, :ELSEIF => 13, 
+                   :PRINTL => 10, :COLON => 48, :ELIF => 14, :WS => 43, 
+                   :OR => 22, :ASSIGN => 39, :GT => 28, :LB => 20, :DIV => 34, 
+                   :FALSE => 41, :LE => 29, :STRING => 9 )
     
   end
 
@@ -174,7 +174,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 199:9: 'print'
+      # at line 215:9: 'print'
       match( "print" )
 
       
@@ -198,7 +198,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 200:10: 'printl'
+      # at line 216:10: 'printl'
       match( "printl" )
 
       
@@ -222,7 +222,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 201:8: 'true'
+      # at line 217:8: 'true'
       match( "true" )
 
       
@@ -246,7 +246,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 202:9: 'false'
+      # at line 218:9: 'false'
       match( "false" )
 
       
@@ -270,7 +270,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 203:7: 'for'
+      # at line 219:7: 'for'
       match( "for" )
 
       
@@ -294,7 +294,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 204:6: 'if'
+      # at line 220:6: 'if'
       match( "if" )
 
       
@@ -318,7 +318,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 205:8: 'else'
+      # at line 221:8: 'else'
       match( "else" )
 
       
@@ -342,7 +342,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 206:8: 'elif'
+      # at line 222:8: 'elif'
       match( "elif" )
 
       
@@ -366,7 +366,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 207:10: 'elseif'
+      # at line 223:10: 'elseif'
       match( "elseif" )
 
       
@@ -390,7 +390,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 208:9: 'while'
+      # at line 224:9: 'while'
       match( "while" )
 
       
@@ -414,7 +414,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 209:6: 'do'
+      # at line 225:6: 'do'
       match( "do" )
 
       
@@ -438,7 +438,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 211:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      # at line 227:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
       if @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
         @input.consume
       else
@@ -448,7 +448,7 @@ module Giraffe
       end
 
 
-      # at line 211:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      # at line 227:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
       while true # decision 1
         alt_1 = 2
         look_1_0 = @input.peek( 1 )
@@ -496,8 +496,8 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 214:7: ( '0' .. '9' )+
-      # at file 214:7: ( '0' .. '9' )+
+      # at line 230:7: ( '0' .. '9' )+
+      # at file 230:7: ( '0' .. '9' )+
       match_count_2 = 0
       while true
         alt_2 = 2
@@ -509,7 +509,7 @@ module Giraffe
         end
         case alt_2
         when 1
-          # at line 214:7: '0' .. '9'
+          # at line 230:7: '0' .. '9'
           match_range( 0x30, 0x39 )
 
         else
@@ -544,13 +544,13 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 218:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+      # at line 234:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
       alt_9 = 3
       alt_9 = @dfa9.predict( @input )
       case alt_9
       when 1
-        # at line 218:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
-        # at file 218:9: ( '0' .. '9' )+
+        # at line 234:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+        # at file 234:9: ( '0' .. '9' )+
         match_count_3 = 0
         while true
           alt_3 = 2
@@ -562,7 +562,7 @@ module Giraffe
           end
           case alt_3
           when 1
-            # at line 218:10: '0' .. '9'
+            # at line 234:10: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
@@ -576,7 +576,7 @@ module Giraffe
         end
 
         match( 0x2e )
-        # at line 218:25: ( '0' .. '9' )*
+        # at line 234:25: ( '0' .. '9' )*
         while true # decision 4
           alt_4 = 2
           look_4_0 = @input.peek( 1 )
@@ -587,14 +587,14 @@ module Giraffe
           end
           case alt_4
           when 1
-            # at line 218:26: '0' .. '9'
+            # at line 234:26: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
             break # out of loop for decision 4
           end
         end # loop for decision 4
-        # at line 218:37: ( EXPONENT )?
+        # at line 234:37: ( EXPONENT )?
         alt_5 = 2
         look_5_0 = @input.peek( 1 )
 
@@ -603,15 +603,15 @@ module Giraffe
         end
         case alt_5
         when 1
-          # at line 218:37: EXPONENT
+          # at line 234:37: EXPONENT
           exponent!
 
         end
 
       when 2
-        # at line 219:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+        # at line 235:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
         match( 0x2e )
-        # at file 219:13: ( '0' .. '9' )+
+        # at file 235:13: ( '0' .. '9' )+
         match_count_6 = 0
         while true
           alt_6 = 2
@@ -623,7 +623,7 @@ module Giraffe
           end
           case alt_6
           when 1
-            # at line 219:14: '0' .. '9'
+            # at line 235:14: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
@@ -636,7 +636,7 @@ module Giraffe
           match_count_6 += 1
         end
 
-        # at line 219:25: ( EXPONENT )?
+        # at line 235:25: ( EXPONENT )?
         alt_7 = 2
         look_7_0 = @input.peek( 1 )
 
@@ -645,14 +645,14 @@ module Giraffe
         end
         case alt_7
         when 1
-          # at line 219:25: EXPONENT
+          # at line 235:25: EXPONENT
           exponent!
 
         end
 
       when 3
-        # at line 220:9: ( '0' .. '9' )+ EXPONENT
-        # at file 220:9: ( '0' .. '9' )+
+        # at line 236:9: ( '0' .. '9' )+ EXPONENT
+        # at file 236:9: ( '0' .. '9' )+
         match_count_8 = 0
         while true
           alt_8 = 2
@@ -664,7 +664,7 @@ module Giraffe
           end
           case alt_8
           when 1
-            # at line 220:10: '0' .. '9'
+            # at line 236:10: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
@@ -701,9 +701,9 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 224:9: '#' (~ ( '\\n' | '\\r' ) )*
+      # at line 240:9: '#' (~ ( '\\n' | '\\r' ) )*
       match( 0x23 )
-      # at line 224:13: (~ ( '\\n' | '\\r' ) )*
+      # at line 240:13: (~ ( '\\n' | '\\r' ) )*
       while true # decision 10
         alt_10 = 2
         look_10_0 = @input.peek( 1 )
@@ -714,7 +714,7 @@ module Giraffe
         end
         case alt_10
         when 1
-          # at line 224:13: ~ ( '\\n' | '\\r' )
+          # at line 240:13: ~ ( '\\n' | '\\r' )
           if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xc ) || @input.peek( 1 ).between?( 0xe, 0xff )
             @input.consume
           else
@@ -754,7 +754,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 227:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+      # at line 243:9: ( ' ' | '\\t' | '\\r' | '\\n' )
       if @input.peek( 1 ).between?( 0x9, 0xa ) || @input.peek(1) == 0xd || @input.peek(1) == 0x20
         @input.consume
       else
@@ -789,9 +789,9 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 235:8: '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"'
+      # at line 251:8: '\"' ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )* '\"'
       match( 0x22 )
-      # at line 235:12: ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )*
+      # at line 251:12: ( ESC_SEQ | ~ ( '\\\\' | '\"' ) )*
       while true # decision 11
         alt_11 = 3
         look_11_0 = @input.peek( 1 )
@@ -804,11 +804,11 @@ module Giraffe
         end
         case alt_11
         when 1
-          # at line 235:14: ESC_SEQ
+          # at line 251:14: ESC_SEQ
           esc_seq!
 
         when 2
-          # at line 235:24: ~ ( '\\\\' | '\"' )
+          # at line 251:24: ~ ( '\\\\' | '\"' )
           if @input.peek( 1 ).between?( 0x0, 0x21 ) || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
@@ -846,9 +846,9 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 238:8: '\\'' ( ESC_SEQ | ~ ( '\\'' | '\\\\' ) ) '\\''
+      # at line 254:8: '\\'' ( ESC_SEQ | ~ ( '\\'' | '\\\\' ) ) '\\''
       match( 0x27 )
-      # at line 238:13: ( ESC_SEQ | ~ ( '\\'' | '\\\\' ) )
+      # at line 254:13: ( ESC_SEQ | ~ ( '\\'' | '\\\\' ) )
       alt_12 = 2
       look_12_0 = @input.peek( 1 )
 
@@ -861,11 +861,11 @@ module Giraffe
       end
       case alt_12
       when 1
-        # at line 238:15: ESC_SEQ
+        # at line 254:15: ESC_SEQ
         esc_seq!
 
       when 2
-        # at line 238:25: ~ ( '\\'' | '\\\\' )
+        # at line 254:25: ~ ( '\\'' | '\\\\' )
         if @input.peek( 1 ).between?( 0x0, 0x26 ) || @input.peek( 1 ).between?( 0x28, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
           @input.consume
         else
@@ -897,7 +897,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 242:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+      # at line 258:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
       if @input.peek(1) == 0x45 || @input.peek(1) == 0x65
         @input.consume
       else
@@ -907,7 +907,7 @@ module Giraffe
       end
 
 
-      # at line 242:22: ( '+' | '-' )?
+      # at line 258:22: ( '+' | '-' )?
       alt_13 = 2
       look_13_0 = @input.peek( 1 )
 
@@ -928,7 +928,7 @@ module Giraffe
 
 
       end
-      # at file 242:33: ( '0' .. '9' )+
+      # at file 258:33: ( '0' .. '9' )+
       match_count_14 = 0
       while true
         alt_14 = 2
@@ -940,7 +940,7 @@ module Giraffe
         end
         case alt_14
         when 1
-          # at line 242:34: '0' .. '9'
+          # at line 258:34: '0' .. '9'
           match_range( 0x30, 0x39 )
 
         else
@@ -968,7 +968,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 245:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+      # at line 261:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
       if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x46 ) || @input.peek( 1 ).between?( 0x61, 0x66 )
         @input.consume
       else
@@ -993,7 +993,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 249:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+      # at line 265:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
       alt_15 = 3
       look_15_0 = @input.peek( 1 )
 
@@ -1010,7 +1010,7 @@ module Giraffe
       end
       case alt_15
       when 1
-        # at line 249:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+        # at line 265:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
         match( 0x5c )
         if @input.peek(1) == 0x22 || @input.peek(1) == 0x27 || @input.peek(1) == 0x5c || @input.peek(1) == 0x62 || @input.peek(1) == 0x66 || @input.peek(1) == 0x6e || @input.peek(1) == 0x72 || @input.peek(1) == 0x74
           @input.consume
@@ -1023,11 +1023,11 @@ module Giraffe
 
 
       when 2
-        # at line 250:9: UNICODE_ESC
+        # at line 266:9: UNICODE_ESC
         unicode_esc!
 
       when 3
-        # at line 251:9: OCTAL_ESC
+        # at line 267:9: OCTAL_ESC
         octal_esc!
 
       end
@@ -1045,7 +1045,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 256:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+      # at line 272:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
       alt_16 = 3
       look_16_0 = @input.peek( 1 )
 
@@ -1082,38 +1082,38 @@ module Giraffe
       end
       case alt_16
       when 1
-        # at line 256:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+        # at line 272:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
         match( 0x5c )
-        # at line 256:14: ( '0' .. '3' )
-        # at line 256:15: '0' .. '3'
+        # at line 272:14: ( '0' .. '3' )
+        # at line 272:15: '0' .. '3'
         match_range( 0x30, 0x33 )
 
-        # at line 256:25: ( '0' .. '7' )
-        # at line 256:26: '0' .. '7'
+        # at line 272:25: ( '0' .. '7' )
+        # at line 272:26: '0' .. '7'
         match_range( 0x30, 0x37 )
 
-        # at line 256:36: ( '0' .. '7' )
-        # at line 256:37: '0' .. '7'
+        # at line 272:36: ( '0' .. '7' )
+        # at line 272:37: '0' .. '7'
         match_range( 0x30, 0x37 )
 
 
       when 2
-        # at line 257:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+        # at line 273:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
         match( 0x5c )
-        # at line 257:14: ( '0' .. '7' )
-        # at line 257:15: '0' .. '7'
+        # at line 273:14: ( '0' .. '7' )
+        # at line 273:15: '0' .. '7'
         match_range( 0x30, 0x37 )
 
-        # at line 257:25: ( '0' .. '7' )
-        # at line 257:26: '0' .. '7'
+        # at line 273:25: ( '0' .. '7' )
+        # at line 273:26: '0' .. '7'
         match_range( 0x30, 0x37 )
 
 
       when 3
-        # at line 258:9: '\\\\' ( '0' .. '7' )
+        # at line 274:9: '\\\\' ( '0' .. '7' )
         match( 0x5c )
-        # at line 258:14: ( '0' .. '7' )
-        # at line 258:15: '0' .. '7'
+        # at line 274:14: ( '0' .. '7' )
+        # at line 274:15: '0' .. '7'
         match_range( 0x30, 0x37 )
 
 
@@ -1132,7 +1132,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 263:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+      # at line 279:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
       match( 0x5c )
       match( 0x75 )
       hex_digit!
@@ -1157,7 +1157,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 266:6: '('
+      # at line 282:6: '('
       match( 0x28 )
 
       
@@ -1181,7 +1181,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 267:6: ')'
+      # at line 283:6: ')'
       match( 0x29 )
 
       
@@ -1205,7 +1205,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 268:7: '{'
+      # at line 284:7: '{'
       match( 0x7b )
 
       
@@ -1229,7 +1229,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 269:7: '}'
+      # at line 285:7: '}'
       match( 0x7d )
 
       
@@ -1253,7 +1253,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 270:9: ','
+      # at line 286:9: ','
       match( 0x2c )
 
       
@@ -1277,7 +1277,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 271:9: ':'
+      # at line 287:9: ':'
       match( 0x3a )
 
       
@@ -1301,7 +1301,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 273:4: ';'
+      # at line 289:4: ';'
       match( 0x3b )
 
       
@@ -1325,7 +1325,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 274:10: '='
+      # at line 290:10: '='
       match( 0x3d )
 
       
@@ -1349,7 +1349,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 275:8: '+'
+      # at line 291:8: '+'
       match( 0x2b )
 
       
@@ -1373,7 +1373,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 276:9: '-'
+      # at line 292:9: '-'
       match( 0x2d )
 
       
@@ -1397,7 +1397,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 277:7: '*'
+      # at line 293:7: '*'
       match( 0x2a )
 
       
@@ -1421,7 +1421,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 278:7: '/'
+      # at line 294:7: '/'
       match( 0x2f )
 
       
@@ -1445,7 +1445,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 279:7: '%'
+      # at line 295:7: '%'
       match( 0x25 )
 
       
@@ -1469,7 +1469,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 281:6: '=='
+      # at line 297:6: '=='
       match( "==" )
 
       
@@ -1493,7 +1493,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 282:6: '!='
+      # at line 298:6: '!='
       match( "!=" )
 
       
@@ -1517,7 +1517,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 283:6: '<'
+      # at line 299:6: '<'
       match( 0x3c )
 
       
@@ -1541,7 +1541,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 284:6: '>'
+      # at line 300:6: '>'
       match( 0x3e )
 
       
@@ -1565,7 +1565,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 285:6: '<='
+      # at line 301:6: '<='
       match( "<=" )
 
       
@@ -1589,7 +1589,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 286:6: '>='
+      # at line 302:6: '>='
       match( ">=" )
 
       
@@ -1613,7 +1613,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 288:7: '&&'
+      # at line 304:7: '&&'
       match( "&&" )
 
       
@@ -1637,7 +1637,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 289:6: '||'
+      # at line 305:6: '||'
       match( "||" )
 
       
@@ -1661,7 +1661,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 290:7: '!'
+      # at line 306:7: '!'
       match( 0x21 )
 
       
@@ -1885,7 +1885,7 @@ module Giraffe
 
       def description
         <<-'__dfa_description__'.strip!
-          217:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );
+          233:1: FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );
         __dfa_description__
       end
     end

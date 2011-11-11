@@ -7,214 +7,208 @@ output = AST;
 
 
 @header {
-require './lib/giraffe/tree/blockTree.rb'
+require './lib/giraffe/tree/programTree.rb'
+require './lib/giraffe/tree/envTree.rb'
 require './lib/giraffe/tree/assignTree.rb'
 require './lib/giraffe/tree/printTree.rb'
 require './lib/giraffe/tree/printlTree.rb'
 require './lib/giraffe/tree/ifTree.rb'
 require './lib/giraffe/tree/whileTree.rb'
 require './lib/giraffe/tree/doTree.rb'
+require './lib/giraffe/tree/forTree.rb'
+require './lib/giraffe/tree/funcTree.rb'
+require './lib/giraffe/tree/callTree.rb'
+require './lib/giraffe/tree/binaryOperandTree.rb'
+require './lib/giraffe/tree/unaryOperandTree.rb'
+require './lib/giraffe/tree/atomTree.rb'
+require './lib/giraffe/tree/varTree.rb'
 }
 
 @members {
 
 }
 
-program	:	block {@programTree = $block.tree};
+program	returns [result]
+	:	block {$result = ProgramTree.new($block.list)};
 
-env returns [tree]
+env returns [result]
 	:	LCB! 
-		block {$tree = $block.tree}
+		block {$result = EnvTree.new($block.list)}
 		RCB!
 	;
 
-block returns [tree]
-	:	{$tree = BlockTree.new}
+block returns [list]
+	:	{$list = []}
 		instruction  
-		{$tree.addInstruction!($instruction.tree) unless $instruction.tree == nil}
+		{$list = [$instruction.result] unless $instruction.result == nil}
 		instructionRest 
-		{$tree.addInstructions!($instructionRest.list)}		
+		{$list = $list + $instructionRest.list}		
 	;
 
 instructionRest returns [list]
 	: 	{$list = []}
 		(( COMMENT!? '\r'!? '\n'!) | SEMICOLON!) 
 		instruction 
-		{$list << $instruction.tree unless $instruction.tree == nil}		
+		{$list = [$instruction.result] unless $instruction.result == nil}		
 		op=instructionRest
 		{$list = $list + $op.list}				
 	|	{$list = []}
 	;
 
-instruction returns [tree]
-	:	assignment {$tree = $assignment.tree}
-	|	call {$tree = $call.tree}
-	|	func {$tree = $func.tree}
-	|	env {$tree = $env.tree}
-	|	forCycle {$tree = $forCycle.tree}
-	|	ifInstruction {$tree = $ifInstruction.tree}
-	|	whileCycle {$tree = $whileCycle.tree}
-	|	doCycle {$tree = $doCycle.tree}
-	|	printInstruction {$tree = $printInstruction.tree}
-	|	printlInstruction {$tree = $printlInstruction.tree}
-	|	{$tree = nil} 
+instruction returns [result]
+	:	assignment {$result = $assignment.result}
+	|	call {$result = $call.result}
+	|	func {$result = $func.result}
+	|	env {$result = $env.result}
+	|	forCycle {$result = $forCycle.result}
+	|	ifInstruction {$result = $ifInstruction.result}
+	|	whileCycle {$result = $whileCycle.result}
+	|	doCycle {$result = $doCycle.result}
+	|	printInstruction {$result = $printInstruction.result}
+	|	printlInstruction {$result = $printlInstruction.result}
+	|	{$result = nil} 
 	;
 
-printInstruction returns [tree]
- 	:	PRINT  	(	ID {$tree = PrintTree.new($ID.text)}
- 			|	INT {$tree = PrintTree.new($INT.text)}
-	 		|	FLOAT {$tree = PrintTree.new($FLOAT.text)}
- 			|	STRING {$tree = PrintTree.new($STRING.text)}
- 			|	expression {$tree = PrintTree.new($expression.tree)}
+printInstruction returns [result]
+ 	:	PRINT  	(	STRING {$result = PrintTree.new($STRING.text)}
+ 			|	expression {$result = PrintTree.new($expression.result)}
  			) 
  	;
  	
-printlInstruction returns [tree]
- 	:	PRINTL 	(	ID {$tree = PrintlTree.new($ID.text)}
- 			|	INT {$tree = PrintlTree.new($INT.text)}
-	 		|	FLOAT {$tree = PrintlTree.new($FLOAT.text)}
- 			|	STRING {$tree = PrintlTree.new($STRING.text)}
- 			|	expression {$tree = PrintlTree.new($expression.tree)}
+printlInstruction returns [result]
+ 	:	PRINTL 	(	STRING {$result = PrintlTree.new($STRING.text)}
+ 			|	expression {$result = PrintlTree.new($expression.result)}
  			) 
  	;
 
-ifInstruction returns [tree]	
+ifInstruction returns [result]	
 	:	IF^ condition env ifRest
-		{$tree = IfTree.new($condition.tree,$env.tree,$ifRest.tree}
+		{$result = IfTree.new($condition.result,$env.result,$ifRest.result)}
 	;
 
-ifRest returns [tree]
-	:	ELSE env {$tree = $env.tree}
-	|	(ELSEIF | ELIF) condition env ifRest 
-		{$tree = IfTree.new($condition.tree,$env.tree,$ifRest.tree}	
-	|	{$tree = nil}
+ifRest returns [result]
+	:	ELSE env {$result = $env.result}
+	|	(ELSEIF | ELIF) condition env op=ifRest 
+		{$result = IfTree.new($condition.result,$env.result,$op.result)}	
+	|	{$result = nil}
 	;
 
-whileCycle returns [tree]
+whileCycle returns [result]
  	:	WHILE condition env
- 		{$tree = WhileTree.new($condition.tree,$env.tree}
+ 		{$result = WhileTree.new($condition.result,$env.result)}
  	;
 
-doCycle	returns [tree]
+doCycle	returns [result]
 	:	DO env WHILE condition
- 		{$tree = DoTree.new($condition.tree,$env.tree}
+ 		{$result = DoTree.new($condition.result,$env.result)}
  	;
 
-forCycle returns [tree]
-	:	FOR assignment COMMA! condition COMMA! assignment env;
+forCycle returns [result]
+	:	FOR as1=assignment COMMA! condition COMMA! as2=assignment LCB! block RCB!
+		{$result = ForTree.new($as1.result,$condition.result,$as2.result,$block.list)}
+	;	
 	
-func returns [tree]
-	:	ID^ params? env;
+func returns [result]
+	:	ID^ params? LCB! block RCB!
+		{$result = FuncTree.new($ID.text,$params.list,$block.list)}
+	;
 
-params returns [tree]
-	:	ID paramRest;
+params returns [list]
+	:	ID paramRest
+		{$list = [$ID.text] + $paramRest.list}
+	;
 
-paramRest returns [tree]
+paramRest returns [list]
 	:	COMMA! params
-	|	;
+		{$list = $params.list}		
+	|	{$list = []}
+	;
 	
-call returns [tree]
-	:	ID^ LB! args? RB!;
+call returns [result]
+	:	ID^ LB! args? RB!
+		{$result = CallTree.new($ID,$args.list)}
+	;
 	
-args returns [tree]
-	:	expression argsRest; 
+args returns [list]
+	:	expression argsRest
+		{$list = [$expression.result] + $argsRest.list}
+	; 
 	
-argsRest returns [tree]
+argsRest returns [list]
 	:	COMMA! args
-	|	;
+		{$list = $args.list}
+	|	{$list = []}
+	;
 
 // OR (closer to root -> will process after AND)
 
-condition returns [tree]
+condition returns [result]
 	:	orOperand {$result = $orOperand.result}
-		(OR^ op=condition {$result = $result || $op.result})?
+		(OR^ op=condition {$result = BinaryOperandTree.new($result,$op.result,lambda {|x,y| x || y})})?
 	;
 
 // AND (further from root -> will process before OR)
 
-orOperand returns [tree]
+orOperand returns [result]
 	:	boolOperand {$result = $boolOperand.result}
-		(AND^ op=orOperand {$result = $result && $op.result})?
+		(AND^ op=orOperand {$result = BinaryOperandTree.new($result,$op.result,lambda {|x,y| x && y})})?
 	;
 
-andOperand returns [tree]
-	:	boolOperand {$result = $boolOperand.result} (
-			EQ^ op=andOperand {$result = $result == $op.result}
-		| 	NE^ op=andOperand {$result = $result != $op.result}
-		| 	LT^ op=andOperand {$result = $result < $op.result}
-		| 	GT^ op=andOperand {$result = $result > $op.result}
-		| 	LE^ op=andOperand {$result = $result <= $op.result}
-		| 	GE^ op=andOperand {$result = $result >= $op.result}
-		)?				
-	;
-	
-boolOperand returns [tree]
+boolOperand returns [result]
 	:	bool {$result = $bool.result}
 	|	NOT LB! condition RB! {$result = !$condition.result}
-	|	op1=expression (
-			EQ^ (	op2=bool {$result = $op1.result == $op2.result}
-				|	op2=expression {$result = $op1.result == $op2.result}) 
-			|
-			NE^ (	op2=bool {$result = $op1.result != $op2.result}
-				| 	op2=expression {$result = $op1.result != $op2.result}) 
-			|
-			LT^ (	op2=bool {$result = $op1.result < $op2.result}
-				|	op2=expression {$result = $op1.result < $op2.result}) 
-			|
-			GT^ (	op2=bool {$result = $op1.result > $op2.result}
-				| 	op2=expression {$result = $op1.result > $op2.result}) 
-			|
-			LE^ (	op2=bool {$result = $op1.result <= $op2.result}
-				| 	op2=expression {$result = $op1.result <= $op2.result}) 
-			|
-			GE^ (	op2=bool {$result = $op1.result >= $op2.result}
-				| 	op2=expression {$result = $op1.result >= $op2.result}) 
+	|	op1=expression (EQ^ (	op2=bool | op2=expression ) {$result = BinaryOperandTree.new($op1.result,$op2.result,lambda {|x,y| x == y})}
+			|	NE^ (	op2=bool | op2=expression ) {$result = BinaryOperandTree.new($op1.result,$op2.result,lambda {|x,y| x != y})}
+			|	LT^ (	op2=bool | op2=expression ) {$result = BinaryOperandTree.new($op1.result,$op2.result,lambda {|x,y| x < y})}
+			|	GT^ (	op2=bool | op2=expression ) {$result = BinaryOperandTree.new($op1.result,$op2.result,lambda {|x,y| x > y})}
+			|	LE^ (	op2=bool | op2=expression ) {$result = BinaryOperandTree.new($op1.result,$op2.result,lambda {|x,y| x <= y})}
+			|	GE^ (	op2=bool | op2=expression ) {$result = BinaryOperandTree.new($op1.result,$op2.result,lambda {|x,y| x >= y})}
 		) 
 	;
 
 // add / substract (closer to root -> will process later)
-expression returns [tree]
+expression returns [result]
 	:	addOperand {$result = $addOperand.result}
 		(
-			PLUS^ op=expression {$result = $result + $op.result}
-		|	MINUS^ op=expression {$result = $result - $op.result}
+			PLUS^ op=expression {$result = BinaryOperandTree.new($result,$op.result,lambda {|x,y| x + y})}
+		|	MINUS^ op=expression {$result = BinaryOperandTree.new($result,$op.result,lambda {|x,y| x - y})}
 		)?
 	;
 
-addOperand returns [tree]
+addOperand returns [result]
 	:	mulOperand {$result = $mulOperand.result}
 		(
-			MUL^ op=addOperand {$result = $result * $op.result}
-		|	DIV^ op=addOperand {$result = $result / $op.result}
-		|	MOD^ op=addOperand {$result = $result \% $op.result}
+			MUL^ op=addOperand {$result = BinaryOperandTree.new($result,$op.result,lambda {|x,y| x * y})}
+		|	DIV^ op=addOperand {$result = BinaryOperandTree.new($result,$op.result,lambda {|x,y| x / y})}
+		|	MOD^ op=addOperand {$result = BinaryOperandTree.new($result,$op.result,lambda {|x,y| x \% y})}
 		)?
 	;
 
-mulOperand returns [tree]
+mulOperand returns [result]
 	:	PLUS mulOperandRest {$result = $mulOperandRest.result}
-	|	MINUS mulOperandRest {$result = -$mulOperandRest.result}
+	|	MINUS mulOperandRest {$result = UnaryOperandTree.new($mulOperandRest.result,lambda {|x| -x})}
 	|	mulOperandRest {$result = $mulOperandRest.result}
 	;
 
-mulOperandRest returns [tree]
-	:	ID {$result = @@progEnv.varLookup($ID.text)}
+mulOperandRest returns [result]
+	:	ID {$result = VarTree.new($ID.text)}
 	|	LB! expression RB! {$result = $expression.result}
-	|	INT {$result = $INT.text.to_i}
-	|	FLOAT {$result = $FLOAT.text.to_f}
-	|	call {puts "CALL-LOOKUP"};
+	|	INT {$result = AtomTree.new(lambda {|env| $INT.text.to_i})}
+	|	FLOAT {$result = AtomTree.new(lambda {|env| $FLOAT.text.to_f})}
+	|	call {$result = $call.result};
 
-value returns [tree]
+value returns [result]
 	: 	expression {$result = $expression.result}
-	|	STRING {$result = $STRING.text}
-	|	CHAR {$result = $CHAR.text}
+	|	STRING {$result = AtomTree.new(lambda {|env| $STRING.text})}
+	|	CHAR {$result = AtomTree.new(lambda {|env| $CHAR.text})}
 	;
 	
-assignment
-	:	ID ASSIGN^ value { @@progEnv.varSet($ID.text,$value.result) } ;	
+assignment returns [result]	
+	:	ID ASSIGN^ value { $result = AssignTree.new($ID.text,$value.result) } ;	
 
-bool returns [tree]	
-	:	TRUE {$result = true}
-	| 	FALSE {$result = true}
+bool returns [result]	
+	:	TRUE {$result = AtomTree.new(lambda {|env| true})}
+	| 	FALSE {$result = AtomTree.new(lambda {|env| false})}
 	;
 
 
