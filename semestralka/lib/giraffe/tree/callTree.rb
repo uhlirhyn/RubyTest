@@ -1,7 +1,12 @@
+require './lib/giraffe/env.rb'
+require './lib/giraffe/debug.rb'
+
 module Giraffe
 
     class CallTree
-    
+
+        include Debug
+
         def initialize(id,args)
             @id = id
             @args = args
@@ -11,26 +16,28 @@ module Giraffe
 
             # vyzvedni deklaraci funkce
             func = env.func(@id,@args)
-            
+
             # vytvor novou vrstvu prostredi
             # ale na vrstve kde byla deklarovana
             # funkce, nikoliv na vrstve volani
-            func[2].raise
+            newEnv = Env.new(func[2])
 
             # zaloz promenne - argumenty
             # se vyhodnoti z volaciho prostredi
-            for i in @args.each_index do
-                func[2].var!(func[0][i],@args[i].run(env))
+            if @args != nil 
+                for i in @args.each_index do
+                    newEnv.var!(func[0][i],@args[i].run(env))
+                end
             end
 
             # spust instrukce funkce, ale opet
             # pouze v ramci jejiho prostredi
             for i in func[1] do
-                i.run(func[2])
+                i.run(newEnv)
             end
 
             # zavri vrstvu
-            func[2].descend
+            newEnv.destroy
         end
 
     end

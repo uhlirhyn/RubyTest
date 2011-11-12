@@ -10,14 +10,14 @@ module Giraffe
         def initialize(instructions)
             dbg("ProgramTree initialized",:ProgramTree)
             @instructions = instructions
-            @env = Env.new
         end
         
         def run
+            env = Env.new            
             dbg("run",:ProgramTree)
             dbg("@instructions.size #{@instructions.size}",:ProgramTree)
             for i in @instructions do 
-                i.run(@env) 
+                i.run(env) 
             end
         end
 

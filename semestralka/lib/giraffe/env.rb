@@ -6,70 +6,46 @@ module Giraffe
 
         include Debug
 
-        class EnvLayer
-
-            def initialize(superEnv)
-                @var = {}
-                @func = {}
-                @superEnv = superEnv
-            end
-
-            attr_reader :superEnv, :var, :func
-
-        end
-
-        def initialize
-            # zaloz zakladni env
-            @env = EnvLayer.new(nil)
-        end
-
-        def raise
-            dbg("raise",:Env)
-            @env = EnvLayer.new(@env)
-        end
-
-        def descend
-            dbg("descend",:Env)
-            destroy(@env)
-            @env = @env.superEnv
+        def initialize(superEnv=nil)
+            dbg("initialize",:Env)
+            @variables = {}
+            @functions = {}
+            @superEnv = superEnv
         end
 
         def var(id) 
-            lookupEnv = @env
-
-            while lookupEnv != nil 
-                var = lookupEnv.var[id]
-                return var if var != nil
-                lookupEnv = lookupEnv.superEnv
-            end
-
-            raise EnvVariableMiss
+            dbg("varLookup",:Env)
+            variable = @variables[id]
+            variable ||= @superEnv == nil ? nil : @superEnv.var(id)
+            return variable if variable != nil
+            raise "Variable #{id} is not declared"
         end
 
         def var!(id,val=nil)
-            dbg("#{id}=#{val}",:Env)
-            @env.var[id] = val
+            dbg("var! #{id} #{val}",:Env)
+            @variables[id] = val
+        end
+
+        def funcByKey(key) 
+            dbg("func #{key[0]} #{key[1]}",:Env)
+            function = @functions[key]
+            function ||= @superEnv == nil ? nil : @superEnv.funcByKey(key) 
+            return function if function != nil
+            raise "Function '#{key[0]}' with #{key[1]} parameters is not declared"
         end
 
         def func(id,args) 
-            lookupEnv = @env
-
-            while lookupEnv != nil 
-                func = lookupEnv.func[[id,args.size]]
-                return func if func != nil
-                lookupEnv = lookupEnv.superEnv
-            end
-
-            raise EnvVariableMiss
+            argCount = args == nil ? 0 : args.size
+            key = [id,argCount]
+            funcByKey(key)
         end
 
         def func!(id,params,instructions,env)
-            dbg("#{id} #{params}",:Env)
-            @env.func[[id,params.size]] = [params,instructions,env]
+            dbg("func! #{id} #{params}",:Env)
+            @functions[[id,params == nil ? 0 : params.size]] = [params,instructions,env]
         end
 
-        private
-        def destroy(env)
+        def destroy
             # TODO ... projdi objekty namapovane do tohoto env
             # a zkotroluj zda na ne existuje jeste nejaka reference
         end

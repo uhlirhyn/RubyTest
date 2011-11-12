@@ -1,13 +1,14 @@
 module Debug
 
-    @@defaultPolicy = :blacklist
-    @@sources = []
+    @@listPolicy = :blacklist
+    #@@listPolicy = :whitelist
+    @@list = [:AtomTree,:VarTree]
 
     def dbg(out,source)
 
         # pokud bude :blacklist nastaven, pak pro kazdy 
         # source ktery pak bude nalezen bude zakazan vypis
-        if (@@sources.member?(source)) == (@@defaultPolicy != :blacklist)
+        if (@@list.member?(source)) == (@@listPolicy != :blacklist)
              puts("  DBG (#{source})> #{out}")
         end
 

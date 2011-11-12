@@ -3,18 +3,21 @@ require './lib/giraffe/debug.rb'
 module Giraffe
 
     class WhileTree
-    
+
         include Debug
 
-        def initialize(condition,block)
+        def initialize(condition,instructions)
             @condition = condition
-            @block = block
+            @instructions = instructions
         end
 
         def run(env)
             dbg("run",:WhileTree)
+            dbg("@instructions.size #{@instructions.size}",:WhileTree)
             while @condition.run(env) do
-                @block.run(env)
+                for i in @instructions do 
+                    i.run(env) 
+                end
             end
         end
 

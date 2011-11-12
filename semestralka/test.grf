@@ -1,5 +1,24 @@
-n=5
-while n>0 {
-    printl "ahoj"
-    printl n
+f1 a {
+    printl(a)
+#printl(d)        
 }
+
+fce3 a,b {
+    printl "Nyni jsem uvnitr funkce fce3"
+
+        fce3_in a,d {
+            printl "fce3_in"
+
+                printl(a)
+                printl(d)
+                printl(b)
+
+                f1(0)
+
+        }
+
+    fce3_in("a",45+56*8)
+}
+
+printl "A ted spusteni"
+fce3(2,3)

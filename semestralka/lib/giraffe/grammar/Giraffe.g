@@ -76,7 +76,7 @@ printInstruction returns [result]
  	;
  	
 printlInstruction returns [result]
- 	:	PRINTL 	(	STRING {$result = PrintlTree.new(AtomTree.new(lambda {|env| $STRING}))}
+ 	:	PRINTL 	(	STRING {$result = PrintlTree.new(AtomTree.new(lambda {|env| $STRING.text}))}
  			|	expression {$result = PrintlTree.new($expression.result)}
  			) 
  	;
@@ -94,8 +94,8 @@ ifRest returns [result]
 	;
 
 whileCycle returns [result]
- 	:	WHILE condition env
- 		{$result = WhileTree.new($condition.result,$env.result)}
+ 	:	WHILE condition LCB! block RCB!
+ 		{$result = WhileTree.new($condition.result,$block.list)}
  	;
 
 doCycle	returns [result]
@@ -126,12 +126,13 @@ paramRest returns [list]
 	
 call returns [result]
 	:	ID^ LB! args? RB!
-		{$result = CallTree.new($ID,$args.list)}
+		{$result = CallTree.new($ID.text,$args.list)}
 	;
 	
 args returns [list]
-	:	expression argsRest
-		{$list = [$expression.result] + $argsRest.list}
+	: 	expression argsRest {$list = [$expression.result] + $argsRest.list}
+	|	STRING argsRest {$list = [AtomTree.new(lambda {|env| $STRING.text})] + $argsRest.list}
+	|	CHAR argsRest {$list = [AtomTree.new(lambda {|env| $CHAR.text})] + $argsRest.list}
 	; 
 	
 argsRest returns [list]

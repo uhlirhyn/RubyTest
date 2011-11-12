@@ -1,7 +1,12 @@
+require './lib/giraffe/env.rb'
+require './lib/giraffe/debug.rb'
+
 module Giraffe
 
     class ForTree
     
+        include Debug
+
         def initialize(assignment1,condition,assignment2,instructions)
             @assignment1 = assignment1           
             @condition = condition
@@ -10,15 +15,15 @@ module Giraffe
         end
 
         def run(env)
-            env.raise
-            @assignment1.run(env)
-            while @condition.run(env) do
+            newEnv = Env.new(env)
+            @assignment1.run(newEnv)
+            while @condition.run(newEnv) do
                 for i in @instructions do 
-                    i.run(env) 
+                    i.run(newEnv) 
                 end
-                @assignment2.run(env)
+                @assignment2.run(newEnv)
             end
-            env.descend
+            newEnv.destroy
         end
 
     end

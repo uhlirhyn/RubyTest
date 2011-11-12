@@ -1,17 +1,22 @@
+require './lib/giraffe/env.rb'
+require './lib/giraffe/debug.rb'
+
 module Giraffe
 
     class EnvTree
+
+        include Debug
 
         def initialize(instructions)
             @instructions = instructions
         end
         
         def run(env)
-            env.raise
+            newEnv = Env.new(env)
             for i in @instructions do 
-                i.run(env) 
+                i.run(newEnv) 
             end
-            env.descend
+            newEnv.destroy
         end
 
     end
