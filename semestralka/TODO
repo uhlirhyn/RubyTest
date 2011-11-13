@@ -1,0 +1,3 @@
+-   opravit v options aby se pri jakemkoliv spatnem parametru vypsala jen 
+    chybova hlaska, ne cely stack ...
+-   opravit printy aby se nedostaly k vypisum Ruby class dumpu 

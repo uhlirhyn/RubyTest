@@ -8,6 +8,7 @@ module Giraffe
         
         def initialize(value)
             @value = value
+            dbg("init",:AtomTree)
         end
 
         def run(env)
@@ -18,9 +19,11 @@ module Giraffe
             # - normalni vystup je hodnota
 
             dbg("run",:AtomTree)
-            @value 
+            dbg("value[0] #{@value[0]}",:AtomTree)
+
+            return @value, nil
         end
-        
+
     end
 
 end

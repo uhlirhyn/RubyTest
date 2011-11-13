@@ -17,7 +17,7 @@ module Giraffe
 
             begin 
                 for i in @instructions do 
-                    returnValue, msg = i.run(newEnv)
+                    returnValue, msg = i.run(env)
                     if msg != nil 
                         return msg == :break ? [nil, nil] : [returnValue, msg]
                     end

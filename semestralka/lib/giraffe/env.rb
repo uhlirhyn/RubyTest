@@ -17,7 +17,11 @@ module Giraffe
             dbg("var '#{id}' (envID: #{self.object_id})",:Env)
             variable = @variables[id]
             variable ||= @superEnv == nil ? nil : @superEnv.var(id)
-            return variable if variable != nil
+            
+            # Tady se MUSI vracen i nil,
+            # jinak se pole v @value rozbali do 
+            # msg v rodicovskem uzlu a zpusobi xx
+            return [variable,nil] if variable != nil
             raise "Variable #{id} is not declared"
         end
 

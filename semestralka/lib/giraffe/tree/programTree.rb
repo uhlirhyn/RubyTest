@@ -29,6 +29,7 @@ module Giraffe
                 end
             end
 
+            dbg("out of instructions - success",:ProgramTree)
             onExit
 
         end
