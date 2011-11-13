@@ -11,6 +11,12 @@ module Giraffe
         end
 
         def run(env)
+
+            # VarTree
+            # - nezpracovava zadnou zpravu
+            # - negeneruje zadnou zpravu
+            # - normalni vystup je hodnota promenne
+
             dbg("run",:VarTree)
             env.var(@id)
         end

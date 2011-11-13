@@ -1,22 +1,8 @@
 #!/usr/bin/ruby
 
-#         ..
-#        _||,
-#        ;\__`,                          ___    ___
-#        //         __                 /´___\ /´___\
-#       //      __ /\_\  _ __    __   /\ \__//\ \__/   __
-#     _//     /´__`\/\ \/\`'__\/´__`\ \ \ ,__\ \ ,__\/´__`\
-#   ,´  )    /\ \_\ \ \ \ \ \//\ \_\ \_\ \ \_/\ \ \_/\  __/
-#  //´||     \ \____ \ \_\ \_\\ \__/\__\\ \_\  \ \_\\ \____\
-#  || ||      \/____\ \/_/\/_/ \/__/\__/ \/_/   \/_/ \/____/
-#  || ||        /\____/
-#  ¨¨ ¨¨        \/___/
-#
-
 require './lib/giraffe/grammar/GiraffeParser'
 require './lib/giraffe/options.rb'
 require './lib/giraffe/console.rb'
-
 
 module Giraffe
 
@@ -27,6 +13,9 @@ module Giraffe
         # options a bude tam tak ponechan list zdrojaku
         options = Options.new
         options.parse!(ARGV)
+
+        t = Time.new
+        printf "==[ #{t.strftime('%k:%M:%S.%9N')} ]===========<[ giraffe! ]>======================\n\n"
 
         # pokud je zapnuty interaktivni rezim, prejdi do konzole
         if options.interactive  
@@ -46,14 +35,13 @@ module Giraffe
 
         end
 
+        t = Time.new
+        printf "\n==[ #{t.strftime('%k:%M:%S.%9N')} ]===========<[ giraffe! ]>======================\n"
+
     end
 
 end
 
-t = Time.new
-
-printf "==[ #{t.strftime('%k:%M:%S.%9N')} ]===========<[ giraffe! ]>======================\n\n"
 
 Giraffe.launch
 
-printf "\n==[ #{t.strftime('%k:%M:%S.%9N')} ]===========<[ giraffe! ]>======================\n"

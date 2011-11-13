@@ -6,13 +6,19 @@ module Giraffe
 
         include Debug
         
-        def initialize(evaluator)
-            @evaluator = evaluator
+        def initialize(value)
+            @value = value
         end
 
         def run(env)
+
+            # AtomTree 
+            # - nezpracovava zadnou zpravu
+            # - neprodukuje zadnou zpravu
+            # - normalni vystup je hodnota
+
             dbg("run",:AtomTree)
-            @evaluator.call(env)
+            @value 
         end
         
     end

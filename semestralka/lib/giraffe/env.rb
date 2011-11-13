@@ -14,7 +14,7 @@ module Giraffe
         end
 
         def var(id) 
-            dbg("varLookup",:Env)
+            dbg("var '#{id}' (envID: #{self.object_id})",:Env)
             variable = @variables[id]
             variable ||= @superEnv == nil ? nil : @superEnv.var(id)
             return variable if variable != nil
@@ -22,12 +22,12 @@ module Giraffe
         end
 
         def var!(id,val=nil)
-            dbg("var! #{id} #{val}",:Env)
+            dbg("var! '#{id}' '#{val}' (envID: #{self.object_id})",:Env)
             @variables[id] = val
         end
 
         def funcByKey(key) 
-            dbg("func #{key[0]} #{key[1]}",:Env)
+            dbg("func #{key[0]} #{key[1]} (envID: #{self.object_id})",:Env)
             function = @functions[key]
             function ||= @superEnv == nil ? nil : @superEnv.funcByKey(key) 
             return function if function != nil
@@ -41,7 +41,7 @@ module Giraffe
         end
 
         def func!(id,params,instructions,env)
-            dbg("func! #{id} #{params}",:Env)
+            dbg("func! #{id} #{params} (envID: #{self.object_id})",:Env)
             @functions[[id,params == nil ? 0 : params.size]] = [params,instructions,env]
         end
 

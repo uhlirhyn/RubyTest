@@ -15,9 +15,17 @@ fce3 a,b {
 
                 f1(0)
 
+            c = 5
+            while c<2*5+a {
+                
+                printl "aaaaa"
+                    c=c+1
+
+            }
+
         }
 
-    fce3_in("a",45+56*8)
+    fce3_in(8,45+56*8)
 }
 
 printl "A ted spusteni"

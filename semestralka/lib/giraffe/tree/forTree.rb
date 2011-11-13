@@ -4,7 +4,7 @@ require './lib/giraffe/debug.rb'
 module Giraffe
 
     class ForTree
-    
+
         include Debug
 
         def initialize(assignment1,condition,assignment2,instructions)
@@ -16,14 +16,40 @@ module Giraffe
 
         def run(env)
             newEnv = Env.new(env)
-            @assignment1.run(newEnv)
+            returnValue, msg = innerRun(env)
+            newEnv.destroy
+            return returnValue, msg
+        end
+
+        private 
+        def innerRun(env)
+
+            # deklarace
+            returnValue = msg = nil
+
+            # assignment muze preposlat maximalne :exit
+            returnValue, msg = @assignment1.run(newEnv)
+            return returnValue, msg if msg == :exit
+            
+            # exit - preposlat
+            # return - preposlat
+            # break - vyskocit
             while @condition.run(newEnv) do
                 for i in @instructions do 
-                    i.run(newEnv) 
+                    returnValue, msg = i.run(newEnv)
+                    if msg != nil
+                        return msg == :break ? [nil, nil] : [returnValue, msg]
+                    end
                 end
-                @assignment2.run(newEnv)
+            
+                # assignment muze preposlat maximalne :exit
+                returnValue, msg = @assignment2.run(newEnv)
+                return returnValue, msg if msg == :exit
+            
             end
-            newEnv.destroy
+
+            # ForTree normalne nevraci ani hodnotu ani zpravu
+            return nil, nil
         end
 
     end
