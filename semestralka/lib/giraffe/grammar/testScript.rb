@@ -1,9 +1,10 @@
-f = File.open("logo.grf","r")
-a = []
-for l in f.each_line
-    for c in l.split("") 
-        a << c
-    end
+def ff
+    return [1,6] if true
 end
 
-printf "#{a.map!{|c| c.ord}}"
+a=ff
+c,d = ff
+
+puts "A: '#{a}'"
+puts "C: '#{c}'"
+puts "D: '#{d}'"

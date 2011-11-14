@@ -3,7 +3,7 @@ require './lib/giraffe/debug.rb'
 module Operators
 
     def Operators.add(x,y)
-        if x.is_a?(Numeric) && y.is_a?(Numeric) || x.is_a?(String) && y.is_a?(String)
+        if x.is_a?(Numeric) && y.is_a?(Numeric) || x.is_a?(String) && y.is_a?(String) || x.is_a?(Array) && y.is_a?(Array)
             return x+y 
         else
             raise "Can't add #{x.class} '#{x}' and #{y.class} '#{y}'"

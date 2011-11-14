@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Jul 31, 2010 19:34:52
 # Ruby runtime library version: 1.8.11
 # Input grammar file: Giraffe.g
-# Generated at: 2011-11-14 00:00:26
+# Generated at: 2011-11-14 01:06:36
 # 
 
 # ~~~> start load path setup
@@ -3311,9 +3311,6 @@ module Giraffe
         tree_for_char_literal136 = @adaptor.create_with_payload( char_literal136 )
         @adaptor.add_child( root_0, tree_for_char_literal136 )
 
-        # --> action
-        puts "array: #{return_value.result}"
-        # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
@@ -3372,7 +3369,7 @@ module Giraffe
 
 
         # at line 252:4: ID ( ASSIGN op1= expression | ( '[' index= expression ']' )+ ASSIGN op2= expression )
-        __ID137__ = match( ID, TOKENS_FOLLOWING_ID_IN_assignment_1442 )
+        __ID137__ = match( ID, TOKENS_FOLLOWING_ID_IN_assignment_1440 )
 
         tree_for_ID137 = @adaptor.create_with_payload( __ID137__ )
         @adaptor.add_child( root_0, tree_for_ID137 )
@@ -3391,12 +3388,12 @@ module Giraffe
         case alt_31
         when 1
           # at line 253:5: ASSIGN op1= expression
-          __ASSIGN138__ = match( ASSIGN, TOKENS_FOLLOWING_ASSIGN_IN_assignment_1449 )
+          __ASSIGN138__ = match( ASSIGN, TOKENS_FOLLOWING_ASSIGN_IN_assignment_1447 )
 
           tree_for_ASSIGN138 = @adaptor.create_with_payload( __ASSIGN138__ )
           root_0 = @adaptor.become_root( tree_for_ASSIGN138, root_0 )
 
-          @state.following.push( TOKENS_FOLLOWING_expression_IN_assignment_1454 )
+          @state.following.push( TOKENS_FOLLOWING_expression_IN_assignment_1452 )
           op1 = expression
           @state.following.pop
           @adaptor.add_child( root_0, op1.tree )
@@ -3425,22 +3422,25 @@ module Giraffe
               # --> action
               index_ = index
               # <-- action
-              char_literal139 = match( T__56, TOKENS_FOLLOWING_T__56_IN_assignment_1471 )
+              char_literal139 = match( T__56, TOKENS_FOLLOWING_T__56_IN_assignment_1469 )
 
               tree_for_char_literal139 = @adaptor.create_with_payload( char_literal139 )
               @adaptor.add_child( root_0, tree_for_char_literal139 )
 
-              @state.following.push( TOKENS_FOLLOWING_expression_IN_assignment_1475 )
+              @state.following.push( TOKENS_FOLLOWING_expression_IN_assignment_1473 )
               index = expression
               @state.following.pop
               @adaptor.add_child( root_0, index.tree )
-              char_literal140 = match( T__57, TOKENS_FOLLOWING_T__57_IN_assignment_1477 )
+              char_literal140 = match( T__57, TOKENS_FOLLOWING_T__57_IN_assignment_1475 )
 
               tree_for_char_literal140 = @adaptor.create_with_payload( char_literal140 )
               @adaptor.add_child( root_0, tree_for_char_literal140 )
 
               # --> action
               target_ = target; target = IndexTree.new(target,( index.nil? ? nil : index.result ))
+              # <-- action
+              # --> action
+              puts "Stav: \tindex:#{index}\n\t index_:#{index_}\n\t target:#{target}\n\t target_:#{target_}"
               # <-- action
 
             else
@@ -3463,11 +3463,7 @@ module Giraffe
           @state.following.pop
           @adaptor.add_child( root_0, op2.tree )
           # --> action
-           if index_ == nil # byl tady jen jeden index
-          				return_value.result = DerefTree.new(target_,( index.nil? ? nil : index.result ),( op2.nil? ? nil : op2.result ))
-          			  else # vrat stare indexy a target
-          			  	return_value.result = DerefTree.new(IndexTree.new(target_,$index_.result),( index.nil? ? nil : index.result ),( op2.nil? ? nil : op2.result ))
-          			  end  
+           return_value.result = DerefTree.new(target_,( index.nil? ? nil : index.result ),( op2.nil? ? nil : op2.result )) 
           # <-- action
 
         end
@@ -3498,7 +3494,7 @@ module Giraffe
     # parser rule bool
     # 
     # (in Giraffe.g)
-    # 265:1: bool returns [result] : ( TRUE | FALSE );
+    # 261:1: bool returns [result] : ( TRUE | FALSE );
     # 
     def bool
       # -> uncomment the next line to manually enable rule tracing
@@ -3516,7 +3512,7 @@ module Giraffe
       tree_for_FALSE143 = nil
 
       begin
-        # at line 266:2: ( TRUE | FALSE )
+        # at line 262:2: ( TRUE | FALSE )
         alt_32 = 2
         look_32_0 = @input.peek( 1 )
 
@@ -3532,7 +3528,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 266:4: TRUE
+          # at line 262:4: TRUE
           __TRUE142__ = match( TRUE, TOKENS_FOLLOWING_TRUE_IN_bool_1526 )
 
           tree_for_TRUE142 = @adaptor.create_with_payload( __TRUE142__ )
@@ -3546,7 +3542,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 267:5: FALSE
+          # at line 263:5: FALSE
           __FALSE143__ = match( FALSE, TOKENS_FOLLOWING_FALSE_IN_bool_1534 )
 
           tree_for_FALSE143 = @adaptor.create_with_payload( __FALSE143__ )
@@ -3583,7 +3579,7 @@ module Giraffe
     # parser rule string
     # 
     # (in Giraffe.g)
-    # 270:1: string returns [result] : '\"' innerString '\"' ;
+    # 266:1: string returns [result] : '\"' innerString '\"' ;
     # 
     def string
       # -> uncomment the next line to manually enable rule tracing
@@ -3605,7 +3601,7 @@ module Giraffe
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 271:4: '\"' innerString '\"'
+        # at line 267:4: '\"' innerString '\"'
         char_literal144 = match( T__58, TOKENS_FOLLOWING_T__58_IN_string_1551 )
 
         tree_for_char_literal144 = @adaptor.create_with_payload( char_literal144 )
@@ -3650,7 +3646,7 @@ module Giraffe
     # parser rule innerString
     # 
     # (in Giraffe.g)
-    # 274:1: innerString returns [result] : (esc= ESC_SEQ in1= innerString | normal=~ ( ESC_SEQ | '\"' ) in2= innerString | );
+    # 270:1: innerString returns [result] : (esc= ESC_SEQ in1= innerString | normal=~ ( ESC_SEQ | '\"' ) in2= innerString | );
     # 
     def innerString
       # -> uncomment the next line to manually enable rule tracing
@@ -3670,7 +3666,7 @@ module Giraffe
       tree_for_normal = nil
 
       begin
-        # at line 275:2: (esc= ESC_SEQ in1= innerString | normal=~ ( ESC_SEQ | '\"' ) in2= innerString | )
+        # at line 271:2: (esc= ESC_SEQ in1= innerString | normal=~ ( ESC_SEQ | '\"' ) in2= innerString | )
         alt_33 = 3
         case look_33 = @input.peek( 1 )
         when ESC_SEQ then alt_33 = 1
@@ -3684,7 +3680,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 275:4: esc= ESC_SEQ in1= innerString
+          # at line 271:4: esc= ESC_SEQ in1= innerString
           esc = match( ESC_SEQ, TOKENS_FOLLOWING_ESC_SEQ_IN_innerString_1574 )
 
           tree_for_esc = @adaptor.create_with_payload( esc )
@@ -3702,7 +3698,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 276:4: normal=~ ( ESC_SEQ | '\"' ) in2= innerString
+          # at line 272:4: normal=~ ( ESC_SEQ | '\"' ) in2= innerString
           normal = @input.look
           if @input.peek( 1 ).between?( LCB, FALSE ) || @input.peek( 1 ).between?( HEX_DIGIT, T__57 )
             @input.consume
@@ -3726,7 +3722,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 277:4: 
+          # at line 273:4: 
           # --> action
           return_value.result = ""
           # <-- action
@@ -4012,12 +4008,12 @@ module Giraffe
     TOKENS_FOLLOWING_COMMA_IN_array_1406 = Set[ 8, 12, 14, 15, 16, 28, 41, 42, 43, 56, 58 ]
     TOKENS_FOLLOWING_expression_IN_array_1410 = Set[ 27, 57 ]
     TOKENS_FOLLOWING_T__57_IN_array_1421 = Set[ 1 ]
-    TOKENS_FOLLOWING_ID_IN_assignment_1442 = Set[ 44, 56 ]
-    TOKENS_FOLLOWING_ASSIGN_IN_assignment_1449 = Set[ 8, 12, 14, 15, 16, 28, 41, 42, 43, 56, 58 ]
-    TOKENS_FOLLOWING_expression_IN_assignment_1454 = Set[ 1 ]
-    TOKENS_FOLLOWING_T__56_IN_assignment_1471 = Set[ 8, 12, 14, 15, 16, 28, 41, 42, 43, 56, 58 ]
-    TOKENS_FOLLOWING_expression_IN_assignment_1475 = Set[ 57 ]
-    TOKENS_FOLLOWING_T__57_IN_assignment_1477 = Set[ 44, 56 ]
+    TOKENS_FOLLOWING_ID_IN_assignment_1440 = Set[ 44, 56 ]
+    TOKENS_FOLLOWING_ASSIGN_IN_assignment_1447 = Set[ 8, 12, 14, 15, 16, 28, 41, 42, 43, 56, 58 ]
+    TOKENS_FOLLOWING_expression_IN_assignment_1452 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__56_IN_assignment_1469 = Set[ 8, 12, 14, 15, 16, 28, 41, 42, 43, 56, 58 ]
+    TOKENS_FOLLOWING_expression_IN_assignment_1473 = Set[ 57 ]
+    TOKENS_FOLLOWING_T__57_IN_assignment_1475 = Set[ 44, 56 ]
     TOKENS_FOLLOWING_ASSIGN_IN_assignment_1488 = Set[ 8, 12, 14, 15, 16, 28, 41, 42, 43, 56, 58 ]
     TOKENS_FOLLOWING_expression_IN_assignment_1493 = Set[ 1 ]
     TOKENS_FOLLOWING_TRUE_IN_bool_1526 = Set[ 1 ]

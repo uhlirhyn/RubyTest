@@ -24,6 +24,7 @@ module Giraffe
             @target = target
             @index = index      # to muze byt expression
             @value = value      # to muze byt expression
+            dbg("init",:DerefTree)
         end
 
         def run(env)
@@ -50,6 +51,8 @@ module Giraffe
             return returnValue, msg if msg != nil
 
             value = returnValue
+
+            dbg("address '#{address}' index '#{index}'",:DerefTree) 
 
             # prirad hodnotu
             address[index] = value            

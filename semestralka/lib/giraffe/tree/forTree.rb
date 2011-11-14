@@ -28,22 +28,26 @@ module Giraffe
             returnValue = msg = nil
 
             # assignment muze preposlat maximalne :exit
-            returnValue, msg = @assignment1.run(newEnv)
+            returnValue, msg = @assignment1.run(env)
             return returnValue, msg if msg == :exit
             
             # exit - preposlat
             # return - preposlat
             # break - vyskocit
-            while @condition.run(newEnv) do
+
+            returnValue, msg = @condition.run(env)
+            return returnValue, msg if msg != :nil
+
+            while returnValue do
                 for i in @instructions do 
-                    returnValue, msg = i.run(newEnv)
+                    returnValue, msg = i.run(env)
                     if msg != nil
                         return msg == :break ? [nil, nil] : [returnValue, msg]
                     end
                 end
             
                 # assignment muze preposlat maximalne :exit
-                returnValue, msg = @assignment2.run(newEnv)
+                returnValue, msg = @assignment2.run(env)
                 return returnValue, msg if msg == :exit
             
             end

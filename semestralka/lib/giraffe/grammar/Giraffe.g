@@ -252,13 +252,9 @@ assignment returns [result]
 	:	ID 
 		( ASSIGN^ op1=expression { $result = AssignTree.new($ID.text,$op1.result) } 
 		| {target = VarTree.new($ID.text); index=nil}
-			({index_ = index} '[' index=expression ']' {target_ = target; target = IndexTree.new(target,$index.result)})+  // obalovac ... 
+			({index_ = index} '[' index=expression ']' {target_ = target; target = IndexTree.new(target,$index.result)} {puts "Stav: \tindex:#{index}\n\t index_:#{index_}\n\t target:#{target}\n\t target_:#{target_}"})+  // obalovac ... 
 			ASSIGN^ op2=expression 
-			{ if index_ == nil # byl tady jen jeden index
-				$result = DerefTree.new(target_,$index.result,$op2.result)
-			  else # vrat stare indexy a target
-			  	$result = DerefTree.new(IndexTree.new(target_,$index_.result),$index.result,$op2.result)
-			  end  }					
+			{ $result = DerefTree.new(target_,$index.result,$op2.result) }					
 		)	
 	;	
 

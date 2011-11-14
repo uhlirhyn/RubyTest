@@ -14,15 +14,19 @@ module Giraffe
 
         def run(env)
 
+            dbg("run",:CallTree)
+            
             # vyzvedni deklaraci funkce
             func = env.func(@id,@args)
 
+            #dbg("AST obtained with arguments #{@args}",:CallTree)
+            
             # vytvor novou vrstvu prostredi
             # ale na vrstve kde byla deklarovana
             # funkce, nikoliv na vrstve volani
             newEnv = Env.new(func[2])
 
-            returnValue, msg = innerRun(newEnv,func)
+            returnValue, msg = innerRun(newEnv,env,func)
 
             # zavri vrstvu
             newEnv.destroy
@@ -31,7 +35,7 @@ module Giraffe
         end
 
         private 
-        def innerRun(env,func) 
+        def innerRun(env,oldEnv,func) 
 
             # deklarace
             returnValue = msg = nil
@@ -40,9 +44,11 @@ module Giraffe
             # se vyhodnoti z volaciho prostredi
             if @args != nil 
                 for i in @args.each_index do
-                    returnValue, msg = @args[i].run(env)
+                    returnValue, msg = @args[i].run(oldEnv)
                     dbg("assigning '#{func[0][i]}' to '#{returnValue}'",:CallTree)
                     return returnValue, msg if msg != nil
+
+                    dbg("returnValue '#{returnValue}' msg '#{msg}'",:CallTree)
 
                     # zaloz ji do noveho env
                     env.var!(func[0][i],returnValue)

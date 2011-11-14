@@ -4,7 +4,7 @@ module Debug
     #@@Debugging = :off
     @@listPolicy = :blacklist
     #@@listPolicy = :whitelist
-    @@list = [:CallTree]
+    @@list = []
 
     def dbg(out,source)
         Debug.dbg(out,source)

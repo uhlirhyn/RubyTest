@@ -1,4 +1,38 @@
-a = [1,1,45]
-printl a[0]
-printl a[2]
-printl a[1]
+a = [1,2,5,6,3,2,8]
+s = 7
+
+printl a
+
+quick ar,si {
+    
+    pivot = ar[si/2]
+    
+    print "pivot: "
+    printl pivot
+    printl ar
+    
+    a = []
+    b = []
+
+    for i=0, i<si, i=i+1 {
+        el = ar[i]
+        if el < pivot {
+            a = a + [el]
+        } else {
+            b = b + [el] 
+        }
+    }
+
+    printl a
+    printl b
+
+    a = quick (a,si/2)
+    b = quick (b,si/2+si%2)
+
+    return a + b
+
+}
+
+quick (a,s)
+printl a
+

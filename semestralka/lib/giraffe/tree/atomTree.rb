@@ -19,7 +19,7 @@ module Giraffe
             # - normalni vystup je hodnota
 
             dbg("run",:AtomTree)
-            dbg("value[0] #{@value[0]}",:AtomTree)
+            dbg("value #{@value}",:AtomTree)
 
             return @value, nil
         end
