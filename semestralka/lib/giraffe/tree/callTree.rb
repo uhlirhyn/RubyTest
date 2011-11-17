@@ -48,8 +48,6 @@ module Giraffe
                     dbg("assigning '#{func[0][i]}' to '#{returnValue}'",:CallTree)
                     return returnValue, msg if msg != nil
 
-                    dbg("returnValue '#{returnValue}' msg '#{msg}'",:CallTree)
-
                     # zaloz ji do noveho env
                     env.var!(func[0][i],returnValue)
                 end

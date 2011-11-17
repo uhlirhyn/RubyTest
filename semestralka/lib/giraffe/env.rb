@@ -7,21 +7,29 @@ module Giraffe
         include Debug
 
         def initialize(superEnv=nil)
-            dbg("initialize",:Env)
-            @variables = {}
-            @functions = {}
+            dbg("initialize (envID: #{self.object_id})",:Env)
+            @variables = Hash.new(:undeclared)
+            @functions = Hash.new(:undeclared)
             @superEnv = superEnv
         end
 
         def var(id) 
-            dbg("var '#{id}' (envID: #{self.object_id})",:Env)
+
+            # Zkus promennou najit nejprve v tomto ENV
             variable = @variables[id]
-            variable ||= @superEnv == nil ? nil : @superEnv.var(id)
+            dbg("search for var '#{id}' - found '#{variable}' (envID: #{self.object_id})",:Env)
+
+            # Protoze vracim u nil (viz nize), je potreba tady zahodit 
+            # ten nil, jinak se pri dotazu do dalsi vrstvy nabali pole 
+            # s nil, nebot prirazeni probiha jen do jedne promenne
+            if variable == :undeclared 
+                 variable = @superEnv == nil ? :undeclared : @superEnv.var(id)[0]
+            end
             
             # Tady se MUSI vracen i nil,
             # jinak se pole v @value rozbali do 
             # msg v rodicovskem uzlu a zpusobi xx
-            return [variable,nil] if variable != nil
+            return [variable, nil] if variable != :undeclared
             raise "Variable #{id} is not declared"
         end
 
@@ -31,10 +39,13 @@ module Giraffe
         end
 
         def funcByKey(key) 
-            dbg("func #{key[0]} #{key[1]} (envID: #{self.object_id})",:Env)
             function = @functions[key]
-            function ||= @superEnv == nil ? nil : @superEnv.funcByKey(key) 
-            return function if function != nil
+            dbg("search for func #{key[0]} #{key[1]} - found '#{function == :undeclared ? :undeclared : function[0]}' (envID: #{self.object_id})",:Env)
+            
+            if function == :undeclared 
+                 function = @superEnv == nil ? :undeclared : @superEnv.funcByKey(key)
+            end
+            return function if function != :undeclared
             raise "Function '#{key[0]}' with #{key[1]} parameters is not declared"
         end
 

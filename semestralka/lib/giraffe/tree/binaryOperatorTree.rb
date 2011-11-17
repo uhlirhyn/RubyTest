@@ -20,13 +20,18 @@ module Giraffe
             # - neprodukuje zadnou zpravu
             # - normalni vystup je vystup operatoru
 
+            dbg("run",:BinaryOperatorTree)
+            
             returnValue1, msg = @op1.run(env)
             return returnValue1, msg if msg != nil
 
             returnValue2, msg = @op2.run(env)
             return returnValue2, msg if msg != nil
 
-            @operator.call(returnValue1,returnValue2)
+            dbg("operands: #{returnValue1} #{returnValue2}",:BinaryOperatorTree)
+            
+            # opet, bez nil se nejede ... 
+            return @operator.call(returnValue1,returnValue2), nil
         end
         
     end

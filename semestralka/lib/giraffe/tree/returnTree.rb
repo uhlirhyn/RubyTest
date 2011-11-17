@@ -14,6 +14,7 @@ module Giraffe
             dbg("run",:ReturnTree)
             returnValue, msg = @expression.run(env)
             return nil, msg if msg == :exit
+            dbg("returning '#{returnValue}'",yellow(:ReturnTree))
             return returnValue, :return
         end
         

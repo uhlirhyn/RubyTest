@@ -16,7 +16,9 @@ module Giraffe
 
             returnValue, msg = @op.run(env)
             return returnValue, msg if msg != nil
-            @operator.call(returnValue)
+            
+            # opet, bez nil se nejede ... 
+            return @operator.call(returnValue), nil
         end
         
     end

@@ -32,9 +32,10 @@ module Giraffe
             index = returnValue
 
             dbg("address '#{address}' index '#{index}'",:IndexTree) 
-            
+           
+            # kontrola pole ... ?
+
             # vypocitej hodnotu
-            value = returnValue
             return address[index], nil
         end
 

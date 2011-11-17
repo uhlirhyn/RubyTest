@@ -4,35 +4,49 @@ s = 7
 printl a
 
 quick ar,si {
-    
-    pivot = ar[si/2]
+   
+    if si==0 {
+        return []
+    }
+
+    if si==1 {
+        return ar
+    }
+
+    pivot_index = si/2
+    pivot = ar[pivot_index]
     
     print "pivot: "
     printl pivot
-    printl ar
     
     a = []
     b = []
 
+    sa = 0
+    sb = 0
+
     for i=0, i<si, i=i+1 {
+        
         el = ar[i]
-        if el < pivot {
-            a = a + [el]
-        } else {
-            b = b + [el] 
+
+        if i != pivot_index {
+            if el < pivot {
+                a = a + [el]
+                sa = sa + 1
+            } else {
+                b = b + [el] 
+                sb = sb + 1
+            }
         }
     }
 
-    printl a
-    printl b
+    a = quick (a,sa)
+    b = quick (b,sb)
 
-    a = quick (a,si/2)
-    b = quick (b,si/2+si%2)
-
-    return a + b
+    return a + [pivot] + b
 
 }
 
-quick (a,s)
-printl a
+sorted = quick (a,s)
+printl sorted
 

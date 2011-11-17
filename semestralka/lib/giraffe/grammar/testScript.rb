@@ -1,10 +1,5 @@
-def ff
-    return [1,6] if true
-end
-
-a=ff
-c,d = ff
-
-puts "A: '#{a}'"
-puts "C: '#{c}'"
-puts "D: '#{d}'"
+Float("445.0")
+Float("445")
+Float(".0")
+Float("4e2")
+Float("ddd")

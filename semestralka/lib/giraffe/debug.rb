@@ -1,7 +1,7 @@
 module Debug
 
-    @@Debugging = :on
-    #@@Debugging = :off
+    #@@Debugging = :on
+    @@Debugging = :off
     @@listPolicy = :blacklist
     #@@listPolicy = :whitelist
     @@list = []
@@ -18,5 +18,16 @@ module Debug
              puts("  DBG (#{source})> #{out}")
         end
     end
+
+    private 
+
+    # http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
+    def colorize(text, color_code)
+       "#{color_code}#{text}\e[0m\e[39m"
+    end
+
+    def red(text); colorize(text, "\e[31m"); end
+    def green(text); colorize(text, "\e[32m"); end
+    def yellow(text); colorize(text, "\e[1m\e[33m"); end
 
 end
