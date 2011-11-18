@@ -1,5 +1,17 @@
-Float("445.0")
-Float("445")
-Float(".0")
-Float("4e2")
-Float("ddd")
+class A
+    
+    @@static = 5
+
+    def initialize
+        p "A"
+    end
+end
+
+class B < A 
+    def initialize
+        p "B"
+        p @@static
+    end
+end
+
+b = B.new

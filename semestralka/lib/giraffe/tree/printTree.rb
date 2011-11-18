@@ -1,21 +1,27 @@
 module Giraffe
 
     class PrintTree
-    
-        def initialize(text,newline=false)
-            @text = text
+
+        def initialize(texts,newline=false)
+            @texts = texts
             @newline = newline
         end
 
         def run(env)
 
-            # v @text muze byt cely expression,
-            # takze je nutno pocita s tim, ze se
-            # bude vracet zprava apod.
+            # PrintTree
+            # - nezpracovava zadnou zpravu
+            # - negeneruje zadnou zpravu
+            # - normalni vystup je hodnota promenne
 
-            returnValue, msg = @text.run(env)
-            return returnValue, msg if msg != nil
-            print(returnValue, @newline ? "\n" : "")
+            if @texts != nil 
+                for text in @texts
+                    return_value, msg = text.run(env)
+                    return return_value, msg if msg != nil
+                    print return_value
+                end
+                puts if @newline
+            end
             return nil, nil
         end
 

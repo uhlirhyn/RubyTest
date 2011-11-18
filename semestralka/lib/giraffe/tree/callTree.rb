@@ -18,38 +18,36 @@ module Giraffe
             
             # vyzvedni deklaraci funkce
             func = env.func(@id,@args)
-
-            #dbg("AST obtained with arguments #{@args}",:CallTree)
             
             # vytvor novou vrstvu prostredi
             # ale na vrstve kde byla deklarovana
             # funkce, nikoliv na vrstve volani
-            newEnv = Env.new(func[2])
+            new_env = Env.new(func[2])
 
-            returnValue, msg = innerRun(newEnv,env,func)
+            return_value, msg = inner_run(new_env,env,func)
 
             # zavri vrstvu
-            newEnv.destroy
+            new_env.destroy
 
-            return returnValue, msg
+            return return_value, msg
         end
 
         private 
-        def innerRun(env,oldEnv,func) 
+        def inner_run(env,old_env,func) 
 
             # deklarace
-            returnValue = msg = nil
+            return_value = msg = nil
 
             # zaloz promenne - argumenty
             # se vyhodnoti z volaciho prostredi
             if @args != nil 
                 for i in @args.each_index do
-                    returnValue, msg = @args[i].run(oldEnv)
-                    dbg("assigning '#{func[0][i]}' to '#{returnValue}'",:CallTree)
-                    return returnValue, msg if msg != nil
+                    return_value, msg = @args[i].run(old_env)
+                    dbg("assigning '#{func[0][i]}' to '#{return_value}'",:CallTree)
+                    return return_value, msg if msg != nil
 
                     # zaloz ji do noveho env
-                    env.var!(func[0][i],returnValue)
+                    env.var!(func[0][i],return_value)
                 end
             end
 
@@ -59,10 +57,10 @@ module Giraffe
             # - :break by tady nemel byt
             # - :exit preposilej
             for i in func[1] do
-                returnValue, msg = i.run(env)
+                return_value, msg = i.run(env)
                 case msg
-                when :return then return returnValue, nil
-                when :exit then return returnValue, msg
+                when :return then return return_value, nil
+                when :exit then return return_value, msg
                 when :break then raise "Unexpected break"
                 end
             end

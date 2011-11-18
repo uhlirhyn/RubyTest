@@ -6,11 +6,14 @@ module Giraffe
 
         include Debug
 
-        def initialize(superEnv=nil)
+        @@inst_pool = []
+
+        def initialize(super_env=nil)
             dbg("initialize (envID: #{self.object_id})",:Env)
             @variables = Hash.new(:undeclared)
             @functions = Hash.new(:undeclared)
-            @superEnv = superEnv
+            @classes = Hash.new(:undeclared)
+            @super_env = super_env
         end
 
         def var(id) 
@@ -23,14 +26,14 @@ module Giraffe
             # ten nil, jinak se pri dotazu do dalsi vrstvy nabali pole 
             # s nil, nebot prirazeni probiha jen do jedne promenne
             if variable == :undeclared 
-                 variable = @superEnv == nil ? :undeclared : @superEnv.var(id)[0]
+                 variable = @super_env == nil ? :undeclared : @super_env.var(id)[0]
             end
             
             # Tady se MUSI vracen i nil,
             # jinak se pole v @value rozbali do 
             # msg v rodicovskem uzlu a zpusobi xx
             return [variable, nil] if variable != :undeclared
-            raise "Variable #{id} is not declared"
+            raise "Variable '#{id}' is not declared"
         end
 
         def var!(id,val=nil)
@@ -40,13 +43,14 @@ module Giraffe
 
         def funcByKey(key) 
             function = @functions[key]
-            dbg("search for func #{key[0]} #{key[1]} - found '#{function == :undeclared ? :undeclared : function[0]}' (envID: #{self.object_id})",:Env)
+            dbg("search for func '#{key[0]}' '#{key[1]}' - found '#{function == :undeclared ? :undeclared : function[0]}' (envID: #{self.object_id})",:Env)
             
             if function == :undeclared 
-                 function = @superEnv == nil ? :undeclared : @superEnv.funcByKey(key)
+                 function = @super_env == nil ? :undeclared : @super_env.funcByKey(key)
             end
+            
             return function if function != :undeclared
-            raise "Function '#{key[0]}' with #{key[1]} parameters is not declared"
+            raise "Function '#{key[0]}' with '#{key[1]}' parameters is not declared"
         end
 
         def func(id,args) 
@@ -56,8 +60,30 @@ module Giraffe
         end
 
         def func!(id,params,instructions,env)
-            dbg("func! #{id} #{params} (envID: #{self.object_id})",:Env)
+            dbg("func! '#{id}' '#{params}' (envID: #{self.object_id})",:Env)
             @functions[[id,params == nil ? 0 : params.size]] = [params,instructions,env]
+        end
+
+        def cls(id) 
+            clz = @classes[id]
+            dbg("search for class '#{id}' - found '#{clz == :undeclared ? :undeclared : id}' (envID: #{self.object_id})",:Env)
+            
+            if clz == :undeclared 
+                 clz = @super_env == nil ? :undeclared : @super_env.cls(id)
+            end
+
+            return clz if clz != :undeclared
+            raise "Class '#{id}' is not declared"
+        end
+
+        def cls!(id,instructions,super_class,env)
+            dbg("cls! '#{id}' (envID: #{self.object_id})",:Env)
+            @classes[id] = [id,instructions,super_class,env]
+        end
+
+        def inst!(instance)
+            # ID instance je tak index pole
+            @@inst_pool << instance
         end
 
         def destroy

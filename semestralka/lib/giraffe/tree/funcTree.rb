@@ -19,10 +19,14 @@ module Giraffe
             # U definice funkce se nevyhodnocuje vubec nic
             # zadavaji se pevne identifikatory takze tento
             # uzel neprodukuje ani zpravy ani hodnoty
+            
+            # FuncTree
+            # - nezpracovava zadnou zpravu
+            # - negeneruje zadnou zpravu
+            # - normalni vystup je hodnota promenne
 
             # probehla deklarace funkce
-            func = env.func!(@id,@params,@block,env)
-
+            env.func!(@id,@params,@block,env)
             return nil, nil
         end
 

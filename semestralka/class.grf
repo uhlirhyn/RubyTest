@@ -1,0 +1,19 @@
+class A {
+    printl "instance of A being created"
+    hello {
+        printl "HELLO"
+    }
+}
+
+class B superclass A {
+    bye {
+        printl "BYE"
+    }
+}
+
+a = new A
+a.hello()
+
+b = new B
+b.bye()
+b.hello()

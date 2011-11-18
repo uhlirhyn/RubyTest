@@ -1,7 +1,7 @@
 module Debug
 
-    #@@Debugging = :on
-    @@Debugging = :off
+    @@Debugging = :on
+    #@@Debugging = :off
     @@listPolicy = :blacklist
     #@@listPolicy = :whitelist
     @@list = []

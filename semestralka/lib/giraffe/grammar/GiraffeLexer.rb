@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Jul 31, 2010 19:34:52
 # Ruby runtime library version: 1.8.11
 # Input grammar file: Giraffe.g
-# Generated at: 2011-11-14 01:06:37
+# Generated at: 2011-11-18 01:28:15
 # 
 
 # ~~~> start load path setup
@@ -66,19 +66,21 @@ module Giraffe
   module TokenData
 
     # define the token constants
-    define_tokens( :EXPONENT => 51, :LT => 34, :RB => 13, :WHILE => 24, 
-                   :MOD => 40, :OCTAL_ESC => 50, :FOR => 26, :DO => 25, 
-                   :FLOAT => 43, :NOT => 31, :AND => 30, :ID => 28, :RCB => 5, 
-                   :EOF => -1, :TO_INT => 41, :BREAK => 9, :IF => 20, :TO_FLOAT => 42, 
-                   :T__55 => 55, :T__56 => 56, :T__57 => 57, :T__58 => 58, 
-                   :ESC_SEQ => 47, :T__54 => 54, :LCB => 4, :COMMA => 27, 
-                   :PRINTLN => 19, :RETURN => 10, :PLUS => 14, :EQ => 32, 
-                   :COMMENT => 6, :NE => 33, :EXIT => 11, :GE => 37, :UNICODE_ESC => 49, 
-                   :ELSE => 21, :HEX_DIGIT => 48, :SEMICOLON => 7, :INT => 16, 
-                   :MINUS => 15, :MUL => 38, :TRUE => 45, :PRINT => 17, 
-                   :ELSEIF => 22, :PRINTL => 18, :COLON => 53, :ELIF => 23, 
-                   :WS => 52, :READ => 8, :OR => 29, :ASSIGN => 44, :GT => 35, 
-                   :LB => 12, :DIV => 39, :FALSE => 46, :LE => 36 )
+    define_tokens( :EXPONENT => 57, :CLASS => 51, :LT => 35, :T__64 => 64, 
+                   :T__65 => 65, :T__62 => 62, :WHILE => 25, :T__63 => 63, 
+                   :RB => 13, :MOD => 41, :OCTAL_ESC => 55, :NEW => 45, 
+                   :FOR => 27, :DO => 26, :FLOAT => 44, :NOT => 32, :RCB => 5, 
+                   :ID => 28, :AND => 31, :EOF => -1, :TO_INT => 42, :BREAK => 9, 
+                   :IF => 21, :TO_FLOAT => 43, :QUOTE => 59, :ESC_SEQ => 50, 
+                   :CONTINUE => 56, :QM => 61, :LCB => 4, :COMMA => 20, 
+                   :PRINTLN => 19, :RETURN => 10, :PLUS => 14, :SUPERCLASS => 52, 
+                   :EQ => 33, :COMMENT => 6, :DOT => 29, :NE => 34, :EXIT => 11, 
+                   :GE => 38, :UNICODE_ESC => 54, :ELSE => 22, :HEX_DIGIT => 53, 
+                   :INT => 16, :SEMICOLON => 7, :MINUS => 15, :MUL => 39, 
+                   :TRUE => 47, :PRINT => 17, :ELSEIF => 23, :PRINTL => 18, 
+                   :COLON => 60, :ELIF => 24, :WS => 58, :READ => 8, :OR => 30, 
+                   :ASSIGN => 46, :GT => 36, :LB => 12, :DIV => 40, :FALSE => 48, 
+                   :LE => 37, :STRING => 49 )
     
   end
 
@@ -94,24 +96,26 @@ module Giraffe
       # ignore
     end
     
-    RULE_NAMES   = [ "T__54", "T__55", "T__56", "T__57", "T__58", "HEX_DIGIT", 
+    RULE_NAMES   = [ "T__62", "T__63", "T__64", "T__65", "STRING", "HEX_DIGIT", 
                      "ESC_SEQ", "OCTAL_ESC", "UNICODE_ESC", "TO_INT", "TO_FLOAT", 
                      "READ", "PRINT", "PRINTL", "PRINTLN", "TRUE", "FALSE", 
                      "FOR", "IF", "ELSE", "ELIF", "ELSEIF", "WHILE", "DO", 
-                     "RETURN", "EXIT", "BREAK", "ID", "INT", "FLOAT", "COMMENT", 
-                     "WS", "EXPONENT", "LB", "RB", "LCB", "RCB", "COMMA", 
+                     "RETURN", "EXIT", "BREAK", "CONTINUE", "CLASS", "SUPERCLASS", 
+                     "NEW", "ID", "INT", "FLOAT", "COMMENT", "WS", "EXPONENT", 
+                     "LB", "RB", "LCB", "RCB", "QUOTE", "COMMA", "DOT", 
                      "COLON", "SEMICOLON", "ASSIGN", "PLUS", "MINUS", "MUL", 
                      "DIV", "MOD", "EQ", "NE", "LT", "GT", "LE", "GE", "AND", 
-                     "OR", "NOT" ].freeze
-    RULE_METHODS = [ :t__54!, :t__55!, :t__56!, :t__57!, :t__58!, :hex_digit!, 
+                     "OR", "NOT", "QM" ].freeze
+    RULE_METHODS = [ :t__62!, :t__63!, :t__64!, :t__65!, :string!, :hex_digit!, 
                      :esc_seq!, :octal_esc!, :unicode_esc!, :to_int!, :to_float!, 
                      :read!, :print!, :printl!, :println!, :true!, :false!, 
                      :for!, :if!, :else!, :elif!, :elseif!, :while!, :do!, 
-                     :return!, :exit!, :break!, :id!, :int!, :float!, :comment!, 
-                     :ws!, :exponent!, :lb!, :rb!, :lcb!, :rcb!, :comma!, 
+                     :return!, :exit!, :break!, :continue!, :class!, :superclass!, 
+                     :new!, :id!, :int!, :float!, :comment!, :ws!, :exponent!, 
+                     :lb!, :rb!, :lcb!, :rcb!, :quote!, :comma!, :dot!, 
                      :colon!, :semicolon!, :assign!, :plus!, :minus!, :mul!, 
                      :div!, :mod!, :eq!, :ne!, :lt!, :gt!, :le!, :ge!, :and!, 
-                     :or!, :not! ].freeze
+                     :or!, :not!, :qm! ].freeze
 
     
     def initialize( input=nil, options = {} )
@@ -121,13 +125,13 @@ module Giraffe
     
     
     # - - - - - - - - - - - lexer rules - - - - - - - - - - - -
-    # lexer rule t__54! (T__54)
+    # lexer rule t__62! (T__62)
     # (in Giraffe.g)
-    def t__54!
+    def t__62!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 1 )
 
-      type = T__54
+      type = T__62
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
@@ -145,13 +149,13 @@ module Giraffe
 
     end
 
-    # lexer rule t__55! (T__55)
+    # lexer rule t__63! (T__63)
     # (in Giraffe.g)
-    def t__55!
+    def t__63!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 2 )
 
-      type = T__55
+      type = T__63
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
@@ -169,13 +173,13 @@ module Giraffe
 
     end
 
-    # lexer rule t__56! (T__56)
+    # lexer rule t__64! (T__64)
     # (in Giraffe.g)
-    def t__56!
+    def t__64!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 3 )
 
-      type = T__56
+      type = T__64
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
@@ -193,13 +197,13 @@ module Giraffe
 
     end
 
-    # lexer rule t__57! (T__57)
+    # lexer rule t__65! (T__65)
     # (in Giraffe.g)
-    def t__57!
+    def t__65!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 4 )
 
-      type = T__57
+      type = T__65
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
@@ -217,18 +221,57 @@ module Giraffe
 
     end
 
-    # lexer rule t__58! (T__58)
+    # lexer rule string! (STRING)
     # (in Giraffe.g)
-    def t__58!
+    def string!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 5 )
 
-      type = T__58
+      type = STRING
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 11:9: '\"'
+      # at line 286:8: '\"' ( ESC_SEQ | ' ' | ~ ( '\\\\' | '\"' | ' ' ) )* '\"'
+      match( 0x22 )
+      # at line 286:12: ( ESC_SEQ | ' ' | ~ ( '\\\\' | '\"' | ' ' ) )*
+      while true # decision 1
+        alt_1 = 4
+        look_1_0 = @input.peek( 1 )
+
+        if ( look_1_0 == 0x5c )
+          alt_1 = 1
+        elsif ( look_1_0 == 0x20 )
+          alt_1 = 2
+        elsif ( look_1_0.between?( 0x0, 0x1f ) || look_1_0 == 0x21 || look_1_0.between?( 0x23, 0x5b ) || look_1_0.between?( 0x5d, 0xffff ) )
+          alt_1 = 3
+
+        end
+        case alt_1
+        when 1
+          # at line 286:14: ESC_SEQ
+          esc_seq!
+
+        when 2
+          # at line 286:24: ' '
+          match( 0x20 )
+
+        when 3
+          # at line 286:30: ~ ( '\\\\' | '\"' | ' ' )
+          if @input.peek( 1 ).between?( 0x0, 0x1f ) || @input.peek(1) == 0x21 || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
+            @input.consume
+          else
+            mse = MismatchedSet( nil )
+            recover mse
+            raise mse
+          end
+
+
+
+        else
+          break # out of loop for decision 1
+        end
+      end # loop for decision 1
       match( 0x22 )
 
       
@@ -249,7 +292,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 277:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+      # at line 297:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
       if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x46 ) || @input.peek( 1 ).between?( 0x61, 0x66 )
         @input.consume
       else
@@ -274,24 +317,24 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 281:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
-      alt_1 = 3
-      look_1_0 = @input.peek( 1 )
+      # at line 301:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+      alt_2 = 3
+      look_2_0 = @input.peek( 1 )
 
-      if ( look_1_0 == 0x5c )
-        case look_1 = @input.peek( 2 )
-        when 0x22, 0x27, 0x5c, 0x62, 0x66, 0x6e, 0x72, 0x74 then alt_1 = 1
-        when 0x75 then alt_1 = 2
-        when 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37 then alt_1 = 3
+      if ( look_2_0 == 0x5c )
+        case look_2 = @input.peek( 2 )
+        when 0x22, 0x27, 0x5c, 0x62, 0x66, 0x6e, 0x72, 0x74 then alt_2 = 1
+        when 0x75 then alt_2 = 2
+        when 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37 then alt_2 = 3
         else
-          raise NoViableAlternative( "", 1, 1 )
+          raise NoViableAlternative( "", 2, 1 )
         end
       else
-        raise NoViableAlternative( "", 1, 0 )
+        raise NoViableAlternative( "", 2, 0 )
       end
-      case alt_1
+      case alt_2
       when 1
-        # at line 281:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+        # at line 301:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
         match( 0x5c )
         if @input.peek(1) == 0x22 || @input.peek(1) == 0x27 || @input.peek(1) == 0x5c || @input.peek(1) == 0x62 || @input.peek(1) == 0x66 || @input.peek(1) == 0x6e || @input.peek(1) == 0x72 || @input.peek(1) == 0x74
           @input.consume
@@ -304,11 +347,11 @@ module Giraffe
 
 
       when 2
-        # at line 282:9: UNICODE_ESC
+        # at line 302:9: UNICODE_ESC
         unicode_esc!
 
       when 3
-        # at line 283:9: OCTAL_ESC
+        # at line 303:9: OCTAL_ESC
         octal_esc!
 
       end
@@ -326,75 +369,75 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 288:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
-      alt_2 = 3
-      look_2_0 = @input.peek( 1 )
+      # at line 308:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+      alt_3 = 3
+      look_3_0 = @input.peek( 1 )
 
-      if ( look_2_0 == 0x5c )
-        look_2_1 = @input.peek( 2 )
+      if ( look_3_0 == 0x5c )
+        look_3_1 = @input.peek( 2 )
 
-        if ( look_2_1.between?( 0x30, 0x33 ) )
-          look_2_2 = @input.peek( 3 )
+        if ( look_3_1.between?( 0x30, 0x33 ) )
+          look_3_2 = @input.peek( 3 )
 
-          if ( look_2_2.between?( 0x30, 0x37 ) )
-            look_2_4 = @input.peek( 4 )
+          if ( look_3_2.between?( 0x30, 0x37 ) )
+            look_3_4 = @input.peek( 4 )
 
-            if ( look_2_4.between?( 0x30, 0x37 ) )
-              alt_2 = 1
+            if ( look_3_4.between?( 0x30, 0x37 ) )
+              alt_3 = 1
             else
-              alt_2 = 2
+              alt_3 = 2
             end
           else
-            alt_2 = 3
+            alt_3 = 3
           end
-        elsif ( look_2_1.between?( 0x34, 0x37 ) )
-          look_2_3 = @input.peek( 3 )
+        elsif ( look_3_1.between?( 0x34, 0x37 ) )
+          look_3_3 = @input.peek( 3 )
 
-          if ( look_2_3.between?( 0x30, 0x37 ) )
-            alt_2 = 2
+          if ( look_3_3.between?( 0x30, 0x37 ) )
+            alt_3 = 2
           else
-            alt_2 = 3
+            alt_3 = 3
           end
         else
-          raise NoViableAlternative( "", 2, 1 )
+          raise NoViableAlternative( "", 3, 1 )
         end
       else
-        raise NoViableAlternative( "", 2, 0 )
+        raise NoViableAlternative( "", 3, 0 )
       end
-      case alt_2
+      case alt_3
       when 1
-        # at line 288:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+        # at line 308:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
         match( 0x5c )
-        # at line 288:14: ( '0' .. '3' )
-        # at line 288:15: '0' .. '3'
+        # at line 308:14: ( '0' .. '3' )
+        # at line 308:15: '0' .. '3'
         match_range( 0x30, 0x33 )
 
-        # at line 288:25: ( '0' .. '7' )
-        # at line 288:26: '0' .. '7'
+        # at line 308:25: ( '0' .. '7' )
+        # at line 308:26: '0' .. '7'
         match_range( 0x30, 0x37 )
 
-        # at line 288:36: ( '0' .. '7' )
-        # at line 288:37: '0' .. '7'
+        # at line 308:36: ( '0' .. '7' )
+        # at line 308:37: '0' .. '7'
         match_range( 0x30, 0x37 )
 
 
       when 2
-        # at line 289:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+        # at line 309:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
         match( 0x5c )
-        # at line 289:14: ( '0' .. '7' )
-        # at line 289:15: '0' .. '7'
+        # at line 309:14: ( '0' .. '7' )
+        # at line 309:15: '0' .. '7'
         match_range( 0x30, 0x37 )
 
-        # at line 289:25: ( '0' .. '7' )
-        # at line 289:26: '0' .. '7'
+        # at line 309:25: ( '0' .. '7' )
+        # at line 309:26: '0' .. '7'
         match_range( 0x30, 0x37 )
 
 
       when 3
-        # at line 290:9: '\\\\' ( '0' .. '7' )
+        # at line 310:9: '\\\\' ( '0' .. '7' )
         match( 0x5c )
-        # at line 290:14: ( '0' .. '7' )
-        # at line 290:15: '0' .. '7'
+        # at line 310:14: ( '0' .. '7' )
+        # at line 310:15: '0' .. '7'
         match_range( 0x30, 0x37 )
 
 
@@ -413,7 +456,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 295:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+      # at line 315:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
       match( 0x5c )
       match( 0x75 )
       hex_digit!
@@ -438,7 +481,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 298:10: 'int:'
+      # at line 318:10: 'int:'
       match( "int:" )
 
       
@@ -462,7 +505,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 299:11: 'float:'
+      # at line 319:11: 'float:'
       match( "float:" )
 
       
@@ -486,7 +529,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 300:8: 'read'
+      # at line 320:8: 'read'
       match( "read" )
 
       
@@ -510,7 +553,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 301:9: 'print'
+      # at line 321:9: 'print'
       match( "print" )
 
       
@@ -534,7 +577,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 302:10: 'printl'
+      # at line 322:10: 'printl'
       match( "printl" )
 
       
@@ -558,7 +601,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 303:11: 'println'
+      # at line 323:11: 'println'
       match( "println" )
 
       
@@ -582,7 +625,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 304:8: 'true'
+      # at line 324:8: 'true'
       match( "true" )
 
       
@@ -606,7 +649,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 305:9: 'false'
+      # at line 325:9: 'false'
       match( "false" )
 
       
@@ -630,7 +673,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 306:7: 'for'
+      # at line 326:7: 'for'
       match( "for" )
 
       
@@ -654,7 +697,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 307:6: 'if'
+      # at line 327:6: 'if'
       match( "if" )
 
       
@@ -678,7 +721,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 308:8: 'else'
+      # at line 328:8: 'else'
       match( "else" )
 
       
@@ -702,7 +745,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 309:8: 'elif'
+      # at line 329:8: 'elif'
       match( "elif" )
 
       
@@ -726,7 +769,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 310:10: 'elseif'
+      # at line 330:10: 'elseif'
       match( "elseif" )
 
       
@@ -750,7 +793,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 311:9: 'while'
+      # at line 331:9: 'while'
       match( "while" )
 
       
@@ -774,7 +817,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 312:6: 'do'
+      # at line 332:6: 'do'
       match( "do" )
 
       
@@ -798,7 +841,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 313:10: 'return'
+      # at line 333:10: 'return'
       match( "return" )
 
       
@@ -822,7 +865,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 314:8: 'exit'
+      # at line 334:8: 'exit'
       match( "exit" )
 
       
@@ -846,7 +889,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 315:9: 'break'
+      # at line 335:9: 'break'
       match( "break" )
 
       
@@ -859,18 +902,114 @@ module Giraffe
 
     end
 
+    # lexer rule continue! (CONTINUE)
+    # (in Giraffe.g)
+    def continue!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 28 )
+
+      type = CONTINUE
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 336:11: 'continue'
+      match( "continue" )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 28 )
+
+    end
+
+    # lexer rule class! (CLASS)
+    # (in Giraffe.g)
+    def class!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 29 )
+
+      type = CLASS
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 337:9: 'class'
+      match( "class" )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 29 )
+
+    end
+
+    # lexer rule superclass! (SUPERCLASS)
+    # (in Giraffe.g)
+    def superclass!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 30 )
+
+      type = SUPERCLASS
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 339:4: 'superclass'
+      match( "superclass" )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 30 )
+
+    end
+
+    # lexer rule new! (NEW)
+    # (in Giraffe.g)
+    def new!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 31 )
+
+      type = NEW
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 340:7: 'new'
+      match( "new" )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 31 )
+
+    end
+
     # lexer rule id! (ID)
     # (in Giraffe.g)
     def id!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 28 )
+      # trace_in( __method__, 32 )
 
       type = ID
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 317:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      # at line 342:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
       if @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
         @input.consume
       else
@@ -880,16 +1019,16 @@ module Giraffe
       end
 
 
-      # at line 317:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
-      while true # decision 3
-        alt_3 = 2
-        look_3_0 = @input.peek( 1 )
+      # at line 342:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      while true # decision 4
+        alt_4 = 2
+        look_4_0 = @input.peek( 1 )
 
-        if ( look_3_0.between?( 0x30, 0x39 ) || look_3_0.between?( 0x41, 0x5a ) || look_3_0 == 0x5f || look_3_0.between?( 0x61, 0x7a ) )
-          alt_3 = 1
+        if ( look_4_0.between?( 0x30, 0x39 ) || look_4_0.between?( 0x41, 0x5a ) || look_4_0 == 0x5f || look_4_0.between?( 0x61, 0x7a ) )
+          alt_4 = 1
 
         end
-        case alt_3
+        case alt_4
         when 1
           # at line 
           if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
@@ -903,9 +1042,9 @@ module Giraffe
 
 
         else
-          break # out of loop for decision 3
+          break # out of loop for decision 4
         end
-      end # loop for decision 3
+      end # loop for decision 4
 
       
       @state.type = type
@@ -913,7 +1052,7 @@ module Giraffe
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 28 )
+      # trace_out( __method__, 32 )
 
     end
 
@@ -921,37 +1060,37 @@ module Giraffe
     # (in Giraffe.g)
     def int!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 29 )
+      # trace_in( __method__, 33 )
 
       type = INT
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 320:7: ( '0' .. '9' )+
-      # at file 320:7: ( '0' .. '9' )+
-      match_count_4 = 0
+      # at line 345:7: ( '0' .. '9' )+
+      # at file 345:7: ( '0' .. '9' )+
+      match_count_5 = 0
       while true
-        alt_4 = 2
-        look_4_0 = @input.peek( 1 )
+        alt_5 = 2
+        look_5_0 = @input.peek( 1 )
 
-        if ( look_4_0.between?( 0x30, 0x39 ) )
-          alt_4 = 1
+        if ( look_5_0.between?( 0x30, 0x39 ) )
+          alt_5 = 1
 
         end
-        case alt_4
+        case alt_5
         when 1
-          # at line 320:7: '0' .. '9'
+          # at line 345:7: '0' .. '9'
           match_range( 0x30, 0x39 )
 
         else
-          match_count_4 > 0 and break
-          eee = EarlyExit(4)
+          match_count_5 > 0 and break
+          eee = EarlyExit(5)
 
 
           raise eee
         end
-        match_count_4 += 1
+        match_count_5 += 1
       end
 
 
@@ -961,7 +1100,7 @@ module Giraffe
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 29 )
+      # trace_out( __method__, 33 )
 
     end
 
@@ -969,44 +1108,19 @@ module Giraffe
     # (in Giraffe.g)
     def float!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 30 )
+      # trace_in( __method__, 34 )
 
       
       # - - - - main rule block - - - -
-      # at line 325:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
-      alt_11 = 3
-      alt_11 = @dfa11.predict( @input )
-      case alt_11
+      # at line 350:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+      alt_12 = 3
+      alt_12 = @dfa12.predict( @input )
+      case alt_12
       when 1
-        # at line 325:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
-        # at file 325:9: ( '0' .. '9' )+
-        match_count_5 = 0
+        # at line 350:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+        # at file 350:9: ( '0' .. '9' )+
+        match_count_6 = 0
         while true
-          alt_5 = 2
-          look_5_0 = @input.peek( 1 )
-
-          if ( look_5_0.between?( 0x30, 0x39 ) )
-            alt_5 = 1
-
-          end
-          case alt_5
-          when 1
-            # at line 325:10: '0' .. '9'
-            match_range( 0x30, 0x39 )
-
-          else
-            match_count_5 > 0 and break
-            eee = EarlyExit(5)
-
-
-            raise eee
-          end
-          match_count_5 += 1
-        end
-
-        match( 0x2e )
-        # at line 325:25: ( '0' .. '9' )*
-        while true # decision 6
           alt_6 = 2
           look_6_0 = @input.peek( 1 )
 
@@ -1016,94 +1130,119 @@ module Giraffe
           end
           case alt_6
           when 1
-            # at line 325:26: '0' .. '9'
+            # at line 350:10: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
-            break # out of loop for decision 6
-          end
-        end # loop for decision 6
-        # at line 325:37: ( EXPONENT )?
-        alt_7 = 2
-        look_7_0 = @input.peek( 1 )
+            match_count_6 > 0 and break
+            eee = EarlyExit(6)
 
-        if ( look_7_0 == 0x45 || look_7_0 == 0x65 )
-          alt_7 = 1
+
+            raise eee
+          end
+          match_count_6 += 1
         end
-        case alt_7
+
+        match( 0x2e )
+        # at line 350:25: ( '0' .. '9' )*
+        while true # decision 7
+          alt_7 = 2
+          look_7_0 = @input.peek( 1 )
+
+          if ( look_7_0.between?( 0x30, 0x39 ) )
+            alt_7 = 1
+
+          end
+          case alt_7
+          when 1
+            # at line 350:26: '0' .. '9'
+            match_range( 0x30, 0x39 )
+
+          else
+            break # out of loop for decision 7
+          end
+        end # loop for decision 7
+        # at line 350:37: ( EXPONENT )?
+        alt_8 = 2
+        look_8_0 = @input.peek( 1 )
+
+        if ( look_8_0 == 0x45 || look_8_0 == 0x65 )
+          alt_8 = 1
+        end
+        case alt_8
         when 1
-          # at line 325:37: EXPONENT
+          # at line 350:37: EXPONENT
           exponent!
 
         end
 
       when 2
-        # at line 326:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+        # at line 351:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
         match( 0x2e )
-        # at file 326:13: ( '0' .. '9' )+
-        match_count_8 = 0
+        # at file 351:13: ( '0' .. '9' )+
+        match_count_9 = 0
         while true
-          alt_8 = 2
-          look_8_0 = @input.peek( 1 )
+          alt_9 = 2
+          look_9_0 = @input.peek( 1 )
 
-          if ( look_8_0.between?( 0x30, 0x39 ) )
-            alt_8 = 1
+          if ( look_9_0.between?( 0x30, 0x39 ) )
+            alt_9 = 1
 
           end
-          case alt_8
+          case alt_9
           when 1
-            # at line 326:14: '0' .. '9'
+            # at line 351:14: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
-            match_count_8 > 0 and break
-            eee = EarlyExit(8)
+            match_count_9 > 0 and break
+            eee = EarlyExit(9)
 
 
             raise eee
           end
-          match_count_8 += 1
+          match_count_9 += 1
         end
 
-        # at line 326:25: ( EXPONENT )?
-        alt_9 = 2
-        look_9_0 = @input.peek( 1 )
+        # at line 351:25: ( EXPONENT )?
+        alt_10 = 2
+        look_10_0 = @input.peek( 1 )
 
-        if ( look_9_0 == 0x45 || look_9_0 == 0x65 )
-          alt_9 = 1
+        if ( look_10_0 == 0x45 || look_10_0 == 0x65 )
+          alt_10 = 1
         end
-        case alt_9
+        case alt_10
         when 1
-          # at line 326:25: EXPONENT
+          # at line 351:25: EXPONENT
           exponent!
 
         end
 
       when 3
-        # at line 327:9: ( '0' .. '9' )+ EXPONENT
-        # at file 327:9: ( '0' .. '9' )+
-        match_count_10 = 0
+        # at line 352:9: ( '0' .. '9' )+ EXPONENT
+        # at file 352:9: ( '0' .. '9' )+
+        match_count_11 = 0
         while true
-          alt_10 = 2
-          look_10_0 = @input.peek( 1 )
+          alt_11 = 2
+          look_11_0 = @input.peek( 1 )
 
-          if ( look_10_0.between?( 0x30, 0x39 ) )
-            alt_10 = 1
+          if ( look_11_0.between?( 0x30, 0x39 ) )
+            alt_11 = 1
 
           end
-          case alt_10
+          case alt_11
           when 1
-            # at line 327:10: '0' .. '9'
+            # at line 352:10: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
-            match_count_10 > 0 and break
-            eee = EarlyExit(10)
+            match_count_11 > 0 and break
+            eee = EarlyExit(11)
 
 
             raise eee
           end
-          match_count_10 += 1
+          match_count_11 += 1
         end
 
         exponent!
@@ -1111,7 +1250,7 @@ module Giraffe
       end
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 30 )
+      # trace_out( __method__, 34 )
 
     end
 
@@ -1119,27 +1258,27 @@ module Giraffe
     # (in Giraffe.g)
     def comment!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 31 )
+      # trace_in( __method__, 35 )
 
       type = COMMENT
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 331:9: '#' (~ ( '\\n' | '\\r' ) )*
+      # at line 356:9: '#' (~ ( '\\n' | '\\r' ) )*
       match( 0x23 )
-      # at line 331:13: (~ ( '\\n' | '\\r' ) )*
-      while true # decision 12
-        alt_12 = 2
-        look_12_0 = @input.peek( 1 )
+      # at line 356:13: (~ ( '\\n' | '\\r' ) )*
+      while true # decision 13
+        alt_13 = 2
+        look_13_0 = @input.peek( 1 )
 
-        if ( look_12_0.between?( 0x0, 0x9 ) || look_12_0.between?( 0xb, 0xc ) || look_12_0.between?( 0xe, 0xffff ) )
-          alt_12 = 1
+        if ( look_13_0.between?( 0x0, 0x9 ) || look_13_0.between?( 0xb, 0xc ) || look_13_0.between?( 0xe, 0xffff ) )
+          alt_13 = 1
 
         end
-        case alt_12
+        case alt_13
         when 1
-          # at line 331:13: ~ ( '\\n' | '\\r' )
+          # at line 356:13: ~ ( '\\n' | '\\r' )
           if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xc ) || @input.peek( 1 ).between?( 0xe, 0xff )
             @input.consume
           else
@@ -1151,9 +1290,9 @@ module Giraffe
 
 
         else
-          break # out of loop for decision 12
+          break # out of loop for decision 13
         end
-      end # loop for decision 12
+      end # loop for decision 13
       # --> action
       channel=HIDDEN;
       # <-- action
@@ -1164,7 +1303,7 @@ module Giraffe
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 31 )
+      # trace_out( __method__, 35 )
 
     end
 
@@ -1172,14 +1311,14 @@ module Giraffe
     # (in Giraffe.g)
     def ws!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 32 )
+      # trace_in( __method__, 36 )
 
       type = WS
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 334:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+      # at line 359:9: ( ' ' | '\\t' | '\\r' | '\\n' )
       if @input.peek( 1 ).between?( 0x9, 0xa ) || @input.peek(1) == 0xd || @input.peek(1) == 0x20
         @input.consume
       else
@@ -1199,7 +1338,7 @@ module Giraffe
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 32 )
+      # trace_out( __method__, 36 )
 
     end
 
@@ -1207,11 +1346,11 @@ module Giraffe
     # (in Giraffe.g)
     def exponent!
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 33 )
+      # trace_in( __method__, 37 )
 
       
       # - - - - main rule block - - - -
-      # at line 342:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+      # at line 367:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
       if @input.peek(1) == 0x45 || @input.peek(1) == 0x65
         @input.consume
       else
@@ -1221,14 +1360,14 @@ module Giraffe
       end
 
 
-      # at line 342:22: ( '+' | '-' )?
-      alt_13 = 2
-      look_13_0 = @input.peek( 1 )
+      # at line 367:22: ( '+' | '-' )?
+      alt_14 = 2
+      look_14_0 = @input.peek( 1 )
 
-      if ( look_13_0 == 0x2b || look_13_0 == 0x2d )
-        alt_13 = 1
+      if ( look_14_0 == 0x2b || look_14_0 == 0x2d )
+        alt_14 = 1
       end
-      case alt_13
+      case alt_14
       when 1
         # at line 
         if @input.peek(1) == 0x2b || @input.peek(1) == 0x2d
@@ -1242,127 +1381,31 @@ module Giraffe
 
 
       end
-      # at file 342:33: ( '0' .. '9' )+
-      match_count_14 = 0
+      # at file 367:33: ( '0' .. '9' )+
+      match_count_15 = 0
       while true
-        alt_14 = 2
-        look_14_0 = @input.peek( 1 )
+        alt_15 = 2
+        look_15_0 = @input.peek( 1 )
 
-        if ( look_14_0.between?( 0x30, 0x39 ) )
-          alt_14 = 1
+        if ( look_15_0.between?( 0x30, 0x39 ) )
+          alt_15 = 1
 
         end
-        case alt_14
+        case alt_15
         when 1
-          # at line 342:34: '0' .. '9'
+          # at line 367:34: '0' .. '9'
           match_range( 0x30, 0x39 )
 
         else
-          match_count_14 > 0 and break
-          eee = EarlyExit(14)
+          match_count_15 > 0 and break
+          eee = EarlyExit(15)
 
 
           raise eee
         end
-        match_count_14 += 1
+        match_count_15 += 1
       end
 
-
-    ensure
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 33 )
-
-    end
-
-    # lexer rule lb! (LB)
-    # (in Giraffe.g)
-    def lb!
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 34 )
-
-      type = LB
-      channel = ANTLR3::DEFAULT_CHANNEL
-
-      
-      # - - - - main rule block - - - -
-      # at line 344:6: '('
-      match( 0x28 )
-
-      
-      @state.type = type
-      @state.channel = channel
-
-    ensure
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 34 )
-
-    end
-
-    # lexer rule rb! (RB)
-    # (in Giraffe.g)
-    def rb!
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 35 )
-
-      type = RB
-      channel = ANTLR3::DEFAULT_CHANNEL
-
-      
-      # - - - - main rule block - - - -
-      # at line 345:6: ')'
-      match( 0x29 )
-
-      
-      @state.type = type
-      @state.channel = channel
-
-    ensure
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 35 )
-
-    end
-
-    # lexer rule lcb! (LCB)
-    # (in Giraffe.g)
-    def lcb!
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 36 )
-
-      type = LCB
-      channel = ANTLR3::DEFAULT_CHANNEL
-
-      
-      # - - - - main rule block - - - -
-      # at line 346:7: '{'
-      match( 0x7b )
-
-      
-      @state.type = type
-      @state.channel = channel
-
-    ensure
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_out( __method__, 36 )
-
-    end
-
-    # lexer rule rcb! (RCB)
-    # (in Giraffe.g)
-    def rcb!
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 37 )
-
-      type = RCB
-      channel = ANTLR3::DEFAULT_CHANNEL
-
-      
-      # - - - - main rule block - - - -
-      # at line 347:7: '}'
-      match( 0x7d )
-
-      
-      @state.type = type
-      @state.channel = channel
 
     ensure
       # -> uncomment the next line to manually enable rule tracing
@@ -1370,19 +1413,19 @@ module Giraffe
 
     end
 
-    # lexer rule comma! (COMMA)
+    # lexer rule lb! (LB)
     # (in Giraffe.g)
-    def comma!
+    def lb!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 38 )
 
-      type = COMMA
+      type = LB
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 348:9: ','
-      match( 0x2c )
+      # at line 369:6: '('
+      match( 0x28 )
 
       
       @state.type = type
@@ -1394,19 +1437,19 @@ module Giraffe
 
     end
 
-    # lexer rule colon! (COLON)
+    # lexer rule rb! (RB)
     # (in Giraffe.g)
-    def colon!
+    def rb!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 39 )
 
-      type = COLON
+      type = RB
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 349:9: ':'
-      match( 0x3a )
+      # at line 370:6: ')'
+      match( 0x29 )
 
       
       @state.type = type
@@ -1418,19 +1461,19 @@ module Giraffe
 
     end
 
-    # lexer rule semicolon! (SEMICOLON)
+    # lexer rule lcb! (LCB)
     # (in Giraffe.g)
-    def semicolon!
+    def lcb!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 40 )
 
-      type = SEMICOLON
+      type = LCB
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 351:4: ';'
-      match( 0x3b )
+      # at line 371:7: '{'
+      match( 0x7b )
 
       
       @state.type = type
@@ -1442,19 +1485,19 @@ module Giraffe
 
     end
 
-    # lexer rule assign! (ASSIGN)
+    # lexer rule rcb! (RCB)
     # (in Giraffe.g)
-    def assign!
+    def rcb!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 41 )
 
-      type = ASSIGN
+      type = RCB
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 352:10: '='
-      match( 0x3d )
+      # at line 372:7: '}'
+      match( 0x7d )
 
       
       @state.type = type
@@ -1466,19 +1509,19 @@ module Giraffe
 
     end
 
-    # lexer rule plus! (PLUS)
+    # lexer rule quote! (QUOTE)
     # (in Giraffe.g)
-    def plus!
+    def quote!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 42 )
 
-      type = PLUS
+      type = QUOTE
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 353:8: '+'
-      match( 0x2b )
+      # at line 373:9: '\"'
+      match( 0x22 )
 
       
       @state.type = type
@@ -1490,19 +1533,19 @@ module Giraffe
 
     end
 
-    # lexer rule minus! (MINUS)
+    # lexer rule comma! (COMMA)
     # (in Giraffe.g)
-    def minus!
+    def comma!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 43 )
 
-      type = MINUS
+      type = COMMA
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 354:9: '-'
-      match( 0x2d )
+      # at line 374:9: ','
+      match( 0x2c )
 
       
       @state.type = type
@@ -1514,19 +1557,19 @@ module Giraffe
 
     end
 
-    # lexer rule mul! (MUL)
+    # lexer rule dot! (DOT)
     # (in Giraffe.g)
-    def mul!
+    def dot!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 44 )
 
-      type = MUL
+      type = DOT
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 355:7: '*'
-      match( 0x2a )
+      # at line 375:7: '.'
+      match( 0x2e )
 
       
       @state.type = type
@@ -1538,19 +1581,19 @@ module Giraffe
 
     end
 
-    # lexer rule div! (DIV)
+    # lexer rule colon! (COLON)
     # (in Giraffe.g)
-    def div!
+    def colon!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 45 )
 
-      type = DIV
+      type = COLON
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 356:7: '/'
-      match( 0x2f )
+      # at line 376:9: ':'
+      match( 0x3a )
 
       
       @state.type = type
@@ -1562,19 +1605,19 @@ module Giraffe
 
     end
 
-    # lexer rule mod! (MOD)
+    # lexer rule semicolon! (SEMICOLON)
     # (in Giraffe.g)
-    def mod!
+    def semicolon!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 46 )
 
-      type = MOD
+      type = SEMICOLON
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 357:7: '%'
-      match( 0x25 )
+      # at line 378:4: ';'
+      match( 0x3b )
 
       
       @state.type = type
@@ -1586,19 +1629,19 @@ module Giraffe
 
     end
 
-    # lexer rule eq! (EQ)
+    # lexer rule assign! (ASSIGN)
     # (in Giraffe.g)
-    def eq!
+    def assign!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 47 )
 
-      type = EQ
+      type = ASSIGN
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 359:6: '=='
-      match( "==" )
+      # at line 379:10: '='
+      match( 0x3d )
 
       
       @state.type = type
@@ -1610,19 +1653,19 @@ module Giraffe
 
     end
 
-    # lexer rule ne! (NE)
+    # lexer rule plus! (PLUS)
     # (in Giraffe.g)
-    def ne!
+    def plus!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 48 )
 
-      type = NE
+      type = PLUS
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 360:6: '!='
-      match( "!=" )
+      # at line 380:8: '+'
+      match( 0x2b )
 
       
       @state.type = type
@@ -1634,19 +1677,19 @@ module Giraffe
 
     end
 
-    # lexer rule lt! (LT)
+    # lexer rule minus! (MINUS)
     # (in Giraffe.g)
-    def lt!
+    def minus!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 49 )
 
-      type = LT
+      type = MINUS
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 361:6: '<'
-      match( 0x3c )
+      # at line 381:9: '-'
+      match( 0x2d )
 
       
       @state.type = type
@@ -1658,19 +1701,19 @@ module Giraffe
 
     end
 
-    # lexer rule gt! (GT)
+    # lexer rule mul! (MUL)
     # (in Giraffe.g)
-    def gt!
+    def mul!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 50 )
 
-      type = GT
+      type = MUL
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 362:6: '>'
-      match( 0x3e )
+      # at line 382:7: '*'
+      match( 0x2a )
 
       
       @state.type = type
@@ -1682,19 +1725,19 @@ module Giraffe
 
     end
 
-    # lexer rule le! (LE)
+    # lexer rule div! (DIV)
     # (in Giraffe.g)
-    def le!
+    def div!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 51 )
 
-      type = LE
+      type = DIV
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 363:6: '<='
-      match( "<=" )
+      # at line 383:7: '/'
+      match( 0x2f )
 
       
       @state.type = type
@@ -1706,19 +1749,19 @@ module Giraffe
 
     end
 
-    # lexer rule ge! (GE)
+    # lexer rule mod! (MOD)
     # (in Giraffe.g)
-    def ge!
+    def mod!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 52 )
 
-      type = GE
+      type = MOD
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 364:6: '>='
-      match( ">=" )
+      # at line 384:7: '%'
+      match( 0x25 )
 
       
       @state.type = type
@@ -1730,19 +1773,19 @@ module Giraffe
 
     end
 
-    # lexer rule and! (AND)
+    # lexer rule eq! (EQ)
     # (in Giraffe.g)
-    def and!
+    def eq!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 53 )
 
-      type = AND
+      type = EQ
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 366:7: '&&'
-      match( "&&" )
+      # at line 386:6: '=='
+      match( "==" )
 
       
       @state.type = type
@@ -1754,19 +1797,19 @@ module Giraffe
 
     end
 
-    # lexer rule or! (OR)
+    # lexer rule ne! (NE)
     # (in Giraffe.g)
-    def or!
+    def ne!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 54 )
 
-      type = OR
+      type = NE
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 367:6: '||'
-      match( "||" )
+      # at line 387:6: '!='
+      match( "!=" )
 
       
       @state.type = type
@@ -1778,19 +1821,19 @@ module Giraffe
 
     end
 
-    # lexer rule not! (NOT)
+    # lexer rule lt! (LT)
     # (in Giraffe.g)
-    def not!
+    def lt!
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 55 )
 
-      type = NOT
+      type = LT
       channel = ANTLR3::DEFAULT_CHANNEL
 
       
       # - - - - main rule block - - - -
-      # at line 368:7: '!'
-      match( 0x21 )
+      # at line 388:6: '<'
+      match( 0x3c )
 
       
       @state.type = type
@@ -1802,6 +1845,174 @@ module Giraffe
 
     end
 
+    # lexer rule gt! (GT)
+    # (in Giraffe.g)
+    def gt!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 56 )
+
+      type = GT
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 389:6: '>'
+      match( 0x3e )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 56 )
+
+    end
+
+    # lexer rule le! (LE)
+    # (in Giraffe.g)
+    def le!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 57 )
+
+      type = LE
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 390:6: '<='
+      match( "<=" )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 57 )
+
+    end
+
+    # lexer rule ge! (GE)
+    # (in Giraffe.g)
+    def ge!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 58 )
+
+      type = GE
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 391:6: '>='
+      match( ">=" )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 58 )
+
+    end
+
+    # lexer rule and! (AND)
+    # (in Giraffe.g)
+    def and!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 59 )
+
+      type = AND
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 393:7: '&&'
+      match( "&&" )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 59 )
+
+    end
+
+    # lexer rule or! (OR)
+    # (in Giraffe.g)
+    def or!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 60 )
+
+      type = OR
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 394:6: '||'
+      match( "||" )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 60 )
+
+    end
+
+    # lexer rule not! (NOT)
+    # (in Giraffe.g)
+    def not!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 61 )
+
+      type = NOT
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 395:7: '!'
+      match( 0x21 )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 61 )
+
+    end
+
+    # lexer rule qm! (QM)
+    # (in Giraffe.g)
+    def qm!
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 62 )
+
+      type = QM
+      channel = ANTLR3::DEFAULT_CHANNEL
+
+      
+      # - - - - main rule block - - - -
+      # at line 397:6: '?'
+      match( 0x3f )
+
+      
+      @state.type = type
+      @state.channel = channel
+
+    ensure
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_out( __method__, 62 )
+
+    end
+
     # main rule used to study the input at the current position,
     # and choose the proper lexer rule to call in order to
     # fetch the next token
@@ -1810,212 +2021,240 @@ module Giraffe
     # but instead use the next_token method, which will
     # build and emit the actual next token
     def token!
-      # at line 1:8: ( T__54 | T__55 | T__56 | T__57 | T__58 | TO_INT | TO_FLOAT | READ | PRINT | PRINTL | PRINTLN | TRUE | FALSE | FOR | IF | ELSE | ELIF | ELSEIF | WHILE | DO | RETURN | EXIT | BREAK | ID | INT | COMMENT | WS | LB | RB | LCB | RCB | COMMA | COLON | SEMICOLON | ASSIGN | PLUS | MINUS | MUL | DIV | MOD | EQ | NE | LT | GT | LE | GE | AND | OR | NOT )
-      alt_15 = 49
-      alt_15 = @dfa15.predict( @input )
-      case alt_15
+      # at line 1:8: ( T__62 | T__63 | T__64 | T__65 | STRING | TO_INT | TO_FLOAT | READ | PRINT | PRINTL | PRINTLN | TRUE | FALSE | FOR | IF | ELSE | ELIF | ELSEIF | WHILE | DO | RETURN | EXIT | BREAK | CONTINUE | CLASS | SUPERCLASS | NEW | ID | INT | COMMENT | WS | LB | RB | LCB | RCB | QUOTE | COMMA | DOT | COLON | SEMICOLON | ASSIGN | PLUS | MINUS | MUL | DIV | MOD | EQ | NE | LT | GT | LE | GE | AND | OR | NOT | QM )
+      alt_16 = 56
+      alt_16 = @dfa16.predict( @input )
+      case alt_16
       when 1
-        # at line 1:10: T__54
-        t__54!
+        # at line 1:10: T__62
+        t__62!
 
       when 2
-        # at line 1:16: T__55
-        t__55!
+        # at line 1:16: T__63
+        t__63!
 
       when 3
-        # at line 1:22: T__56
-        t__56!
+        # at line 1:22: T__64
+        t__64!
 
       when 4
-        # at line 1:28: T__57
-        t__57!
+        # at line 1:28: T__65
+        t__65!
 
       when 5
-        # at line 1:34: T__58
-        t__58!
+        # at line 1:34: STRING
+        string!
 
       when 6
-        # at line 1:40: TO_INT
+        # at line 1:41: TO_INT
         to_int!
 
       when 7
-        # at line 1:47: TO_FLOAT
+        # at line 1:48: TO_FLOAT
         to_float!
 
       when 8
-        # at line 1:56: READ
+        # at line 1:57: READ
         read!
 
       when 9
-        # at line 1:61: PRINT
+        # at line 1:62: PRINT
         print!
 
       when 10
-        # at line 1:67: PRINTL
+        # at line 1:68: PRINTL
         printl!
 
       when 11
-        # at line 1:74: PRINTLN
+        # at line 1:75: PRINTLN
         println!
 
       when 12
-        # at line 1:82: TRUE
+        # at line 1:83: TRUE
         true!
 
       when 13
-        # at line 1:87: FALSE
+        # at line 1:88: FALSE
         false!
 
       when 14
-        # at line 1:93: FOR
+        # at line 1:94: FOR
         for!
 
       when 15
-        # at line 1:97: IF
+        # at line 1:98: IF
         if!
 
       when 16
-        # at line 1:100: ELSE
+        # at line 1:101: ELSE
         else!
 
       when 17
-        # at line 1:105: ELIF
+        # at line 1:106: ELIF
         elif!
 
       when 18
-        # at line 1:110: ELSEIF
+        # at line 1:111: ELSEIF
         elseif!
 
       when 19
-        # at line 1:117: WHILE
+        # at line 1:118: WHILE
         while!
 
       when 20
-        # at line 1:123: DO
+        # at line 1:124: DO
         do!
 
       when 21
-        # at line 1:126: RETURN
+        # at line 1:127: RETURN
         return!
 
       when 22
-        # at line 1:133: EXIT
+        # at line 1:134: EXIT
         exit!
 
       when 23
-        # at line 1:138: BREAK
+        # at line 1:139: BREAK
         break!
 
       when 24
-        # at line 1:144: ID
-        id!
+        # at line 1:145: CONTINUE
+        continue!
 
       when 25
-        # at line 1:147: INT
-        int!
+        # at line 1:154: CLASS
+        class!
 
       when 26
-        # at line 1:151: COMMENT
-        comment!
+        # at line 1:160: SUPERCLASS
+        superclass!
 
       when 27
-        # at line 1:159: WS
-        ws!
+        # at line 1:171: NEW
+        new!
 
       when 28
-        # at line 1:162: LB
-        lb!
+        # at line 1:175: ID
+        id!
 
       when 29
-        # at line 1:165: RB
-        rb!
+        # at line 1:178: INT
+        int!
 
       when 30
-        # at line 1:168: LCB
-        lcb!
+        # at line 1:182: COMMENT
+        comment!
 
       when 31
-        # at line 1:172: RCB
-        rcb!
+        # at line 1:190: WS
+        ws!
 
       when 32
-        # at line 1:176: COMMA
-        comma!
+        # at line 1:193: LB
+        lb!
 
       when 33
-        # at line 1:182: COLON
-        colon!
+        # at line 1:196: RB
+        rb!
 
       when 34
-        # at line 1:188: SEMICOLON
-        semicolon!
+        # at line 1:199: LCB
+        lcb!
 
       when 35
-        # at line 1:198: ASSIGN
-        assign!
+        # at line 1:203: RCB
+        rcb!
 
       when 36
-        # at line 1:205: PLUS
-        plus!
+        # at line 1:207: QUOTE
+        quote!
 
       when 37
-        # at line 1:210: MINUS
-        minus!
+        # at line 1:213: COMMA
+        comma!
 
       when 38
-        # at line 1:216: MUL
-        mul!
+        # at line 1:219: DOT
+        dot!
 
       when 39
-        # at line 1:220: DIV
-        div!
+        # at line 1:223: COLON
+        colon!
 
       when 40
-        # at line 1:224: MOD
-        mod!
+        # at line 1:229: SEMICOLON
+        semicolon!
 
       when 41
-        # at line 1:228: EQ
-        eq!
+        # at line 1:239: ASSIGN
+        assign!
 
       when 42
-        # at line 1:231: NE
-        ne!
+        # at line 1:246: PLUS
+        plus!
 
       when 43
-        # at line 1:234: LT
-        lt!
+        # at line 1:251: MINUS
+        minus!
 
       when 44
-        # at line 1:237: GT
-        gt!
+        # at line 1:257: MUL
+        mul!
 
       when 45
-        # at line 1:240: LE
-        le!
+        # at line 1:261: DIV
+        div!
 
       when 46
-        # at line 1:243: GE
-        ge!
+        # at line 1:265: MOD
+        mod!
 
       when 47
-        # at line 1:246: AND
-        and!
+        # at line 1:269: EQ
+        eq!
 
       when 48
-        # at line 1:250: OR
-        or!
+        # at line 1:272: NE
+        ne!
 
       when 49
-        # at line 1:253: NOT
+        # at line 1:275: LT
+        lt!
+
+      when 50
+        # at line 1:278: GT
+        gt!
+
+      when 51
+        # at line 1:281: LE
+        le!
+
+      when 52
+        # at line 1:284: GE
+        ge!
+
+      when 53
+        # at line 1:287: AND
+        and!
+
+      when 54
+        # at line 1:291: OR
+        or!
+
+      when 55
+        # at line 1:294: NOT
         not!
+
+      when 56
+        # at line 1:298: QM
+        qm!
 
       end
     end
 
     
     # - - - - - - - - - - DFA definitions - - - - - - - - - - -
-    class DFA11 < ANTLR3::DFA
+    class DFA12 < ANTLR3::DFA
       EOT = unpack( 5, -1 )
       EOF = unpack( 5, -1 )
       MIN = unpack( 2, 46, 3, -1 )
@@ -2036,177 +2275,224 @@ module Giraffe
         end
       end
       
-      @decision = 11
+      @decision = 12
       
 
       def description
         <<-'__dfa_description__'.strip!
-          323:1: fragment FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );
+          348:1: fragment FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );
         __dfa_description__
       end
     end
-    class DFA15 < ANTLR3::DFA
-      EOT = unpack( 6, -1, 9, 15, 11, -1, 1, 53, 5, -1, 1, 55, 1, 57, 1, 
-                    59, 4, -1, 1, 15, 1, 61, 9, 15, 1, 73, 1, 15, 8, -1, 
-                    1, 15, 1, -1, 2, 15, 1, 78, 8, 15, 1, -1, 1, 15, 1, 
-                    -1, 2, 15, 1, -1, 1, 90, 2, 15, 1, 93, 1, 95, 1, 96, 
-                    1, 97, 3, 15, 1, 101, 1, -1, 1, 15, 1, 104, 1, -1, 1, 
-                    15, 3, -1, 1, 106, 1, 107, 2, -1, 1, 108, 1, 110, 1, 
-                    -1, 1, 111, 3, -1, 1, 112, 3, -1 )
-      EOF = unpack( 113, -1 )
-      MIN = unpack( 1, 9, 5, -1, 1, 102, 1, 97, 1, 101, 2, 114, 1, 108, 
-                    1, 104, 1, 111, 1, 114, 11, -1, 1, 61, 5, -1, 3, 61, 
-                    4, -1, 1, 116, 1, 48, 1, 111, 1, 108, 1, 114, 1, 97, 
-                    1, 105, 1, 117, 3, 105, 1, 48, 1, 101, 8, -1, 1, 58, 
-                    1, -1, 1, 97, 1, 115, 1, 48, 1, 100, 1, 117, 1, 110, 
-                    2, 101, 1, 102, 1, 116, 1, 108, 1, -1, 1, 97, 1, -1, 
-                    1, 116, 1, 101, 1, -1, 1, 48, 1, 114, 1, 116, 4, 48, 
-                    1, 101, 1, 107, 1, 58, 1, 48, 1, -1, 1, 110, 1, 48, 
-                    1, -1, 1, 102, 3, -1, 2, 48, 2, -1, 2, 48, 1, -1, 1, 
-                    48, 3, -1, 1, 48, 3, -1 )
-      MAX = unpack( 1, 125, 5, -1, 1, 110, 1, 111, 1, 101, 2, 114, 1, 120, 
-                    1, 104, 1, 111, 1, 114, 11, -1, 1, 61, 5, -1, 3, 61, 
-                    4, -1, 1, 116, 1, 122, 1, 111, 1, 108, 1, 114, 1, 116, 
-                    1, 105, 1, 117, 1, 115, 2, 105, 1, 122, 1, 101, 8, -1, 
-                    1, 58, 1, -1, 1, 97, 1, 115, 1, 122, 1, 100, 1, 117, 
+    class DFA16 < ANTLR3::DFA
+      EOT = unpack( 5, -1, 1, 45, 12, 18, 12, -1, 1, 64, 5, -1, 1, 66, 1, 
+                    68, 1, 70, 7, -1, 1, 18, 1, 72, 9, 18, 1, 84, 5, 18, 
+                    8, -1, 1, 18, 1, -1, 2, 18, 1, 93, 8, 18, 1, -1, 4, 
+                    18, 1, 106, 1, -1, 2, 18, 1, -1, 1, 109, 2, 18, 1, 112, 
+                    1, 114, 1, 115, 1, 116, 5, 18, 1, -1, 1, 18, 1, 123, 
+                    1, -1, 1, 18, 1, 126, 1, -1, 1, 18, 3, -1, 1, 128, 1, 
+                    129, 1, 18, 1, 131, 1, 18, 2, -1, 1, 133, 1, 135, 1, 
+                    -1, 1, 136, 2, -1, 1, 18, 1, -1, 1, 18, 1, -1, 1, 139, 
+                    2, -1, 2, 18, 1, -1, 1, 142, 1, 18, 1, -1, 1, 18, 1, 
+                    145, 1, -1 )
+      EOF = unpack( 146, -1 )
+      MIN = unpack( 1, 9, 4, -1, 1, 0, 1, 102, 1, 97, 1, 101, 2, 114, 1, 
+                    108, 1, 104, 1, 111, 1, 114, 1, 108, 1, 117, 1, 101, 
+                    12, -1, 1, 61, 5, -1, 3, 61, 7, -1, 1, 116, 1, 48, 1, 
+                    111, 1, 108, 1, 114, 1, 97, 1, 105, 1, 117, 3, 105, 
+                    1, 48, 1, 101, 1, 110, 1, 97, 1, 112, 1, 119, 8, -1, 
+                    1, 58, 1, -1, 1, 97, 1, 115, 1, 48, 1, 100, 1, 117, 
                     1, 110, 2, 101, 1, 102, 1, 116, 1, 108, 1, -1, 1, 97, 
-                    1, -1, 1, 116, 1, 101, 1, -1, 1, 122, 1, 114, 1, 116, 
-                    4, 122, 1, 101, 1, 107, 1, 58, 1, 122, 1, -1, 1, 110, 
-                    1, 122, 1, -1, 1, 102, 3, -1, 2, 122, 2, -1, 2, 122, 
-                    1, -1, 1, 122, 3, -1, 1, 122, 3, -1 )
-      ACCEPT = unpack( 1, -1, 1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 9, -1, 1, 24, 
-                       1, 25, 1, 26, 1, 27, 1, 28, 1, 29, 1, 30, 1, 31, 
-                       1, 32, 1, 33, 1, 34, 1, -1, 1, 36, 1, 37, 1, 38, 
-                       1, 39, 1, 40, 3, -1, 1, 47, 1, 48, 1, 1, 1, 2, 13, 
-                       -1, 1, 41, 1, 35, 1, 42, 1, 49, 1, 45, 1, 43, 1, 
-                       46, 1, 44, 1, -1, 1, 15, 11, -1, 1, 20, 1, -1, 1, 
-                       6, 2, -1, 1, 14, 11, -1, 1, 8, 2, -1, 1, 12, 1, -1, 
-                       1, 16, 1, 17, 1, 22, 2, -1, 1, 7, 1, 13, 2, -1, 1, 
-                       9, 1, -1, 1, 19, 1, 23, 1, 21, 1, -1, 1, 10, 1, 18, 
-                       1, 11 )
-      SPECIAL = unpack( 113, -1 )
+                    1, 116, 1, 115, 1, 101, 1, 48, 1, -1, 1, 116, 1, 101, 
+                    1, -1, 1, 48, 1, 114, 1, 116, 4, 48, 1, 101, 1, 107, 
+                    1, 105, 1, 115, 1, 114, 1, -1, 1, 58, 1, 48, 1, -1, 
+                    1, 110, 1, 48, 1, -1, 1, 102, 3, -1, 2, 48, 1, 110, 
+                    1, 48, 1, 99, 2, -1, 2, 48, 1, -1, 1, 48, 2, -1, 1, 
+                    117, 1, -1, 1, 108, 1, -1, 1, 48, 2, -1, 1, 101, 1, 
+                    97, 1, -1, 1, 48, 1, 115, 1, -1, 1, 115, 1, 48, 1, -1 )
+      MAX = unpack( 1, 125, 4, -1, 1, -1, 1, 110, 1, 111, 1, 101, 2, 114, 
+                    1, 120, 1, 104, 1, 111, 1, 114, 1, 111, 1, 117, 1, 101, 
+                    12, -1, 1, 61, 5, -1, 3, 61, 7, -1, 1, 116, 1, 122, 
+                    1, 111, 1, 108, 1, 114, 1, 116, 1, 105, 1, 117, 1, 115, 
+                    2, 105, 1, 122, 1, 101, 1, 110, 1, 97, 1, 112, 1, 119, 
+                    8, -1, 1, 58, 1, -1, 1, 97, 1, 115, 1, 122, 1, 100, 
+                    1, 117, 1, 110, 2, 101, 1, 102, 1, 116, 1, 108, 1, -1, 
+                    1, 97, 1, 116, 1, 115, 1, 101, 1, 122, 1, -1, 1, 116, 
+                    1, 101, 1, -1, 1, 122, 1, 114, 1, 116, 4, 122, 1, 101, 
+                    1, 107, 1, 105, 1, 115, 1, 114, 1, -1, 1, 58, 1, 122, 
+                    1, -1, 1, 110, 1, 122, 1, -1, 1, 102, 3, -1, 2, 122, 
+                    1, 110, 1, 122, 1, 99, 2, -1, 2, 122, 1, -1, 1, 122, 
+                    2, -1, 1, 117, 1, -1, 1, 108, 1, -1, 1, 122, 2, -1, 
+                    1, 101, 1, 97, 1, -1, 1, 122, 1, 115, 1, -1, 1, 115, 
+                    1, 122, 1, -1 )
+      ACCEPT = unpack( 1, -1, 1, 1, 1, 2, 1, 3, 1, 4, 13, -1, 1, 28, 1, 
+                       29, 1, 30, 1, 31, 1, 32, 1, 33, 1, 34, 1, 35, 1, 
+                       37, 1, 38, 1, 39, 1, 40, 1, -1, 1, 42, 1, 43, 1, 
+                       44, 1, 45, 1, 46, 3, -1, 1, 53, 1, 54, 1, 56, 1, 
+                       1, 1, 2, 1, 5, 1, 36, 17, -1, 1, 47, 1, 41, 1, 48, 
+                       1, 55, 1, 51, 1, 49, 1, 52, 1, 50, 1, -1, 1, 15, 
+                       11, -1, 1, 20, 5, -1, 1, 6, 2, -1, 1, 14, 12, -1, 
+                       1, 27, 2, -1, 1, 8, 2, -1, 1, 12, 1, -1, 1, 16, 1, 
+                       17, 1, 22, 5, -1, 1, 7, 1, 13, 2, -1, 1, 9, 1, -1, 
+                       1, 19, 1, 23, 1, -1, 1, 25, 1, -1, 1, 21, 1, -1, 
+                       1, 10, 1, 18, 2, -1, 1, 11, 2, -1, 1, 24, 2, -1, 
+                       1, 26 )
+      SPECIAL = unpack( 5, -1, 1, 0, 140, -1 )
       TRANSITION = [
-        unpack( 1, 18, 1, 2, 2, -1, 1, 1, 18, -1, 1, 18, 1, 32, 1, 5, 1, 
-                17, 1, -1, 1, 31, 1, 35, 1, -1, 1, 19, 1, 20, 1, 29, 1, 
-                27, 1, 23, 1, 28, 1, -1, 1, 30, 10, 16, 1, 24, 1, 25, 1, 
-                33, 1, 26, 1, 34, 2, -1, 26, 15, 1, 3, 1, -1, 1, 4, 1, -1, 
-                1, 15, 1, -1, 1, 15, 1, 14, 1, 15, 1, 13, 1, 11, 1, 7, 2, 
-                15, 1, 6, 6, 15, 1, 9, 1, 15, 1, 8, 1, 15, 1, 10, 2, 15, 
-                1, 12, 3, 15, 1, 21, 1, 36, 1, 22 ),
+        unpack( 1, 21, 1, 2, 2, -1, 1, 1, 18, -1, 1, 21, 1, 36, 1, 5, 1, 
+                20, 1, -1, 1, 35, 1, 39, 1, -1, 1, 22, 1, 23, 1, 33, 1, 
+                31, 1, 26, 1, 32, 1, 27, 1, 34, 10, 19, 1, 28, 1, 29, 1, 
+                37, 1, 30, 1, 38, 1, 41, 1, -1, 26, 18, 1, 3, 1, -1, 1, 
+                4, 1, -1, 1, 18, 1, -1, 1, 18, 1, 14, 1, 15, 1, 13, 1, 11, 
+                1, 7, 2, 18, 1, 6, 4, 18, 1, 17, 1, 18, 1, 9, 1, 18, 1, 
+                8, 1, 16, 1, 10, 2, 18, 1, 12, 3, 18, 1, 24, 1, 40, 1, 25 ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
-        unpack(  ),
-        unpack( 1, 40, 7, -1, 1, 39 ),
-        unpack( 1, 42, 10, -1, 1, 41, 2, -1, 1, 43 ),
-        unpack( 1, 44 ),
-        unpack( 1, 45 ),
-        unpack( 1, 46 ),
-        unpack( 1, 47, 11, -1, 1, 48 ),
-        unpack( 1, 49 ),
-        unpack( 1, 50 ),
+        unpack( 0, 44 ),
+        unpack( 1, 47, 7, -1, 1, 46 ),
+        unpack( 1, 49, 10, -1, 1, 48, 2, -1, 1, 50 ),
         unpack( 1, 51 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
         unpack( 1, 52 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack( 1, 54 ),
+        unpack( 1, 53 ),
+        unpack( 1, 54, 11, -1, 1, 55 ),
         unpack( 1, 56 ),
+        unpack( 1, 57 ),
         unpack( 1, 58 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack( 1, 60 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
+        unpack( 1, 60, 2, -1, 1, 59 ),
+        unpack( 1, 61 ),
         unpack( 1, 62 ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
         unpack( 1, 63 ),
-        unpack( 1, 64 ),
-        unpack( 1, 65, 18, -1, 1, 66 ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack( 1, 65 ),
         unpack( 1, 67 ),
-        unpack( 1, 68 ),
-        unpack( 1, 70, 9, -1, 1, 69 ),
+        unpack( 1, 69 ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
         unpack( 1, 71 ),
-        unpack( 1, 72 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 1, 73 ),
         unpack( 1, 74 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
         unpack( 1, 75 ),
-        unpack(  ),
-        unpack( 1, 76 ),
-        unpack( 1, 77 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
+        unpack( 1, 76, 18, -1, 1, 77 ),
+        unpack( 1, 78 ),
         unpack( 1, 79 ),
-        unpack( 1, 80 ),
-        unpack( 1, 81 ),
+        unpack( 1, 81, 9, -1, 1, 80 ),
         unpack( 1, 82 ),
         unpack( 1, 83 ),
-        unpack( 1, 84 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
         unpack( 1, 85 ),
         unpack( 1, 86 ),
-        unpack(  ),
         unpack( 1, 87 ),
-        unpack(  ),
         unpack( 1, 88 ),
         unpack( 1, 89 ),
         unpack(  ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack( 1, 90 ),
+        unpack(  ),
         unpack( 1, 91 ),
         unpack( 1, 92 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 8, 15, 1, 94, 
-                 17, 15 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 1, 94 ),
+        unpack( 1, 95 ),
+        unpack( 1, 96 ),
+        unpack( 1, 97 ),
         unpack( 1, 98 ),
         unpack( 1, 99 ),
         unpack( 1, 100 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
+        unpack( 1, 101 ),
         unpack(  ),
         unpack( 1, 102 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 11, 15, 1, 
-                 103, 14, 15 ),
-        unpack(  ),
+        unpack( 1, 103 ),
+        unpack( 1, 104 ),
         unpack( 1, 105 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack(  ),
+        unpack( 1, 107 ),
+        unpack( 1, 108 ),
+        unpack(  ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 1, 110 ),
+        unpack( 1, 111 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 8, 18, 1, 113, 
+                 17, 18 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 1, 117 ),
+        unpack( 1, 118 ),
+        unpack( 1, 119 ),
+        unpack( 1, 120 ),
+        unpack( 1, 121 ),
+        unpack(  ),
+        unpack( 1, 122 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack(  ),
+        unpack( 1, 124 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 11, 18, 1, 
+                 125, 14, 18 ),
+        unpack(  ),
+        unpack( 1, 127 ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 1, 130 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 1, 132 ),
         unpack(  ),
         unpack(  ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 13, 15, 1, 
-                 109, 12, 15 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 13, 18, 1, 
+                 134, 12, 18 ),
         unpack(  ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack( 10, 15, 7, -1, 26, 15, 4, -1, 1, 15, 1, -1, 26, 15 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
         unpack(  ),
         unpack(  ),
+        unpack( 1, 137 ),
+        unpack(  ),
+        unpack( 1, 138 ),
+        unpack(  ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack(  ),
+        unpack(  ),
+        unpack( 1, 140 ),
+        unpack( 1, 141 ),
+        unpack(  ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
+        unpack( 1, 143 ),
+        unpack(  ),
+        unpack( 1, 144 ),
+        unpack( 10, 18, 7, -1, 26, 18, 4, -1, 1, 18, 1, -1, 26, 18 ),
         unpack(  )
       ].freeze
       
@@ -2216,12 +2502,12 @@ module Giraffe
         end
       end
       
-      @decision = 15
+      @decision = 16
       
 
       def description
         <<-'__dfa_description__'.strip!
-          1:1: Tokens : ( T__54 | T__55 | T__56 | T__57 | T__58 | TO_INT | TO_FLOAT | READ | PRINT | PRINTL | PRINTLN | TRUE | FALSE | FOR | IF | ELSE | ELIF | ELSEIF | WHILE | DO | RETURN | EXIT | BREAK | ID | INT | COMMENT | WS | LB | RB | LCB | RCB | COMMA | COLON | SEMICOLON | ASSIGN | PLUS | MINUS | MUL | DIV | MOD | EQ | NE | LT | GT | LE | GE | AND | OR | NOT );
+          1:1: Tokens : ( T__62 | T__63 | T__64 | T__65 | STRING | TO_INT | TO_FLOAT | READ | PRINT | PRINTL | PRINTLN | TRUE | FALSE | FOR | IF | ELSE | ELIF | ELSEIF | WHILE | DO | RETURN | EXIT | BREAK | CONTINUE | CLASS | SUPERCLASS | NEW | ID | INT | COMMENT | WS | LB | RB | LCB | RCB | QUOTE | COMMA | DOT | COLON | SEMICOLON | ASSIGN | PLUS | MINUS | MUL | DIV | MOD | EQ | NE | LT | GT | LE | GE | AND | OR | NOT | QM );
         __dfa_description__
       end
     end
@@ -2231,8 +2517,28 @@ module Giraffe
     
     def initialize_dfas
       super rescue nil
-      @dfa11 = DFA11.new( self, 11 )
-      @dfa15 = DFA15.new( self, 15 )
+      @dfa12 = DFA12.new( self, 12 )
+      @dfa16 = DFA16.new( self, 16 ) do |s|
+        case s
+        when 0
+          look_16_5 = @input.peek
+          s = -1
+          if ( look_16_5.between?( 0x0, 0xffff ) )
+            s = 44
+          else
+            s = 45
+          end
+
+        end
+        
+        if s < 0
+          nva = ANTLR3::Error::NoViableAlternative.new( @dfa16.description, 16, s, input )
+          @dfa16.error( nva )
+          raise nva
+        end
+        
+        s
+      end
 
     end
   end # class Lexer < ANTLR3::Lexer
