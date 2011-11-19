@@ -1,17 +1,10 @@
 class A
-    
-    @@static = 5
-
-    def initialize
-        p "A"
+    def a
     end
 end
 
-class B < A 
-    def initialize
-        p "B"
-        p @@static
-    end
-end
+a = A.new
+100000000.times {
+    a.a
+}
 
-b = B.new

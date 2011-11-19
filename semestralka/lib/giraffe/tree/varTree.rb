@@ -18,8 +18,8 @@ module Giraffe
             # - normalni vystup je hodnota promenne
 
             dbg("run",:VarTree)
-            returnValue, msg = env.var(@id)
-            return returnValue, nil
+            return_value, msg = env.var(@id)
+            return msg != nil ? [return_value, msg] : [return_value, nil]
         end
         
     end

@@ -20,19 +20,19 @@ module Giraffe
 
             dbg("run",:ArrayTree)
 
-            resultArray = []
+            result_array = []
 
             # vypocitej hodnoty elementu
             for element in @elements do
-                returnValue, msg = element.run(env)
-                return returnValue, msg if msg != nil
-                resultArray << returnValue
+                return_value, msg = element.run(env)
+                return return_value, msg if msg != nil
+                result_rray << return_value
             end
 
             # Tady se MUSI vracen nil,
             # jinak se pole v @value rozbali do 
             # msg v rodicovskem uzlu a zpusobi xx
-            return resultArray, nil
+            return result_array, nil
         end
 
     end

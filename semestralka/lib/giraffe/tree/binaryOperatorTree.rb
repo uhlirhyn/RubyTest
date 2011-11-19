@@ -22,16 +22,16 @@ module Giraffe
 
             dbg("run",:BinaryOperatorTree)
             
-            returnValue1, msg = @op1.run(env)
-            return returnValue1, msg if msg != nil
+            return_value1, msg = @op1.run(env)
+            return return_value1, msg if msg != nil
 
-            returnValue2, msg = @op2.run(env)
-            return returnValue2, msg if msg != nil
+            return_value2, msg = @op2.run(env)
+            return return_value2, msg if msg != nil
 
-            dbg("operands: #{returnValue1} #{returnValue2}",:BinaryOperatorTree)
+            dbg("operands: #{return_value1} #{return_value2}",:BinaryOperatorTree)
             
             # opet, bez nil se nejede ... 
-            return @operator.call(returnValue1,returnValue2), nil
+            return @operator.call(return_value1,return_value2), nil
         end
         
     end

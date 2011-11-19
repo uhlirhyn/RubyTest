@@ -17,17 +17,24 @@ module Giraffe
 
             begin 
                 for i in @instructions do 
-                    returnValue, msg = i.run(env)
-                    if msg != nil 
-                        return msg == :break ? [nil, nil] : [returnValue, msg]
+                    return_value, msg = i.run(env)
+                    case msg  
+                    when :break then return nil, nil
+                    when nil;
+                    when :error then return return_value + "\n\tin do", msg
+                    else return return_value, msg
                     end
                 end
 
                 # while podminka
-                returnValue, msg = @condition.run(env)
-                return returnValue, msg if msg == :exit
+                return_value, msg = @condition.run(env)
+                case msg  
+                when nil;
+                when :error then return return_value + "\n\tin do", msg
+                else return return_value, msg
+                end
 
-            end while returnValue
+            end while return_value
 
             return nil, nil
         end

@@ -1,10 +1,21 @@
 module Debug
 
-    @@Debugging = :on
-    #@@Debugging = :off
+    @@debug = false
     @@listPolicy = :blacklist
     #@@listPolicy = :whitelist
-    @@list = []
+    @@list = [:VarTree,:Env,:AtomTree]
+
+    @@colors = true
+
+    attr_accessor :debug, :colors
+
+    def Debug.debug=(state)
+        @@debug = state
+    end
+
+    def Debug.colors=(state)
+        @@colors= state
+    end
 
     def dbg(out,source)
         Debug.dbg(out,source)
@@ -14,20 +25,19 @@ module Debug
     def Debug.dbg(out, source)
         # pokud bude :blacklist nastaven, pak pro kazdy 
         # source ktery pak bude nalezen bude zakazan vypis
-        if @@Debugging == :on && (@@list.member?(source)) == (@@listPolicy != :blacklist)
+        if @@debug && (@@list.member?(source)) == (@@listPolicy != :blacklist)
              puts("  DBG (#{source})> #{out}")
         end
     end
 
-    private 
-
     # http://kpumuk.info/ruby-on-rails/colorizing-console-ruby-script-output/
     def colorize(text, color_code)
-       "#{color_code}#{text}\e[0m\e[39m"
+       return @@colors ? "#{color_code}#{text}\e[0m\e[39m" : "#{text}"
     end
 
     def red(text); colorize(text, "\e[31m"); end
-    def green(text); colorize(text, "\e[32m"); end
+    def green(text); colorize(text, "\e[1m\e[32m"); end
     def yellow(text); colorize(text, "\e[1m\e[33m"); end
+    def orange(text); colorize(text, "\e[33m"); end
 
 end

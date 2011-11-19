@@ -3,6 +3,7 @@
 require './lib/giraffe/grammar/GiraffeParser'
 require './lib/giraffe/options.rb'
 require './lib/giraffe/console.rb'
+require './lib/giraffe/debug.rb'
 
 module Giraffe
 
@@ -13,6 +14,9 @@ module Giraffe
         # options a bude tam tak ponechan list zdrojaku
         options = Options.new
         options.parse!(ARGV)
+
+        Debug.debug = options.debug
+        Debug.colors= options.colors
 
         t = Time.new
         printf "==[ #{t.strftime('%k:%M:%S.%9N')} ]===========<[ giraffe! ]>======================\n\n"

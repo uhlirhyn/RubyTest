@@ -5,7 +5,7 @@ module Giraffe
     class IfTree
 
         include Debug
-        
+
         def initialize(condition,instructions,blockElse=nil)
             @condition = condition
             @instructions = instructions
@@ -13,20 +13,30 @@ module Giraffe
         end
 
         def run(env)
-            
+
             dbg("run",:IfTree)
 
             # IfTree preposila vsechny zpravy dal
 
             # z podminky muze prijit maximalne :exit
-            returnValue, msg = @condition.run(env)
-            return returnValue, msg if msg == :exit
+            return_value, msg = @condition.run(env)
+            case msg
+            when :exit then return return_value, msg
+            when :error then return return_value + "\n\tin if", msg
+            when nil;
+            else return return_value, msg
+            end
 
-            if returnValue
+            if return_value
                 dbg("IF",:IfTree)
                 for i in @instructions do 
-                    returnValue, msg = i.run(env)
-                    return [returnValue, msg] if msg != nil 
+                    return_value, msg = i.run(env)
+                    case msg
+                    when :exit then return return_value, msg
+                    when :error then return return_value + "\n\tin if", msg
+                    when nil;
+                    else return return_value, msg
+                    end
                 end
             elsif @blockElse != nil
 
@@ -36,24 +46,34 @@ module Giraffe
                 # jen blockElse.run(env)
 
                 if @blockElse.instance_of?(IfTree)
-                    
+
                     dbg("ELSE-IF",:IfTree)
-                    
+
                     # pokud je to elseif, tak je v blockElse
                     # cely IfTree objekt, takze staci na nej
                     # zavolat standardni run(env) ...
-                    returnValue, msg = @blockElse.run(env)
-                    return [returnValue, msg] if msg != nil 
+                    return_value, msg = @blockElse.run(env)
+                    case msg
+                    when :exit then return return_value, msg
+                    when :error then return return_value + "\n\tin if", msg
+                    when nil;
+                    else return return_value, msg
+                    end
 
                 else
-    
+
                     dbg("ELSE",:IfTree)
 
                     # je to jen else ... pak je v blockElse 
                     # list prikazu
                     for i in @blockElse do 
-                        returnValue, msg = i.run(env)
-                        return [returnValue, msg] if msg != nil 
+                        return_value, msg = i.run(env)
+                        case msg
+                        when :exit then return return_value, msg
+                        when :error then return return_value + "\n\tin if", msg
+                        when nil;
+                        else return return_value, msg
+                        end
                     end
                 end
 

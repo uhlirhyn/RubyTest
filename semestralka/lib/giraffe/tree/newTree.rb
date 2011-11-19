@@ -14,32 +14,50 @@ module Giraffe
 
         def run(env) 
 
-            dbg("run for class '#{@id}'",:NewTree)
+            dbg(yellow("run for class '#{@id}'"),:NewTree)          
 
             # vyzvedni deklaraci tridy
-            clz = env.cls(@id)
+            return_value, msg = env.cls(@id)
+            case msg  
+            when nil;
+            when :error then return return_value + "\n\tin new", msg
+            else return return_value, msg
+            end
 
-            dbg("creating an instance of '#{@id}'",:NewTree)
+            # ziskani tridy probehlo uspesne
+            clz = return_value
+
+            dbg(yellow("creating an instance of '#{@id}'"),:NewTree)
 
             # vytvor instanci
             # tady ziskam referenci na ten objekt
             instance = Instance.new(clz)
 
+            dbg(yellow("calling constructor '#{@id}'"),:NewTree)
+
             # zavolej konstruktor
             return_value, msg = instance.constructor
-            return return_value, msg if msg != nil
+            case msg  
+            when nil;
+            when :error then return return_value + "\n\tin new", msg
+            else return return_value, msg
+            end
 
-            if @args != nil 
-                # proved inicializaci instance
-                # tim ze zavolas metodu se id 
-                # jako je nazev tridy
-                return_value, msg = instance.method_call(@id,@args,env)
-                return return_value, msg if msg != nil
+            # proved inicializaci instance
+            # tim ze zavolas metodu s id 
+            # jako je nazev tridy
+            dbg(green("calling initializer for '#{@id}' with args '#{@args}'"),:NewTree)
+            return_value, msg = instance.method_call(@id,@args,env)
+            case msg  
+            when nil;
+            when :error then return return_value + "\n\tin new", msg
+            else return return_value, msg
             end
 
             # paklize vse probehlo v poradku,
             # zanes instanci do inst_pool
             env.inst!(instance)
+            dbg(yellow("an instance of '#{@id}' pooled"),:NewTree)
 
             # vrat referenci na novy objekt
             return instance

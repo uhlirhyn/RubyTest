@@ -35,22 +35,22 @@ module Giraffe
             # - normalni vystup je 
 
             # vypocitej "adresu"
-            returnValue, msg = @target.run(env)
-            return returnValue, msg if msg != nil
+            return_value, msg = @target.run(env)
+            return return_value, msg if msg != nil
 
-            address = returnValue
+            address = return_value
 
             # vypocitej index
-            returnValue, msg = @index.run(env)
-            return returnValue, msg if msg != nil
+            return_value, msg = @index.run(env)
+            return return_value, msg if msg != nil
 
-            index = returnValue
+            index = return_value
 
             # vypocitej hodnotu
-            returnValue, msg = @value.run(env)
-            return returnValue, msg if msg != nil
+            return_value, msg = @value.run(env)
+            return return_value, msg if msg != nil
 
-            value = returnValue
+            value = return_value
 
             dbg("address '#{address}' index '#{index}'",:DerefTree) 
 

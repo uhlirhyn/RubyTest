@@ -8,7 +8,6 @@ output = AST;
 
 @header {
 require './lib/giraffe/tree/programTree.rb'
-require './lib/giraffe/tree/envTree.rb'
 require './lib/giraffe/tree/assignTree.rb'
 require './lib/giraffe/tree/derefTree.rb'
 require './lib/giraffe/tree/indexTree.rb'
@@ -41,12 +40,6 @@ require './lib/giraffe/operators.rb'
 program	returns [result]
 	:	block {$result = ProgramTree.new($block.list)};
 
-env returns [result]
-	:	LCB! 
-		block {$result = EnvTree.new($block.list)}
-		RCB!
-	;
-
 block returns [list]
 	:	{$list = []}
 		instruction  
@@ -68,7 +61,6 @@ instructionRest returns [list]
 instruction returns [result]
 	:	assignment {$result = $assignment.result}
 	|	func {$result = $func.result}
-	|	env {$result = $env.result}
 	|	forCycle {$result = $forCycle.result}
 	|	ifInstruction {$result = $ifInstruction.result}
 	|	whileCycle {$result = $whileCycle.result}
@@ -77,7 +69,7 @@ instruction returns [result]
 	|	printlInstruction {$result = $printlInstruction.result}
 	|	returnInstruction {$result = $returnInstruction.result}	
 	|	exitInstruction {$result = $exitInstruction.result}
-	|	breakInstruction {$result = $exitInstruction.result}
+	|	breakInstruction {$result = $breakInstruction.result}
 	|	call {$result = $call.result}
 	|	classDef {$result = $classDef.result}
 	|	{$result = nil} 
@@ -142,7 +134,7 @@ doCycle	returns [result]
  	;
 
 forCycle returns [result]
-	:	FOR as1=assignment COMMA! condition COMMA! as2=assignment LCB! block RCB!
+	:	FOR as1=assignment SEMICOLON! condition SEMICOLON! as2=assignment LCB! block RCB!
 		{$result = ForTree.new($as1.result,$condition.result,$as2.result,$block.list)}
 	;	
 	
@@ -298,7 +290,7 @@ HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
 
 fragment
 ESC_SEQ
-    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
+    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\'|'e')
     |   UNICODE_ESC
     |   OCTAL_ESC
     ;

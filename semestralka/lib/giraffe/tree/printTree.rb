@@ -1,6 +1,10 @@
+require './lib/giraffe/debug.rb'
+
 module Giraffe
 
     class PrintTree
+
+        include Debug
 
         def initialize(texts,newline=false)
             @texts = texts
@@ -17,7 +21,12 @@ module Giraffe
             if @texts != nil 
                 for text in @texts
                     return_value, msg = text.run(env)
-                    return return_value, msg if msg != nil
+                    case msg
+                    when :error then return return_value + "\n\tin print", msg
+                    when nil then ;
+                    else return return_value, msg
+                    end
+
                     print return_value
                 end
                 puts if @newline

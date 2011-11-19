@@ -16,14 +16,14 @@ module Giraffe
         end
 
         def run(env)
-            
+
             # TODO viz Env.gdoc
-            
+
             #newEnv = Env.new(env)
-            #returnValue, msg = innerRun(newEnv)
+            #return_value, msg = innerRun(newEnv)
             #newEnv.destroy
-            returnValue, msg = innerRun(env)
-            return returnValue, msg
+            return_value, msg = innerRun(env)
+            return return_value, msg
         end
 
         private 
@@ -32,40 +32,55 @@ module Giraffe
             dbg("run",:ForTree)
 
             # deklarace
-            returnValue = msg = nil
+            return_value = msg = nil
 
             # assignment muze preposlat maximalne :exit
-            returnValue, msg = @assignment1.run(env)
-            return returnValue, msg if msg == :exit
+            return_value, msg = @assignment1.run(env)
+            case msg  
+            when nil;
+            when :error then return return_value + "\n\tin for", msg
+            else return return_value, msg
+            end
             dbg("assignment1 OK",:ForTree)
 
-            # exit - preposlat
-            # return - preposlat
-            # break - vyskocit
-
-            returnValue, msg = @condition.run(env)
-            return [returnValue, msg] if msg != nil
+            # podminka 
+            return_value, msg = @condition.run(env)
+            case msg  
+            when nil;
+            when :error then return return_value + "\n\tin for", msg
+            else return return_value, msg
+            end
             dbg("condition OK",:ForTree)
 
-            while returnValue do
+            while return_value do
                 for i in @instructions do 
-                    returnValue, msg = i.run(env)
-                    dbg("INST '#{returnValue}' '#{msg}'",:ForTree)
-                    if msg != nil
-                        return msg == :break ? [nil, nil] : [returnValue, msg]
+                    return_value, msg = i.run(env)
+                    case msg  
+                    when :break then return nil, nil
+                    when nil;
+                    when :error then return return_value + "\n\tin for", msg
+                    else return return_value, msg
                     end
                 end
                 dbg("instructions OK",:ForTree)
-            
-                # assignment muze preposlat maximalne :exit
-                returnValue, msg = @assignment2.run(env)
-                return returnValue, msg if msg == :exit
+
+                # assignment 
+                return_value, msg = @assignment2.run(env)
+                case msg  
+                when nil;
+                when :error then return return_value + "\n\tin for", msg
+                else return return_value, msg
+                end
                 dbg("assignment2 OK",:ForTree)
-           
+
                 # pro vyhodnoceni while 
-                returnValue, msg = @condition.run(env)
-                return returnValue, msg if msg != nil
-                dbg("condition '#{returnValue}' '#{msg}'",:ForTree)
+                return_value, msg = @condition.run(env)
+                case msg  
+                when nil;
+                when :error then return return_value + "\n\tin for", msg
+                else return return_value, msg
+                end
+                dbg("condition '#{return_value}' '#{msg}'",:ForTree)
 
             end
 

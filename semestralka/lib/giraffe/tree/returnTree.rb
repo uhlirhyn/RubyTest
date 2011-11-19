@@ -12,10 +12,10 @@ module Giraffe
 
         def run(env)
             dbg("run",:ReturnTree)
-            returnValue, msg = @expression.run(env)
+            return_value, msg = @expression.run(env)
             return nil, msg if msg == :exit
-            dbg("returning '#{returnValue}'",yellow(:ReturnTree))
-            return returnValue, :return
+            dbg("returning '#{return_value}'",yellow(:ReturnTree))
+            return return_value, :return
         end
         
     end

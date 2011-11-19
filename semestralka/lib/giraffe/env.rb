@@ -8,32 +8,35 @@ module Giraffe
 
         @@inst_pool = []
 
+        # TODO @@ILC = [] 
+
         def initialize(super_env=nil)
             dbg("initialize (envID: #{self.object_id})",:Env)
             @variables = Hash.new(:undeclared)
             @functions = Hash.new(:undeclared)
             @classes = Hash.new(:undeclared)
             @super_env = super_env
+            @level = @super_env == nil ? 0 : @super_env.level + 1
         end
+
+        attr_reader :level
 
         def var(id) 
 
             # Zkus promennou najit nejprve v tomto ENV
             variable = @variables[id]
+            msg = nil
             dbg("search for var '#{id}' - found '#{variable}' (envID: #{self.object_id})",:Env)
 
-            # Protoze vracim u nil (viz nize), je potreba tady zahodit 
-            # ten nil, jinak se pri dotazu do dalsi vrstvy nabali pole 
-            # s nil, nebot prirazeni probiha jen do jedne promenne
+            # Pokud jsem u sebe nenasel, zkus predka
             if variable == :undeclared 
-                 variable = @super_env == nil ? :undeclared : @super_env.var(id)[0]
+                 variable, msg = @super_env == nil ? [:undeclared, :error] : @super_env.var(id)
             end
-            
-            # Tady se MUSI vracen i nil,
-            # jinak se pole v @value rozbali do 
-            # msg v rodicovskem uzlu a zpusobi xx
-            return [variable, nil] if variable != :undeclared
-            raise "Variable '#{id}' is not declared"
+
+            # pokud jsem nasel (msg == nil) vrat obsah
+            # jinak zmen obsah :undeclared na chybu a vrat error
+            return variable, nil if msg == nil 
+            return orange("Variable '#{id}' is not declared"), msg
         end
 
         def var!(id,val=nil)
@@ -43,14 +46,17 @@ module Giraffe
 
         def funcByKey(key) 
             function = @functions[key]
+            msg = nil
             dbg("search for func '#{key[0]}' '#{key[1]}' - found '#{function == :undeclared ? :undeclared : function[0]}' (envID: #{self.object_id})",:Env)
             
             if function == :undeclared 
-                 function = @super_env == nil ? :undeclared : @super_env.funcByKey(key)
+                 function, msg = @super_env == nil ? [:undeclared, :error] : @super_env.funcByKey(key)
             end
             
-            return function if function != :undeclared
-            raise "Function '#{key[0]}' with '#{key[1]}' parameters is not declared"
+            # pokud jsem nasel (msg == nil) vrat obsah
+            # jinak zmen obsah :undeclared na chybu a vrat error
+            return function, nil if msg == nil
+            return orange("Function '#{key[0]}' with '#{key[1]}' parameters is not declared"), msg
         end
 
         def func(id,args) 
@@ -66,14 +72,15 @@ module Giraffe
 
         def cls(id) 
             clz = @classes[id]
+            msg = nil
             dbg("search for class '#{id}' - found '#{clz == :undeclared ? :undeclared : id}' (envID: #{self.object_id})",:Env)
             
             if clz == :undeclared 
-                 clz = @super_env == nil ? :undeclared : @super_env.cls(id)
+                 clz, msg = @super_env == nil ? [:undeclared, :error] : @super_env.cls(id)
             end
 
-            return clz if clz != :undeclared
-            raise "Class '#{id}' is not declared"
+            return clz, nil if msg == nil
+            return orange("Class '#{id}' is not declared"), msg
         end
 
         def cls!(id,instructions,super_class,env)

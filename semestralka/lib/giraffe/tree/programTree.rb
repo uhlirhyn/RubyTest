@@ -18,24 +18,32 @@ module Giraffe
             dbg("@instructions.size #{@instructions == nil ? 0 : @instructions.size}",:ProgramTree)
 
             # deklarace
-            returnValue = msg = nil
+            return_value = msg = nil
 
             for i in @instructions do 
-                returnValue, msg = i.run(env) 
+                return_value, msg = i.run(env) 
                 case msg 
-                when :return then raise "Unexpected return"
-                when :break then raise "Unexpected break"
-                when :exit then onExit(returnValue); return
+                when :break 
+                    puts red("RuntimeError: ") + "Unexpected break"
+                    on_exit(-1)
+                    return
+                when :exit, :return 
+                    on_exit(return_value)
+                    return
+                when :error 
+                    puts red("RuntimeError: ") + return_value
+                    on_exit(-1)
+                    return 
                 end
             end
 
             dbg("out of instructions - success",:ProgramTree)
-            onExit
+            on_exit
 
         end
 
         private 
-        def onExit(code=1)
+        def on_exit(code=1)
             # TODO
             dbg("exit - status: #{code}",:ProgramTree)  
         end

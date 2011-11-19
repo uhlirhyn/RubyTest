@@ -22,14 +22,14 @@ module Giraffe
             dbg("run",:AssignTree)
             
             # vypocitej hodnotu
-            returnValue, msg = @expression.run(env)
-            return returnValue, msg if msg != nil
+            return_value, msg = @expression.run(env)
+            return return_value, msg if msg != nil
 
-            dbg("assigning '#{@id}' to '#{returnValue}'",:AssignTree)
+            dbg("assigning '#{@id}' to '#{return_value}'",:AssignTree)
 
             # prirad hodnotu
-            env.var!(@id,returnValue)
-            return returnValue, nil
+            env.var!(@id,return_value)
+            return return_value, nil
         end
 
     end

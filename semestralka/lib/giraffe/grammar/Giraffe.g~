@@ -41,12 +41,6 @@ require './lib/giraffe/operators.rb'
 program	returns [result]
 	:	block {$result = ProgramTree.new($block.list)};
 
-env returns [result]
-	:	LCB! 
-		block {$result = EnvTree.new($block.list)}
-		RCB!
-	;
-
 block returns [list]
 	:	{$list = []}
 		instruction  
@@ -68,7 +62,6 @@ instructionRest returns [list]
 instruction returns [result]
 	:	assignment {$result = $assignment.result}
 	|	func {$result = $func.result}
-	|	env {$result = $env.result}
 	|	forCycle {$result = $forCycle.result}
 	|	ifInstruction {$result = $ifInstruction.result}
 	|	whileCycle {$result = $whileCycle.result}
@@ -77,7 +70,7 @@ instruction returns [result]
 	|	printlInstruction {$result = $printlInstruction.result}
 	|	returnInstruction {$result = $returnInstruction.result}	
 	|	exitInstruction {$result = $exitInstruction.result}
-	|	breakInstruction {$result = $exitInstruction.result}
+	|	breakInstruction {$result = $breakInstruction.result}
 	|	call {$result = $call.result}
 	|	classDef {$result = $classDef.result}
 	|	{$result = nil} 
@@ -142,7 +135,7 @@ doCycle	returns [result]
  	;
 
 forCycle returns [result]
-	:	FOR as1=assignment COMMA! condition COMMA! as2=assignment LCB! block RCB!
+	:	FOR as1=assignment SEMICOLON! condition SEMICOLON! as2=assignment LCB! block RCB!
 		{$result = ForTree.new($as1.result,$condition.result,$as2.result,$block.list)}
 	;	
 	
@@ -165,7 +158,7 @@ paramRest returns [list]
 call returns [result]
 	:	fun=ID^ LB! args1=args? RB!
 		{$result = CallTree.new($fun.text,$args1.list)}
-		( DOT method=ID LB! args2=args? RB! {$result = MethodCallTree.new($result,$method,$args2.list) })*
+		( DOT method=ID LB! args2=args? RB! {$result = MethodCallTree.new($result,$method.text,$args2.list) })*
 	;
 	
 args returns [list]
@@ -267,9 +260,9 @@ assignment returns [result]
 		| {index=nil}
 			(( {index_ = index} '[' index=expression ']' {target_ = $result; $result = IndexTree.new($result,$index.result)})+  // obalovac ... 
 			( ASSIGN^ op2=expression { $result = DerefTree.new(target_,$index.result,$op2.result) }					
-			| (DOT method1=ID LB! args1=args? RB! {$result = MethodCallTree.new($result,$method1,$args1.list)})+
+			| (DOT method1=ID LB! args1=args? RB! {$result = MethodCallTree.new($result,$method1.text,$args1.list)})+
 			))
-		| (DOT method2=ID LB! args2=args? RB! {$result = MethodCallTree.new($result,$method2,$args2.list) })+
+		| (DOT method2=ID LB! args2=args? RB! {$result = MethodCallTree.new($result,$method2.text,$args2.list) })+
 		)	
 	;	
 
@@ -298,7 +291,7 @@ HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
 
 fragment
 ESC_SEQ
-    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
+    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\'|'e')
     |   UNICODE_ESC
     |   OCTAL_ESC
     ;

@@ -23,20 +23,31 @@ module Giraffe
             dbg("@instructions.size #{@instructions == nil ? nil : @instructions.size}",:WhileTree)
 
             # while podminka pri prvnim spusteni
-            returnValue, msg = @condition.run(env)
-            return returnValue, msg if msg != nil
+            return_value, msg = @condition.run(env)
+            case msg  
+            when nil;
+            when :error then return return_value + "\n\tin while", msg
+            else return return_value, msg
+            end
 
-            while returnValue do
+            while return_value do
                 for i in @instructions do 
-                    returnValue, msg = i.run(env) 
-                    if msg != nil 
-                        return msg == :break ? [nil, nil] : [returnValue, msg]
+                    return_value, msg = i.run(env)
+                    case msg  
+                    when :break then return nil, nil
+                    when nil;
+                    when :error then return return_value + "\n\tin while", msg
+                    else return return_value, msg
                     end
                 end
 
                 # while podminka pri testovani z cyklu
-                returnValue, msg = @condition.run(env)
-                return returnValue, msg if msg != nil
+                return_value, msg = @condition.run(env)
+                case msg  
+                when nil;
+                when :error then return return_value + "\n\tin while", msg
+                else return return_value, msg
+                end
 
             end
 

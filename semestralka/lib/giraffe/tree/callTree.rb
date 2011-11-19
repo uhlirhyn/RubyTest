@@ -17,8 +17,9 @@ module Giraffe
             dbg("run",:CallTree)
             
             # vyzvedni deklaraci funkce
-            func = env.func(@id,@args)
-            
+            func, msg = env.func(@id,@args)
+            return func, msg if msg != nil
+
             # vytvor novou vrstvu prostredi
             # ale na vrstve kde byla deklarovana
             # funkce, nikoliv na vrstve volani
@@ -61,7 +62,10 @@ module Giraffe
                 case msg
                 when :return then return return_value, nil
                 when :exit then return return_value, msg
-                when :break then raise "Unexpected break"
+                when :error then return return_value + "\n\tin function '#{@id}'", msg
+                when :break then return orange("Unexpected break") + "\n\tin function '#{@id}'", :error
+                when nil;
+                else return return_value, msg
                 end
             end
 
