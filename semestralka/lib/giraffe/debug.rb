@@ -36,6 +36,7 @@ module Debug
     end
 
     def red(text); colorize(text, "\e[31m"); end
+    def cyan(text); colorize(text, "\e[36m"); end
     def green(text); colorize(text, "\e[1m\e[32m"); end
     def yellow(text); colorize(text, "\e[1m\e[33m"); end
     def orange(text); colorize(text, "\e[33m"); end

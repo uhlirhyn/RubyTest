@@ -2,6 +2,7 @@ class A {
 
     aa = 1
 
+        print s    
     printl "instance of A being created"
 
     hello {

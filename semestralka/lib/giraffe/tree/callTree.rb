@@ -12,10 +12,11 @@ module Giraffe
             @args = args
         end
 
-        def run(env)
+        def run(env,tree)
+            @tree = tree
 
-            dbg("run",:CallTree)
-            
+            dbg("run #{tree.line},#{tree.column}",:CallTree)
+
             # vyzvedni deklaraci funkce
             func, msg = env.func(@id,@args)
             return func, msg if msg != nil
@@ -34,6 +35,11 @@ module Giraffe
         end
 
         private 
+
+        def where
+            "\n\tin function '#{@id}' on line #{@tree.line}, column #{@tree.column}"
+        end
+
         def inner_run(env,old_env,func) 
 
             # deklarace
@@ -43,7 +49,7 @@ module Giraffe
             # se vyhodnoti z volaciho prostredi
             if @args != nil 
                 for i in @args.each_index do
-                    return_value, msg = @args[i].run(old_env)
+                    return_value, msg = @args[i][0].run(old_env,@args[i][0])
                     dbg("assigning '#{func[0][i]}' to '#{return_value}'",:CallTree)
                     return return_value, msg if msg != nil
 
@@ -58,12 +64,12 @@ module Giraffe
             # - :break by tady nemel byt
             # - :exit preposilej
             for i in func[1] do
-                return_value, msg = i.run(env)
+                return_value, msg = i[0].run(env,i[1])
                 case msg
                 when :return then return return_value, nil
                 when :exit then return return_value, msg
-                when :error then return return_value + "\n\tin function '#{@id}'", msg
-                when :break then return orange("Unexpected break") + "\n\tin function '#{@id}'", :error
+                when :error then return return_value + where(), msg
+                when :break then return orange("Unexpected break") + where(), :error
                 when nil;
                 else return return_value, msg
                 end
@@ -72,7 +78,6 @@ module Giraffe
         end
 
     end
-
 end
 
 

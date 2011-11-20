@@ -14,7 +14,9 @@ module Giraffe
             @block = block            
         end
 
-        def run(env)
+        def run(env,tree)
+
+            dbg("run #{tree.line},#{tree.column}",:FuncTree)
 
             # U definice funkce se nevyhodnocuje vubec nic
             # zadavaji se pevne identifikatory takze tento
@@ -26,7 +28,7 @@ module Giraffe
             # - normalni vystup je hodnota promenne
 
             # probehla deklarace funkce
-            env.func!(@id,@params,@block,env)
+            env.func!(@id,@params,@block,env,tree)
             return nil, nil
         end
 

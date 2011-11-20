@@ -12,7 +12,7 @@ module Giraffe
             dbg("init",:AssignTree)
         end
 
-        def run(env)
+        def run(env,tree)
 
             # AssignTree
             # - zadnou zpravu nezpracovava
@@ -22,7 +22,7 @@ module Giraffe
             dbg("run",:AssignTree)
             
             # vypocitej hodnotu
-            return_value, msg = @expression.run(env)
+            return_value, msg = @expression[0].run(env,@expression[1])
             return return_value, msg if msg != nil
 
             dbg("assigning '#{@id}' to '#{return_value}'",:AssignTree)

@@ -37,24 +37,26 @@ require './lib/giraffe/operators.rb'
 
 }
 
+// Do pole -result-,-tree- se smi obalovat pouze -X-Tree.new
+// jinak neni zaruka, ze vrtva vys neobali pole znova a parser
+// pak nema moznost se tim prokousat ...
+   
 program	returns [result]
-	:	block {$result = ProgramTree.new($block.list)};
+	:	block {$result = ProgramTree.new($block.list)} 
+	;
 
 block returns [list]
 	:	{$list = []}
 		instruction  
-		{$list = [$instruction.result] unless $instruction.result == nil}
+		{$list = [[$instruction.result,$instruction.tree]] unless $instruction.result == nil}
 		instructionRest 
 		{$list = $list + $instructionRest.list}		
 	;
 
 instructionRest returns [list]
-	: 	{$list = []}
-		(( COMMENT!? '\r'!? '\n'!) | SEMICOLON!) 
-		instruction 
-		{$list = [$instruction.result] unless $instruction.result == nil}		
-		op=instructionRest
-		{$list = $list + $op.list}				
+	: 	(( COMMENT!? '\r'!? '\n'!) | SEMICOLON!) 
+		block 
+		{$list = $block.list}				
 	|	{$list = []}
 	;
 
@@ -71,7 +73,7 @@ instruction returns [result]
 	|	exitInstruction {$result = $exitInstruction.result}
 	|	breakInstruction {$result = $breakInstruction.result}
 	|	call {$result = $call.result}
-	|	classDef {$result = $classDef.result}
+	|	classDef {$result = $classDef.result} 
 	|	{$result = nil} 
 	;
 
@@ -134,7 +136,7 @@ doCycle	returns [result]
  	;
 
 forCycle returns [result]
-	:	FOR as1=assignment SEMICOLON! condition SEMICOLON! as2=assignment LCB! block RCB!
+	:	FOR as1=assignment (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  condition (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  as2=assignment LCB! block RCB!
 		{$result = ForTree.new($as1.result,$condition.result,$as2.result,$block.list)}
 	;	
 	
@@ -156,8 +158,8 @@ paramRest returns [list]
 	
 call returns [result]
 	:	fun=ID^ LB! args1=args? RB!
-		{$result = CallTree.new($fun.text,$args1.list)}
-		( DOT method=ID LB! args2=args? RB! {$result = MethodCallTree.new($result,$method.text,$args2.list) })*
+		{$result = [CallTree.new($fun.text,$args1.list),$fun.tree]}
+		( DOT method=ID LB! args2=args? RB! {$result = [MethodCallTree.new($result,$method.text,$args2.list),$method.tree]})*
 	;
 	
 args returns [list]
@@ -174,25 +176,25 @@ argsRest returns [list]
 
 condition returns [result]
 	:	orOperand {$result = $orOperand.result}
-		(OR^ op=condition {$result = BinaryOperatorTree.new($result,$op.result,Operators.method(:or))})?
+		(OR^ op=condition {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:or)),$op.tree]})?
 	;
 
 // AND (further from root -> will process before OR)
 
 orOperand returns [result]
 	:	boolOperand {$result = $boolOperand.result}
-		(AND^ op=orOperand {$result = BinaryOperatorTree.new($result,$op.result,Operators.method(:and))})?
+		(AND^ op=orOperand {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:and)),$op.tree] })?
 	;
 
 boolOperand returns [result]
 	:	bool {$result = $bool.result}
 	|	NOT LB! condition RB! {$result = !$condition.result}
-	|	op1=expression (EQ^ (	op2=bool | op2=expression ) {$result = BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:eq))}
-			|	NE^ (	op2=bool | op2=expression ) {$result = BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:ne))}
-			|	LT^ (	op2=bool | op2=expression ) {$result = BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:lt))}
-			|	GT^ (	op2=bool | op2=expression ) {$result = BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:gt))}
-			|	LE^ (	op2=bool | op2=expression ) {$result = BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:le))}
-			|	GE^ (	op2=bool | op2=expression ) {$result = BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:ge))}
+	|	op1=expression (EQ^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:eq)),$op2.tree]}
+			|	NE^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:ne)),$op2.tree]}
+			|	LT^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:lt)),$op2.tree]}
+			|	GT^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:gt)),$op2.tree]}
+			|	LE^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:le)),$op2.tree]}
+			|	GE^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:ge)),$op2.tree]}
 		) 
 	;
 
@@ -200,47 +202,47 @@ boolOperand returns [result]
 expression returns [result]
 	:	addOperand {$result = $addOperand.result}
 		(
-			PLUS^ op=expression {$result = BinaryOperatorTree.new($result,$op.result,Operators.method(:add))}
-		|	MINUS^ op=expression {$result = BinaryOperatorTree.new($result,$op.result,Operators.method(:sub))}
+			PLUS^ op=expression {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:add)),$op.tree]}
+		|	MINUS^ op=expression {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:sub)),$op.tree]}
 		)?
 	;
 
 addOperand returns [result]
 	:	mulOperand {$result = $mulOperand.result}
 		(
-			MUL^ op=addOperand {$result = BinaryOperatorTree.new($result,$op.result,Operators.method(:mul))}
-		|	DIV^ op=addOperand {$result = BinaryOperatorTree.new($result,$op.result,Operators.method(:div))}
-		|	MOD^ op=addOperand {$result = BinaryOperatorTree.new($result,$op.result,Operators.method(:mod))}
+			MUL^ op=addOperand {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:mul)),$op.tree]}
+		|	DIV^ op=addOperand {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:div)),$op.tree]}
+		|	MOD^ op=addOperand {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:mod)),$op.tree]}
 		)?
 	;
 
 mulOperand returns [result]
 	:	PLUS mulOperandRest {$result = $mulOperandRest.result}
-	|	MINUS mulOperandRest {$result = UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:neg))}
-	|	TO_INT mulOperandRest {$result = UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:int))}
-	|	TO_FLOAT mulOperandRest {$result = UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:float))}
+	|	MINUS mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:neg)),$$mulOperandRest.tree]}
+	|	TO_INT mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:int)),$$mulOperandRest.tree]}
+	|	TO_FLOAT mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:float)),$$mulOperandRest.tree]}
 	|	mulOperandRest {$result = $mulOperandRest.result}
 	;
 
 mulOperandRest returns [result]
 	:	arrayIndexTarget {$result = $arrayIndexTarget.result}	
-		('[' expression ']' { $result = IndexTree.new($result,$expression.result) } )*		
+		('[' expression ']' { $result = [IndexTree.new($result,$expression.result),$expression.tree] })*		
 	;
 	
 arrayIndexTarget returns [result]
-	:	ID {$result = VarTree.new($ID.text)}
+	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
 	|	LB! expression RB! {$result = $expression.result}
-	|	INT {$result = AtomTree.new($INT.text.to_i)}
-	|	FLOAT {$result = AtomTree.new($FLOAT.text.to_f)}
-	|	string {$result = AtomTree.new($string.result)}
+	|	INT {$result = [AtomTree.new($INT.text.to_i),$INT.tree]}
+	|	FLOAT {$result = [AtomTree.new($FLOAT.text.to_f),$FLOAT.tree]}
+	|	string {$result = [AtomTree.new($string.result),$string.tree]}
 	|	call {$result = $call.result}
-	|	array {$result = ArrayTree.new($array.result)}
+	|	array {$result = [ArrayTree.new($array.result),$array.tree]}
 	|	readInstruction {$result = $readInstruction.result}
 	|	new {$result = $new.result}
 	;
 
 new returns [result]
-	:	NEW ID (LB args? RB)? {$result = NewTree.new($ID.text,$args.list)}
+	:	NEW ID (LB args? RB)? {$result = [NewTree.new($ID.text,$args.list),$NEW.tree]}
 	;
 
 array returns [result]
@@ -280,9 +282,9 @@ STRING
 
 classDef returns [result]
 	:	{superclass=nil}
-		CLASS classid=ID (SUPERCLASS superclassid=ID {superclass=$superclassid.text})? LCB 
+		CLASS^ classid=ID (SUPERCLASS superclassid=ID {superclass=$superclassid.text})? LCB! 
 			block
-		RCB {$result = ClassTree.new($classid.text,$block.list,superclass)}
+		RCB! {$result = ClassTree.new($classid.text,$block.list,superclass)}
 	;
 
 fragment

@@ -11,7 +11,7 @@ module Giraffe
             dbg("init",:ArrayTree)
         end
 
-        def run(env)
+        def run(env,tree)
 
             # ArrayTree
             # - zadnou zpravu nezpracovava
@@ -24,9 +24,9 @@ module Giraffe
 
             # vypocitej hodnoty elementu
             for element in @elements do
-                return_value, msg = element.run(env)
+                return_value, msg = element[0].run(env,element[1])
                 return return_value, msg if msg != nil
-                result_rray << return_value
+                result_array << return_value
             end
 
             # Tady se MUSI vracen nil,

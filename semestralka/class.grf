@@ -46,8 +46,9 @@ class C superclass D {
     }
 }
 
-#c = new C
+c = new C
 
 for i = 0; i < (100 * 1000 * 10); i=i+1 {
-    b.bench()    
+    b.bench()   
+    printl i
 } 

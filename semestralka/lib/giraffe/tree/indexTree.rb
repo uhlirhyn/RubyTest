@@ -12,7 +12,7 @@ module Giraffe
             dbg("init",:IndexTree)
         end
 
-        def run(env)
+        def run(env,tree)
 
             # IndexTree
             # - zadnou zpravu nezpracovava
@@ -20,13 +20,13 @@ module Giraffe
             # - normalni vystup je 
 
             # vypocitej "adresu"
-            returnValue, msg = @target.run(env)
+            returnValue, msg = @target[0].run(env,@target[1])
             return returnValue, msg if msg != nil
 
             address = returnValue
 
             # vypocitej index
-            returnValue, msg = @index.run(env)
+            returnValue, msg = @index[0].run(env,@index[1])
             return returnValue, msg if msg != nil
 
             index = returnValue

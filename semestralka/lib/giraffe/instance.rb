@@ -21,6 +21,7 @@ module Giraffe
         def constructor
 
             super_class = @clz[2]
+            tree = @clz[4]
 
             # pokud mam super_class
             if super_class != nil 
@@ -29,7 +30,7 @@ module Giraffe
                 return_value, msg = @clz[3].cls(super_class)
                 case msg  
                 when nil;
-                when :error then return return_value + "\n\tin #{@clz[0]} constructor", msg
+                when :error then return return_value + where("constructor of class",@clz[0],tree), msg
                 else return return_value, msg
                 end
 
@@ -44,7 +45,7 @@ module Giraffe
                 return_value, msg = @s_instance.constructor
                 case msg  
                 when nil;
-                when :error then return return_value + "\n\tin #{@clz[0]} constructor", msg
+                when :error then return return_value + where("constructor of class",@clz[0],tree), msg
                 else return return_value, msg
                 end
 
@@ -63,10 +64,10 @@ module Giraffe
 
             # vykonej instrukce (zavedeni metod apod.)
             for i in @clz[1] do
-                return_value, msg = i.run(@env)
+                return_value, msg = i[0].run(@env,i[1])
                 case msg  
                 when nil;
-                when :error then return return_value + "\n\tin #{@clz[0]} constructor", msg
+                when :error then return return_value + where("constructor of class",@clz[0],tree), msg
                 else return return_value, msg
                 end
             end
@@ -106,7 +107,7 @@ module Giraffe
             # Pokud volam z predka, beru jako vychozi env potomka
             new_env = Env.new(@env.level < func[2].level ? func[2] : @env)  
 
-            return_value, msg = inner_run(new_env,call_env,func,args,id)
+            return_value, msg = inner_run(new_env,call_env,func,args,id,func[3])
 
             # zavri vrstvu
             new_env.destroy
@@ -119,7 +120,7 @@ module Giraffe
         end
 
         private
-        def inner_run(env,call_env,func,args,id)
+        def inner_run(env,call_env,func,args,id,tree)
 
             # deklarace
             return_value = msg = nil
@@ -140,17 +141,21 @@ module Giraffe
             # spust instrukce metody, ale opet
             # pouze v ramci jejiho prostredi
             for i in func[1] do
-                return_value, msg = i.run(env)
+                return_value, msg = i[0].run(env,i[1])
                 case msg
                 when :return then return return_value, nil
                 when :exit then return return_value, msg
-                when :error then return return_value + "\n\tin method '#{id}'", msg
-                when :break then return orange("Unexpected break") + "\n\tin method '#{id}'", :error
+                when :error then return return_value + where("method",id,tree), msg
+                when :break then return orange("Unexpected break") + where("method",id,tree), :error
                 when nil;
                 else return return_value, msg
                 end
             end
 
+        end
+    
+        def where(place,id,tree)
+            "\n\tin #{place} '#{id}' on line #{tree.line}, column #{tree.column}"
         end
 
         # V Ruby ma protected trochu jiny vyznam 

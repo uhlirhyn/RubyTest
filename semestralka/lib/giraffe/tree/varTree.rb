@@ -10,7 +10,7 @@ module Giraffe
             @id = id
         end
 
-        def run(env)
+        def run(env,tree)
 
             # VarTree
             # - nezpracovava zadnou zpravu

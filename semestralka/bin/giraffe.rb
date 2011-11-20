@@ -7,7 +7,21 @@ require './lib/giraffe/debug.rb'
 
 module Giraffe
 
+=begin
+    def Giraffe.traverse(tree,level)
+        for node in tree.children
+            print("[#{node.line},#{node.column}]:  \t")
+            level.times { printf("  ") } 
+            puts("#{node.text}")
+            traverse(node,level+1)
+        end
+
+    end
+=end
+
     def Giraffe.launch
+
+        begin
 
         # zpracuje nejprve argumenty options
         # z ARGV tak budou odebrany zpracovatelne
@@ -32,16 +46,24 @@ module Giraffe
             for file in ARGV
                 input = ANTLR3::FileStream.new( file )
                 parser = Parser.new( input )
-                program = parser.program.result
+                program = parser.program
 
-                program.run
+                # traverse(program.tree,0)
+
+                program.result.run
             end
 
         end
 
+        rescue Interrupt
+        
+            print "\n\n  --- Iterrupted ---\n"
+
+        end
+    
         t = Time.new
         printf "\n==[ #{t.strftime('%k:%M:%S.%9N')} ]===========<[ giraffe! ]>======================\n"
-
+        
     end
 
 end

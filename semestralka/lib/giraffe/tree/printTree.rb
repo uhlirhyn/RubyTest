@@ -11,7 +11,9 @@ module Giraffe
             @newline = newline
         end
 
-        def run(env)
+        def run(env,tree)
+
+            @tree = tree
 
             # PrintTree
             # - nezpracovava zadnou zpravu
@@ -20,9 +22,9 @@ module Giraffe
 
             if @texts != nil 
                 for text in @texts
-                    return_value, msg = text.run(env)
+                    return_value, msg = text[0].run(env,text[1])
                     case msg
-                    when :error then return return_value + "\n\tin print", msg
+                    when :error then return return_value + where, msg
                     when nil then ;
                     else return return_value, msg
                     end
@@ -32,6 +34,10 @@ module Giraffe
                 puts if @newline
             end
             return nil, nil
+        end
+        
+        def where
+            "\n\tin print on line #{@tree.line}, column #{@tree.column}"
         end
 
     end

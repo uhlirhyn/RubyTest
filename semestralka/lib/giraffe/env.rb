@@ -65,9 +65,9 @@ module Giraffe
             funcByKey(key)
         end
 
-        def func!(id,params,instructions,env)
+        def func!(id,params,instructions,env,tree)
             dbg("func! '#{id}' '#{params}' (envID: #{self.object_id})",:Env)
-            @functions[[id,params == nil ? 0 : params.size]] = [params,instructions,env]
+            @functions[[id,params == nil ? 0 : params.size]] = [params,instructions,env,tree]
         end
 
         def cls(id) 
@@ -83,9 +83,9 @@ module Giraffe
             return orange("Class '#{id}' is not declared"), msg
         end
 
-        def cls!(id,instructions,super_class,env)
+        def cls!(id,instructions,super_class,env,tree)
             dbg("cls! '#{id}' (envID: #{self.object_id})",:Env)
-            @classes[id] = [id,instructions,super_class,env]
+            @classes[id] = [id,instructions,super_class,env,tree]
         end
 
         def inst!(instance)

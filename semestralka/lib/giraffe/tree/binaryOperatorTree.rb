@@ -13,19 +13,20 @@ module Giraffe
             @operator = operator
         end
 
-        def run(env)
+        def run(env, tree)
 
             # BinaryOperatorTree 
             # - nezpracovava zadnou zpravu
             # - neprodukuje zadnou zpravu
             # - normalni vystup je vystup operatoru
 
-            dbg("run",:BinaryOperatorTree)
+            dbg("run #{@operator}",:BinaryOperatorTree)
             
-            return_value1, msg = @op1.run(env)
+            return_value1, msg = @op1[0].run(env,@op1[1])
             return return_value1, msg if msg != nil
 
-            return_value2, msg = @op2.run(env)
+            dbg("op2: #{@op2}",:BinaryOperatorTree)
+            return_value2, msg = @op2[0].run(env,@op2[1])
             return return_value2, msg if msg != nil
 
             dbg("operands: #{return_value1} #{return_value2}",:BinaryOperatorTree)

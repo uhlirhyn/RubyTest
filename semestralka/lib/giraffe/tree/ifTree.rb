@@ -12,17 +12,23 @@ module Giraffe
             @blockElse = blockElse
         end
 
-        def run(env)
+        def where
+            "\n\tin if on line #{@tree.line}, column #{@tree.column}"
+        end
+
+        def run(env,tree)
+
+            @tree = tree
 
             dbg("run",:IfTree)
 
             # IfTree preposila vsechny zpravy dal
 
             # z podminky muze prijit maximalne :exit
-            return_value, msg = @condition.run(env)
+            return_value, msg = @condition[0].run(env,@condition[1])
             case msg
             when :exit then return return_value, msg
-            when :error then return return_value + "\n\tin if", msg
+            when :error then return return_value + where, msg
             when nil;
             else return return_value, msg
             end
@@ -30,10 +36,10 @@ module Giraffe
             if return_value
                 dbg("IF",:IfTree)
                 for i in @instructions do 
-                    return_value, msg = i.run(env)
+                    return_value, msg = i[0].run(env,i[1])
                     case msg
                     when :exit then return return_value, msg
-                    when :error then return return_value + "\n\tin if", msg
+                    when :error then return return_value + where, msg
                     when nil;
                     else return return_value, msg
                     end
@@ -55,7 +61,7 @@ module Giraffe
                     return_value, msg = @blockElse.run(env)
                     case msg
                     when :exit then return return_value, msg
-                    when :error then return return_value + "\n\tin if", msg
+                    when :error then return return_value + where, msg
                     when nil;
                     else return return_value, msg
                     end
@@ -67,10 +73,10 @@ module Giraffe
                     # je to jen else ... pak je v blockElse 
                     # list prikazu
                     for i in @blockElse do 
-                        return_value, msg = i.run(env)
+                        return_value, msg = i[0].run(env,i[1])
                         case msg
                         when :exit then return return_value, msg
-                        when :error then return return_value + "\n\tin if", msg
+                        when :error then return return_value + where, msg
                         when nil;
                         else return return_value, msg
                         end

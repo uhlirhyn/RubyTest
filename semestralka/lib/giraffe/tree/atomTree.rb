@@ -11,7 +11,7 @@ module Giraffe
             dbg("init",:AtomTree)
         end
 
-        def run(env)
+        def run(env, tree)
 
             # AtomTree 
             # - nezpracovava zadnou zpravu

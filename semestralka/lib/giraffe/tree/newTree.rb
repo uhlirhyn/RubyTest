@@ -12,7 +12,13 @@ module Giraffe
             @args = args
         end        
 
-        def run(env) 
+        def where
+            "\n\tin new on line #{@tree.line}, column #{@tree.column}"
+        end
+
+        def run(env,tree) 
+
+            @tree = tree
 
             dbg(yellow("run for class '#{@id}'"),:NewTree)          
 
@@ -20,7 +26,7 @@ module Giraffe
             return_value, msg = env.cls(@id)
             case msg  
             when nil;
-            when :error then return return_value + "\n\tin new", msg
+            when :error then return return_value + where, msg
             else return return_value, msg
             end
 
@@ -39,7 +45,7 @@ module Giraffe
             return_value, msg = instance.constructor
             case msg  
             when nil;
-            when :error then return return_value + "\n\tin new", msg
+            when :error then return return_value + where, msg
             else return return_value, msg
             end
 
@@ -50,7 +56,7 @@ module Giraffe
             return_value, msg = instance.method_call(@id,@args,env)
             case msg  
             when nil;
-            when :error then return return_value + "\n\tin new", msg
+            when :error then return return_value + where, msg
             else return return_value, msg
             end
 
@@ -62,7 +68,7 @@ module Giraffe
             # vrat referenci na novy objekt
             return instance
         end
-
+        
     end
 
 end

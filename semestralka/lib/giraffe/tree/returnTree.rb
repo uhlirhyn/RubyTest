@@ -10,9 +10,9 @@ module Giraffe
             @expression = expression
         end
 
-        def run(env)
+        def run(env,tree)
             dbg("run",:ReturnTree)
-            return_value, msg = @expression.run(env)
+            return_value, msg = @expression[0].run(env,@expression[1])
             return nil, msg if msg == :exit
             dbg("returning '#{return_value}'",yellow(:ReturnTree))
             return return_value, :return

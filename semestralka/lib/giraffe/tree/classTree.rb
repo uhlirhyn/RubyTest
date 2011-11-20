@@ -13,15 +13,15 @@ module Giraffe
             @super_class = super_class
         end
 
-        def run(env)
+        def run(env,tree)
 
             # ClassTree
             # - nezpracovava zadnou zpravu
             # - negeneruje zadnou zpravu
             # - normalni vystup je hodnota promenne
 
-            dbg("run",:ClassTree)
-            env.cls!(@id,@instructions,@super_class,env)
+            dbg("run #{tree.line},#{tree.column}",:ClassTree)
+            env.cls!(@id,@instructions,@super_class,env,tree)
             return nil, nil
         end
         

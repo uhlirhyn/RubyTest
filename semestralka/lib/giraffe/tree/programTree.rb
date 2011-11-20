@@ -20,8 +20,8 @@ module Giraffe
             # deklarace
             return_value = msg = nil
 
-            for i in @instructions do 
-                return_value, msg = i.run(env) 
+            for i in @instructions do
+                return_value, msg = i[0].run(env,i[1]) 
                 case msg 
                 when :break 
                     puts red("RuntimeError: ") + "Unexpected break"
