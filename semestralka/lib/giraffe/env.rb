@@ -6,6 +6,31 @@ module Giraffe
 
         include Debug
 
+        # GC - nechat si na pocatku naalokovat od Ruby nejakej blok pameti,
+        # a na nem alokovat ty objekty apod. 
+        #
+        # Vezme se Rootset a z nej se zacne vychazet na ty objekty a tridit je
+        # - staticke promenne
+        # - lokalni promenne
+        # - parametry volani
+        # 
+        # - musi se brat frame ale i vsechny hodnoty na operacnim stacku
+        #
+        # a.bar > b
+        #
+        # push a
+        # call 'bar'
+        # push b
+        # eq
+        #
+        # JAVA:
+        # - nema jenom objekty ale i primitivni typy ... 
+        # - jak poznam rozdil mezi pointerem a integerem
+        # - nema tagovane pointery ... 
+        # - ???
+ 
+        @@POOL_MAX
+
         @@inst_pool = []
 
         # TODO @@ILC = [] 

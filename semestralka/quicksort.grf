@@ -1,5 +1,5 @@
 a = [1,2,5,6,3,2,54,8,5,22,10,1,0,8,2,9,99,8]
-s = 7
+s = 18
 
 printl a
 
@@ -36,6 +36,7 @@ quick ar,si {
             } else {
                 b = b + [el] 
                 sb = sb + 1
+                print sdfsdf
             }
         }
     }
@@ -43,7 +44,7 @@ quick ar,si {
     a = quick (a,sa)
     b = quick (b,sb)
 
-    return a + [pivot] + b + cc
+    return a + [pivot] + b
 
 }
 

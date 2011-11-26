@@ -31,8 +31,7 @@ module Giraffe
 
             dbg("operands: #{return_value1} #{return_value2}",:BinaryOperatorTree)
             
-            # opet, bez nil se nejede ... 
-            return @operator.call(return_value1,return_value2), nil
+            return @operator.call(return_value1,return_value2)
         end
         
     end

@@ -1,10 +1,10 @@
-class A
-    def a
-    end
+p "#$$"
+
+def ee 
+    p "gets"
+    a = gets
+    ee
+    p a
 end
 
-a = A.new
-100000000.times {
-    a.a
-}
-
+ee
