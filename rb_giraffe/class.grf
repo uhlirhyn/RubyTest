@@ -1,0 +1,54 @@
+class A {
+
+    aa = 1
+
+        printl "instance of A being created"
+
+        hello {
+            printl "A: aa = ", aa
+        }
+
+    A {
+        printl "init!!!"
+    }
+}
+
+class B superclass A {
+
+    bb = 2
+
+    bye {
+        printl "B: bb = ", bb
+            printl "B: aa = ", aa
+            aa = 3        
+    }
+
+    bench {}
+}
+
+a = new A
+a.hello()
+
+b = new B
+b.hello()
+b.bye()
+b.hello()
+
+class C superclass D {
+
+    init {
+        printl "ehm ..."
+    }
+
+    C param {
+        print "param :"
+            printl param
+    }
+}
+
+c = new C
+
+for i = 0; i < (100 * 1000 * 10); i=i+1 {
+    b.bench()   
+    printl i
+} 
