@@ -1,20 +1,9 @@
-require_relative "../lib/minimal/reader.rb"
-require_relative "../lib/minimal/solver.rb"
-require_relative "../lib/minimal/printer.rb"
+#!/usr/bin/ruby
+require_relative "../lib/minimal/runner.rb"
 
-# read (veni)
-reader = Reader.new
-tests = reader.read_tests
+module Minimal
 
-printer = Printer.new
-
-for test in tests do
-
-    # solve (vidi)
-    solver = Solver.new
-    solution = solver.solve(test)
-
-    # print (vici)
-    printer.print(solution)
+    r = Runner.new
+    r.run
 
 end
