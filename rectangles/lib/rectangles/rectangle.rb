@@ -5,11 +5,13 @@ module Rectangle
 	class Rectangle
 
 		def initialize(w,x,y)
-			@x1,@y1,@x2,@y2=x-w/2,y-w/2,x+w/2,y+w/2
+            d = w/2.0
+			@x1,@y1,@x2,@y2=x-d,y-d,x+d,y+d
+			@w = w
 			@s = w*w
 		end
 
-		attr_reader :x1, :y1, :x2, :y2, :s
+		attr_reader :x1, :y1, :x2, :y2, :w, :s
 	end
 
 end

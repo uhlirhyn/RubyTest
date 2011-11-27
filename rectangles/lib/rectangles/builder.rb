@@ -12,13 +12,14 @@ module Rectangle
 		def initialize(reader)
 
 			@reader = reader
+            @reader.read
 
 		end
 
 		def build
 
 			[Rectangle.new(@reader.w1,@reader.x1,@reader.y1),
- 			Rectangle.new(@reader.w2,@reader.x1,@reader.y2)]
+ 			Rectangle.new(@reader.w2,@reader.x2,@reader.y2)]
 
 		end
 		
