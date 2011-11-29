@@ -1,0 +1,15 @@
+0x01    push
+0x02    pop
+0x03    push_i
+0x04    pop_i
+0x05    add_c
+0x06    sub_c
+0x07    push_p
+0x08    pop_p
+0x09    call
+0x0a    ret
+0x0b    sl_c (store local char)
+0x0c    ll_c (load local char)
+0x0d    sa_c (store in args)
+0x0e    la_c (load from args)
+0x0f    out_c (control output)
