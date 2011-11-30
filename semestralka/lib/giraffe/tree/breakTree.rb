@@ -1,10 +1,12 @@
 require './lib/giraffe/debug.rb'
+require './lib/giraffe/opcodes.rb'
 
 module Giraffe
 
     class BreakTree
 
         include Debug
+        include Opcodes
         
         def run(env)
 
@@ -17,6 +19,10 @@ module Giraffe
             # slo vyskakovat do nadrazenych cyklu
 
             dbg("run",:BreakTree)
+            
+            env.write_opcode(JMP)
+            env.write_break_label
+
             return nil, :break
         end
         

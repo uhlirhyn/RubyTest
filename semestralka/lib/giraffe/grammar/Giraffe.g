@@ -42,7 +42,12 @@ require './lib/giraffe/operators.rb'
 // pak nema moznost se tim prokousat ...
    
 program	returns [result]
-	:	block {$result = ProgramTree.new($block.list)} 
+	:	functions block {$result = ProgramTree.new($functions.list, $block.list)} 
+	;
+
+functions returns [list]
+	:	{$list = []}
+		(func {$list << $func.result})*
 	;
 
 block returns [list]
@@ -62,7 +67,6 @@ instructionRest returns [list]
 
 instruction returns [result]
 	:	assignment {$result = $assignment.result}
-	|	func {$result = $func.result}
 	|	forCycle {$result = $forCycle.result}
 	|	ifInstruction {$result = $ifInstruction.result}
 	|	whileCycle {$result = $whileCycle.result}

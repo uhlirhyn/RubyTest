@@ -3,7 +3,7 @@ module Debug
     @@debug = false
     @@listPolicy = :blacklist
     #@@listPolicy = :whitelist
-    @@list = [:VarTree,:Env,:AtomTree]
+    @@list = []
 
     @@colors = true
 

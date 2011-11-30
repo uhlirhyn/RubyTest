@@ -1,10 +1,12 @@
 require './lib/giraffe/debug.rb'
+require './lib/giraffe/opcodes.rb'
 
 module Giraffe
 
     class AssignTree
     
         include Debug
+        include Opcodes
         
         def initialize(id,expression)
             @id = id
@@ -21,14 +23,14 @@ module Giraffe
 
             dbg("run",:AssignTree)
             
-            # vypocitej hodnotu
             return_value, msg = @expression[0].run(env,@expression[1])
             return return_value, msg if msg != nil
 
             dbg("assigning '#{@id}' to '#{return_value}'",:AssignTree)
 
-            # prirad hodnotu
-            env.var!(@id,return_value)
+            # proved zapis do promenne @id
+            env.var!(@id)
+
             return return_value, nil
         end
 

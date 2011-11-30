@@ -18,12 +18,6 @@ module Giraffe
         def run(env,tree)
 
             @tree = tree
-
-            # TODO viz Env.gdoc
-
-            #newEnv = Env.new(env)
-            #return_value, msg = innerRun(newEnv)
-            #newEnv.destroy
             return_value, msg = innerRun(env)
             return return_value, msg
         end
@@ -50,6 +44,13 @@ module Giraffe
             end
             dbg("assignment1 OK",:ForTree)
 
+            # vyzvedni si navesti a vloz ho do vystupu
+            label = env.next_label
+            env.write_opcode(label)
+
+            # zaloz break navesti pro pripadne break instrukce
+            env.next_break_label
+
             # podminka 
             return_value, msg = @condition[0].run(env,@condition[1])
             case msg  
@@ -59,38 +60,29 @@ module Giraffe
             end
             dbg("condition OK",:ForTree)
 
-            while return_value do
-                for i in @instructions do 
-                    return_value, msg = i[0].run(env,i[1])
-                    case msg  
-                    when :break then return nil, nil
-                    when nil;
-                    when :error then return return_value + where, msg
-                    else return return_value, msg
-                    end
-                end
-                dbg("instructions OK",:ForTree)
-
-                # assignment 
-                return_value, msg = @assignment2.run(env,@tree)
+            for i in @instructions do 
+                return_value, msg = i[0].run(env,i[1])
                 case msg  
+                when :break then return nil, nil
                 when nil;
                 when :error then return return_value + where, msg
                 else return return_value, msg
                 end
-                dbg("assignment2 OK",:ForTree)
-
-                # pro vyhodnoceni while 
-                return_value, msg = @condition[0].run(env,@condition[1])
-                case msg  
-                when nil;
-                when :error then return return_value + where, msg
-                else return return_value, msg
-                end
-                dbg("condition '#{return_value}' '#{msg}'",:ForTree)
-
             end
+            dbg("instructions OK",:ForTree)
 
+            # assignment 
+            return_value, msg = @assignment2.run(env,@tree)
+            case msg  
+            when nil;
+            when :error then return return_value + where, msg
+            else return return_value, msg
+            end
+            dbg("assignment2 OK",:ForTree)
+
+            # vloz break navesti
+            env.write_break_label
+            
             # ForTree normalne nevraci ani hodnotu ani zpravu
             return nil, nil
         end

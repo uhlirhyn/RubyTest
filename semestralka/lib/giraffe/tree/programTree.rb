@@ -7,31 +7,32 @@ module Giraffe
 
         include Debug
 
-        def initialize(instructions)
+        def initialize(functions, instructions)
             dbg("ProgramTree initialized",:ProgramTree)
             @instructions = instructions
+            @functions = functions
+            @env = Env.new()            
         end
 
         def run
-            env = Env.new            
             dbg("run",:ProgramTree)
             dbg("@instructions.size #{@instructions == nil ? 0 : @instructions.size}",:ProgramTree)
 
             # deklarace
             return_value = msg = nil
 
-            for i in @instructions do
-                return_value, msg = i[0].run(env,i[1]) 
+            for i in @functions do 
+                return_value, msg = i[0].run(@env,i[1]) 
                 case msg 
                 when :break 
-                    puts red("RuntimeError: ") + "Unexpected break"
+                    puts red("Error: ") + "Unexpected break"
                     on_exit(-1)
                     return
                 when :exit, :return 
                     on_exit(return_value)
                     return
                 when :error 
-                    puts red("RuntimeError: ") + return_value
+                    puts red("Error: ") + return_value
                     on_exit(-1)
                     return 
                 end
@@ -44,7 +45,13 @@ module Giraffe
 
         private 
         def on_exit(code=1)
-            # TODO
+            
+            print("------------------------------------\n")
+            for byte in Env::bytecode do
+                printf(":: #{byte}\n");
+            end
+            print("------------------------------------\n")
+
             dbg("exit - status: #{code}",:ProgramTree)  
         end
 

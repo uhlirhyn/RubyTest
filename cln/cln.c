@@ -81,44 +81,6 @@ void scavenge(gc * gcl) {
 
 }
 
-obj * lookup_var(env * e, char * id) {
-
-    env * prev = e;
-
-    // projdi po ptrech env
-    while (prev != NULL) {
-        // projdi sekvencne promenne
-        for (int i=0; i < prev->size; i++) {            
-            if (strcmp((prev->vars + i)->id, id) == 0) 
-                return (prev->vars + i)->value;
-        }
-        prev = prev->prev;
-    }
-
-}
-
-env * new_env(env * en) {
-
-    // zatim se to bude alokovat rucne ...   
-    env * new_env = (env *) malloc(sizeof(env));
-
-    new_env->prev = en;
-    new_env->size = 0;
-    new_env->vars = en->vars + en->size;
-
-    return new_env;
-}
-
-env * leave_env(env * en) {
-
-    env * prev = en->prev;
-
-    free(en);
-
-    return prev;
-
-}
-
 // http://www.anyexample.com/programming/c/how_to_load_file_into_memory_using_plain_ansi_c_language.xml
 int load_file(const char *filename, char **result) { 
     
@@ -302,6 +264,9 @@ void * allocate(gc * gcl, int size) {
     // doslo misto nenasel jsem dost velky kus- next == NULL
     // scavenge()
     printf("Out of heap ... collecting garbage (***TODO***)\n");
+    
+    fprintf(stderr, " \e[31mOut of memory ...\e[39m\n");
+    abort();
 
 }
 
@@ -423,6 +388,14 @@ char * pop_p() {
 }
 
 // add_char 0x05
+// secti 4B hodnoty
+void iadd() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 + op2);
+}
+
+// iadd 0x25
 // secti 1B hodnoty
 void add_c() {
     char op1 = pop();
@@ -438,12 +411,30 @@ void sub_c() {
     push(op1 - op2);
 }
 
+// jmp 0x11
+void jmp(unsigned int offset) {
+    int adr = pr->ip + offset;
+    if ( adr >= pr->size) {
+        fprintf(stderr, " \e[31m Invalid address %d\e[39m\n", adr);
+        abort();
+    }
+}
+
+// jeq 0x10 
+// jump if equal
+void jeq(unsigned int offset) {
+    if (pop() == 0) jmp(offset);
+}
+
 // call 0x09
 // http://unixwiz.net/techtips/win32-callconv-asm.html
 // call od adresy (parametry jsou jiz ulozene na zasobniku !!!)
 // POZOR -- FP ukazuje na prvni pole noveho ramce, takze pod nim
 // pri volani neni adresa stareho FP - ta je adresu za nim !!! (lepe se to psalo)
 void call(int address) {
+    // tyto dve instrukce jsou umyslne prohozene, aby se mohlo s 
+    // navratovou hodnotou hned pracovat
+    push_i(0);          // udela se misto pro navratovou hodnotu
     push_i(pr->ip + 5); // vlozi na zasobnik navratovou adresu 4B adresa callu + 1B opcode "call"
                         // (+1 protoze ted je ip na instrukci call, ktera prave bezi...)
     push_p(st->fp);     // vlozi na zasobnik stary fp    
@@ -452,10 +443,41 @@ void call(int address) {
 }
 
 // return 0x0a
+// navratova hodnota je int a je to posledni udaj na zasobniku
 void ret() {
+    // musi se vratit o velikost navratove hodnoty + preskocit ret adresu
+    *(st->fp - 2 * sizeof(int)) = pop_i();    // zapis navratovou hodnotu 
     st->sp = st->fp;    // nastav vrchol zasobniku na zacatek ramce
     st->fp = pop_p();   // ziskej stary fp
     pr->ip = pop_i();   // ziskej navratovou adresu
+}
+
+// pop stack to locale 4B 0x1d
+// locals jsou cislovane od 0
+void ipsl(unsigned int offset) {
+    st_check(st->fp + offset * 4);
+    *(st->fp + offset * 4) = pop_i();
+}
+
+// push locale on stack 4B 0x1e
+// locals jsou cislovane od 0
+void ipls(unsigned int offset) {
+    st_check(st->fp + offset * 4);
+    push_i(*(st->fp + offset * 4));
+}
+
+// pop stack to locale 1B 0x1b
+// locals jsou cislovane od 0
+void psl_c(unsigned int offset) {
+    st_check(st->fp + offset);
+    *(st->fp + offset) = pop();
+}
+
+// push locale on stack 1B 0x1c
+// locals jsou cislovane od 0
+void pls_c(unsigned int offset) {
+    st_check(st->fp + offset);
+    push(*(st->fp + offset));
 }
 
 // store locale 1B 0x0b
@@ -472,11 +494,31 @@ char ll_c(unsigned int offset) {
     return *(st->fp + offset);
 }
 
+// store in arguments 4B 0x2d
+// argumenty jsou cislovane od 0
+void sa(unsigned int offset) {
+    // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
+    // offset je ted 4x vetsi (int)
+    int stepback = 1 + 3 * sizeof(char *);
+    st_check(st->fp - offset * 4 - stepback);  
+    *(st->fp - offset * 4 - stepback) = pop_i();
+}
+
+// load from arguments 4B 0x2e
+// argumenty jsou cislovane od 0
+void la(unsigned int offset) {
+    // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
+    // offset je ted 4x vetsi (int)
+    int stepback = 1 + 3 * sizeof(char *);
+    st_check(st->fp - offset * 4 - stepback); 
+    push_i(*(st->fp - offset * 4 - stepback));
+}
+
 // store in arguments 1B 0x0d
 // argumenty jsou cislovane od 0
 void sa_c(char value, unsigned int offset) {
-    // krok zpet, krok pres stare FP a pres IP (ty jsou ale delsi nez 1B)
-    int stepback = 1 + 2 * sizeof(char *);
+    // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
+    int stepback = 1 + 3 * sizeof(char *);
     st_check(st->fp - offset - stepback);  
     *(st->fp - offset - stepback) = value;
 }
@@ -484,8 +526,8 @@ void sa_c(char value, unsigned int offset) {
 // load from arguments 1B 0x0e
 // argumenty jsou cislovane od 0
 char la_c(unsigned int offset) {
-    // krok zpet, krok pres stare FP a pres IP (ty jsou ale delsi nez 1B)
-    int stepback = 1 + 2 * sizeof(char *);
+    // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
+    int stepback = 1 + 3 * sizeof(char *);
     st_check(st->fp - offset - stepback); 
     return *(st->fp - offset - stepback);
 }
@@ -601,14 +643,12 @@ int main ( int argc, char **argv ) {
     printf("----------------------------------------\n");
     printf(" Giraffe !\n----------------------------------------\n");
 
-    printf(" Mem location:\t%p - %p\n",g->mem, g->mem + g->real_size);
-    printf(" Real size:\t%d B\n",g->real_size);
+    printf(" Mem loc.:\t%p - %p\n",g->mem, g->mem + g->real_size);
+    printf(" Mem size:\t%d B\n",g->real_size);
+    printf(" Stack loc.:\t%p - %p\n",st->start, st->start + STACK_SIZE);
     printf(" Stack size:\t%d B\n",STACK_SIZE);
 
     printf("----------------------------------------\n");
-
-    char str[BUFFER];
-    int int_arg;
 
     // BYTECODE test ... 
     printf(" Tests: ");
@@ -646,6 +686,7 @@ int main ( int argc, char **argv ) {
 
     // ret
     ret();
+    test(pop() == 3);
     test(pr->ip == 20); // pokracuje dal v puvodnich instrukcich
     test(st->fp == _fp);
     test(st->sp == _sp);
@@ -665,6 +706,7 @@ int main ( int argc, char **argv ) {
     test(la_c(0) == 65);
     test(la_c(1) == 30);
     ret();
+    test(pop() == 10);
     test(pop() == 65);
     test(pop() == 30);
 

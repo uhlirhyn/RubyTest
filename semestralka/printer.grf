@@ -1,6 +1,1 @@
-printl 3+5
-print 4
-
-a = 45
-
-printl a, 7, "ZZZ"
+a = 5

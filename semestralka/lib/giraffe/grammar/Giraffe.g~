@@ -226,7 +226,7 @@ mulOperand returns [result]
 
 mulOperandRest returns [result]
 	:	arrayIndexTarget {$result = $arrayIndexTarget.result}	
-		('[' expression ']' { $result = IndexTree.new($result,$expression.result) } )*		
+		('[' expression ']' { $result = [IndexTree.new($result,$expression.result),$expression.tree] })*		
 	;
 	
 arrayIndexTarget returns [result]

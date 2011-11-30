@@ -13,3 +13,15 @@
 0x0d    sa_c (store in args)
 0x0e    la_c (load from args)
 0x0f    out_c (control output)
+0x10    jeq 
+0x11    jmp
+
+0x1b    psl_c (pop stack to locale)
+0x1c    pls_c (push locale to stack)
+0x1d    ipsl
+0x1e    ipls
+
+0x25    iadd
+
+0x2d    psa  (pop stack to argument)
+0x2e    pas  (push argument to stack)

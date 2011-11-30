@@ -1,34 +1,61 @@
 require './lib/giraffe/env.rb'
 require './lib/giraffe/debug.rb'
+require './lib/giraffe/opcodes.rb'
 
 module Giraffe
 
     class FuncTree
     
         include Debug
+        include Opcodes
 
-        def initialize(id,params,block)
+        def initialize(id,params,instructions)
             dbg("initialize",:FuncTree)
             @id = id
             @params = params
-            @block = block            
+            @instructions = instructions
         end
 
+        def where
+            "\n\tin function '#{@id}' on line #{@tree.line}, column #{@tree.column}"
+        end
+        
         def run(env,tree)
 
             dbg("run #{tree.line},#{tree.column}",:FuncTree)
-
-            # U definice funkce se nevyhodnocuje vubec nic
-            # zadavaji se pevne identifikatory takze tento
-            # uzel neprodukuje ani zpravy ani hodnoty
             
-            # FuncTree
-            # - nezpracovava zadnou zpravu
-            # - negeneruje zadnou zpravu
-            # - normalni vystup je hodnota promenne
-
             # probehla deklarace funkce
-            env.func!(@id,@params,@block,env,tree)
+            env.func!(@id, @params)
+            
+            # zaloz si nove izolovane prostredi
+            env = Env.new(nil)
+
+            # registruj nazvy parametru
+            env.register_params(@params)
+            
+            for i in @instructions do 
+                return_value, msg = i[0].run(env,i[1]) 
+                case msg
+                when :break 
+                    return orange("Unexpected break") + where(), :error
+                when :exit, :return 
+                    break               # death code elimination ...
+                when :error 
+                    puts red("Error: ") + return_value
+                    on_exit(-1)
+                    return 
+                end
+            end
+
+            # zapis return
+            env.write_opcode(RET)
+
+            # uzavre generovani bytecodu funkce
+            # presype temp_bytecode do ostreho
+            # bytecodu, a da pred nej prostor
+            # pro lokalni promenne
+            env.seal_function
+                
             return nil, nil
         end
 
