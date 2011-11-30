@@ -22,6 +22,12 @@
 0x1e    ipls
 
 0x25    iadd
-
+...     ...
+0x2a    ineg
+0x2b    ior
+0x2c    iand
 0x2d    psa  (pop stack to argument)
 0x2e    pas  (push argument to stack)
+0x2f    ine
+...     ...
+0x34    ieq

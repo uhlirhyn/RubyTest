@@ -2,7 +2,7 @@ test {
     print(284)
     print(10)
 
-    print(15)
+    print(15+2)
 }
 
 main {

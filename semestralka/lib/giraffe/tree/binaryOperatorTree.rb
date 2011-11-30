@@ -30,8 +30,12 @@ module Giraffe
             return return_value2, msg if msg != nil
 
             dbg("operands: #{return_value1} #{return_value2}",:BinaryOperatorTree)
-            
-            return @operator.call(return_value1,return_value2)
+           
+            return_value, msg = @operator.call(return_value1,return_value2)
+            return return_value, msg if msg != nil
+
+            # operandy by mely byt ted uz pushnute na stacku
+            env.write_bytecode(return_value)
         end
         
     end

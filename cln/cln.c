@@ -387,16 +387,53 @@ char * pop_p() {
     return *((char **) st->sp);
 }
 
-// add_char 0x05
-// secti 4B hodnoty
+// ARITMETIKA
+// -- 4B operace
+
+// iadd 0x25
 void iadd() {
     int op1 = pop_i();
     int op2 = pop_i();
     push_i(op1 + op2);
 }
 
-// iadd 0x25
-// secti 1B hodnoty
+// isub 0x26
+void isub() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 - op2);
+}
+
+// imul 0x27
+void imul() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 * op2);  // TODO preteceni ??
+}
+
+// idiv 0x28
+void idiv() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 / op2);
+}
+
+// imod 0x29
+void imod() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 % op2);
+}
+
+// ineg 0x2a
+void ineg() {
+    int op = pop_i();
+    push_i(-op);
+}
+
+// -- 1B operace
+
+// add_char 0x05
 void add_c() {
     char op1 = pop();
     char op2 = pop();
@@ -404,11 +441,72 @@ void add_c() {
 }
 
 // sub_char 0x06
-// odecti 1B hodnoty
 void sub_c() {
     char op1 = pop();
     char op2 = pop();
     push(op1 - op2);
+}
+
+// BOOL OPERACE
+// -- 4B operace
+
+// ior 0x2b
+void ior() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 | op2);
+}
+
+// iand 0x2c
+void iand() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 & op2);
+}
+
+// POROVNAVANI
+// -- 4B operace
+
+// ine 0x2f
+void ine() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 != op2);
+}
+
+// igt 0x30
+void igt() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 > op2);
+}
+
+// ige 0x31
+void ige() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 >= op2);
+}
+
+// ilt 0x32
+void ilt() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 < op2);
+}
+
+// ile 0x33
+void ile() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 <= op2);
+}
+
+// ieq 0x34
+void ieq() {
+    int op1 = pop_i();
+    int op2 = pop_i();
+    push_i(op1 == op2);
 }
 
 // jmp 0x11
@@ -621,6 +719,70 @@ void run() {
             printf("\e[36m-- out_c\e[0m");
             out_c();
             break;
+
+        // aritmetika
+        case 0x25:
+            printf("\e[36m-- iadd\e[0m ");
+            iadd();
+            break;
+        case 0x26:
+            printf("\e[36m-- isub\e[0m ");
+            isub();
+            break;
+        case 0x27:
+            printf("\e[36m-- imul\e[0m ");
+            imul();
+            break;
+        case 0x28:
+            printf("\e[36m-- idiv\e[0m ");
+            idiv();
+            break;
+        case 0x29:
+            printf("\e[36m-- imod\e[0m ");
+            imod();
+            break;
+        case 0x2a:
+            printf("\e[36m-- ineg\e[0m ");
+            ineg();
+            break;
+
+        // bool operace
+        case 0x2b:
+            printf("\e[36m-- ior\e[0m ");
+            ior();
+            break;
+        case 0x2c:
+            printf("\e[36m-- iand\e[0m ");
+            iand();
+            break;
+
+        // porovnavani
+        case 0x2f:
+            printf("\e[36m-- ine\e[0m ");
+            ine();
+            break;
+        case 0x30:
+            printf("\e[36m-- igt\e[0m ");
+            igt();
+            break;
+        case 0x31:
+            printf("\e[36m-- ige\e[0m ");
+            ige();
+            break;
+        case 0x32:
+            printf("\e[36m-- ilt\e[0m ");
+            ilt();
+            break;
+        case 0x33:
+            printf("\e[36m-- ile\e[0m ");
+            ile();
+            break;
+        case 0x34:
+            printf("\e[36m-- ieq\e[0m ");
+            ieq();
+            break;
+
+        // jine
         case 0x12:
             printf("\e[36m-- out\e[0m ");
             out();
@@ -662,24 +824,12 @@ int main ( int argc, char **argv ) {
     printf("----------------------------------------\n");
 
     // BYTECODE test ... 
-    printf(" Tests: ");
+    printf(" Stack tests: ");
   
     // push / pop
     push(15);
     test(pop() == 15);
     
-    // add_char
-    push(11);
-    push(12);
-    add_c();
-    test(pop() == 23);
-
-    // sub_char
-    push(11);
-    push(12);
-    sub_c();
-    test(pop() == 1);
-
     // push_i / pop_i
     push_i(256);
     test(pop_i() == 256);
@@ -722,6 +872,136 @@ int main ( int argc, char **argv ) {
     test(pop_i() == 10);
     test(pop() == 65);
     test(pop() == 30);
+    
+    printf("\n Arithmetic tests: ");
+
+    // add
+    push_i(10);
+    push_i(3);
+    iadd();
+    test(pop_i() == 13);
+
+    // sub
+    push_i(3);
+    push_i(10);
+    isub();
+    test(pop_i() == 7);
+
+    // mul
+    push_i(10);
+    push_i(3);
+    imul();
+    test(pop_i() == 30);
+
+    // div
+    push_i(3);
+    push_i(10);
+    idiv();
+    test(pop_i() == 3);
+
+    // mod
+    push_i(3);
+    push_i(10);
+    imod();
+    test(pop_i() == 1);
+
+    // neg
+    push_i(10);
+    ineg();
+    test(pop_i() == -10);
+    push_i(-10);
+    ineg();
+    test(pop_i() == 10);
+
+    // or
+    push_i(0x00000019);
+    push_i(0x00000036);
+    ior();
+    test(pop_i() == 0x0000003F);
+
+    // and
+    push_i(0x00000019);
+    push_i(0x00000036);
+    iand();
+    test(pop_i() == 0x00000010);
+
+    printf("\n Comparing tests: ");
+    
+    // ne
+    push_i(10);
+    push_i(3);
+    ine();
+    test(pop_i() == 0x01);
+    push_i(10);
+    push_i(10);
+    ine();
+    test(pop_i() == 0x00);
+
+    // gt
+    push_i(3);
+    push_i(10);
+    igt();
+    test(pop_i() == 0x01);
+    push_i(3);
+    push_i(3);
+    igt();
+    test(pop_i() == 0x00);
+    push_i(15);
+    push_i(10);
+    igt();
+    test(pop_i() == 0x00);
+
+    // ge
+    push_i(3);
+    push_i(10);
+    ige();
+    test(pop_i() == 0x01);
+    push_i(3);
+    push_i(3);
+    ige();
+    test(pop_i() == 0x01);
+    push_i(15);
+    push_i(10);
+    ige();
+    test(pop_i() == 0x00);
+
+    // lt
+    push_i(3);
+    push_i(10);
+    ilt();
+    test(pop_i() == 0x00);
+    push_i(3);
+    push_i(3);
+    ilt();
+    test(pop_i() == 0x00);
+    push_i(15);
+    push_i(10);
+    ilt();
+    test(pop_i() == 0x01);
+
+    // le
+    push_i(3);
+    push_i(10);
+    ile();
+    test(pop_i() == 0x00);
+    push_i(3);
+    push_i(3);
+    ile();
+    test(pop_i() == 0x01);
+    push_i(15);
+    push_i(10);
+    ile();
+    test(pop_i() == 0x01);
+
+    // eq
+    push_i(3);
+    push_i(3);
+    ieq();
+    test(pop_i() == 0x01);
+    push_i(5);
+    push_i(3);
+    ieq();
+    test(pop_i() == 0x00);
 
     printf("\n");
 
