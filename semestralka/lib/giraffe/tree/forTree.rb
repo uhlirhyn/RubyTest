@@ -46,7 +46,7 @@ module Giraffe
 
             # vyzvedni si navesti a vloz ho do vystupu
             label = env.next_label
-            env.write_opcode(label)
+            env.write_bytecode(label)
 
             # zaloz break navesti pro pripadne break instrukce
             env.next_break_label

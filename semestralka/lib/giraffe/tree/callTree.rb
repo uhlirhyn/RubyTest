@@ -19,18 +19,17 @@ module Giraffe
 
             dbg("run #{tree.line},#{tree.column}",:CallTree)
 
-            # vyzvedni deklaraci funkce
-            func, msg = env.func(@id,@args)
-            return func, msg if msg != nil
-
             # proved push argumentu pro funkci
             for a in @args
                 return_value, msg = a[0].run(env,a[1])
                 return return_value, msg if msg != nil
-            end
+            end if @args != nil
 
-            # zavolej funkci
-            env.write_opcode(CALL)
+            # vyzvedni deklaraci funkce
+            # a vloz instrukci volani
+            func, msg = env.func(@id,@args)
+            return func, msg if msg != nil
+
 
             return return_value, msg
         end

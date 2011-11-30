@@ -24,12 +24,9 @@ module Giraffe
             dbg("value '#{@value}'",:AtomTree)
 
             env.write_bytecode(IPUSH)
-            env.write_bytecode(@value & 0xFF)
-            @value = @value >> 8
-            env.write_bytecode(@value & 0xFF)
-            @value = @value >> 8
-            env.write_bytecode(@value & 0xFF)
-            @value = @value >> 8
+            env.write_bytecode(@value >> 24 & 0xFF)
+            env.write_bytecode(@value >> 16 & 0xFF)
+            env.write_bytecode(@value >> 8 & 0xFF)
             env.write_bytecode(@value & 0xFF)
 
             return @value, nil

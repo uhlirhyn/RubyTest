@@ -537,6 +537,12 @@ void out_c() {
     printf("%x", pop());
 }
 
+// control output 0x12
+void out() {
+    int value = pop_i(); 
+    printf("0x%02x (%d)", value, value);
+}
+
 //===============
 // VM EXECUTION
 //===============
@@ -562,9 +568,10 @@ void run() {
     pa[1] = next();
     pa[0] = next();
     pi = *((int *) pa);
-    pr->ip = pi;
 
+    // zavolej main
     printf(" Header 4B: \e[33m-- Main found on %d (0x%02x)\e[0m\n", pi, pi);
+    call(pi);
 
     // provadej instrukce
     while (pr->ip < pr->size) {
@@ -613,6 +620,10 @@ void run() {
         case 0x0f:
             printf("\e[36m-- out_c\e[0m");
             out_c();
+            break;
+        case 0x12:
+            printf("\e[36m-- out\e[0m ");
+            out();
             break;
         default:
             printf("\e[33m-- WARNING: Uknown opcode 0x%02x (ignored)\e[0m", opcode);
@@ -717,7 +728,9 @@ int main ( int argc, char **argv ) {
     // end of tests
     
     printf("----------------------------------------\n");
-
+    printf(" Interpreting '%s' (%d bytes)\n", pr->filename, pr->size);
+    printf("----------------------------------------\n");
+    
     reset_vm(); // vyresetuj VM po testech
     run();
 

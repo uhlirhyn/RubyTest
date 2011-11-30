@@ -15,7 +15,7 @@
 0x0f    out_c (control output)
 0x10    jeq 
 0x11    jmp
-
+0x12    out
 0x1b    psl_c (pop stack to locale)
 0x1c    pls_c (push locale to stack)
 0x1d    ipsl

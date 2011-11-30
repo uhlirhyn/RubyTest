@@ -10,5 +10,6 @@ module Opcodes
     PSA     =   0x2d
     PAS     =   0x2e
     CALL    =   0x09
+    OUT     =   0x12
 
 end

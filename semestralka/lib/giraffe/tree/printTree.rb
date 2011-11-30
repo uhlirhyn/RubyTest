@@ -1,10 +1,12 @@
 require './lib/giraffe/debug.rb'
+require './lib/giraffe/opcodes.rb'
 
 module Giraffe
 
     class PrintTree
 
         include Debug
+        include Opcodes
 
         def initialize(texts,newline=false)
             @texts = texts
@@ -15,11 +17,6 @@ module Giraffe
 
             @tree = tree
 
-            # PrintTree
-            # - nezpracovava zadnou zpravu
-            # - negeneruje zadnou zpravu
-            # - normalni vystup je hodnota promenne
-
             if @texts != nil 
                 for text in @texts
                     return_value, msg = text[0].run(env,text[1])
@@ -28,8 +25,7 @@ module Giraffe
                     when nil then ;
                     else return return_value, msg
                     end
-
-                    print return_value
+                    env.write_bytecode(0x12)
                 end
                 puts if @newline
             end

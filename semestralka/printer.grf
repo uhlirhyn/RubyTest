@@ -1,8 +1,12 @@
 test {
+    print(284)
+    print(10)
+
+    print(15)
 }
 
 main {
 
-# a = 5
-
+# a = 7
+test()
 }

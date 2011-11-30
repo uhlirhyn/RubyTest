@@ -106,12 +106,21 @@ module Giraffe
         end
         
         # volam funkci
-        def func(id) 
+        def func(id,args) 
             function = @@functions[id]
-            if function == :undeclared
+            if function == :undeclared 
                 return orange("Function '#{id}' is not declared"), :error
+            elsif (args == nil ? 0 : args.size) != function[1] 
+                return orange("Function '#{id}' with #{function[1]} arguments is not declared"), :error
             else 
-                function
+                # zavolej funkci
+                # parametry uz by tady mely byt
+                # vloz call a adresu funkce
+                write_bytecode(CALL)
+                write_bytecode(function[0] >> 24 & 0xFF)
+                write_bytecode(function[0] >> 16 & 0xFF)
+                write_bytecode(function[0] >> 8 & 0xFF)
+                write_bytecode(function[0] & 0xFF)
             end
         end
 

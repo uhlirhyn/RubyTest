@@ -20,7 +20,7 @@ module Giraffe
 
             dbg("run",:BreakTree)
             
-            env.write_opcode(JMP)
+            env.write_bytecode(JMP)
             env.write_break_label
 
             return nil, :break

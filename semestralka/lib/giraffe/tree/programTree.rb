@@ -15,7 +15,6 @@ module Giraffe
 
         def run
             dbg("run",:ProgramTree)
-            dbg("@instructions.size #{@instructions == nil ? 0 : @instructions.size}",:ProgramTree)
 
             # deklarace
             return_value = msg = nil
@@ -44,12 +43,16 @@ module Giraffe
 
         private 
         def on_exit(code=1)
-            
-            print("------------------------------------\n")
-            for byte in Env::bytecode do
-                printf(":: 0x#{byte.to_s(16)}\n");
+           
+            File.open("out.grfc","wb") do
+                |f|
+                print("------------------------------------\n")
+                for byte in Env::bytecode do
+                    f.write(byte.chr)
+                    printf(":: 0x#{byte.to_s(16)}\n");
+                end
+                print("------------------------------------\n")
             end
-            print("------------------------------------\n")
 
             dbg("exit - status: #{code}",:ProgramTree)  
         end

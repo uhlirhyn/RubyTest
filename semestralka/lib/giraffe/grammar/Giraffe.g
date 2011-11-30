@@ -53,7 +53,7 @@ funcdef returns [result]
 functions returns [list]
 	:	{$list = []}
 		funcdef
-		{$list = [[$funcdef.result,$funcdef.tree]] unless $funcdef.result == nil}
+		{$list = [$funcdef.result] unless $funcdef.result == nil}
 		functionsRest 
 		{$list = $list + $functionsRest.list}	
 	;
@@ -68,7 +68,7 @@ functionsRest returns [list]
 block returns [list]
 	:	{$list = []}
 		instruction  
-		{$list = [[$instruction.result,$instruction.tree]] unless $instruction.result == nil}
+		{$list = [$instruction.result] unless $instruction.result == nil}
 		instructionRest 
 		{$list = $list + $instructionRest.list}		
 	;
@@ -119,16 +119,16 @@ statusCode returns [result]
 	;
 
 printInstruction returns [result]
- 	:	PRINT^ printText {$result = PrintTree.new($printText.list)}
+ 	:	PRINT^ LB! printText RB! {$result = [PrintTree.new($printText.list),$PRINT.tree]} 
  	;
  	
 printlInstruction returns [result]
- 	:	(PRINTL | PRINTLN)^ printText {$result = PrintTree.new($printText.list,true)}
+ 	:	(an=PRINTL | an=PRINTLN)^ LB! printText RB!{$result = [PrintTree.new($printText.list,true),$an.tree]}
  	;
  	
 printText returns [list]
 	:	expression {$list = [$expression.result]}
-		(COMMA rest=printText {$list = $list + $rest.list})?
+		(COMMA rest=printText {$list = $list + $rest.list})? 
 	; 
  	
 ifInstruction returns [result]	
@@ -160,7 +160,7 @@ forCycle returns [result]
 	
 func returns [result]
 	:	ID^ params? LCB! block RCB!
-		{$result = FuncTree.new($ID.text,$params.list,$block.list)}
+		{$result = [FuncTree.new($ID.text,$params.list,$block.list),$ID.tree]}
 	;
 
 params returns [list]
