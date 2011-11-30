@@ -7,9 +7,8 @@ module Giraffe
 
         include Debug
 
-        def initialize(functions, instructions)
+        def initialize(functions)
             dbg("ProgramTree initialized",:ProgramTree)
-            @instructions = instructions
             @functions = functions
             @env = Env.new()            
         end
@@ -48,7 +47,7 @@ module Giraffe
             
             print("------------------------------------\n")
             for byte in Env::bytecode do
-                printf(":: #{byte}\n");
+                printf(":: 0x#{byte.to_s(16)}\n");
             end
             print("------------------------------------\n")
 

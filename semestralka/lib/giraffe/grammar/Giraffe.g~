@@ -42,9 +42,29 @@ require './lib/giraffe/operators.rb'
 // pak nema moznost se tim prokousat ...
    
 program	returns [result]
-	:	block {$result = ProgramTree.new($block.list)} 
+	:	functions {$result = ProgramTree.new($functions.list)} 
 	;
 
+funcdef returns [result]
+	:	func {$result = $func.result} 
+	|	{$result = nil} 
+	;
+
+functions returns [list]
+	:	{$list = []}
+		funcdef
+		{$list = [[$func.result,$func.tree]] unless $func.result == nil}
+		functionsRest 
+		{$list = $list + $functionsRest.list}	
+	;
+	
+functionsRest returns [list]
+	: 	(( COMMENT!? '\r'!? '\n'!) | SEMICOLON!) 
+		functions 
+		{$list = $functions.list}				
+	|	{$list = []}
+	;
+	
 block returns [list]
 	:	{$list = []}
 		instruction  
@@ -62,7 +82,6 @@ instructionRest returns [list]
 
 instruction returns [result]
 	:	assignment {$result = $assignment.result}
-	|	func {$result = $func.result}
 	|	forCycle {$result = $forCycle.result}
 	|	ifInstruction {$result = $ifInstruction.result}
 	|	whileCycle {$result = $whileCycle.result}
@@ -73,7 +92,6 @@ instruction returns [result]
 	|	exitInstruction {$result = $exitInstruction.result}
 	|	breakInstruction {$result = $breakInstruction.result}
 	|	call {$result = $call.result}
-	|	classDef {$result = $classDef.result} 
 	|	{$result = nil} 
 	;
 

@@ -445,8 +445,8 @@ void call(int address) {
 // return 0x0a
 // navratova hodnota je int a je to posledni udaj na zasobniku
 void ret() {
-    // musi se vratit o velikost navratove hodnoty + preskocit ret adresu
-    *(st->fp - 2 * sizeof(int)) = pop_i();    // zapis navratovou hodnotu 
+    // musi se vratit o velikost navratove hodnoty + preskocit ret adresu a _FP
+    *(st->fp - 3 * sizeof(int)) = pop_i();    // zapis navratovou hodnotu 
     st->sp = st->fp;    // nastav vrchol zasobniku na zacatek ramce
     st->fp = pop_p();   // ziskej stary fp
     pr->ip = pop_i();   // ziskej navratovou adresu
@@ -494,9 +494,9 @@ char ll_c(unsigned int offset) {
     return *(st->fp + offset);
 }
 
-// store in arguments 4B 0x2d
+// pop stack to argument 4B 0x2d
 // argumenty jsou cislovane od 0
-void sa(unsigned int offset) {
+void psa(unsigned int offset) {
     // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
     // offset je ted 4x vetsi (int)
     int stepback = 1 + 3 * sizeof(char *);
@@ -504,9 +504,9 @@ void sa(unsigned int offset) {
     *(st->fp - offset * 4 - stepback) = pop_i();
 }
 
-// load from arguments 4B 0x2e
+// push argument to stack 4B 0x2e
 // argumenty jsou cislovane od 0
-void la(unsigned int offset) {
+void pas(unsigned int offset) {
     // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
     // offset je ted 4x vetsi (int)
     int stepback = 1 + 3 * sizeof(char *);
@@ -683,10 +683,11 @@ int main ( int argc, char **argv ) {
     pr->ip = 15;
     call(2);
     test(pr->ip == 2);
+    push_i(3);
 
     // ret
     ret();
-    test(pop() == 3);
+    test(pop_i() == 3);
     test(pr->ip == 20); // pokracuje dal v puvodnich instrukcich
     test(st->fp == _fp);
     test(st->sp == _sp);
@@ -705,8 +706,9 @@ int main ( int argc, char **argv ) {
     sa_c(30,1); // change arg1
     test(la_c(0) == 65);
     test(la_c(1) == 30);
+    push_i(10);
     ret();
-    test(pop() == 10);
+    test(pop_i() == 10);
     test(pop() == 65);
     test(pop() == 30);
 

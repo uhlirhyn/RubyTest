@@ -23,14 +23,14 @@ module Giraffe
             dbg("run",:AtomTree)
             dbg("value '#{@value}'",:AtomTree)
 
-            env.write_opcode(IPUSH)
-            env.write_opcode(@value & 0xFF)
+            env.write_bytecode(IPUSH)
+            env.write_bytecode(@value & 0xFF)
             @value = @value >> 8
-            env.write_opcode(@value & 0xFF)
+            env.write_bytecode(@value & 0xFF)
             @value = @value >> 8
-            env.write_opcode(@value & 0xFF)
+            env.write_bytecode(@value & 0xFF)
             @value = @value >> 8
-            env.write_opcode(@value & 0xFF)
+            env.write_bytecode(@value & 0xFF)
 
             return @value, nil
         end

@@ -37,7 +37,7 @@ module Giraffe
 
         # zapis do bytecodu
         def write_bytecode(code) 
-            @byte_code << code
+            @temp_bytecode << code
             @@current_byte += 1     # pricti k celkove delce
         end
 
@@ -53,7 +53,7 @@ module Giraffe
 
         # zapise break navesti aktualniho cyklu
         def write_break_label
-            write_opcode("B#{@@break_labels}")
+            write_bytecode("B#{@@break_labels}")
         end
 
         # chci cist z lokalni promenne (nebo argumentu)
@@ -71,12 +71,12 @@ module Giraffe
                     # tak to fakt neznam 
                     return orange("Variable '#{id}' is not declared"), :error
                 else
-                    write_opcode(PAS)       # budu zapisovat na zasobnik argument
-                    write_opcode(variable)  # jeho id
+                    write_bytecode(PAS)       # budu zapisovat na zasobnik argument
+                    write_bytecode(variable)  # jeho id
                 end
             else 
-                write_opcode(IPLS)      # budu zapisovat na zasobnik lokalni promennou
-                write_opcode(variable)  # jeji id
+                write_bytecode(IPLS)      # budu zapisovat na zasobnik lokalni promennou
+                write_bytecode(variable)  # jeji id
             end
         end
 
@@ -92,13 +92,13 @@ module Giraffe
 
                 # zkontroluje jestli to neni argument
                 variable = @arguments[id]
-                if variables != :undeclared
-                    write_opcode(PSA)
+                if variable != :undeclared
+                    write_bytecode(PSA)
                 else
                     @variables[id] = @locals
                     @locals += 1
-                    write_opcode(IPSL)          # zapis obsah zasobniku do lokalni promenne
-                    write_opcode(@locals)
+                    write_bytecode(IPSL)          # zapis obsah zasobniku do lokalni promenne
+                    write_bytecode(@locals)
                 end
             else
                 return variable
@@ -126,10 +126,11 @@ module Giraffe
                 # pokud jsem definoval main, pak aktualni adresu dej do hlavicky
                 if id == "main" 
                     main_add = @@current_byte
-                    @@output[0] = main_add & 0xFF; main_add >> 8
-                    @@output[1] = main_add & 0xFF; main_add >> 8
-                    @@output[2] = main_add & 0xFF; main_add >> 8
-                    @@output[3] = main_add & 0xFF
+                    dbg("Main found on address #{main_add}",:Env)
+                    @@bytecode[3] = main_add & 0xFF; main_add >>= 8
+                    @@bytecode[2] = main_add & 0xFF; main_add >>= 8
+                    @@bytecode[1] = main_add & 0xFF; main_add >>= 8
+                    @@bytecode[0] = main_add & 0xFF
                 end
 
             else 
@@ -139,6 +140,7 @@ module Giraffe
 
         # zakladam argumenty pro funkci
         def register_params(params)
+            return if params == nil
             for p in params 
                 @arguments[p] = @args
                 @args += 1
@@ -150,10 +152,10 @@ module Giraffe
             # vloz instrukce pro vytvoreni slotu
             # pro lokalni promenne
             @variables.size.times do
-                @@output << IPUSH
+                @@bytecode<< IPUSH
                 @@current_byte += 1
             end
-            @@output += @temp_bytecode
+            @@bytecode += @temp_bytecode
         end
 
     end

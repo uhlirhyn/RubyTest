@@ -22,7 +22,7 @@ module Giraffe
         
         def run(env,tree)
 
-            dbg("run #{tree.line},#{tree.column}",:FuncTree)
+            dbg("run #{@id} #{tree.line},#{tree.column}",:FuncTree)
             
             # probehla deklarace funkce
             env.func!(@id, @params)
@@ -39,7 +39,7 @@ module Giraffe
                 when :break 
                     return orange("Unexpected break") + where(), :error
                 when :exit, :return 
-                    break               # death code elimination ...
+                    break               # dead code elimination ...
                 when :error 
                     puts red("Error: ") + return_value
                     on_exit(-1)
@@ -48,7 +48,7 @@ module Giraffe
             end
 
             # zapis return
-            env.write_opcode(RET)
+            env.write_bytecode(RET)
 
             # uzavre generovani bytecodu funkce
             # presype temp_bytecode do ostreho
