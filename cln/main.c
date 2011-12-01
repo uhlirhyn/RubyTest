@@ -283,7 +283,7 @@ void run() {
 
     // zavolej main
     printf(" Header 4B: \e[33m-- Main found on %d (0x%02x)\e[0m\n", pi, pi);
-    call(pi);
+    main_call(pi);
 
     // provadej instrukce
     while (pr->ip < pr->size) {
@@ -298,24 +298,12 @@ void run() {
             printf("\e[36m%c (0x%02x)\e[0m",pc ,pc);
             push(pc);
             break;
-        case 0x0a:
-            printf("\e[36m-- ret \e[0m");
-            ret();
-            break;
+       
         case 0x02:
             printf("\e[36m-- pop \e[0m");
             pop();
             break;
-        case 0x09:
-            printf("\e[36m-- call \e[0m");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-            call(pi);
-            break;
+    
         case 0x03:
             printf("\e[36m-- push_i \e[0m");
             pa[3] = next();
@@ -326,13 +314,47 @@ void run() {
             printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
             push_i(pi);
             break;
+        
         case 0x00:
             printf("\e[36m-- nop\e[0m");
             break;
-        case 0x0f:
-            printf("\e[36m-- out_c\e[0m");
-            out_c();
+
+        // rizeni behu programu
+        case 0x09:
+            printf("\e[36m-- call \e[0m");
+            pa[3] = next();
+            pa[2] = next();
+            pa[1] = next();
+            pa[0] = next();
+            pi = *((int *) pa);
+            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
+            call(pi);
             break;
+        case 0x0a:
+            printf("\e[36m-- ret \e[0m");
+            ret();
+            break;
+        case 0x10:
+            printf("\e[36m-- jneq \e[0m");
+            pa[3] = next();
+            pa[2] = next();
+            pa[1] = next();
+            pa[0] = next();
+            pi = *((int *) pa);
+            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
+            jneq(pi);
+            break;
+        case 0x11:
+            printf("\e[36m-- jmp \e[0m");
+            pa[3] = next();
+            pa[2] = next();
+            pa[1] = next();
+            pa[0] = next();
+            pi = *((int *) pa);
+            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
+            jmp(pi);
+            break;
+
 
         // aritmetika
         case 0x25:
@@ -368,6 +390,18 @@ void run() {
         case 0x2c:
             printf("\e[36m-- iand\e[0m ");
             iand();
+            break;
+
+        // operace s argumenty
+        case 0x2e:
+            printf("\e[36m-- pas\e[0m ");
+            pa[3] = next();
+            pa[2] = next();
+            pa[1] = next();
+            pa[0] = next();
+            pi = *((int *) pa);
+            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
+            pas(pi);
             break;
 
         // porovnavani

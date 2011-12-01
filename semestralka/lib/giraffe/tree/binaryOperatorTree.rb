@@ -35,7 +35,7 @@ module Giraffe
             return return_value, msg if msg != nil
 
             # operandy by mely byt ted uz pushnute na stacku
-            env.write_bytecode(return_value)
+            env.write_opcode(return_value)
         end
         
     end

@@ -36,29 +36,40 @@ void tests(gc * g, stack * st, program * pr) {
     // ret
     ret();
     test(pop_i() == 3);
-    test(pr->ip == 20); // pokracuje dal v puvodnich instrukcich
+    test(pr->ip == 15); // pokracuje dal v puvodnich instrukcich
     test(st->fp == _fp);
     test(st->sp == _sp);
    
     // locale store / load
-    sl_c(15,2);
-    test(ll_c(2) == 15);
+    push_i(0);  // vytvor sloty 
+    push_i(0);
+    push_i(0);
+    push_i(15);
+    psl(2);
+    pls(2);
+    test(pop_i() == 15);
 
     // argumenty store / load
-    push(20);   // arg1
-    push(25);   // arg0
+    push_i(20);   // arg1
+    push_i(25);   // arg0
     call(5);
-    test(la_c(0) == 25);
-    test(la_c(1) == 20);
-    sa_c(65,0); // change arg0
-    sa_c(30,1); // change arg1
-    test(la_c(0) == 65);
-    test(la_c(1) == 30);
+    pas(0);
+    test(pop_i() == 25);
+    pas(1);
+    test(pop_i() == 20);
+    push_i(65);
+    psa(0); // change arg0
+    push_i(30);
+    psa(1); // change arg1
+    pas(0);
+    test(pop_i() == 65);
+    pas(1);
+    test(pop_i() == 30);
     push_i(10);
     ret();
     test(pop_i() == 10);
-    test(pop() == 65);
-    test(pop() == 30);
+    test(pop_i() == 65);
+    test(pop_i() == 30);
     
     printf("\n Arithmetic tests: ");
 
@@ -67,12 +78,20 @@ void tests(gc * g, stack * st, program * pr) {
     push_i(3);
     iadd();
     test(pop_i() == 13);
+    push_i(10);
+    push_i(-3);
+    iadd();
+    test(pop_i() == 7);
 
     // sub
     push_i(3);
     push_i(10);
     isub();
     test(pop_i() == 7);
+    push_i(15);
+    push_i(10);
+    isub();
+    test(pop_i() == -5);
 
     // mul
     push_i(10);

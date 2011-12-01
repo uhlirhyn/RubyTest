@@ -104,7 +104,7 @@ breakInstruction returns [result]
 	;
 
 returnInstruction returns [result]
-	:	RETURN^ expression {$result = ReturnTree.new($expression.result)}
+	:	RETURN^ expression {$result = [ReturnTree.new($expression.result),$RETURN.tree]}
 	;
 
 exitInstruction returns [result]
@@ -133,7 +133,7 @@ printText returns [list]
  	
 ifInstruction returns [result]	
 	:	IF^ condition LCB! block RCB! ifRest
-		{$result = IfTree.new($condition.result,$block.list,$ifRest.result)}
+		{$result = [IfTree.new($condition.result,$block.list,$ifRest.result),$IF.tree]}
 	;
 
 ifRest returns [result]

@@ -7,10 +7,38 @@ module Giraffe
 
         include Debug
         include Opcodes
+
+        # Kotvy a haky
+        # ----------------------------------------------
+        # - kotva je misto kde je navesti
+        # - hak je misto kde je zapsana adresa navesti
+        # protoze adresa kotvy neni dopredu znama,
+        # musi existovat mechanizmus jak zjistit adresu
+        # doprednych skoku - proto jsou tady haky, ktere
+        # se vyhodnocuji pri finalnim vypisu tak, ze 
+        # se podivaji do tabulky haku a kotev a tam si 
+        # najdou kde nakonec skoncila jejich kotva 
+
+        # obycejny element
+        class Byte
+            def initialize(value)
+                @value = value
+            end
+            attr_reader :value
+        end 
+
+        # label hook
+        class Hook
+            def initialize(label, hook_table, byte)
+                @label = label
+                @hook_table = hook_table
+                @byte = byte
+            end
+            def value
+                (@hook_table[@label] >> (@byte * 8)) & 0xFF
+            end
+        end
   
-        @@inst_pool = []
-        @@labels = 0
-        @@break_labels = 0
         @@functions = Hash.new(:undeclared)
         @@current_byte = 4
         @@bytecode = [0,0,0,0]    # prvni 4byte je adresa funkce main
@@ -26,6 +54,8 @@ module Giraffe
             @temp_bytecode = []
             @locals = 0
             @args = 0
+            @labels = 0
+            @hooks = []        # mechanizmus na post-dopisovani adres navesti
             
         end
 
@@ -35,25 +65,49 @@ module Giraffe
             @@bytecode
         end
 
-        # zapis do bytecodu
-        def write_bytecode(code) 
-            @temp_bytecode << code
+        private 
+        # zapis obecne do bytecodu
+        def write_bytecode(value)
+            @temp_bytecode << Byte.new(value)
             @@current_byte += 1     # pricti k celkove delce
+        end
+
+        public
+        # zapis kodu instrukce
+        def write_opcode(code) 
+            write_bytecode(code)
+        end
+
+        # zapis celeho cisla (int - 4B)
+        def write_int(value) 
+            write_bytecode(value >> 24 & 0xFF)
+            write_bytecode(value >> 16 & 0xFF)
+            write_bytecode(value >> 8 & 0xFF)
+            write_bytecode(value & 0xFF)
         end
 
         # vrati ID dalsiho navesti
         def next_label
-            "L#{@@labels += 1}"
+            ret = @labels
+            @labels += 1
+            ret
         end
 
-        # zalozi novy break_label
-        def next_break_label
-            "B#{@@break_labels += 1}"
+        # vlozi hak pro dany label
+        def insert_hook(label)
+            # aby se to mohlo korektne rozbalit pri resolve
+            # je potreba udavat, kolikaty byte si to ma 
+            # z kotvy brat
+            @temp_bytecode << Hook.new(label,@hooks,3)
+            @temp_bytecode << Hook.new(label,@hooks,2)
+            @temp_bytecode << Hook.new(label,@hooks,1)
+            @temp_bytecode << Hook.new(label,@hooks,0)
+            @@current_byte += 4 # adresa se vyhodnocuje jako 4B
         end
 
-        # zapise break navesti aktualniho cyklu
-        def write_break_label
-            write_bytecode("B#{@@break_labels}")
+        # vlozi kotvu pro haky
+        def insert_anchor(label)
+            @hooks[label] = @@current_byte
         end
 
         # chci cist z lokalni promenne (nebo argumentu)
@@ -71,12 +125,12 @@ module Giraffe
                     # tak to fakt neznam 
                     return orange("Variable '#{id}' is not declared"), :error
                 else
-                    write_bytecode(PAS)       # budu zapisovat na zasobnik argument
-                    write_bytecode(variable)  # jeho id
+                    write_opcode(PAS)       # budu zapisovat na zasobnik argument
+                    write_int(variable)     # jeho id
                 end
             else 
-                write_bytecode(IPLS)      # budu zapisovat na zasobnik lokalni promennou
-                write_bytecode(variable)  # jeji id
+                write_opcode(IPLS)          # budu zapisovat na zasobnik lokalni promennou
+                write_int(variable)         # jeji id
             end
         end
 
@@ -93,12 +147,12 @@ module Giraffe
                 # zkontroluje jestli to neni argument
                 variable = @arguments[id]
                 if variable != :undeclared
-                    write_bytecode(PSA)
+                    write_opcode(PSA)
                 else
                     @variables[id] = @locals
                     @locals += 1
-                    write_bytecode(IPSL)          # zapis obsah zasobniku do lokalni promenne
-                    write_bytecode(@locals)
+                    write_opcode(IPSL)          # zapis obsah zasobniku do lokalni promenne
+                    write_int(@locals)
                 end
             else
                 return variable
@@ -116,11 +170,8 @@ module Giraffe
                 # zavolej funkci
                 # parametry uz by tady mely byt
                 # vloz call a adresu funkce
-                write_bytecode(CALL)
-                write_bytecode(function[0] >> 24 & 0xFF)
-                write_bytecode(function[0] >> 16 & 0xFF)
-                write_bytecode(function[0] >> 8 & 0xFF)
-                write_bytecode(function[0] & 0xFF)
+                write_opcode(CALL)
+                write_int(function[0])
             end
         end
 
@@ -136,10 +187,10 @@ module Giraffe
                 if id == "main" 
                     main_add = @@current_byte
                     dbg("Main found on address #{main_add}",:Env)
-                    @@bytecode[3] = main_add & 0xFF; main_add >>= 8
-                    @@bytecode[2] = main_add & 0xFF; main_add >>= 8
-                    @@bytecode[1] = main_add & 0xFF; main_add >>= 8
-                    @@bytecode[0] = main_add & 0xFF
+                    @@bytecode[3] = Byte.new(main_add & 0xFF); main_add >>= 8
+                    @@bytecode[2] = Byte.new(main_add & 0xFF); main_add >>= 8
+                    @@bytecode[1] = Byte.new(main_add & 0xFF); main_add >>= 8
+                    @@bytecode[0] = Byte.new(main_add & 0xFF)
                 end
 
             else 
@@ -161,9 +212,18 @@ module Giraffe
             # vloz instrukce pro vytvoreni slotu
             # pro lokalni promenne
             @variables.size.times do
-                @@bytecode<< IPUSH
+                @@bytecode << IPUSH
                 @@current_byte += 1
             end
+
+            # o ten posuv je potreba posunout i adresy 
+            # navesti - takze upravit pole hooks
+            @hooks.each_index do
+                |i|
+                @hooks[i] += @variables.size
+            end
+
+            # vloz puvodni bytecode funkce
             @@bytecode += @temp_bytecode
         end
 

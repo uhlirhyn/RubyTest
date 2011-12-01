@@ -1,10 +1,14 @@
-p "#$$"
+class A
+    
+    @@cc = 25
 
-def ee 
-    p "gets"
-    a = gets
-    ee
-    p a
+    attr_reader :cc
+
+    class B
+
+        def aa
+            p A::@@cc
+        end
+    end
 end
 
-ee

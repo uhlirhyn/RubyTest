@@ -104,7 +104,7 @@ breakInstruction returns [result]
 	;
 
 returnInstruction returns [result]
-	:	RETURN^ expression {$result = ReturnTree.new($expression.result)}
+	:	RETURN^ expression {$result = [ReturnTree.new($expression.result),$RETURN.tree]}
 	;
 
 exitInstruction returns [result]
@@ -119,11 +119,11 @@ statusCode returns [result]
 	;
 
 printInstruction returns [result]
- 	:	PRINT^ LB! printText RB! {$result = PrintTree.new($printText.list)} 
+ 	:	PRINT^ LB! printText RB! {$result = [PrintTree.new($printText.list),$PRINT.tree]} 
  	;
  	
 printlInstruction returns [result]
- 	:	(PRINTL | PRINTLN)^ LB! printText RB!{$result = PrintTree.new($printText.list,true)}
+ 	:	(an=PRINTL | an=PRINTLN)^ LB! printText RB!{$result = [PrintTree.new($printText.list,true),$an.tree]}
  	;
  	
 printText returns [list]

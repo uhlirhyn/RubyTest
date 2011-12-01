@@ -116,22 +116,6 @@ void ineg() {
     push_i(-op);
 }
 
-// -- 1B operace
-
-// add_char 0x05
-void add_c() {
-    char op1 = pop();
-    char op2 = pop();
-    push(op1 + op2);
-}
-
-// sub_char 0x06
-void sub_c() {
-    char op1 = pop();
-    char op2 = pop();
-    push(op1 - op2);
-}
-
 // BOOL OPERACE
 // -- 4B operace
 
@@ -194,19 +178,21 @@ void ieq() {
     push_i(op1 == op2);
 }
 
+// RIZENI BEHU PROGRAMU
+
 // jmp 0x11
-void jmp(unsigned int offset) {
-    int adr = pr->ip + offset;
+void jmp(unsigned int adr) {
     if ( adr >= pr->size) {
-        fprintf(stderr, " \e[31m Invalid address %d\e[39m\n", adr);
+        fprintf(stderr, " \e[31m Invalid address %d (0x%02x)\e[39m\n", adr, adr);
         abort();
     }
+    pr->ip = adr;
 }
 
-// jeq 0x10 
-// jump if equal
-void jeq(unsigned int offset) {
-    if (pop() == 0) jmp(offset);
+// jneq 0x10 
+// jump if not equal
+void jneq(unsigned int adr) {
+    if (pop_i() == 0) jmp(adr);
 }
 
 // call 0x09
@@ -218,8 +204,19 @@ void call(int address) {
     // tyto dve instrukce jsou umyslne prohozene, aby se mohlo s 
     // navratovou hodnotou hned pracovat
     push_i(0);          // udela se misto pro navratovou hodnotu
-    push_i(pr->ip + 5); // vlozi na zasobnik navratovou adresu 4B adresa callu + 1B opcode "call"
+    push_i(pr->ip);     // vlozi na zasobnik navratovou adresu nasledujici instrukce 
                         // (+1 protoze ted je ip na instrukci call, ktera prave bezi...)
+    push_p(st->fp);     // vlozi na zasobnik stary fp    
+    st->fp = st->sp;    // nastav novy fp
+    pr->ip = address;   // skoc na telo funkce
+}
+
+// main ma trochu specialni call, 
+// protoze jeho navratova
+// adresa je konec souboru
+void main_call(int address) {
+    push_i(0);          // udela se misto pro navratovou hodnotu
+    push_i(pr->size);   // tady je ten hacek - z mainu se vraci na konec programu
     push_p(st->fp);     // vlozi na zasobnik stary fp    
     st->fp = st->sp;    // nastav novy fp
     pr->ip = address;   // skoc na telo funkce
@@ -229,7 +226,7 @@ void call(int address) {
 // navratova hodnota je int a je to posledni udaj na zasobniku
 void ret() {
     // musi se vratit o velikost navratove hodnoty + preskocit ret adresu a _FP
-    *(st->fp - 3 * sizeof(int)) = pop_i();    // zapis navratovou hodnotu 
+    *((int *) (st->fp - 3 * sizeof(int))) = pop_i();    // zapis navratovou hodnotu 
     st->sp = st->fp;    // nastav vrchol zasobniku na zacatek ramce
     st->fp = pop_p();   // ziskej stary fp
     pr->ip = pop_i();   // ziskej navratovou adresu
@@ -237,87 +234,38 @@ void ret() {
 
 // pop stack to locale 4B 0x1d
 // locals jsou cislovane od 0
-void ipsl(unsigned int offset) {
+void psl(unsigned int offset) {
     st_check(st->fp + offset * 4);
-    *(st->fp + offset * 4) = pop_i();
+    *((int *) (st->fp + offset * 4)) = pop_i();
 }
 
 // push locale on stack 4B 0x1e
 // locals jsou cislovane od 0
-void ipls(unsigned int offset) {
+void pls(unsigned int offset) {
     st_check(st->fp + offset * 4);
-    push_i(*(st->fp + offset * 4));
-}
-
-// pop stack to locale 1B 0x1b
-// locals jsou cislovane od 0
-void psl_c(unsigned int offset) {
-    st_check(st->fp + offset);
-    *(st->fp + offset) = pop();
-}
-
-// push locale on stack 1B 0x1c
-// locals jsou cislovane od 0
-void pls_c(unsigned int offset) {
-    st_check(st->fp + offset);
-    push(*(st->fp + offset));
-}
-
-// store locale 1B 0x0b
-// locals jsou cislovane od 0
-void sl_c(char value, unsigned int offset) {
-    st_check(st->fp + offset);
-    *(st->fp + offset) = value;
-}
-
-// load locale 1B 0x0c
-// locals jsou cislovane od 0
-char ll_c(unsigned int offset) {
-    st_check(st->fp + offset);
-    return *(st->fp + offset);
+    push_i(*((int *) (st->fp + offset * 4)));
 }
 
 // pop stack to argument 4B 0x2d
 // argumenty jsou cislovane od 0
 void psa(unsigned int offset) {
-    // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
+    // krok pres stare FP (4B), pres IP (4B), 
+    // return value (4B) a na zacatek parametru
     // offset je ted 4x vetsi (int)
-    int stepback = 1 + 3 * sizeof(char *);
+    int stepback = 4 * sizeof(char *);
     st_check(st->fp - offset * 4 - stepback);  
-    *(st->fp - offset * 4 - stepback) = pop_i();
+    *((int *) (st->fp - offset * 4 - stepback)) = pop_i();
 }
 
 // push argument to stack 4B 0x2e
 // argumenty jsou cislovane od 0
 void pas(unsigned int offset) {
-    // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
+    // krok pres stare FP (4B), pres IP (4B), 
+    // return value (4B) a na zacatek parametru
     // offset je ted 4x vetsi (int)
-    int stepback = 1 + 3 * sizeof(char *);
+    int stepback = 4 * sizeof(char *);
     st_check(st->fp - offset * 4 - stepback); 
-    push_i(*(st->fp - offset * 4 - stepback));
-}
-
-// store in arguments 1B 0x0d
-// argumenty jsou cislovane od 0
-void sa_c(char value, unsigned int offset) {
-    // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
-    int stepback = 1 + 3 * sizeof(char *);
-    st_check(st->fp - offset - stepback);  
-    *(st->fp - offset - stepback) = value;
-}
-
-// load from arguments 1B 0x0e
-// argumenty jsou cislovane od 0
-char la_c(unsigned int offset) {
-    // krok zpet, krok pres stare FP (4B), pres IP (4B) a return value (4B)
-    int stepback = 1 + 3 * sizeof(char *);
-    st_check(st->fp - offset - stepback); 
-    return *(st->fp - offset - stepback);
-}
-
-// control output 0x0e
-void out_c() {
-    printf("%x", pop());
+    push_i(*((int *) (st->fp - offset * 4 - stepback)));
 }
 
 // control output 0x12

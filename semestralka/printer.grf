@@ -1,12 +1,7 @@
-test {
-    print(284)
-    print(10)
-
-    print(15+2)
-}
-
 main {
-
-# a = 7
-test()
+    if 4 == 5 {
+        print 1
+    } else {
+        print 0
+    }
 }

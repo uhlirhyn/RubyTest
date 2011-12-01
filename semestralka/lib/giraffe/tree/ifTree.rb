@@ -1,10 +1,12 @@
 require './lib/giraffe/debug.rb'
+require './lib/giraffe/opcodes.rb'
 
 module Giraffe
 
     class IfTree
 
         include Debug
+        include Opcodes
 
         def initialize(condition,instructions,blockElse=nil)
             @condition = condition
@@ -33,18 +35,37 @@ module Giraffe
             else return return_value, msg
             end
 
-            if return_value
-                dbg("IF",:IfTree)
-                for i in @instructions do 
-                    return_value, msg = i[0].run(env,i[1])
-                    case msg
-                    when :exit then return return_value, msg
-                    when :error then return return_value + where, msg
-                    when nil;
-                    else return return_value, msg
-                    end
+            # vloz instrukci skoku pokud nebude rovno
+            env.write_opcode(JNEQ)
+
+            # obstarej si navesti (hak)
+            # a vloz ho do sablony bytecodu
+            false_label = env.next_label
+            env.insert_hook(false_label)
+
+            dbg("IF",:IfTree)
+            for i in @instructions do 
+                return_value, msg = i[0].run(env,i[1])
+                case msg
+                when :exit then return return_value, msg
+                when :error then return return_value + where, msg
+                when nil;
+                else return return_value, msg
                 end
-            elsif @blockElse != nil
+            end
+
+            # az se provede IF je potreba preskocit ELSE
+            env.write_opcode(JMP)
+
+            # obstarej si navesti (hak)
+            # a vloz ho do sablony bytecodu
+            true_label = env.next_label
+            env.insert_hook(true_label)
+            
+            # vloz kotvu navesti
+            env.insert_anchor(false_label)
+
+            if @blockElse != nil
 
                 # TODO - tohle neni uplne dobre vyresene
                 # chtelo by to nejaky objekt ktery to bude
@@ -84,6 +105,9 @@ module Giraffe
                 end
 
             end
+
+            # vloz kotvu navesti
+            env.insert_anchor(true_label)
 
             # nic nevracim, zpravy jsou take ok
             dbg("DONE",:IfTree)

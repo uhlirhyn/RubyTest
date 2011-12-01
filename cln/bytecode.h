@@ -48,14 +48,6 @@ void imod();
 // ineg 0x2a
 void ineg();
 
-// -- 1B operace
-
-// add_char 0x05
-void add_c();
-
-// sub_char 0x06
-void sub_c();
-
 // BOOL OPERACE
 // -- 4B operace
 
@@ -86,12 +78,14 @@ void ile();
 // ieq 0x34
 void ieq();
 
-// jmp 0x11
-void jmp(unsigned int offset); 
+// RIZENI BEHU PROGRAMU
 
-// jeq 0x10 
-// jump if equal
-void jeq(unsigned int offset);
+// jmp 0x11
+void jmp(unsigned int adr); 
+
+// jneq 0x10 
+// jump if not equal
+void jneq(unsigned int adr);
 
 // call 0x09
 // http://unixwiz.net/techtips/win32-callconv-asm.html
@@ -100,33 +94,22 @@ void jeq(unsigned int offset);
 // pri volani neni adresa stareho FP - ta je adresu za nim !!! (lepe se to psalo)
 void call(int address);
 
+// main ma trochu specialni call, 
+// protoze jeho navratova
+// adresa je konec souboru
+void main_call(int address);
+
 // return 0x0a
 // navratova hodnota je int a je to posledni udaj na zasobniku
 void ret();
 
 // pop stack to locale 4B 0x1d
 // locals jsou cislovane od 0
-void ipsl(unsigned int offset);
+void psl(unsigned int offset);
 
 // push locale on stack 4B 0x1e
 // locals jsou cislovane od 0
-void ipls(unsigned int offset);
-
-// pop stack to locale 1B 0x1b
-// locals jsou cislovane od 0
-void psl_c(unsigned int offset);
-
-// push locale on stack 1B 0x1c
-// locals jsou cislovane od 0
-void pls_c(unsigned int offset);
-
-// store locale 1B 0x0b
-// locals jsou cislovane od 0
-void sl_c(char value, unsigned int offset);
-
-// load locale 1B 0x0c
-// locals jsou cislovane od 0
-char ll_c(unsigned int offset);
+void pls(unsigned int offset);
 
 // pop stack to argument 4B 0x2d
 // argumenty jsou cislovane od 0
@@ -135,17 +118,6 @@ void psa(unsigned int offset);
 // push argument to stack 4B 0x2e
 // argumenty jsou cislovane od 0
 void pas(unsigned int offset);
-
-// store in arguments 1B 0x0d
-// argumenty jsou cislovane od 0
-void sa_c(char value, unsigned int offset);
-
-// load from arguments 1B 0x0e
-// argumenty jsou cislovane od 0
-char la_c(unsigned int offset);
-
-// control output 0x0e
-void out_c();
 
 // control output 0x12
 void out();

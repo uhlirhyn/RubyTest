@@ -1,6 +1,7 @@
 module Opcodes
 
     # skoky, rizeni programu
+    JNEQ    =   0x10
     JMP     =   0x11
     RET     =   0x0a
     CALL    =   0x09
@@ -35,7 +36,7 @@ module Opcodes
     IGE     =   0x31
     ILT     =   0x32
     ILE     =   0x33
-    IEG     =   0x34
+    IEQ     =   0x34
 
     # jine
     OUT     =   0x12

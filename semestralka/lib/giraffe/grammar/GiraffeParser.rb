@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Jul 31, 2010 19:34:52
 # Ruby runtime library version: 1.8.11
 # Input grammar file: Giraffe.g
-# Generated at: 2011-11-30 15:48:49
+# Generated at: 2011-12-01 21:27:50
 # 
 
 # ~~~> start load path setup
@@ -1045,7 +1045,7 @@ module Giraffe
         @state.following.pop
         @adaptor.add_child( root_0, expression31.tree )
         # --> action
-        return_value.result = ReturnTree.new(( expression31.nil? ? nil : expression31.result ))
+        return_value.result = [ReturnTree.new(( expression31.nil? ? nil : expression31.result )),tree_for_RETURN30]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -1540,7 +1540,7 @@ module Giraffe
         @state.following.pop
         @adaptor.add_child( root_0, ifRest52.tree )
         # --> action
-        return_value.result = IfTree.new(( condition48.nil? ? nil : condition48.result ),( block50.nil? ? nil : block50.list ),( ifRest52.nil? ? nil : ifRest52.result ))
+        return_value.result = [IfTree.new(( condition48.nil? ? nil : condition48.result ),( block50.nil? ? nil : block50.list ),( ifRest52.nil? ? nil : ifRest52.result )),tree_for_IF47]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )

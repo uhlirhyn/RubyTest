@@ -48,7 +48,7 @@ module Giraffe
             end
 
             # zapis return
-            env.write_bytecode(RET)
+            env.write_opcode(RET)
 
             # uzavre generovani bytecodu funkce
             # presype temp_bytecode do ostreho

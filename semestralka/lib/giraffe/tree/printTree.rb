@@ -25,7 +25,7 @@ module Giraffe
                     when nil then ;
                     else return return_value, msg
                     end
-                    env.write_bytecode(0x12)
+                    env.write_opcode(OUT)
                 end
                 puts if @newline
             end
