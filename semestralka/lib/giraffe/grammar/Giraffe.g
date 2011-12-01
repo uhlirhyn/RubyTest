@@ -81,7 +81,7 @@ instructionRest returns [list]
 	;
 
 instruction returns [result]
-	:	assignment {$result = $assignment.result}
+	:	assignment {$result = [$assignment.result,$assignment.tree]}
 	|	forCycle {$result = $forCycle.result}
 	|	ifInstruction {$result = $ifInstruction.result}
 	|	whileCycle {$result = $whileCycle.result}

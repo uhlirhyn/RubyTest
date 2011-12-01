@@ -44,6 +44,8 @@ module Giraffe
         private 
         def on_exit(code=1)
            
+             puts orange(Env::bytecode)
+
             File.open("out.grfc","wb") do
                 |f|
                 print("------------------------------------\n")

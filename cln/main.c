@@ -404,6 +404,28 @@ void run() {
             pas(pi);
             break;
 
+        // operace s lokalnimi promennymi
+        case 0x1d:
+            printf("\e[36m-- psl\e[0m ");
+            pa[3] = next();
+            pa[2] = next();
+            pa[1] = next();
+            pa[0] = next();
+            pi = *((int *) pa);
+            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
+            psl(pi);
+            break;
+        case 0x1e:
+            printf("\e[36m-- pls\e[0m ");
+            pa[3] = next();
+            pa[2] = next();
+            pa[1] = next();
+            pa[0] = next();
+            pi = *((int *) pa);
+            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
+            pls(pi);
+            break;
+
         // porovnavani
         case 0x2f:
             printf("\e[36m-- ine\e[0m ");

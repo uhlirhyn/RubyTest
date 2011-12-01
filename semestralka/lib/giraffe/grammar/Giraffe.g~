@@ -133,7 +133,7 @@ printText returns [list]
  	
 ifInstruction returns [result]	
 	:	IF^ condition LCB! block RCB! ifRest
-		{$result = IfTree.new($condition.result,$block.list,$ifRest.result)}
+		{$result = [IfTree.new($condition.result,$block.list,$ifRest.result),$IF.tree]}
 	;
 
 ifRest returns [result]

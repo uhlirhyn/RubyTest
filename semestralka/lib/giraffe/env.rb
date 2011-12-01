@@ -65,11 +65,23 @@ module Giraffe
             @@bytecode
         end
 
-        private 
+        private
+        # spolecna metoda pro zapouzdreni Byte objektem
+        def write_bytecode_to(value,target) 
+            target << Byte.new(value)
+            @@current_byte += 1     # pricti k celkove delce
+        end
+
+        def write_int_to(value,target)
+            write_bytecode_to(value >> 24 & 0xFF, target)
+            write_bytecode_to(value >> 16 & 0xFF, target)
+            write_bytecode_to(value >> 8 & 0xFF, target)
+            write_bytecode_to(value & 0xFF, target)
+        end
+
         # zapis obecne do bytecodu
         def write_bytecode(value)
-            @temp_bytecode << Byte.new(value)
-            @@current_byte += 1     # pricti k celkove delce
+            write_bytecode_to(value, @temp_bytecode)
         end
 
         public
@@ -80,10 +92,7 @@ module Giraffe
 
         # zapis celeho cisla (int - 4B)
         def write_int(value) 
-            write_bytecode(value >> 24 & 0xFF)
-            write_bytecode(value >> 16 & 0xFF)
-            write_bytecode(value >> 8 & 0xFF)
-            write_bytecode(value & 0xFF)
+            write_int_to(value, @temp_bytecode)
         end
 
         # vrati ID dalsiho navesti
@@ -149,7 +158,7 @@ module Giraffe
                 if variable != :undeclared
                     write_opcode(PSA)
                 else
-                    @variables[id] = @locals
+                    @variables[id] = @locals    # jde zaroven o deklaraci
                     @locals += 1
                     write_opcode(IPSL)          # zapis obsah zasobniku do lokalni promenne
                     write_int(@locals)
@@ -187,6 +196,8 @@ module Giraffe
                 if id == "main" 
                     main_add = @@current_byte
                     dbg("Main found on address #{main_add}",:Env)
+                    # POZOR !!! Tady je primo indexovani - tady se nevklada
+                    # takze nelze pouzit funkce write_int apod... 
                     @@bytecode[3] = Byte.new(main_add & 0xFF); main_add >>= 8
                     @@bytecode[2] = Byte.new(main_add & 0xFF); main_add >>= 8
                     @@bytecode[1] = Byte.new(main_add & 0xFF); main_add >>= 8
@@ -212,8 +223,8 @@ module Giraffe
             # vloz instrukce pro vytvoreni slotu
             # pro lokalni promenne
             @variables.size.times do
-                @@bytecode << IPUSH
-                @@current_byte += 1
+                write_bytecode_to(IPUSH, @@bytecode)    
+                write_int_to(0, @@bytecode)  
             end
 
             # o ten posuv je potreba posunout i adresy 
