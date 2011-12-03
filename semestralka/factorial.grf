@@ -3,9 +3,7 @@ fact num {
     if num == 0 || num == 1 {
         return 1
     } else {
-        a = num*fact(num-1)
-        print (a)
-        return a
+        return num*fact(num-1)
     }
 }
 

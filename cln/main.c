@@ -152,9 +152,10 @@ void print_freelist(gc * gcl) {
 
 // alokuj v GC pameti 
 // gc - garbage collector
-// size - pozadovana velikost v bytech
-void * allocate(gc * gcl, int size) {  
+// size - pozadovana velikost v 4B (int)
+int * allocate(gc * gcl, int size) {  
 
+    size = size + 1;    // potrebuju prostor pro size + udaj o velikosti
     freelist * next = gcl->list;
 
     // najdi takovou velikost volneho prostoru kam by se tohle veslo
@@ -170,7 +171,7 @@ void * allocate(gc * gcl, int size) {
             // freespace o velikosti freelist struktury,
             // pak nezmensuj ale rovnou preskoc na dalsi 
             // polozku o volnem miste
-            if (next->size - size < sizeof(freelist)) { 
+            if (next->size - size < sizeof(freelist) + ) { 
 
                 gcl->list = next->next;
 
@@ -195,7 +196,7 @@ void * allocate(gc * gcl, int size) {
                 gcl->list->next = old_next;           // naslednik je stejny
             }
         
-            return next;
+            return (int *) next;
 
         } else {    
             // jinak pokracuj dal
@@ -228,35 +229,6 @@ char * new_str(gc * gcl, char * str) {
     // kopiruje stylem cil-zdroj
     strcpy( s, str );
     return s;
-}
-
-// console mark
-void cm() {
-    printf("giraffe > ");
-}
-
-int read_str(char * text) {
-
-    if ( scanf("%s", text) != 0 ) {
-        
-        // search for newline character
-        char *newline = strchr(text, '\n'); 
-        if ( newline != NULL )
-            *newline = '\0'; // overwrite trailing newline
-    }
-
-    return strlen(text);
-
-}
-
-int read_number(int * number) {
-
-    if ( scanf("%d", number) != 0 ) {
-        return 1;
-    }
-
-    return 0;
-
 }
 
 void store_number(obj * o, int value) {
@@ -319,6 +291,19 @@ void run() {
         case 0x00:
             printf("\e[36m-- nop\e[0m");
             break;
+
+        // alokace
+        case 0x0c:
+            printf("\e[36m-- aloc\e[0m");
+            pa[3] = next();
+            pa[2] = next();
+            pa[1] = next();
+            pa[0] = next();
+            pi = *((int *) pa);
+            printf("\e[36m %d bytes\e[0m",pi);
+            aloc(pi);
+            break;
+
 
         // rizeni behu programu
         case 0x09:

@@ -3,6 +3,11 @@
 // BYTECODE instrukce
 //====================
 
+// Alokace 
+// necha naalokovat pole int-u
+// a adresu zacatku da na stack
+void aloc(int size);
+
 // push 0x01 
 // vloz 1B hodnotu na zasobnik
 void push(char value);

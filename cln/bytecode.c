@@ -72,6 +72,23 @@ char * pop_p() {
     return *((char **) st->sp);
 }
 
+// Alokace 
+// necha naalokovat pole int-u
+// a adresu zacatku da na stack
+void aloc(int size) {
+    push_i((int) allocate(g, size));
+}
+
+// Ulozeni do pameti 
+// ten base address je tam proto, 
+// abych dokazal rict, zda je po 
+// aplikaci offsetu adresa jeste 
+// stale patrici k tomu puvodnimu
+// kusu pameti nebo uz jsem mimo
+void ist(int base_address, int offset) {
+
+}
+
 // ARITMETIKA
 // -- 4B operace
 
@@ -234,6 +251,7 @@ void ret() {
 // vycistit zasobnik od parametru
 // a nesmazala se zaroven u toho 
 // ta navratova hodnota
+// http://www.tenouk.com/Bufferoverflowc/Bufferoverflow2a.html
 void rer() {
     push_i(ret_reg);
 }

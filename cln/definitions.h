@@ -67,3 +67,8 @@ typedef struct env {
     var * vars;             // odkaz na pole promennych
     struct env * prev;      // predchozi env
 } env;
+
+// alokuj v GC pameti 
+// gc - garbage collector
+// size - pozadovana velikost v bytech
+int * allocate(gc * gcl, int size);
