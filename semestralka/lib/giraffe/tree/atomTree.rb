@@ -23,7 +23,7 @@ module Giraffe
             dbg("run",:AtomTree)
             dbg("value '#{@value}'",:AtomTree)
 
-            env.write_opcode(IPUSH)
+            env.write_opcode(PUSH)
             env.write_int(@value)
 
             return @value, nil

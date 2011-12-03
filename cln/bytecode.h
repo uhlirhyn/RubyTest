@@ -1,13 +1,27 @@
 
+void dbg_on();
+void dbg_mute();
+
 //====================
 // BYTECODE instrukce
 //====================
 
-// Alokace 
+// Alokace 0x0c
 // necha naalokovat pole int-u
 // a adresu zacatku da na stack
-void aloc(int size);
+void alloc(int size);
 
+// Ulozeni do pameti 0x0d
+// ten base address je tam proto, 
+// abych dokazal rict, zda je po 
+// aplikaci offsetu adresa jeste 
+// stale patrici k tomu puvodnimu
+// kusu pameti nebo uz jsem mimo
+void ist();
+
+// Cteni z pameti 0x0e
+void ild(); 
+ 
 // push 0x01 
 // vloz 1B hodnotu na zasobnik
 void push(char value);
@@ -15,6 +29,10 @@ void push(char value);
 // pop 0x02
 // vydej 1B hodnotu ze zasobniku
 char pop();
+
+// dup 0x05
+// duplikuje vrchol stacku
+void dup();
 
 // push_i 0x03 
 // vloz 4B hodnotu na zasobnik

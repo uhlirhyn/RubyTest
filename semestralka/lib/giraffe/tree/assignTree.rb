@@ -8,8 +8,8 @@ module Giraffe
         include Debug
         include Opcodes
         
-        def initialize(id,expression)
-            @id = id
+        def initialize(target,expression)
+            @target = target
             @expression = expression
             dbg("init",:AssignTree)
         end
@@ -27,14 +27,19 @@ module Giraffe
         def run(env,tree)
             
             dbg("run",:AssignTree)
-            
+           
+            # 1.) Adresa
+            return_value, msg = @target[0].run(env,@target[1],:store)
+            return return_value, msg if msg != nil
+
+            # 2.) Hodnota 
             return_value, msg = @expression[0].run(env,@expression[1])
             return return_value, msg if msg != nil
 
             dbg("assigning '#{@id}' to '#{return_value}'",:AssignTree)
 
-            # proved zapis do promenne @id
-            env.var!(@id)
+            # 3.) Instrukce zapisu
+            @target[0].store(env)
 
             return return_value, nil
         end

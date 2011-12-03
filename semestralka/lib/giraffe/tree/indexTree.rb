@@ -11,10 +11,10 @@ module Giraffe
         def initialize(target,index)
             @target = target
             @index = index      # to muze byt expression
-            dbg("init",:IndexTree)
+            dbg("init",:IndexTree)            
         end
 
-        def run(env,tree)
+        def run(env,tree,direction=:load)
 
             dbg("run",:IndexTree) 
             
@@ -35,7 +35,13 @@ module Giraffe
             # nebo tam pridat hodnotu a na tu
             # ulozit na zminenou adresu a index
 
+            env.write_opcode(LD) if direction == :load
+            
             return nil, nil
+        end
+
+        def store(env)
+            env.write_opcode(ST)
         end
 
     end

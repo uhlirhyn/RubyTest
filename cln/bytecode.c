@@ -7,86 +7,132 @@
 
 #include "definitions.h"
 
+char verbose = 0x01;
+#define dbg if (verbose == 0x01) printf
+
+void dbg_on() { verbose = 0x01; }
+void dbg_mute() { verbose = 0x00; }
+
 //====================
 // BYTECODE instrukce
 //====================
 
-void st_check(char * address) {
+void st_check(int address) {
     
-    if ( address > st->start + STACK_SIZE + 1) {
+    if ( address > STACK_SIZE + 1) {
         fprintf(stderr, " \e[31mStack overflow\e[39m\n");
         abort();
     }
     
-    if ( address < st->start ) {
+    if ( address < 0 ) {
         fprintf(stderr, " \e[31mStack underflow\e[39m\n");
         abort();
     }
 }
 
-// push 0x01 
-// vloz 1B hodnotu na zasobnik
-void push(char value) {
-    st_check(st->sp);
-    *(st->sp) = value;      // na adresu SP dej hodnotu
+// push_i 0x03 
+// vloz hodnotu na zasobnik
+void push_i(int value) {
+    st_check(st->sp);           // kontrola jestli ukazuju jeste na platny 
+                                // slot zasobniku - je totiz validni ukazovat
+                                // na slot tesne za zasobnikem (abych mohl
+                                // provadet pop z posledniho slotu stacku)
+    st->start[st->sp] = value;  // na adresu SP dej hodnotu
     st->sp++;
 }
 
-// pop 0x02
-// vydej 1B hodnotu ze zasobniku
-char pop() {
-    st_check(st->sp - 1);
-    st->sp--;
-    return *(st->sp);
-}
-
-// push_i 0x03 
-// vloz 4B hodnotu na zasobnik
-void push_i(int value) {
-    st_check(st->sp + 3);       // +3 protoze na te 4. uz SP je
-    *((int *) st->sp) = value;  // na adresu SP dej hodnotu
-    st->sp += 4;
-}
-
 // pop_i 0x04
-// vydej 4B hodnotu ze zasobniku
+// vydej hodnotu ze zasobniku
 int pop_i() {
-    st_check(st->sp - 4);   // tady musim ale krokovat zpet opravdu o ty 4
-    st->sp -= 4;
-    return *((int *) st->sp);
+    st_check(st->sp - 1);   // tady se musim podivat o krok zpet
+    st->sp--;
+    return st->start[st->sp];
 }
 
-// push_p 0x07 
-// vloz pointer na zasobnik
-void push_p(char * value) {
-    st_check(st->sp + sizeof(char *) - 1);  // viz push_i
-    *((char **) st->sp) = value;            // na adresu SP dej hodnotu
-    st->sp += sizeof(char *);
+// dup 0x05
+// duplikuje vrchol stacku
+void dup() {
+    int top = pop_i();
+    push_i(top);
+    push_i(top);
 }
 
-// pop_p 0x08
-// vydej pointer ze zasobniku
-char * pop_p() {
-    st_check(st->sp - sizeof(char *));
-    st->sp -= sizeof(char *);
-    return *((char **) st->sp);
-}
-
-// Alokace 
+// Alokace 0x0c 
 // necha naalokovat pole int-u
 // a adresu zacatku da na stack
-void aloc(int size) {
-    push_i((int) allocate(g, size));
+void alloc(int size) {
+    int addr = allocate(g, size);
+    dbg(" +M%d", addr);
+    push_i(addr);
 }
 
-// Ulozeni do pameti 
+// kontrola pameti (jsem stale v pozadovanem bloku ?)
+void mem_check(int base_address, unsigned int offset) {
+    
+    // na base_address je ulozen size toho objektu
+    // protoze je to pole, musi byt offset ostre mensi
+    // pokud by byl roven tak uz je to preteceni
+    if (g->mem[base_address] < offset ) {
+        fprintf(stderr, " \e[31mOut of array bounds - %d indexed, but array is size of %d\e[39m\n", 
+                offset, g->mem[base_address]);
+        abort();
+    }
+}
+
+// Ulozeni do pameti 0x0d
 // ten base address je tam proto, 
 // abych dokazal rict, zda je po 
 // aplikaci offsetu adresa jeste 
 // stale patrici k tomu puvodnimu
 // kusu pameti nebo uz jsem mimo
-void ist(int base_address, int offset) {
+void ist() {
 
+    // protoze se muze nechat vypocitat
+    // jak obsah tak i index, je potreba
+    // vsecho brat pres stack
+
+    // jako posledni se na stack dava 
+    // obsah ktery chci ulozit
+    int value = pop_i();
+
+    // pak je tam index
+    unsigned int offset = pop_i();    
+    
+    // a konecne adresa pole
+    int base_address = pop_i();
+    
+    // kontrola indexu pameti
+    mem_check(base_address, offset);
+
+    dbg(" 0x%02x -> M%d+%d", value, base_address, offset);
+
+    // vem obsah zasobniku a popni ho
+    // do pameti - vem obsah
+    g->mem[base_address + offset] = value;
+}
+
+// Cteni z pameti 0x0e
+void ild() {
+
+    // protoze se muze nechat vypocitat
+    // jak obsah tak i index, je potreba
+    // vsecho brat pres stack
+    
+    // nejprve je tam index
+    unsigned int offset = pop_i();    
+    
+    // pak adresa pole
+    int base_address = pop_i();
+    
+    // kontrola indexu pameti
+    mem_check(base_address, offset);
+
+    // ziskej obsah
+    int value = g->mem[base_address + offset];
+    dbg(" M%d+%d: %d", base_address, offset, value);
+
+    // proved push ten pameti na stack
+    push_i(value);
 }
 
 // ARITMETIKA
@@ -222,7 +268,7 @@ void call(int address) {
     // navratovou hodnotou hned pracovat
     push_i(pr->ip);     // vlozi na zasobnik navratovou adresu nasledujici instrukce 
                         // (+1 protoze ted je ip na instrukci call, ktera prave bezi...)
-    push_p(st->fp);     // vlozi na zasobnik stary fp    
+    push_i(st->fp);     // vlozi na zasobnik stary fp    
     st->fp = st->sp;    // nastav novy fp
     pr->ip = address;   // skoc na telo funkce
 }
@@ -232,7 +278,7 @@ void call(int address) {
 // adresa je konec souboru
 void main_call(int address) {
     push_i(pr->size);   // tady je ten hacek - z mainu se vraci na konec programu
-    push_p(st->fp);     // vlozi na zasobnik stary fp    
+    push_i(st->fp);     // vlozi na zasobnik stary fp    
     st->fp = st->sp;    // nastav novy fp
     pr->ip = address;   // skoc na telo funkce
 }
@@ -242,7 +288,7 @@ void main_call(int address) {
 void ret() {
     ret_reg = pop_i();  // zapis navratovou hodnotu 
     st->sp = st->fp;    // nastav vrchol zasobniku na zacatek ramce
-    st->fp = pop_p();   // ziskej stary fp
+    st->fp = pop_i();   // ziskej stary fp
     pr->ip = pop_i();   // ziskej navratovou adresu
 }
 
@@ -256,40 +302,42 @@ void rer() {
     push_i(ret_reg);
 }
 
-// pop stack to locale 4B 0x1d
+// pop stack to locale 0x1d
 // locals jsou cislovane od 0
 void psl(unsigned int offset) {
-    st_check(st->fp + offset * 4);
-    *((int *) (st->fp + offset * 4)) = pop_i();
+    st_check(st->fp + offset);
+    int value = pop_i();
+    dbg(" 0x%02x -> L%d", value, offset);
+    st->start[st->fp + offset] = value;
 }
 
-// push locale on stack 4B 0x1e
+// push locale on stack 0x1e
 // locals jsou cislovane od 0
 void pls(unsigned int offset) {
-    st_check(st->fp + offset * 4);
-    push_i(*((int *) (st->fp + offset * 4)));
+    st_check(st->fp + offset);
+    push_i(st->start[st->fp + offset]);
 }
 
-// pop stack to argument 4B 0x2d
+// pop stack to argument 0x2d
 // argumenty jsou cislovane od 0
 void psa(unsigned int offset) {
-    // krok pres stare FP (4B), pres IP (4B), 
+    // krok pres stare FP, pres IP, 
     // a na zacatek parametru
-    // offset je ted 4x vetsi (int)
-    int stepback = 3 * sizeof(char *);
-    st_check(st->fp - offset * 4 - stepback);  
-    *((int *) (st->fp - offset * 4 - stepback)) = pop_i();
+    int stepback = 3;
+    st_check(st->fp - offset - stepback);  
+    int value = pop_i();
+    dbg(" 0x%02x -> A%d", value, offset);
+    st->start[st->fp - offset - stepback] = value;
 }
 
-// push argument to stack 4B 0x2e
+// push argument to stack 0x2e
 // argumenty jsou cislovane od 0
 void pas(unsigned int offset) {
-    // krok pres stare FP (4B), pres IP (4B), 
+    // krok pres stare FP, pres IP, 
     // na zacatek parametru
-    // offset je ted 4x vetsi (int)
-    int stepback = 3 * sizeof(char *);
-    st_check(st->fp - offset * 4 - stepback); 
-    push_i(*((int *) (st->fp - offset * 4 - stepback)));
+    int stepback = 3;
+    st_check(st->fp - offset - stepback); 
+    push_i(st->start[st->fp - offset - stepback]);
 }
 
 // control output 0x12

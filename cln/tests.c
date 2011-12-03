@@ -12,22 +12,17 @@
 void tests(gc * g, stack * st, program * pr) {
 
     printf(" Stack tests: ");
-  
-    // push / pop
-    push(15);
-    test(pop() == 15);
     
+    // nechci nic slyset ...
+    dbg_mute();
+
     // push_i / pop_i
     push_i(256);
     test(pop_i() == 256);
 
-    // push_p / pop_p
-    push_p((char *) g);   
-    test((struct gc *) pop_p() == g);
-
     // call
-    char * _sp = st->sp;
-    char * _fp = st->fp;
+    int _sp = st->sp;
+    int _fp = st->fp;
     pr->ip = 15;
     call(2);
     test(pr->ip == 2);

@@ -81,8 +81,7 @@ instructionRest returns [list]
 	;
 
 instruction returns [result]
-//	:	assignment {$result = [$assignment.result,$assignment.tree]}
-	:	assign {$result = $assign.result}
+	:	assignment {$result = $assignment.result}
 	|	forCycle {$result = $forCycle.result}
 	|	ifInstruction {$result = $ifInstruction.result}
 	|	whileCycle {$result = $whileCycle.result}
@@ -238,8 +237,6 @@ addOperand returns [result]
 mulOperand returns [result]
 	:	PLUS mulOperandRest {$result = $mulOperandRest.result}
 	|	MINUS mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:neg)),$$mulOperandRest.tree]}
-	|	TO_INT mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:int)),$$mulOperandRest.tree]}
-	|	TO_FLOAT mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:float)),$$mulOperandRest.tree]}
 	|	mulOperandRest {$result = $mulOperandRest.result}
 	;
 
@@ -253,15 +250,9 @@ arrayIndexTarget returns [result]
 	|	LB! expression RB! {$result = $expression.result}
 	|	INT {$result = [AtomTree.new($INT.text.to_i),$INT.tree]}
 	|	FLOAT {$result = [AtomTree.new($FLOAT.text.to_f),$FLOAT.tree]}
-	|	string {$result = [AtomTree.new($string.result),$string.tree]}
 	|	call {$result = $call.result}
 	|	array {$result = [ArrayTree.new($array.result),$array.tree]}
 	|	readInstruction {$result = $readInstruction.result}
-	|	new {$result = $new.result}
-	;
-
-new returns [result]
-	:	NEW ID (LB args? RB)? {$result = [NewTree.new($ID.text,$args.list),$NEW.tree]}
 	;
 
 array returns [result]
@@ -274,87 +265,28 @@ array returns [result]
 // bere vnitrek a chova se k nemu
 // jako k adrese ktere prida offset
 indexed	returns [result]
-	:	addressSource {$result = $addressSource.result}
+	:	identified {$result = $identified.result}
 		// indexTree si na addressSource zavola ziskani hodnoty (Load, push on stack ...)
-		('[' expression ']' {$result = IndexTree.new($result, $expression.result)})?
+		('[' expression ']' {$result = IndexTree.new($result, $expression.result)})*
 	;
 
-// zdroj cilove adresy
-addressSource returns [result]
-	:	indexed {$result = $indexed.result}
-	|	identified {$result = $identified.result}
-	;
-
-// stara se vraceni ID 
+// stara se o vraceni ID 
 // od lokalni promenne nebo argumentu ... nebo funkce apod.
 identified returns [result]
 	:	ID {$result = VarTree.new($ID.text)}
 	;
 
 
-assign	returns [result]
-	:	indexed ASSIGN^ expression { $result = [AssignTree.new($target.result,$expression.result),$target.tree] } 
+assignment returns [result]
+	:	indexed ASSIGN^ expression { $result = [AssignTree.new($indexed.result,$expression.result),$indexed.tree] } 
 	;
-	
-// dochazi tady k tomu, ze az ten posledni index je adresou, ty predchozi jsou 
-// indexy vracejici hodnotu... takze ja musim odchytavat o patro vys
-// TODO - neumi to strida call a index, ... 
-assignment returns [result]	
-	:	var=ID {$result = VarTree.new($var.text)}
-		( ASSIGN^ op1=expression { $result = AssignTree.new($var.text,$op1.result) } 
-		| {index=nil}
-			(( {index_ = index} '[' index=expression ']' {target_ = $result; $result = IndexTree.new($result,$index.result)})+  // obalovac ... 
-			( ASSIGN^ op2=expression { $result = DerefTree.new(target_,$index.result,$op2.result) }					
-			| (DOT method1=ID LB! args1=args? RB! {$result = MethodCallTree.new($result,$method1.text,$args1.list)})+
-			))
-		| (DOT method2=ID LB! args2=args? RB! {$result = MethodCallTree.new($result,$method2.text,$args2.list) })+
-		)	
-	;	
 
+fragment
 bool returns [result]	
-	:	TRUE {$result = AtomTree.new(true)}
-	| 	FALSE {$result = AtomTree.new(false)}
+	:	TRUE	{$result = new AtomTree(1)}
+	| 	FALSE	{$result = new AtomTree(0)}
 	;
-
-string returns [result]	
-	:	STRING {$result = $STRING.text[1..-2]}
-	;
-
-STRING
-    :  '"' ( ESC_SEQ | ' ' | ~('\\'|'"'|' ') )* '"'
-    ;
-
-classDef returns [result]
-	:	{superclass=nil}
-		CLASS^ classid=ID (SUPERCLASS superclassid=ID {superclass=$superclassid.text})? LCB! 
-			block
-		RCB! {$result = ClassTree.new($classid.text,$block.list,superclass)}
-	;
-
-fragment
-HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
-
-fragment
-ESC_SEQ
-    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\'|'e')
-    |   UNICODE_ESC
-    |   OCTAL_ESC
-    ;
-
-fragment
-OCTAL_ESC
-    :   '\\' ('0'..'3') ('0'..'7') ('0'..'7')
-    |   '\\' ('0'..'7') ('0'..'7')
-    |   '\\' ('0'..'7')
-    ;
-
-fragment
-UNICODE_ESC
-    :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
-    ;	
     
-TO_INT	:	'int:';
-TO_FLOAT:	'float:';
 READ	:	'read';
 PRINT	:	'print';
 PRINTL	:	'printl';
@@ -372,10 +304,7 @@ RETURN	:	'return';
 EXIT	:	'exit';
 BREAK	:	'break';
 CONTINUE:	'continue';
-CLASS	:	'class';
-SUPERCLASS
-	:	'superclass';
-NEW	:	'new';
+
 
 ID  :	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
     ;

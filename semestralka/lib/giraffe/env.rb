@@ -44,7 +44,7 @@ module Giraffe
                 (@hook_table[@label] >> (@byte * 8)) & 0xFF
             end
         end
-  
+
         @@functions = Hash.new(:undeclared)
         @@current_byte = 4
         @@bytecode = [0,0,0,0]    # prvni 4byte je adresa funkce main
@@ -61,11 +61,11 @@ module Giraffe
             @locals = 0
             @labels = 0
             @hooks = []        # mechanizmus na post-dopisovani adres navesti
-            
+
         end
 
         attr_reader :level, :bytecode
-       
+
         def self.bytecode
             @@bytecode
         end
@@ -127,14 +127,14 @@ module Giraffe
 
         # chci cist z lokalni promenne (nebo argumentu)
         def var(id)           
-            
+
             # Zkus promennou najit nejprve v locals
             variable = @variables[id]
 
             if variable == :undeclared
-               
+
                 variable = @arguments[id]
-             
+
                 # Tak to jeste zkus v argumentech
                 if variable == :undeclared
                     # tak to fakt neznam 
@@ -144,9 +144,10 @@ module Giraffe
                     write_int(variable)     # jeho id
                 end
             else 
-                write_opcode(IPLS)          # budu zapisovat na zasobnik lokalni promennou
+                write_opcode(PLS)           # budu zapisovat na zasobnik lokalni promennou
                 write_int(variable)         # jeji id
             end
+            return nil, nil
         end
 
         # chci zapisovat do lokalni promenne (nebo argumentu)
@@ -155,7 +156,7 @@ module Giraffe
         # dej jeji cislo ... 
         def var!(id)
             variable = @variables[id]
-            
+
             # pokud to neni promenna
             if variable == :undeclared
 
@@ -163,18 +164,23 @@ module Giraffe
                 variable = @arguments[id]
                 if variable != :undeclared
                     write_opcode(PSA)
-                    write_int(variable)         # jeho id
-                else
-                    @variables[id] = @locals    # jde zaroven o deklaraci
-                    write_opcode(IPSL)          # zapis obsah zasobniku do lokalni promenne
+                    write_int(variable)     # jeho id
+                else 
+                    # jde zaroven o deklaraci
+                    @variables[id] = @locals   
+                    write_opcode(PSL)
                     write_int(@locals)
                     @locals += 1
                 end
             else
-                return variable
+                # zapis obsah zasobniku 
+                # do lokalni promenne
+                write_opcode(PSL)
+                write_int(variable)
             end
+            return nil, nil
         end
-        
+ 
         # volam funkci
         def func(id,args) 
             function = @@functions[id]
@@ -193,7 +199,7 @@ module Giraffe
                 # navratovou hodnotu tim nemazu, ta je
                 # uklizena do navratoveho registru ;)
                 (args == nil ? 0 : args.size).times do
-                    write_opcode(IPOP)
+                    write_opcode(POP)
                 end
 
                 # push obsahu navratoveho registru
@@ -208,7 +214,7 @@ module Giraffe
                 # funkce je identifikovana svoji adresou
                 # a poctem parametru (ten je tady jen pro compile kontrolu)
                 @@functions[id] = [@@current_byte, params == nil ? 0 : params.size]
-                
+
                 # pokud jsem definoval main, pak aktualni adresu dej do hlavicky
                 if id == "main" 
                     main_add = @@current_byte
@@ -241,7 +247,7 @@ module Giraffe
             # vloz instrukce pro vytvoreni slotu
             # pro lokalni promenne
             @variables.size.times do
-                write_bytecode_to(IPUSH, @@bytecode)    
+                write_bytecode_to(PUSH, @@bytecode)    
                 write_int_to(0, @@bytecode)  
             end
 

@@ -52,16 +52,17 @@ void reset_vm() {
     bzero((void*) g->old, g->real_size);
 
     // zalozeni freelistu;
-    g->list = (freelist *) g->mem;
-    g->list->size = g->real_size;
-    g->list->next = NULL;
+    g->list = 0;
+    freelist * f = ((freelist *) (g->mem));
+    f->size = g->size;
+    f->next = g->size;
 
     //==========
     //  STACK
     //==========
     
-    st->sp = st->start;
-    st->fp = st->start;
+    st->sp = 0;
+    st->fp = 0;
 
     //===========
     //  PROGRAM
@@ -78,6 +79,15 @@ void init() {
 
     // alokace meho pametoveho prostoru
     g->real_size = HEAP_SIZE / 2;
+    int ratio = g->real_size / slot_size;
+    int rest = g->real_size % slot_size;
+    g->size = ratio + (rest == 0 ? 0 : 1);
+    g->real_size = g->size * slot_size;
+
+    // je potreba aby velikost byla zaokrouhlena
+    // na celociselny nasobek slot_size
+
+    // newspace
     g->mem = (obj *) malloc(g->real_size);
     
     // oldspace
@@ -87,7 +97,15 @@ void init() {
     //  STACK
     //==========
 
-    st->start = malloc(STACK_SIZE);
+    // alokace prostoru zaasobniku
+    ratio = STACK_SIZE / slot_size;
+    rest = STACK_SIZE % slot_size;
+    st->size = ratio + (rest == 0 ? 0 : 1);
+
+    // opet je potreba aby velikost byla zaokrouhlena
+    // na celociselny nasobek slot_size
+    st->real_size = st->size * slot_size;
+    st->start = malloc(st->real_size);
 
     //===========
     //  PROGRAM
@@ -139,27 +157,34 @@ void print_freelist(gc * gcl) {
     printf("  FREE LIST \n");
     printf("----------------------------------------\n");
 
-    freelist * next = gcl->list;
+    int next_index = gcl->list;
+    freelist * next;
 
-    while(next != NULL) {
+    while(next_index != gcl->size) {
 
-        printf("Address: %p, %d B, next freespace on %p\n",
-                next, next->size, next->next);
+        next = (freelist *) (gcl->mem + next_index);
 
-        next = next->next;
+        printf("Address: %d, %d B, next freespace on %d\n",
+                next_index, next->size, next->next);
+
+        next_index = next->next;
     }
 }
 
 // alokuj v GC pameti 
 // gc - garbage collector
 // size - pozadovana velikost v 4B (int)
-int * allocate(gc * gcl, int size) {  
+int allocate(gc * gcl, int size) {  
 
-    size = size + 1;    // potrebuju prostor pro size + udaj o velikosti
-    freelist * next = gcl->list;
+    size = size + ALLOC_HEADER;   
+    int next_index = gcl->list;
+    freelist * next;
 
     // najdi takovou velikost volneho prostoru kam by se tohle veslo
-    while(next != NULL) {
+    // gcl->size je tady nahradou za NULL v pripade adresovani pointery
+    while(next_index != gcl->size) {
+
+        next = (freelist *) (gcl->mem + next_index);
 
         // pokud jsem nasel dost velke misto, 
         // uprav freelist a vrat na nej referenci
@@ -171,7 +196,7 @@ int * allocate(gc * gcl, int size) {
             // freespace o velikosti freelist struktury,
             // pak nezmensuj ale rovnou preskoc na dalsi 
             // polozku o volnem miste
-            if (next->size - size < sizeof(freelist) + ) { 
+            if (next->size - size < FREELIST_SIZE) { 
 
                 gcl->list = next->next;
 
@@ -184,24 +209,25 @@ int * allocate(gc * gcl, int size) {
                 // ze na misto stareho next, prijde nove size
                 // polozce size takove nebezpeci nehrozi, protoze
                 // se zapisuje jako prvni
-                freelist * old_next = next->next;
+                int old_next = next->next;
 
                 // je tam jeste kus mista,
                 // odecti ho a zaloz "uprav"
                 // polozku freelistu                                             
-                gcl->list = (freelist *) ((void *) next + size);    // posuv
-                printf("oldsize: %d size:%d\n", next->size, size);
-                gcl->list->size = next->size - size;    // zmensi jeho velikost
-                printf("freesize %d\n", gcl->list->size);
-                gcl->list->next = old_next;           // naslednik je stejny
+                gcl->list = next_index + size;  // posuv
+                freelist * new = (freelist *) (gcl->mem + gcl->list);
+                printf("\n (Alloc header: %d) Freelist: %d ->", ALLOC_HEADER, next->size);
+                new->size = next->size - size;  // zmensi jeho velikost
+                printf(" %d", new->size);
+                new->next = old_next;         // naslednik je stejny
             }
         
-            return (int *) next;
+            return next_index;
 
         } else {    
             // jinak pokracuj dal
             printf("\t%d can't fit into %d\n", size, next->size);
-            next = next->next;
+            next_index = next->next;
         }
     }
 
@@ -273,6 +299,8 @@ void run() {
         printf(" Byte: 0x%02x ", opcode);
 
         switch (opcode) {
+
+        // stack operace
         case 0x03:
             printf("\e[36m-- push_i \e[0m");
             pa[3] = next();
@@ -287,23 +315,34 @@ void run() {
             printf("\e[36m-- pop_i \e[0m");
             pop_i();
             break;
-        
+        case 0x05:
+            printf("\e[36m-- dup \e[0m");
+            dup();
+            break;
+
         case 0x00:
             printf("\e[36m-- nop\e[0m");
             break;
 
-        // alokace
+        // operace s pameti
         case 0x0c:
-            printf("\e[36m-- aloc\e[0m");
+            printf("\e[36m-- alloc\e[0m");
             pa[3] = next();
             pa[2] = next();
             pa[1] = next();
             pa[0] = next();
             pi = *((int *) pa);
-            printf("\e[36m %d bytes\e[0m",pi);
-            aloc(pi);
+            printf("\e[36m %d slots (%d bytes)\e[0m", pi, pi * slot_size);
+            alloc(pi);
             break;
-
+        case 0x0d:
+            printf("\e[36m-- ist \e[0m");
+            ist();
+            break;
+        case 0x0e:
+            printf("\e[36m-- ild \e[0m");
+            ild();
+            break;
 
         // rizeni behu programu
         case 0x09:
@@ -468,6 +507,8 @@ void run() {
 
 int main ( int argc, char **argv ) {
 
+    slot_size = sizeof(int);
+
     gc gcl;
     stack stk;
     program prg;
@@ -484,24 +525,26 @@ int main ( int argc, char **argv ) {
     pr->filename = argv[1];
     output_filename = argv[2];
     
-
     // zaloz GC a alokuj pamet
     // zaloz stack
     init();
 
     printf("----------------------------------------\n");
-    printf(" Giraffe !\n----------------------------------------\n");
+    printf(" \e[1;33mGiraffe\e[31m!\e[0m\n----------------------------------------\n");
 
     printf(" Mem loc.:\t%p - %p\n",g->mem, g->mem + g->real_size);
-    printf(" Mem size:\t%d B\n",g->real_size);
-    printf(" Stack loc.:\t%p - %p\n",st->start, st->start + STACK_SIZE);
-    printf(" Stack size:\t%d B\n",STACK_SIZE);
+    printf(" Mem size:\t%d B (%d slots)\n",g->real_size, g->size);
+    printf(" Stack loc.:\t%p - %p\n",st->start, st->start + st->real_size);
+    printf(" Stack size:\t%d B (%d slots)\n",st->real_size, st->size);
 
     printf("----------------------------------------\n");
 
     // BYTECODE test ... 
     tests(g, st, pr);
-    
+   
+    // zapni vypisy
+    dbg_on();
+
     printf("----------------------------------------\n");
     printf(" Interpreting '%s' (%d bytes)\n", pr->filename, pr->size);
     printf("----------------------------------------\n");
