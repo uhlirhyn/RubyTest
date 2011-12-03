@@ -8,6 +8,12 @@ module Giraffe
         include Debug
         include Opcodes
 
+        # kolik je minimalni velikost pole
+        # k naalokovani ? Jinymi slovy, kdyz
+        # budu alokovat a = [] tak si dopredu 
+        # radeji naalokuju uz velikost napr. 2
+        MIN_ALLOC = 2
+
         # Kotvy a haky
         # ----------------------------------------------
         # - kotva je misto kde je navesti

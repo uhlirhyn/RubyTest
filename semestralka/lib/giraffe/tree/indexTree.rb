@@ -1,10 +1,12 @@
 require './lib/giraffe/debug.rb'
+require './lib/giraffe/opcodes.rb'
 
 module Giraffe
 
     class IndexTree
     
         include Debug
+        include Opcodes
 
         def initialize(target,index)
             @target = target
@@ -14,29 +16,26 @@ module Giraffe
 
         def run(env,tree)
 
-            # IndexTree
-            # - zadnou zpravu nezpracovava
-            # - neprodukuje zadnou zpravu
-            # - normalni vystup je 
-
+            dbg("run",:IndexTree) 
+            
             # vypocitej "adresu"
             returnValue, msg = @target[0].run(env,@target[1])
             return returnValue, msg if msg != nil
-
-            address = returnValue
 
             # vypocitej index
             returnValue, msg = @index[0].run(env,@index[1])
             return returnValue, msg if msg != nil
 
-            index = returnValue
-
-            dbg("address '#{address}' index '#{index}'",:IndexTree) 
+            # zde uloha IndexTree konci
+            # - ziskal adresu pole
+            # - ziskal index
            
-            # kontrola pole ... ?
+            # ted se muze na hodnoty na stacku 
+            # zavolat load
+            # nebo tam pridat hodnotu a na tu
+            # ulozit na zminenou adresu a index
 
-            # vypocitej hodnotu
-            return address[index], nil
+            return nil, nil
         end
 
     end

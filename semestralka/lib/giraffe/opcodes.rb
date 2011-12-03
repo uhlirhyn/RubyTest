@@ -7,37 +7,43 @@ module Opcodes
     CALL    =   0x09
     RER     =   0x0b
 
+    # pamet
+    ALOC    =   0x0c
+    ST      =   0x0d
+    LD      =   0x0e
+
     # operace s lokalnimu promennymi
-    IPSL    =   0x1d
-    IPLS    =   0x1e
+    PSL     =   0x1d
+    PLS     =   0x1e
     
     # operace s argumenty funkci
     PSA     =   0x2d
     PAS     =   0x2e
 
     # operace se zasobnikem
-    IPUSH   =   0x03
-    IPOP    =   0x04
+    PUSH    =   0x03
+    POP     =   0x04
+    DUP     =   0x05 
 
     # aritmetika
-    IADD    =   0x25
-    ISUB    =   0x26
-    IMUL    =   0x27
-    IDIV    =   0x28
-    IMOD    =   0x29
-    INEG    =   0x2a
+    ADD     =   0x25
+    SUB     =   0x26
+    MUL     =   0x27
+    DIV     =   0x28
+    MOD     =   0x29
+    NEG     =   0x2a
 
     # bool operace
-    IOR     =   0x2b
-    IAND    =   0x2c
-
+    OR      =   0x2b
+    AND     =   0x2c
+    
     # porovnavani
-    INE     =   0x2f
-    IGT     =   0x30
-    IGE     =   0x31
-    ILT     =   0x32
-    ILE     =   0x33
-    IEQ     =   0x34
+    NE      =   0x2f
+    GT      =   0x30
+    GE      =   0x31
+    LT      =   0x32
+    LE      =   0x33
+    EQ      =   0x34
 
     # jine
     OUT     =   0x12

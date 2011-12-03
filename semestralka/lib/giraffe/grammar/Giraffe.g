@@ -81,7 +81,8 @@ instructionRest returns [list]
 	;
 
 instruction returns [result]
-	:	assignment {$result = [$assignment.result,$assignment.tree]}
+//	:	assignment {$result = [$assignment.result,$assignment.tree]}
+	:	assign {$result = $assign.result}
 	|	forCycle {$result = $forCycle.result}
 	|	ifInstruction {$result = $ifInstruction.result}
 	|	whileCycle {$result = $whileCycle.result}
@@ -268,6 +269,31 @@ array returns [result]
 		(ex1=expression {$result << $ex1.result}
 		(COMMA ex2=expression {$result << $ex2.result} )*)?
 		']'
+	;
+
+// bere vnitrek a chova se k nemu
+// jako k adrese ktere prida offset
+indexed	returns [result]
+	:	addressSource {$result = $addressSource.result}
+		// indexTree si na addressSource zavola ziskani hodnoty (Load, push on stack ...)
+		('[' expression ']' {$result = IndexTree.new($result, $expression.result)})?
+	;
+
+// zdroj cilove adresy
+addressSource returns [result]
+	:	indexed {$result = $indexed.result}
+	|	identified {$result = $identified.result}
+	;
+
+// stara se vraceni ID 
+// od lokalni promenne nebo argumentu ... nebo funkce apod.
+identified returns [result]
+	:	ID {$result = VarTree.new($ID.text)}
+	;
+
+
+assign	returns [result]
+	:	indexed ASSIGN^ expression { $result = [AssignTree.new($indexed.result,$expression.result),$indexed.tree] } 
 	;
 	
 // dochazi tady k tomu, ze az ten posledni index je adresou, ty predchozi jsou 

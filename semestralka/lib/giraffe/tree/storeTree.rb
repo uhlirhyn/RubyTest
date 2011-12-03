@@ -3,27 +3,19 @@ require './lib/giraffe/opcodes.rb'
 
 module Giraffe
 
-    class AssignTree
+    class StoreTree
     
         include Debug
         include Opcodes
         
-        def initialize(id,expression)
-            @id = id
-            @expression = expression
-            dbg("init",:AssignTree)
+        def initialize(reference)
+            @reference = reference
+            dbg("init",:StoreTree)
         end
-
-        # AssignTree
-        # 
-        # Jeho ukolem je sparovat bytecode
-        # adresovani cile a bytecode hodnot
+        
+        # StoreTree
         #
-        # Na leve strane muze mit totiz:
-        # Locale -> pak na konci musi byt PSL
-        # Argument -> pak na konci musi byt PSA
-        # Indexace -> pak na konci musi byte ST
-        #
+        # Bere referenci a provadi na ni
         def run(env,tree)
             
             dbg("run",:AssignTree)
