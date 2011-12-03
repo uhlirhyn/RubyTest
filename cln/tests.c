@@ -35,6 +35,7 @@ void tests(gc * g, stack * st, program * pr) {
 
     // ret
     ret();
+    rer();
     test(pop_i() == 3);
     test(pr->ip == 15); // pokracuje dal v puvodnich instrukcich
     test(st->fp == _fp);
@@ -67,9 +68,10 @@ void tests(gc * g, stack * st, program * pr) {
     test(pop_i() == 30);
     push_i(10);
     ret();
+    pop_i();    // odstran arg0
+    pop_i();    // odstran arg1
+    rer();
     test(pop_i() == 10);
-    test(pop_i() == 65);
-    test(pop_i() == 30);
     
     printf("\n Arithmetic tests: ");
 
@@ -84,12 +86,12 @@ void tests(gc * g, stack * st, program * pr) {
     test(pop_i() == 7);
 
     // sub
-    push_i(3);
     push_i(10);
+    push_i(3);
     isub();
     test(pop_i() == 7);
-    push_i(15);
     push_i(10);
+    push_i(15);
     isub();
     test(pop_i() == -5);
 
@@ -100,14 +102,14 @@ void tests(gc * g, stack * st, program * pr) {
     test(pop_i() == 30);
 
     // div
-    push_i(3);
     push_i(10);
+    push_i(3);
     idiv();
     test(pop_i() == 3);
 
     // mod
-    push_i(3);
     push_i(10);
+    push_i(3);
     imod();
     test(pop_i() == 1);
 
@@ -144,58 +146,58 @@ void tests(gc * g, stack * st, program * pr) {
     test(pop_i() == 0x00);
 
     // gt
-    push_i(3);
     push_i(10);
+    push_i(3);
     igt();
     test(pop_i() == 0x01);
     push_i(3);
     push_i(3);
     igt();
     test(pop_i() == 0x00);
-    push_i(15);
     push_i(10);
+    push_i(15);
     igt();
     test(pop_i() == 0x00);
 
     // ge
-    push_i(3);
     push_i(10);
+    push_i(3);
     ige();
     test(pop_i() == 0x01);
     push_i(3);
     push_i(3);
     ige();
     test(pop_i() == 0x01);
+    push_i(10);
     push_i(15);
-    push_i(10);
     ige();
     test(pop_i() == 0x00);
 
     // lt
-    push_i(3);
     push_i(10);
+    push_i(3);
     ilt();
     test(pop_i() == 0x00);
     push_i(3);
     push_i(3);
     ilt();
     test(pop_i() == 0x00);
+    push_i(10);
     push_i(15);
-    push_i(10);
     ilt();
     test(pop_i() == 0x01);
 
     // le
-    push_i(3);
     push_i(10);
+    push_i(3);
     ile();
     test(pop_i() == 0x00);
     push_i(3);
     push_i(3);
     ile();
     test(pop_i() == 0x01);
-    push_i(15);
     push_i(10);
+    push_i(15);
     ile();
     test(pop_i() == 0x01);
 

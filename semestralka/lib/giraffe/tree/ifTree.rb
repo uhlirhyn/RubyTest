@@ -43,7 +43,7 @@ module Giraffe
             false_label = env.next_label
             env.insert_hook(false_label)
 
-            dbg("IF",:IfTree)
+            dbg("IF - false_label #{false_label}",:IfTree)
             for i in @instructions do 
                 return_value, msg = i[0].run(env,i[1])
                 case msg
@@ -64,6 +64,7 @@ module Giraffe
             
             # vloz kotvu navesti
             env.insert_anchor(false_label)
+            dbg("IF - false_label anchor placed",:IfTree)
 
             if @blockElse != nil
 

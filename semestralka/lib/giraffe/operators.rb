@@ -94,11 +94,11 @@ module Operators
     end
 
     def Operators.or(x,y)
-        if (x.is_a?(TrueClass) || x.is_a?(FalseClass)) && (y.is_a?(TrueClass) || y.is_a?(FalseClass))
+       # if (x.is_a?(TrueClass) || x.is_a?(FalseClass)) && (y.is_a?(TrueClass) || y.is_a?(FalseClass))
             return Opcodes::IOR, nil
-        else
-            raise "Can't make or between #{x.class} '#{x}' and #{y.class} '#{y}'"
-        end
+       # else
+       #     raise "Can't make or between #{x.class} '#{x}' and #{y.class} '#{y}'"
+       # end
     end
 
     def Operators.and(x,y)

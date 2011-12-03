@@ -1,4 +1,18 @@
-main {
+hop b,c {
     a = 5
-    print (a)
+    print (b)   # 9
+    print (c)   # 88
+    kv6 = 41    
+    print (a)   # 5
+    b = 77
+    print (kv6) # 41
+    print(b)    # 77
+    c = b
+    print(c)    # 77
+}
+
+main {
+
+    hop(9,88)
+
 }

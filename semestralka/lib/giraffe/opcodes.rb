@@ -5,6 +5,7 @@ module Opcodes
     JMP     =   0x11
     RET     =   0x0a
     CALL    =   0x09
+    RER     =   0x0b
 
     # operace s lokalnimu promennymi
     IPSL    =   0x1d

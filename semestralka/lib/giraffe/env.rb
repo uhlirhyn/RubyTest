@@ -53,7 +53,6 @@ module Giraffe
 
             @temp_bytecode = []
             @locals = 0
-            @args = 0
             @labels = 0
             @hooks = []        # mechanizmus na post-dopisovani adres navesti
             
@@ -117,6 +116,7 @@ module Giraffe
         # vlozi kotvu pro haky
         def insert_anchor(label)
             @hooks[label] = @@current_byte
+            dbg("Hooks #{@hooks}",:Env)
         end
 
         # chci cist z lokalni promenne (nebo argumentu)
@@ -157,11 +157,12 @@ module Giraffe
                 variable = @arguments[id]
                 if variable != :undeclared
                     write_opcode(PSA)
+                    write_int(variable)         # jeho id
                 else
                     @variables[id] = @locals    # jde zaroven o deklaraci
-                    @locals += 1
                     write_opcode(IPSL)          # zapis obsah zasobniku do lokalni promenne
                     write_int(@locals)
+                    @locals += 1
                 end
             else
                 return variable
@@ -181,6 +182,16 @@ module Giraffe
                 # vloz call a adresu funkce
                 write_opcode(CALL)
                 write_int(function[0])
+
+                # je potreba uklidit po sobe parametry
+                # navratovou hodnotu tim nemazu, ta je
+                # uklizena do navratoveho registru ;)
+                (args == nil ? 0 : args.size).times do
+                    write_opcode(IPOP)
+                end
+
+                # push obsahu navratoveho registru
+                write_opcode(RER)
             end
         end
 
@@ -212,9 +223,10 @@ module Giraffe
         # zakladam argumenty pro funkci
         def register_params(params)
             return if params == nil
+            arg_i = params.size - 1
             for p in params 
-                @arguments[p] = @args
-                @args += 1
+                @arguments[p] = arg_i
+                arg_i -= 1
             end
         end
 
@@ -229,9 +241,11 @@ module Giraffe
 
             # o ten posuv je potreba posunout i adresy 
             # navesti - takze upravit pole hooks
+            # posuv je o instrukci IPUSH (1B) a 4B 0x00
+            # pro kazdou instrukci
             @hooks.each_index do
                 |i|
-                @hooks[i] += @variables.size
+                @hooks[i] += @variables.size * 5
             end
 
             # vloz puvodni bytecode funkce

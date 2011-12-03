@@ -79,35 +79,35 @@ char * pop_p() {
 void iadd() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 + op2);
+    push_i(op2 + op1);
 }
 
 // isub 0x26
 void isub() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 - op2);
+    push_i(op2 - op1);
 }
 
 // imul 0x27
 void imul() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 * op2);  // TODO preteceni ??
+    push_i(op2 * op1);  // TODO preteceni ??
 }
 
 // idiv 0x28
 void idiv() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 / op2);
+    push_i(op2 / op1);
 }
 
 // imod 0x29
 void imod() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 % op2);
+    push_i(op2 % op1);
 }
 
 // ineg 0x2a
@@ -123,14 +123,14 @@ void ineg() {
 void ior() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 | op2);
+    push_i(op2 | op1);
 }
 
 // iand 0x2c
 void iand() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 & op2);
+    push_i(op2 & op1);
 }
 
 // POROVNAVANI
@@ -140,42 +140,42 @@ void iand() {
 void ine() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 != op2);
+    push_i(op2 != op1);
 }
 
 // igt 0x30
 void igt() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 > op2);
+    push_i(op2 > op1);
 }
 
 // ige 0x31
 void ige() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 >= op2);
+    push_i(op2 >= op1);
 }
 
 // ilt 0x32
 void ilt() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 < op2);
+    push_i(op2 < op1);
 }
 
 // ile 0x33
 void ile() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 <= op2);
+    push_i(op2 <= op1);
 }
 
 // ieq 0x34
 void ieq() {
     int op1 = pop_i();
     int op2 = pop_i();
-    push_i(op1 == op2);
+    push_i(op2 == op1);
 }
 
 // RIZENI BEHU PROGRAMU
@@ -203,7 +203,6 @@ void jneq(unsigned int adr) {
 void call(int address) {
     // tyto dve instrukce jsou umyslne prohozene, aby se mohlo s 
     // navratovou hodnotou hned pracovat
-    push_i(0);          // udela se misto pro navratovou hodnotu
     push_i(pr->ip);     // vlozi na zasobnik navratovou adresu nasledujici instrukce 
                         // (+1 protoze ted je ip na instrukci call, ktera prave bezi...)
     push_p(st->fp);     // vlozi na zasobnik stary fp    
@@ -215,7 +214,6 @@ void call(int address) {
 // protoze jeho navratova
 // adresa je konec souboru
 void main_call(int address) {
-    push_i(0);          // udela se misto pro navratovou hodnotu
     push_i(pr->size);   // tady je ten hacek - z mainu se vraci na konec programu
     push_p(st->fp);     // vlozi na zasobnik stary fp    
     st->fp = st->sp;    // nastav novy fp
@@ -225,11 +223,19 @@ void main_call(int address) {
 // return 0x0a
 // navratova hodnota je int a je to posledni udaj na zasobniku
 void ret() {
-    // musi se vratit o velikost navratove hodnoty + preskocit ret adresu a _FP
-    *((int *) (st->fp - 3 * sizeof(int))) = pop_i();    // zapis navratovou hodnotu 
+    ret_reg = pop_i();  // zapis navratovou hodnotu 
     st->sp = st->fp;    // nastav vrchol zasobniku na zacatek ramce
     st->fp = pop_p();   // ziskej stary fp
     pr->ip = pop_i();   // ziskej navratovou adresu
+}
+
+// push obsahu ret_regu 0x0b
+// je to proto, aby se mohl 
+// vycistit zasobnik od parametru
+// a nesmazala se zaroven u toho 
+// ta navratova hodnota
+void rer() {
+    push_i(ret_reg);
 }
 
 // pop stack to locale 4B 0x1d
@@ -250,9 +256,9 @@ void pls(unsigned int offset) {
 // argumenty jsou cislovane od 0
 void psa(unsigned int offset) {
     // krok pres stare FP (4B), pres IP (4B), 
-    // return value (4B) a na zacatek parametru
+    // a na zacatek parametru
     // offset je ted 4x vetsi (int)
-    int stepback = 4 * sizeof(char *);
+    int stepback = 3 * sizeof(char *);
     st_check(st->fp - offset * 4 - stepback);  
     *((int *) (st->fp - offset * 4 - stepback)) = pop_i();
 }
@@ -261,9 +267,9 @@ void psa(unsigned int offset) {
 // argumenty jsou cislovane od 0
 void pas(unsigned int offset) {
     // krok pres stare FP (4B), pres IP (4B), 
-    // return value (4B) a na zacatek parametru
+    // na zacatek parametru
     // offset je ted 4x vetsi (int)
-    int stepback = 4 * sizeof(char *);
+    int stepback = 3 * sizeof(char *);
     st_check(st->fp - offset * 4 - stepback); 
     push_i(*((int *) (st->fp - offset * 4 - stepback)));
 }
@@ -272,4 +278,5 @@ void pas(unsigned int offset) {
 void out() {
     int value = pop_i(); 
     printf("0x%02x (%d)", value, value);
+    fprintf(output_file, "%d\n", value);
 }

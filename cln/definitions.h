@@ -4,9 +4,12 @@
 #define BUFFER 128
 
 // VM globals
-struct program * pr;    // program
-struct stack * st;      // zasobnik
-struct gc * g;          // pamet (GC)
+struct program * pr;        // program
+struct stack * st;          // zasobnik
+struct gc * g;              // pamet (GC)
+char * output_filename;     // jmeno vystupniho souboru
+FILE * output_file;         // vystupni soubor
+int ret_reg;                // registr pro navratove hodnoty funkci
 
 typedef struct stack {
     char * start;       // Zacatek stacku

@@ -1,9 +1,14 @@
 fact num {
+    print(num)
     if num == 0 || num == 1 {
         return 1
     } else {
-        return num*fact(num-1)
+        a = num*fact(num-1)
+        print (a)
+        return a
     }
 }
 
-print fact(6)
+main {
+    print (fact(6))
+}

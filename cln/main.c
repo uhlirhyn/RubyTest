@@ -101,6 +101,16 @@ void init() {
 
     reset_vm();
 
+    //===========
+    //  OUTPUT
+    //===========
+
+    output_file = fopen(output_filename, "w");
+    if (output_file == NULL) {
+        fprintf(stderr, "\e[31mError in opening a file %s\e[39m\n", output_filename);
+        exit (-1);
+    }
+
 }
 
 void mem_dump(gc * gcl, int grouping) {
@@ -269,7 +279,6 @@ char next() {
 void run() {
 
     char opcode;
-    char pc;
     int pi;
     char pa[4];
 
@@ -292,18 +301,6 @@ void run() {
         printf(" Byte: 0x%02x ", opcode);
 
         switch (opcode) {
-        case 0x01:
-            printf("\e[36m-- push \e[0m");
-            pc = next();
-            printf("\e[36m%c (0x%02x)\e[0m",pc ,pc);
-            push(pc);
-            break;
-       
-        case 0x02:
-            printf("\e[36m-- pop \e[0m");
-            pop();
-            break;
-    
         case 0x03:
             printf("\e[36m-- push_i \e[0m");
             pa[3] = next();
@@ -313,6 +310,10 @@ void run() {
             pi = *((int *) pa);
             printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
             push_i(pi);
+            break;
+        case 0x04:
+            printf("\e[36m-- pop_i \e[0m");
+            pop_i();
             break;
         
         case 0x00:
@@ -333,6 +334,10 @@ void run() {
         case 0x0a:
             printf("\e[36m-- ret \e[0m");
             ret();
+            break;
+        case 0x0b:
+            printf("\e[36m-- rer \e[0m");
+            rer();
             break;
         case 0x10:
             printf("\e[36m-- jneq \e[0m");
@@ -393,6 +398,16 @@ void run() {
             break;
 
         // operace s argumenty
+        case 0x2d:
+            printf("\e[36m-- psa\e[0m ");
+            pa[3] = next();
+            pa[2] = next();
+            pa[1] = next();
+            pa[0] = next();
+            pi = *((int *) pa);
+            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
+            psa(pi);
+            break;
         case 0x2e:
             printf("\e[36m-- pas\e[0m ");
             pa[3] = next();
@@ -468,8 +483,6 @@ void run() {
 
 int main ( int argc, char **argv ) {
 
-    // zaloz GC a alokuj pamet
-    // zaloz stack
     gc gcl;
     stack stk;
     program prg;
@@ -478,9 +491,17 @@ int main ( int argc, char **argv ) {
     st = &stk;
     pr = &prg;
 
-    // TODO kontrola existence parametru
+    if (argc < 3) { 
+        fprintf(stderr, "\e[33mMissing parameter(s) - please enter the input and output file:\e[39m\n\n\tgrf INPUTFILE OUTPUTFILE\n\n");
+        exit (0);
+    }
+        
     pr->filename = argv[1];
+    output_filename = argv[2];
+    
 
+    // zaloz GC a alokuj pamet
+    // zaloz stack
     init();
 
     printf("----------------------------------------\n");
@@ -508,5 +529,6 @@ int main ( int argc, char **argv ) {
     // uvolni pamet
     free(g->mem);
     free(st->start);
+    fclose(output_file);
 
 }

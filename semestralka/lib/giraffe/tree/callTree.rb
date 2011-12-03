@@ -30,7 +30,6 @@ module Giraffe
             func, msg = env.func(@id,@args)
             return func, msg if msg != nil
 
-
             return return_value, msg
         end
 

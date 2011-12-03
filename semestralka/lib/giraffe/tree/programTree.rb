@@ -43,8 +43,6 @@ module Giraffe
 
         private 
         def on_exit(code=1)
-           
-             puts orange(Env::bytecode)
 
             File.open("out.grfc","wb") do
                 |f|
@@ -52,7 +50,7 @@ module Giraffe
                 counter = 0;
                 for byte in Env::bytecode do
                     f.write(byte.value.chr)
-                    printf("0x#{counter.to_s(16)}\t: 0x#{byte.value.to_s(16)}\n");
+                    printf("  0x#{counter.to_s(16)}\t: 0x#{byte.value.to_s(16)}\n");
                     counter += 1
                 end
                 print("------------------------------------\n")

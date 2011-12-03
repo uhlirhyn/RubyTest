@@ -103,6 +103,13 @@ void main_call(int address);
 // navratova hodnota je int a je to posledni udaj na zasobniku
 void ret();
 
+// push obsahu ret_regu 0x0b
+// je to proto, aby se mohl 
+// vycistit zasobnik od parametru
+// a nesmazala se zaroven u toho 
+// ta navratova hodnota
+void rer();
+
 // pop stack to locale 4B 0x1d
 // locals jsou cislovane od 0
 void psl(unsigned int offset);
