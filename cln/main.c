@@ -216,10 +216,8 @@ int allocate(gc * gcl, int size) {
                 // polozku freelistu                                             
                 gcl->list = next_index + size;  // posuv
                 freelist * new = (freelist *) (gcl->mem + gcl->list);
-                printf("\n (Alloc header: %d) Freelist: %d ->", ALLOC_HEADER, next->size);
                 new->size = next->size - size;  // zmensi jeho velikost
-                printf(" %d", new->size);
-                new->next = old_next;         // naslednik je stejny
+                new->next = old_next;           // naslednik je stejny
             }
         
             return next_index;

@@ -27,20 +27,17 @@ module Giraffe
         def run(env,tree)
             
             dbg("run",:AssignTree)
+
+            # 1.) Hodnota 
+            return_value, msg = @expression[0].run(env,@expression[1])
+            return return_value, msg if msg != nil
            
-            # 1.) Adresa
+            # 2.) Adresa + 3.) Store
             return_value, msg = @target[0].run(env,@target[1],:store)
             return return_value, msg if msg != nil
 
-            # 2.) Hodnota 
-            return_value, msg = @expression[0].run(env,@expression[1])
-            return return_value, msg if msg != nil
-
             dbg("assigning '#{@id}' to '#{return_value}'",:AssignTree)
-
-            # 3.) Instrukce zapisu
-            @target[0].store(env)
-
+        
             return return_value, nil
         end
 

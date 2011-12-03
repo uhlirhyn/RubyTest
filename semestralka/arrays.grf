@@ -1,5 +1,8 @@
 main {
     a = [88]
-    b = [2,7]
-    print(b[1])
+    b = [2,7,8,63]
+    print(b[2])
+    print(b[0])
+    print(b[3])
+    print(b[4])
 }

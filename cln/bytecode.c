@@ -57,24 +57,15 @@ void dup() {
     push_i(top);
 }
 
-// Alokace 0x0c 
-// necha naalokovat pole int-u
-// a adresu zacatku da na stack
-void alloc(int size) {
-    int addr = allocate(g, size);
-    dbg(" +M%d", addr);
-    push_i(addr);
-}
-
 // kontrola pameti (jsem stale v pozadovanem bloku ?)
 void mem_check(int base_address, unsigned int offset) {
     
     // na base_address je ulozen size toho objektu
     // protoze je to pole, musi byt offset ostre mensi
     // pokud by byl roven tak uz je to preteceni
-    if (g->mem[base_address] < offset ) {
-        fprintf(stderr, " \e[31mOut of array bounds - %d indexed, but array is size of %d\e[39m\n", 
-                offset, g->mem[base_address]);
+    if (g->mem[base_address] <= offset ) {
+        fprintf(stderr, " \e[31mOut of array bounds - %d indexed, but max is %d\e[39m\n", 
+                offset, g->mem[base_address] - 1);
         abort();
     }
 }
@@ -91,15 +82,15 @@ void ist() {
     // jak obsah tak i index, je potreba
     // vsecho brat pres stack
 
-    // jako posledni se na stack dava 
-    // obsah ktery chci ulozit
-    int value = pop_i();
-
+    // adresa pole
+    int base_address = pop_i();
+    
     // pak je tam index
     unsigned int offset = pop_i();    
-    
-    // a konecne adresa pole
-    int base_address = pop_i();
+
+    // jako prvni se na stack dava 
+    // obsah ktery chci ulozit
+    int value = pop_i();
     
     // kontrola indexu pameti
     mem_check(base_address, offset);
@@ -108,8 +99,80 @@ void ist() {
 
     // vem obsah zasobniku a popni ho
     // do pameti - vem obsah
-    g->mem[base_address + offset] = value;
+    g->mem[base_address + offset + ALLOC_HEADER] = value;
 }
+
+// Continual store ...
+// jde o "specialni" instrukci, ktera resi 
+// problem s poradim adresa-hodnota na stacku
+// (poradi vkladani veci na stack)
+// 
+// Normalne - treba kdyz se uklada neco do 
+// lokalni promenne - se na stack hodi 
+// hodnota a pak se provede psl X, kde X
+// je ID promenne - tedy poradi je 
+// hodnota-adresa. Bohuzel kdyz se inicializuje
+// pole a rovnou se do nej prirazuje, je zde
+// postup opacny. Je to protoze se na adresu
+// ziskanou z alokace dava vice hodnot naraz.
+// 
+// Aby to bylo mozne, je potreba mit na stacku
+// vzdy dvojici adresa-hodnota, na kterou se 
+// pousti instrukce store (st) ... ta ale 
+// provede na obe polozky vzdy pop - coz sice
+// v pripade hodnoty nevadi, ale v pripade
+// adresy ano ... je tedy potreba aby adresa
+// byla hloubeji na zasobniku a pred kazdym 
+// storem se duplikuje (dup) - timto zpusobem
+// se tak nalokuje pole, inicializuje se a na
+// stacku zustane pouze adresa pole, ktera se
+// priradi do promenne, do ktere bylo zapisem
+// prirazeno pri alokaci - napr.:
+//
+//      a = [1,5,6,8]
+//
+// U ostatnich instrukci je ale jednodusi a 
+// obecne i "hezci" postup kdy je adresa davana
+// na stack az jako posledni - to napriklad 
+// umoznuje ukladat hodnoty do argumentu a 
+// promennych tak, ze jejich ID je v bytecodu
+// hned za instrukci psa, psl ... neni potreba 
+// toto ID predtim push-nout na stack a pak 
+// teprve provest jejich ulozeni
+//
+// Proto je tu instrukce Continual store,
+// ktera dela prakticky to same, co store (st)
+// ale pocita s tim, ze je ukladano vice veci,
+// jejichz pocet je ji dan z bytecodu (za inst.)
+//
+// Instrukce tak zachova postup hodnota-adresa,
+// kdy jako prvni ze stacku provede pop na adresu
+// a pak nekolikrat na ni ulozi dle toho kolik
+// je podle parametru na stacku polozek ...
+// 
+// -- Continual Store byl sjednocen s alloc 
+
+// Alokace 0x0c 
+// necha naalokovat pole int-u
+// a adresu zacatku da na stack
+void alloc(int size) {
+    int addr = allocate(g, size);
+    dbg(" +M%d", addr);
+
+    // zapis delku pole na prvni polozku
+    g->mem[addr] = size;
+
+    int value;
+    // na zbytek polozek zapis ty prvky
+    for (int i=1; i < size + ALLOC_HEADER; i++) {
+        value = pop_i();
+        g->mem[addr + i] = value;
+    }
+
+    push_i(addr);
+}
+
+
 
 // Cteni z pameti 0x0e
 void ild() {
@@ -118,17 +181,17 @@ void ild() {
     // jak obsah tak i index, je potreba
     // vsecho brat pres stack
     
+    // adresa pole
+    int base_address = pop_i();
+    
     // nejprve je tam index
     unsigned int offset = pop_i();    
-    
-    // pak adresa pole
-    int base_address = pop_i();
     
     // kontrola indexu pameti
     mem_check(base_address, offset);
 
     // ziskej obsah
-    int value = g->mem[base_address + offset];
+    int value = g->mem[base_address + offset + ALLOC_HEADER];
     dbg(" M%d+%d: %d", base_address, offset, value);
 
     // proved push ten pameti na stack

@@ -267,7 +267,7 @@ array returns [result]
 indexed	returns [result]
 	:	identified {$result = $identified.result}
 		// indexTree si na addressSource zavola ziskani hodnoty (Load, push on stack ...)
-		('[' expression ']' {$result = IndexTree.new($result, $expression.result)})*
+		('[' expression ']' {$result = [IndexTree.new($result, $expression.result),$identified.tree]})*
 	;
 
 // stara se o vraceni ID 

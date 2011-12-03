@@ -273,7 +273,7 @@ indexed	returns [result]
 // stara se o vraceni ID 
 // od lokalni promenne nebo argumentu ... nebo funkce apod.
 identified returns [result]
-	:	ID {$result = VarTree.new($ID.text)}
+	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
 	;
 
 
