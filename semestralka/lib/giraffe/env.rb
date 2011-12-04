@@ -87,44 +87,93 @@ module Giraffe
             @labels = 0
             @hooks = []        # mechanizmus na post-dopisovani adres navesti
             
-            # Abych si byl jisty ze funkce bude vracet
-            # nejakou hodnotu, musim kontrolovat instrukci
-            # return - ta ale muze byt i v if instrukci,
-            # takze je potreba kontrolovat i jeji else apod.
-            # paklize jsou vnorene if-y, tak je nutne kontrolovat
-            # i jejich else atd.
-            #
-            # Mechanizmus je nasledujici - bez if-u/for/while je
-            # hodnota return 1 (nasel jsem - ok) - pokud jsem v 
-            # nejakem if, tak ma hodnotu pouze 0.5 protoze jeste
-            # musim najit v else vetvi atd. - pokud je i v else
-            # tak prictu dalsich 0.5 a mam 1
-            #
-            # Pro vnoreni do if v if v ... je potreba akorat 
-            # return_div vydelit 2 - pri vraceni se zase vynasobi
-            @return_div = 1
-            @return = 0
+            @return_depth = 0
             @return_type = return_type
+            @return_branching = [0]
+            @return_code_part = []
+        end
+
+        # pro kazdou hloubku je tam polozka pole 
+        #  
+        #  @return_branching 
+        #       - do nej se zapisuje :if a :else pri nalezeni return
+        #
+        #  @return_code_part 
+        #       - sem se pise pozice v kodu (jsem v if, else, cykl, -root-)
+        #
+        # - v nem je zprvu nil
+        # - pokud se najde return v ifu a je tam nil, da se tam :if
+        # - pokud tam uz if je nic se nedela
+        # - pokud se najde return v else a je tam :if, da se tam true
+        # - pokud tam je nil, nic se nedela
+        # - hloubka se povazuje za uzavrenou pokud ma u sebe true
+
+        # je tedy return pro tuto funkci ?
+        def return 
+            @return_branching[0]    # odpoved lezi v korenove vrstve 
+        end
+
+        # jsem v if 
+        def return_branch_if
+            @return_code_part[@return_depth] = :if
+        end
+
+        # jsem v else
+        def return_branch_else
+            @return_code_part[@return_depth] = :else
+        end
+    
+        # jsem v cyklu
+        def return_branch_cycle
+            @return_code_part[@return_depth] = :cycle
+        end
+
+        # jsem v root
+        def return_branch_root
+            @return_code_part[@return_depth] = nil
         end
 
         # ponoril jsem se do vetveni
         def return_dive
-            @return_div /= 2
-            dbg("return_dive #{@return_div}",:Env)
+            @return_depth += 1 
+            @return_branching[@return_depth] = nil
+            dbg("return_dive #{@return_depth}",:Env)
         end
 
         # vynoril jsem se z vetveni
         def return_rise
-            @return_div *= 2
-            dbg("return_rise #{@return_div}",:Env)
+            # byla hloubka pokryta ?
+            # pokud ano, je to jako bych nasel return
+            # na vrstve nademnou
+            if @return_branching[@return_depth] == true
+                @return_depth -= 1
+                return_found
+            else 
+                @return_depth -= 1
+            end
+
+            dbg("return_rise #{@return_depth}",:Env)
         end
 
         def return_found
-            @return += @return_div
+            case @return_code_part[@return_depth]    # jsem v if, else ...
+            when nil # root - return je primo na urovni kodu funkce
+                @return_branching[0] = true
+            when :cycle
+                # cykl bych musel proverit jeho podminku a to jestli
+                # se aspon jednou provede ... a to neumim - takze jakoby
+                # tady return nebyl ...
+                # @return_branching[0] = false
+            when :if
+                @return_branching[@return_depth] = :if if @return_branching[@return_depth] == nil
+            when :else
+                @return_branching[@return_depth] = true if @return_branching[@return_depth] == :if
+            end
+ 
             dbg("return_found #{@return}",:Env)
         end
 
-        attr_reader :level, :bytecode, :return_type, :return
+        attr_reader :level, :bytecode, :return_type
 
         def self.bytecode
             @@bytecode
@@ -182,7 +231,7 @@ module Giraffe
         # vlozi kotvu pro haky
         def insert_anchor(label)
             @hooks[label] = @@current_byte
-            dbg("Hooks #{@hooks}",:Env)
+            dbg("Hooks #{@hooks} (last add '#{@@current_byte}' on label '#{label}')",:Env)
         end
 
         # chci cist z lokalni promenne (nebo argumentu)

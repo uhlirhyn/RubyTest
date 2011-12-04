@@ -6,7 +6,10 @@
 
 #include "bytecode.h"
 #include "definitions.h"
+#include "interpret.h"
 #include "tests.h"
+#include "options.h"
+#include "debugger.h"
 
 void scavenge(gc * gcl) {
 
@@ -38,37 +41,6 @@ int load_file(const char *filename, char **result) {
     fclose(f);
     (*result)[size] = 0;
     return size;
-}
-
-// vynuluje ciselniky apod. - vyresetuje VM
-void reset_vm() {
-
-    //==========
-    //    GC
-    //==========
-
-    // vynuluj pamet
-    bzero((void*) g->mem, g->real_size);
-    bzero((void*) g->old, g->real_size);
-
-    // zalozeni freelistu;
-    g->list = 0;
-    freelist * f = ((freelist *) (g->mem));
-    f->size = g->size;
-    f->next = g->size;
-
-    //==========
-    //  STACK
-    //==========
-    
-    st->sp = 0;
-    st->fp = 0;
-
-    //===========
-    //  PROGRAM
-    //===========
-    
-    pr->ip = 0;
 }
 
 void init() {
@@ -138,46 +110,6 @@ void init() {
 
 }
 
-void mem_dump(gc * gcl, int grouping) {
-
-    char * mem = (char*) gcl->mem;
-
-    printf("----------------------------------------\n");
-    printf("  HEAP DUMP \n");
-    printf("----------------------------------------\n");
-
-    int i=0; 
-    while (i < gcl->real_size / sizeof(char)) {
-        printf("%p:", mem+i);
-        for (int j=0; j < grouping; j++) {
-            printf("\t%X ",*(mem + i++));
-            if (i > gcl->real_size/sizeof(char)) break;
-        }
-        printf("\n");
-    }
-
-}
-
-void print_freelist(gc * gcl) {
-
-    printf("----------------------------------------\n");
-    printf("  FREE LIST \n");
-    printf("----------------------------------------\n");
-
-    int next_index = gcl->list;
-    freelist * next;
-
-    while(next_index != gcl->size) {
-
-        next = (freelist *) (gcl->mem + next_index);
-
-        printf("Address: %d, %d B, next freespace on %d\n",
-                next_index, next->size, next->next);
-
-        next_index = next->next;
-    }
-}
-
 // alokuj v GC pameti 
 // gc - garbage collector
 // size - pozadovana velikost v 4B (int)
@@ -245,288 +177,31 @@ int allocate(gc * gcl, int size) {
 
 }
 
-// Pri vytvyreni stringu se naalokuje misto pro tento retezec,
-// pokud se pak String zmeni, vraci se nova instance (neslo by
-// jen tak najednou protahnout to pole char-u) - to je taky duvod
-// proc je pridavani do stringu tak neefektivni a proc java ma
-// implementovan StringBuilder
-char * new_str(gc * gcl, char * str) {
-
-    // alokuj novou pamet pro string
-    // strlen je potreba zvestit o 1 protoze se zapisuje
-    // sice jenom (napriklad) jeden znak ale jeste se zapisuje \0
-    char * s = (char *) allocate(gcl, strlen(str) + 1);
-
-    // kopiruje stylem cil-zdroj
-    strcpy( s, str );
-    return s;
-}
-
-void store_number(obj * o, int value) {
-
-    *((int *) o) = value;
-
-}
-
-//===============
-// VM EXECUTION
-//===============
-
-// vezme dalsi byte z bytecodu
-char next() {
-    return pr->bytes[pr->ip++];
-}
-
-// http://www.cprogramming.com/tutorial/cfileio.html
-// http://www.ibm.com/developerworks/ibm/library/it-haggar_bytecode/
-void run() {
-
-    char opcode;
-    int pi;
-    char pa[4];
-
-    // skoc na "main"
-    // prvni int v souboru je adresa mainu
-    pa[3] = next();
-    pa[2] = next();
-    pa[1] = next();
-    pa[0] = next();
-    pi = *((int *) pa);
-
-    // zavolej main
-    printf(" Header 4B: \e[33m-- Main found on %d (0x%02x)\e[0m\n", pi, pi);
-    main_call(pi);
-
-    // provadej instrukce
-    while (pr->ip < pr->size) {
-
-        opcode = next();
-        printf(" Byte: 0x%02x ", opcode);
-
-        switch (opcode) {
-
-        // stack operace
-        case 0x03:
-            printf("\e[36m-- push_i \e[0m");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-            push_i(pi);
-            break;
-        case 0x04:
-            printf("\e[36m-- pop_i \e[0m");
-            pop_i();
-            break;
-        case 0x05:
-            printf("\e[36m-- dup \e[0m");
-            dup();
-            break;
-
-        case 0x00:
-            printf("\e[36m-- nop\e[0m");
-            break;
-
-        // operace s pameti
-        case 0x0c:
-            printf("\e[36m-- alloc\e[0m");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m %d slots (%d bytes)\e[0m", pi, pi * slot_size);
-            alloc(pi);
-            break;
-        case 0x0d:
-            printf("\e[36m-- ist \e[0m");
-            ist();
-            break;
-        case 0x0e:
-            printf("\e[36m-- ild \e[0m");
-            ild();
-            break;
-
-        // rizeni behu programu
-        case 0x09:
-            printf("\e[36m-- call \e[0m");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-            call(pi);
-            break;
-        case 0x0a:
-            printf("\e[36m-- ret \e[0m");
-            ret();
-            break;
-        case 0x0b:
-            printf("\e[36m-- rer \e[0m");
-            rer();
-            break;
-        case 0x10:
-            printf("\e[36m-- jneq \e[0m");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-            jneq(pi);
-            break;
-        case 0x11:
-            printf("\e[36m-- jmp \e[0m");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-            jmp(pi);
-            break;
-
-
-        // aritmetika
-        case 0x25:
-            printf("\e[36m-- iadd\e[0m ");
-            iadd();
-            break;
-        case 0x26:
-            printf("\e[36m-- isub\e[0m ");
-            isub();
-            break;
-        case 0x27:
-            printf("\e[36m-- imul\e[0m ");
-            imul();
-            break;
-        case 0x28:
-            printf("\e[36m-- idiv\e[0m ");
-            idiv();
-            break;
-        case 0x29:
-            printf("\e[36m-- imod\e[0m ");
-            imod();
-            break;
-        case 0x2a:
-            printf("\e[36m-- ineg\e[0m ");
-            ineg();
-            break;
-
-        // bool operace
-        case 0x2b:
-            printf("\e[36m-- ior\e[0m ");
-            ior();
-            break;
-        case 0x2c:
-            printf("\e[36m-- iand\e[0m ");
-            iand();
-            break;
-
-        // operace s argumenty
-        case 0x2d:
-            printf("\e[36m-- psa\e[0m ");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-            psa(pi);
-            break;
-        case 0x2e:
-            printf("\e[36m-- pas\e[0m ");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-            pas(pi);
-            break;
-
-        // operace s lokalnimi promennymi
-        case 0x1d:
-            printf("\e[36m-- psl\e[0m ");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-            psl(pi);
-            break;
-        case 0x1e:
-            printf("\e[36m-- pls\e[0m ");
-            pa[3] = next();
-            pa[2] = next();
-            pa[1] = next();
-            pa[0] = next();
-            pi = *((int *) pa);
-            printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-            pls(pi);
-            break;
-
-        // porovnavani
-        case 0x2f:
-            printf("\e[36m-- ine\e[0m ");
-            ine();
-            break;
-        case 0x30:
-            printf("\e[36m-- igt\e[0m ");
-            igt();
-            break;
-        case 0x31:
-            printf("\e[36m-- ige\e[0m ");
-            ige();
-            break;
-        case 0x32:
-            printf("\e[36m-- ilt\e[0m ");
-            ilt();
-            break;
-        case 0x33:
-            printf("\e[36m-- ile\e[0m ");
-            ile();
-            break;
-        case 0x34:
-            printf("\e[36m-- ieq\e[0m ");
-            ieq();
-            break;
-
-        // jine
-        case 0x12:
-            printf("\e[36m-- out\e[0m ");
-            out();
-            break;
-        default:
-            printf("\e[33m-- WARNING: Uknown opcode 0x%02x (ignored)\e[0m", opcode);
-        }
-
-        printf("\n");
-    }
-
-}
-
 int main ( int argc, char **argv ) {
 
+    // definice systemove velikosti slotu
     slot_size = sizeof(int);
 
+    // systemove promenne
     gc gcl;
     stack stk;
     program prg;
     
+    // ukazetelova forma sys. prom.
     g = &gcl;
     st = &stk;
     pr = &prg;
 
+    // kontrola parametru
     if (argc < 3) { 
         fprintf(stderr, "\e[33mMissing parameter(s) - please enter the input and output file:\e[39m\n\n\tgrf INPUTFILE OUTPUTFILE\n\n");
         exit (0);
     }
-        
+
+    // naparsuj zbytek moznosti
+    parse_options(argc, argv);
+
+    // ziskani nazvu I/O
     pr->filename = argv[1];
     output_filename = argv[2];
     
@@ -535,13 +210,12 @@ int main ( int argc, char **argv ) {
     init();
 
     printf("----------------------------------------\n");
-    printf(" \e[1;33mGiraffe\e[31m!\e[0m\n----------------------------------------\n");
-
+    printf(" \e[1;33mGiraffe\e[31m!\e[0m\n");
+    printf("----------------------------------------\n");
     printf(" Mem loc.:\t%p - %p\n",g->mem, g->mem + g->real_size);
     printf(" Mem size:\t%d B (%d slots)\n",g->real_size, g->size);
     printf(" Stack loc.:\t%p - %p\n",st->start, st->start + st->real_size);
     printf(" Stack size:\t%d B (%d slots)\n",st->real_size, st->size);
-
     printf("----------------------------------------\n");
 
     // BYTECODE test ... 
@@ -550,12 +224,23 @@ int main ( int argc, char **argv ) {
     // zapni vypisy
     dbg_on();
 
-    printf("----------------------------------------\n");
-    printf(" Interpreting '%s' (%d bytes)\n", pr->filename, pr->size);
-    printf("----------------------------------------\n");
+    // vyresetuj VM po testech
+    reset_vm(); 
     
-    reset_vm(); // vyresetuj VM po testech
-    run();
+    // kdo bude ridit vedeni programu ?
+    if (debugger) {
+        // uzivatel
+        printf("----------------------------------------\n");
+        printf(" Debugging '%s' (%d bytes)\n", pr->filename, pr->size);
+        printf("----------------------------------------\n");
+        debug(); 
+    } else {
+        // automat
+        printf("----------------------------------------\n");
+        printf(" Interpreting '%s' (%d bytes)\n", pr->filename, pr->size);
+        printf("----------------------------------------\n");
+        run();
+    }
 
     printf("----------------------------------------\n");
 

@@ -41,6 +41,9 @@ module Giraffe
             # vnoruju se
             env.return_dive
 
+            # jsem v if casti
+            env.return_branch_if
+
             dbg("IF - false_label #{false_label}",:IfTree)
             for i in @instructions do 
                 return_value, msg = i[0].run(env,i[1])
@@ -60,6 +63,9 @@ module Giraffe
             dbg("IF - false_label anchor placed",:IfTree)
 
             if @blockElse != nil
+
+                # jsem v else casti
+                env.return_branch_else
 
                 # TODO - tohle neni uplne dobre vyresene
                 # chtelo by to nejaky objekt ktery to bude

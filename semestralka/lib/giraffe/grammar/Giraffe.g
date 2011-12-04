@@ -86,7 +86,7 @@ instruction returns [result]
 	|	returnInstruction {$result = $returnInstruction.result}	
 	|	exitInstruction {$result = $exitInstruction.result}
 	|	breakInstruction {$result = $breakInstruction.result}
-	|	call {$result = $call.result}
+	|	aloneCall {$result = $aloneCall.result}
 	|	declaration {$result = $declaration.result}
 	|	{$result = nil} 
 	;
@@ -151,8 +151,10 @@ forCycle returns [result]
 	;	
 	
 func returns [result]
-	:	type ID^ LB! params RB! LCB! block RCB!
-		{$result = [FuncTree.new($ID.text,$params.list,$block.list,$type.result),$type.tree]}
+	:	type ID (LB! params RB!)? LCB! block RCB!
+		{$result = [FuncTree.new($ID.text,$params.list == nil ? [] : $params.list,$block.list,$type.result),$type.tree]}
+	|	MAIN^ LCB! block RCB!
+		{$result = [FuncTree.new("main",[],$block.list,:number),$MAIN.tree]}
 	;
 
 type returns [result]
@@ -171,10 +173,16 @@ paramRest returns [list]
 		{$list = $params.list}		
 	|	{$list = []}
 	;
+
+aloneCall returns [result]
+	:	fun=ID^ LB! args1=args? RB!
+		{$result = [CallTree.new($fun.text,$args1.list,true),$fun.tree]}
+		( DOT method=ID LB! args2=args? RB! {$result = [MethodCallTree.new($result,$method.text,$args2.list),$method.tree]})*
+	;
 	
 call returns [result]
 	:	fun=ID^ LB! args1=args? RB!
-		{$result = [CallTree.new($fun.text,$args1.list),$fun.tree]}
+		{$result = [CallTree.new($fun.text,$args1.list,false),$fun.tree]}
 		( DOT method=ID LB! args2=args? RB! {$result = [MethodCallTree.new($result,$method.text,$args2.list),$method.tree]})*
 	;
 	
@@ -234,7 +242,7 @@ addOperand returns [result]
 
 mulOperand returns [result]
 	:	PLUS mulOperandRest {$result = $mulOperandRest.result}
-	|	MINUS mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:neg)),$$mulOperandRest.tree]}
+	|	MINUS mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:neg)),$mulOperandRest.tree]}
 	|	mulOperandRest {$result = $mulOperandRest.result}
 	;
 
@@ -247,7 +255,6 @@ arrayIndexTarget returns [result]
 	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
 	|	LB! expression RB! {$result = $expression.result}
 	|	INT {$result = [AtomTree.new($INT.text.to_i),$INT.tree]}
-	|	FLOAT {$result = [AtomTree.new($FLOAT.text.to_f),$FLOAT.tree]}
 	|	call {$result = $call.result}
 	|	array {$result = [ArrayTree.new($array.result),$array.tree]}
 	|	readInstruction {$result = $readInstruction.result}
@@ -290,6 +297,7 @@ bool returns [result]
 ITYPE	:	'int';
 ATYPE	:	'arr';    
     
+MAIN	:	'main';
 READ	:	'read';
 PRINT	:	'print';
 PRINTL	:	'printl';

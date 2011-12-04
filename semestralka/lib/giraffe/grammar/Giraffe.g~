@@ -151,8 +151,10 @@ forCycle returns [result]
 	;	
 	
 func returns [result]
-	:	type ID^ LB! params RB! LCB! block RCB!
-		{$result = [FuncTree.new($ID.text,$params.list,$block.list,$type.result),$type.tree]}
+	:	type ID (LB! params RB!)? LCB! block RCB!
+		{$result = [FuncTree.new($ID.text,$params.list == nil ? [] : $params.list,$block.list,$type.result),$type.tree]}
+	|	MAIN^ LCB! block RCB!
+		{$result = [FuncTree.new("main",[],$block.list,:number),$MAIN.tree]}
 	;
 
 type returns [result]
@@ -162,7 +164,7 @@ type returns [result]
 
 params returns [list]
 	:	type ID paramRest
-		{$list = [$ID.text,$type.result] + $paramRest.list}
+		{$list = [[$ID.text,$type.result]] + $paramRest.list}
 	| 	{$list = []}
 	;
 
@@ -234,7 +236,7 @@ addOperand returns [result]
 
 mulOperand returns [result]
 	:	PLUS mulOperandRest {$result = $mulOperandRest.result}
-	|	MINUS mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:neg)),$$mulOperandRest.tree]}
+	|	MINUS mulOperandRest {$result = [UnaryOperatorTree.new($mulOperandRest.result,Operators.method(:neg)),$mulOperandRest.tree]}
 	|	mulOperandRest {$result = $mulOperandRest.result}
 	;
 
@@ -247,7 +249,6 @@ arrayIndexTarget returns [result]
 	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
 	|	LB! expression RB! {$result = $expression.result}
 	|	INT {$result = [AtomTree.new($INT.text.to_i),$INT.tree]}
-	|	FLOAT {$result = [AtomTree.new($FLOAT.text.to_f),$FLOAT.tree]}
 	|	call {$result = $call.result}
 	|	array {$result = [ArrayTree.new($array.result),$array.tree]}
 	|	readInstruction {$result = $readInstruction.result}
@@ -290,6 +291,7 @@ bool returns [result]
 ITYPE	:	'int';
 ATYPE	:	'arr';    
     
+MAIN	:	'main';
 READ	:	'read';
 PRINT	:	'print';
 PRINTL	:	'printl';

@@ -34,15 +34,17 @@ module Giraffe
 
             # registruj nazvy parametru
             env.register_params(@params)
-            
-            has_return = false  # ma funkce return ?
+           
+            # jsem v root casti
+            env.return_branch_root
+ 
             for i in @instructions do 
                 return_value, msg = i[0].run(env,i[1]) 
                 return return_value, msg if msg == :error
 
                 # tady break nema co delat
                 if msg == :break
-                    puts red("Error: ") + 
+                    puts red(" Error: ") + 
                         orange("Unexpected break") + 
                         where(i[1])
                     return return_value, :error
@@ -53,9 +55,9 @@ module Giraffe
             dbg("return status '#{env.return}'",:FuncTree)
 
             # bylo nejake return ?
-            return red("Error: ") + 
+            return red(" Error: ") + 
                 orange("Missing return statement") + 
-                where(tree), :error if env.return < 1
+                where(tree), :error if env.return != true
 
             # uzavre generovani bytecodu funkce
             # presype temp_bytecode do ostreho

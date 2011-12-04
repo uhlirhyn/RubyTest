@@ -9,9 +9,10 @@ module Giraffe
         include Debug
         include Opcodes
 
-        def initialize(id,args)
+        def initialize(id,args,alone)
             @id = id
             @args = args
+            @alone = alone  # bude nekdo brat vysledek funkce ?
         end
 
         def where
@@ -43,6 +44,17 @@ module Giraffe
                 puts return_value + where
                 return nil, :error
             end
+
+            # Az se funkce vyhodnoti, bude na stacku
+            # jeji vysledek ... ten ale muze a nemusi
+            # byt vyzvednut - pokud se funkce vola 
+            # jako soucast vypoctu, pouzije se vysledek
+            # jako operand nebo argument - jinak se 
+            # ale na zasobnik zacne hromadit kupa 
+            # pushnutych vypoctu, ktere nikdo neodebira
+            # je proto potreba se jich zbavit, pokud 
+            # je nikdo nechce
+            env.write_opcode(POP) if @alone
 
             # tady by se mel vracet typ te funkce
             return return_value, nil

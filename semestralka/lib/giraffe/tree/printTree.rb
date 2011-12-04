@@ -21,15 +21,7 @@ module Giraffe
                 for text in @texts
                     return_value, msg = text[0].run(env,text[1])
                     return return_value, msg if msg == :error
-                    
-                    # print umi tisk pouze hodnot ne pole 
-                    if return_value != :number
-                        puts red("Error: ") + 
-                            orange("Can't print #{return_value}") + 
-                            where
-                        return return_value, :error
-                    end
-
+                   
                     env.write_opcode(OUT)
                 end
             end
