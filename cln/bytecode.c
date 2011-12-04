@@ -164,7 +164,7 @@ void alloc(int size) {
 
     int value;
     // na zbytek polozek zapis ty prvky
-    for (int i=1; i < size + ALLOC_HEADER; i++) {
+    for (int i=ALLOC_HEADER; i < size + ALLOC_HEADER; i++) {
         value = pop_i();
         g->mem[addr + i] = value;
     }

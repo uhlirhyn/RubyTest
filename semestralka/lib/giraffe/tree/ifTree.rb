@@ -28,12 +28,7 @@ module Giraffe
 
             # z podminky muze prijit maximalne :exit
             return_value, msg = @condition[0].run(env,@condition[1])
-            case msg
-            when :exit then return return_value, msg
-            when :error then return return_value + where, msg
-            when nil;
-            else return return_value, msg
-            end
+            return return_value, msg if msg != nil
 
             # vloz instrukci skoku pokud nebude rovno
             env.write_opcode(JNEQ)
@@ -43,15 +38,13 @@ module Giraffe
             false_label = env.next_label
             env.insert_hook(false_label)
 
+            # vnoruju se
+            env.return_dive
+
             dbg("IF - false_label #{false_label}",:IfTree)
             for i in @instructions do 
                 return_value, msg = i[0].run(env,i[1])
-                case msg
-                when :exit then return return_value, msg
-                when :error then return return_value + where, msg
-                when nil;
-                else return return_value, msg
-                end
+                return return_value, msg if msg == :error
             end
 
             # az se provede IF je potreba preskocit ELSE
@@ -81,12 +74,7 @@ module Giraffe
                     # cely IfTree objekt, takze staci na nej
                     # zavolat standardni run(env) ...
                     return_value, msg = @blockElse.run(env)
-                    case msg
-                    when :exit then return return_value, msg
-                    when :error then return return_value + where, msg
-                    when nil;
-                    else return return_value, msg
-                    end
+                    return return_value, msg if msg == :error
 
                 else
 
@@ -96,16 +84,14 @@ module Giraffe
                     # list prikazu
                     for i in @blockElse do 
                         return_value, msg = i[0].run(env,i[1])
-                        case msg
-                        when :exit then return return_value, msg
-                        when :error then return return_value + where, msg
-                        when nil;
-                        else return return_value, msg
-                        end
+                        return return_value, msg if msg == :error
                     end
                 end
 
             end
+
+            # vynoril jsem se
+            env.return_rise
 
             # vloz kotvu navesti
             env.insert_anchor(true_label)

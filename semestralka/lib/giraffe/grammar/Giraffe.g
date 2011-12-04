@@ -9,7 +9,6 @@ output = AST;
 @header {
 require './lib/giraffe/tree/programTree.rb'
 require './lib/giraffe/tree/assignTree.rb'
-require './lib/giraffe/tree/derefTree.rb'
 require './lib/giraffe/tree/indexTree.rb'
 require './lib/giraffe/tree/printTree.rb'
 require './lib/giraffe/tree/ifTree.rb'
@@ -27,9 +26,7 @@ require './lib/giraffe/tree/exitTree.rb'
 require './lib/giraffe/tree/returnTree.rb'
 require './lib/giraffe/tree/breakTree.rb'
 require './lib/giraffe/tree/readTree.rb'
-require './lib/giraffe/tree/methodCallTree.rb'
-require './lib/giraffe/tree/classTree.rb'
-require './lib/giraffe/tree/newTree.rb'
+require './lib/giraffe/tree/declareTree.rb'
 require './lib/giraffe/operators.rb'
 }
 
@@ -39,8 +36,7 @@ require './lib/giraffe/operators.rb'
 
 // Do pole -result-,-tree- se smi obalovat pouze -X-Tree.new
 // jinak neni zaruka, ze vrtva vys neobali pole znova a parser
-// pak nema moznost se tim prokousat ...
-   
+// pak nema moznost se tim prokousat ...      
 program	returns [result]
 	:	functions {$result = ProgramTree.new($functions.list)} 
 	;
@@ -87,11 +83,11 @@ instruction returns [result]
 	|	whileCycle {$result = $whileCycle.result}
 	|	doCycle {$result = $doCycle.result}
 	|	printInstruction {$result = $printInstruction.result}
-	|	printlInstruction {$result = $printlInstruction.result}
 	|	returnInstruction {$result = $returnInstruction.result}	
 	|	exitInstruction {$result = $exitInstruction.result}
 	|	breakInstruction {$result = $breakInstruction.result}
 	|	call {$result = $call.result}
+	|	declaration {$result = $declaration.result}
 	|	{$result = nil} 
 	;
 
@@ -119,11 +115,7 @@ statusCode returns [result]
 	;
 
 printInstruction returns [result]
- 	:	PRINT^ LB! printText RB! {$result = [PrintTree.new($printText.list),$PRINT.tree]} 
- 	;
- 	
-printlInstruction returns [result]
- 	:	(an=PRINTL | an=PRINTLN)^ LB! printText RB!{$result = [PrintTree.new($printText.list,true),$an.tree]}
+ 	:	PRINT^ LB! printText RB! {$result = [PrintTree.new($printText.list),$PRINT.tree]}  		
  	;
  	
 printText returns [list]
@@ -159,13 +151,19 @@ forCycle returns [result]
 	;	
 	
 func returns [result]
-	:	ID^ params? LCB! block RCB!
-		{$result = [FuncTree.new($ID.text,$params.list,$block.list),$ID.tree]}
+	:	type ID^ LB! params RB! LCB! block RCB!
+		{$result = [FuncTree.new($ID.text,$params.list,$block.list,$type.result),$type.tree]}
+	;
+
+type returns [result]
+	:	ITYPE {$result = :number}
+	|	ATYPE {$result = :array}
 	;
 
 params returns [list]
-	:	ID paramRest
-		{$list = [$ID.text] + $paramRest.list}
+	:	type ID paramRest
+		{$list = [[$ID.text,$type.result]] + $paramRest.list}
+	| 	{$list = []}
 	;
 
 paramRest returns [list]
@@ -276,6 +274,9 @@ identified returns [result]
 	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
 	;
 
+declaration returns [result]
+	:	type ID	{$result = [DeclareTree.new($ID.text,$type.result),$type.tree]}
+	;
 
 assignment returns [result]
 	:	indexed ASSIGN^ expression { $result = [AssignTree.new($indexed.result,$expression.result),$indexed.tree] } 
@@ -286,6 +287,8 @@ bool returns [result]
 	:	TRUE	{$result = new AtomTree(1)}
 	| 	FALSE	{$result = new AtomTree(0)}
 	;
+ITYPE	:	'int';
+ATYPE	:	'arr';    
     
 READ	:	'read';
 PRINT	:	'print';

@@ -10,7 +10,6 @@ module Giraffe
         
         def initialize(elements)
             @elements = elements
-            dbg("init",:ArrayTree)
         end
 
         # ArrayTree
@@ -48,10 +47,8 @@ module Giraffe
             # ALOC udela to, ze sebere ty hodnoty ze stacku
             # a rovnou je nasazi do toho pole 
 
-            # Tady se MUSI vracen nil,
-            # jinak se pole v @value rozbali do 
-            # msg v rodicovskem uzlu a zpusobi xx
-            return nil, nil
+            # vysledkem je pole - resp. ukazatel
+            return :array, nil
         end
 
     end

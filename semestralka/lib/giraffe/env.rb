@@ -45,11 +45,36 @@ module Giraffe
             end
         end
 
+        # variable
+        class Var
+            def initialize(id,type)
+                @id = id        # id na stacku
+                @type = type    # typ
+            end
+
+            attr_reader :type, :id
+        end
+
+        # funkce 
+        class Func
+            def initialize(id,args,type)
+                @id = id        # jeji adresy v BC
+                @args = args    # argumenty
+                @type = type    # jaky je typ
+            end
+
+            def args_size 
+                @args == nil ? 0 : @args.size
+            end
+
+            attr_reader :id, :args, :type
+        end
+
         @@functions = Hash.new(:undeclared)
         @@current_byte = 4
         @@bytecode = [0,0,0,0]    # prvni 4byte je adresa funkce main
 
-        def initialize(super_env=nil)
+        def initialize(return_type,super_env=nil)
             dbg("initialize (envID: #{self.object_id})",:Env)
             @variables = Hash.new(:undeclared)
             @classes = Hash.new(:undeclared)
@@ -61,10 +86,45 @@ module Giraffe
             @locals = 0
             @labels = 0
             @hooks = []        # mechanizmus na post-dopisovani adres navesti
-
+            
+            # Abych si byl jisty ze funkce bude vracet
+            # nejakou hodnotu, musim kontrolovat instrukci
+            # return - ta ale muze byt i v if instrukci,
+            # takze je potreba kontrolovat i jeji else apod.
+            # paklize jsou vnorene if-y, tak je nutne kontrolovat
+            # i jejich else atd.
+            #
+            # Mechanizmus je nasledujici - bez if-u/for/while je
+            # hodnota return 1 (nasel jsem - ok) - pokud jsem v 
+            # nejakem if, tak ma hodnotu pouze 0.5 protoze jeste
+            # musim najit v else vetvi atd. - pokud je i v else
+            # tak prictu dalsich 0.5 a mam 1
+            #
+            # Pro vnoreni do if v if v ... je potreba akorat 
+            # return_div vydelit 2 - pri vraceni se zase vynasobi
+            @return_div = 1
+            @return = 0
+            @return_type = return_type
         end
 
-        attr_reader :level, :bytecode
+        # ponoril jsem se do vetveni
+        def return_dive
+            @return_div /= 2
+            dbg("return_dive #{@return_div}",:Env)
+        end
+
+        # vynoril jsem se z vetveni
+        def return_rise
+            @return_div *= 2
+            dbg("return_rise #{@return_div}",:Env)
+        end
+
+        def return_found
+            @return += @return_div
+            dbg("return_found #{@return}",:Env)
+        end
+
+        attr_reader :level, :bytecode, :return_type, :return
 
         def self.bytecode
             @@bytecode
@@ -138,22 +198,48 @@ module Giraffe
                 # Tak to jeste zkus v argumentech
                 if variable == :undeclared
                     # tak to fakt neznam 
-                    return orange("Variable '#{id}' is not declared"), :error
+                    return nil,:error
                 else
-                    write_opcode(PAS)       # budu zapisovat na zasobnik argument
-                    write_int(variable)     # jeho id
+                    write_opcode(PAS)           # budu zapisovat na zasobnik argument
+                    write_int(variable.id)      # jeho id
+                    return variable.type, nil   # vrat jeji typ k dalsim kontrolam
                 end
             else 
                 write_opcode(PLS)           # budu zapisovat na zasobnik lokalni promennou
-                write_int(variable)         # jeji id
+                write_int(variable.id)      # jeji id
+                return variable.type, nil   # vrat jeji typ k dalsim kontrolam
             end
-            return nil, nil
+
+        end
+
+        # deklaruje promennou
+        def declare(id,type)
+
+            # zjisti zda promenna jiz neexistuje
+            variable = @variables[id]
+            if variable != :undeclared 
+                return nil,:error
+            end
+
+            # zjisti jestli promenna jiz neexistuje
+            # a je deklarovana jako argument
+            variable = @arguments[id]
+            if variable != :undeclared 
+                return nil,:error
+            end
+
+            # jinak ji deklaruj
+            @variables[id] = Var.new(@locals,type)
+            @locals += 1
+
+            # vrat typ 
+            return type, nil
+
         end
 
         # chci zapisovat do lokalni promenne (nebo argumentu)
         # dej mi jeji cislo ktere ma, pokud 
-        # existuje - nebo ji vytvor a pak mi
-        # dej jeji cislo ... 
+        # existuje - pokud ne - chyba 
         def var!(id)
             variable = @variables[id]
 
@@ -164,56 +250,82 @@ module Giraffe
                 variable = @arguments[id]
                 if variable != :undeclared
                     write_opcode(PSA)
-                    write_int(variable)     # jeho id
+                    write_int(variable.id)      # jeho id
+                    return variable.type, nil   # vrat typ promenne aby
+                                                # se mohlo kontrolovat
                 else 
-                    # jde zaroven o deklaraci
-                    @variables[id] = @locals   
-                    write_opcode(PSL)
-                    write_int(@locals)
-                    @locals += 1
+                    return nil,:error
                 end
             else
                 # zapis obsah zasobniku 
                 # do lokalni promenne
                 write_opcode(PSL)
-                write_int(variable)
+                write_int(variable.id)
+                return variable.type, nil   # vrat typ promenne aby
+                                            # se mohlo kontrolovat
             end
-            return nil, nil
         end
- 
+
         # volam funkci
-        def func(id,args) 
+        def func(id,arg_types) 
+
             function = @@functions[id]
+
+            # je deklarovana ?
             if function == :undeclared 
-                return orange("Function '#{id}' is not declared"), :error
-            elsif (args == nil ? 0 : args.size) != function[1] 
-                return orange("Function '#{id}' with #{function[1]} arguments is not declared"), :error
-            else 
-                # zavolej funkci
-                # parametry uz by tady mely byt
-                # vloz call a adresu funkce
-                write_opcode(CALL)
-                write_int(function[0])
-
-                # je potreba uklidit po sobe parametry
-                # navratovou hodnotu tim nemazu, ta je
-                # uklizena do navratoveho registru ;)
-                (args == nil ? 0 : args.size).times do
-                    write_opcode(POP)
-                end
-
-                # push obsahu navratoveho registru
-                write_opcode(RER)
+                return red("Error: ") + 
+                    orange("Function '#{id}' is not declared"), :error
             end
+
+            # ma stejny pocet argumentu ?
+            if arg_types.size != function.args_size
+                return red("Error: ") + 
+                    orange("Function '#{id}' with #{arg_types.size} arguments is not declared"), :error
+            end
+
+            # jsou argumenty stejneho typu ?
+            arg_i = 0
+            for type in arg_types do
+                fa_type = function.args[arg_i].type
+                if type != fa_type 
+                    return red("Error: ") + 
+                        orange("Argument #{arg_i} in function '#{id}' is type of #{fa_type}, not #{type}"), :error
+                end
+                arg_i += 1
+            end
+
+            # zavolej funkci
+            # parametry uz by tady mely byt
+            # vloz call a adresu funkce
+            write_opcode(CALL)
+            write_int(function.id)
+
+            # je potreba uklidit po sobe parametry
+            # navratovou hodnotu tim nemazu, ta je
+            # uklizena do navratoveho registru ;)
+            arg_types.size.times do
+                write_opcode(POP)
+            end
+
+            # push obsahu navratoveho registru
+            write_opcode(RER)
+
+            # vrat typ navratove hodnoty funkce
+            return function.type, nil
         end
 
         # zakladam funkci
-        def func!(id, params)
+        def func!(id, params, type)
             function = @@functions[id]
             if function == :undeclared 
-                # funkce je identifikovana svoji adresou
-                # a poctem parametru (ten je tady jen pro compile kontrolu)
-                @@functions[id] = [@@current_byte, params == nil ? 0 : params.size]
+
+                # funkce je identifikovana svoji adresou, typem
+                # a poctem parametru (to je tady jen pro compile kontrolu)
+                parameters = []
+                for p in params do
+                    parameters << Var.new(p[0],p[1])    # prevede do Var
+                end
+                @@functions[id] = Func.new(@@current_byte, parameters, type)
 
                 # pokud jsem definoval main, pak aktualni adresu dej do hlavicky
                 if id == "main" 
@@ -234,10 +346,12 @@ module Giraffe
 
         # zakladam argumenty pro funkci
         def register_params(params)
+            dbg("registering params #{params}",:Env)
             return if params == nil
             arg_i = params.size - 1
             for p in params 
-                @arguments[p] = arg_i
+                # [0] = id, [1] = typ 
+                @arguments[p[0]] = Var.new(arg_i,p[1])
                 arg_i -= 1
             end
         end

@@ -1,4 +1,4 @@
-fact num {
+int fact (int num) {
     print(num)
     if num == 0 || num == 1 {
         return 1
@@ -7,6 +7,7 @@ fact num {
     }
 }
 
-main {
+int main () {
     print (fact(6))
+    return 0
 }

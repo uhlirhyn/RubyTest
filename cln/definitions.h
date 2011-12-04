@@ -24,6 +24,10 @@ char * output_filename;     // jmeno vystupniho souboru
 FILE * output_file;         // vystupni soubor
 int ret_reg;                // registr pro navratove hodnoty funkci
 
+char * stack_mask;          // bitova maska stacku, aby se dalo
+                            // jednoduse zjistit kde je momentalne 
+                            // nejaky pointer
+
 // Aby se dali jednoduse realokovat 
 // pole, je potreba mit dvojitou 
 // dereferenci - puvodni objekt 

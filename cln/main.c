@@ -97,7 +97,7 @@ void init() {
     //  STACK
     //==========
 
-    // alokace prostoru zaasobniku
+    // alokace prostoru zasobniku
     ratio = STACK_SIZE / slot_size;
     rest = STACK_SIZE % slot_size;
     st->size = ratio + (rest == 0 ? 0 : 1);
@@ -106,6 +106,13 @@ void init() {
     // na celociselny nasobek slot_size
     st->real_size = st->size * slot_size;
     st->start = malloc(st->real_size);
+
+    // stackova maska (zaokrouhleno na byty)
+    // na kazdy slot potrebuju bit ... 
+    // ze char ma 8b tomu snad muzu verit 
+    int mask_size = st->size + (st->size % 8==0 ? 0 : 1);
+    stack_mask = (char *) malloc(mask_size);   
+    bzero((void*) stack_mask, mask_size);
 
     //===========
     //  PROGRAM

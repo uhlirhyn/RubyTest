@@ -1,5 +1,10 @@
+test a {
+    print (a[3])
+}
+
 main {
     b = [2,7,8,63]
     b[2] = 15
     print(b[2])
+    test (b)
 }

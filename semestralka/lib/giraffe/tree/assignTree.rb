@@ -11,7 +11,6 @@ module Giraffe
         def initialize(target,expression)
             @target = target
             @expression = expression
-            dbg("init",:AssignTree)
         end
 
         # AssignTree
@@ -38,7 +37,7 @@ module Giraffe
 
             dbg("assigning '#{@id}' to '#{return_value}'",:AssignTree)
         
-            return return_value, nil
+            return nil, nil
         end
 
     end

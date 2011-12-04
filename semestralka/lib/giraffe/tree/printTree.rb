@@ -14,21 +14,27 @@ module Giraffe
         end
 
         def run(env,tree)
-
+        
             @tree = tree
 
             if @texts != nil 
                 for text in @texts
                     return_value, msg = text[0].run(env,text[1])
-                    case msg
-                    when :error then return return_value + where, msg
-                    when nil then ;
-                    else return return_value, msg
+                    return return_value, msg if msg == :error
+                    
+                    # print umi tisk pouze hodnot ne pole 
+                    if return_value != :number
+                        puts red("Error: ") + 
+                            orange("Can't print #{return_value}") + 
+                            where
+                        return return_value, :error
                     end
+
                     env.write_opcode(OUT)
                 end
-                puts if @newline
             end
+
+            # nemam typ
             return nil, nil
         end
         

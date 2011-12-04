@@ -13,26 +13,30 @@ module Giraffe
         end
 
         def where
-            "\n\tin return on line #{@tree.line}, column #{@tree.column}"
+            "\n\tin retunr on line #{@tree.line}, column #{@tree.column}"
         end
 
         def run(env,tree)
 
             @tree = tree
-
+ 
             dbg("run",:ReturnTree)
             return_value, msg = @expression[0].run(env,@expression[1])
-            case msg
-            when :exit then return return_value, msg
-            when :error then return return_value + where, msg
-            when nil;
-            else return return_value, msg
-            end
+            return return_value, msg if msg != nil
 
-            env.write_opcode(0x0a)
+            # zapis return
+            env.write_opcode(RET)
 
-            dbg("returning '#{return_value}'",yellow(:ReturnTree))
-            return return_value, nil
+            # nasel jsem return
+            env.return_found
+
+            # co navratovy typ - sedi ?
+            return red("Error: ") + 
+                orange("Unexpected break") + 
+                where, :error if return_value != env.return_type
+
+            # vraci navratovy typ
+            return return_value, :return
         end
 
     end
