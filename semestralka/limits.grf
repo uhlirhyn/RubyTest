@@ -16,7 +16,7 @@ main {
 
     a = 2
 
-    print(power(a,5))
+    print(power(a,30))
 
     return -1
 

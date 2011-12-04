@@ -9,7 +9,7 @@
 
 #define TEXT_BUFFER 256
 #define MAX_BREAKPOINTS 256
-#define MEM_DUMP_GROUPING 10
+#define MEM_DUMP_GROUPING 5
 
 char breakpoint[MAX_BREAKPOINTS];
 int breakpoints = 0;
@@ -18,9 +18,9 @@ void mem_dump() {
 
     int i=0; 
     while (i < g->size) {
-        printf(" %d:\t", i);
+        printf(" \e[32m0x%02x:\e[0m\t", i);
         for (int j=0; j < MEM_DUMP_GROUPING; j++) {
-            printf("%d\t",g->mem[i++]);
+            printf("0x%08x\t",g->mem[i++]);
             if (i > g->size) break;
         }
         printf("\n");
@@ -28,20 +28,32 @@ void mem_dump() {
 
 }
 
-void print_freelist(gc * gcl) {
+void print_stack() {
 
-    printf("----------------------------------------\n");
-    printf("  FREE LIST \n");
-    printf("----------------------------------------\n");
+    int i=0; 
+    while (i < st->size) {
+        printf(" \e[32m0x%02x:\e[0m\t", i);
+        for (int j=0; j < MEM_DUMP_GROUPING; j++) {
+            if (st->sp == i) printf("\e[1;33m");
+            if (st->fp == i) printf("\e[44m");
+            printf("0x%08x",st->start[i++]);
+            printf("\e[0m\t");
+            if (i > st->size) break;
+        }
+        printf("\n");
+    }
+}
 
-    int next_index = gcl->list;
+void print_freelist() {
+
+    int next_index = g->list;
     freelist * next;
 
-    while(next_index != gcl->size) {
+    while(next_index != g->size) {
 
-        next = (freelist *) (gcl->mem + next_index);
+        next = (freelist *) (g->mem + next_index);
 
-        printf("Address: %d, %d B, next freespace on %d\n",
+        printf("Address: 0x%02x, %d B, next freespace on 0x%02x\n",
                 next_index, next->size, next->next);
 
         next_index = next->next;
@@ -143,21 +155,38 @@ void debug() {
         }
 
         // pokracuj 
-        if (strcmp(command,"con") == 0) {
+        if ((strcmp(command,"con") == 0) ||
+                (strcmp(command,"c") == 0)) {
             dbg_run();
         }
 
         // nastav breakpoint 
-        if (strcmp(command,"break") == 0) {
+        if ((strcmp(command,"break") == 0) ||
+                (strcmp(command,"b") == 0)) {
            set_breakpoint(); 
         }
 
-        // Vypis pamet 
-        if (strcmp(command,"mem") == 0) {
+        // Vypis pameti
+        if ((strcmp(command,"mem") == 0) ||
+                (strcmp(command,"m") == 0)) {
             mem_dump();
         }
+        
+        // Vypis freelistu
+        if ((strcmp(command,"free") == 0) || 
+                (strcmp(command,"f") == 0)) {
+            print_freelist();
+        }
+
+        // Vypis zasobniku
+        if ((strcmp(command,"stack") == 0) || 
+                (strcmp(command,"t") == 0)) {
+            print_stack();
+        }
+
         // udelej krok 
-        if (strcmp(command,"step") == 0) {
+        if ((strcmp(command,"step") == 0) ||
+                (strcmp(command,"s") == 0)) {
             dbg_step();
         }
 
