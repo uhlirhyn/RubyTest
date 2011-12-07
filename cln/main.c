@@ -5,7 +5,6 @@
 #include <stdio.h>
 
 #include "bytecode.h"
-#include "definitions.h"
 #include "interpret.h"
 #include "tests.h"
 #include "options.h"
@@ -60,10 +59,10 @@ void init() {
     // na celociselny nasobek slot_size
 
     // newspace
-    g->mem = (obj *) malloc(g->real_size);
+    g->mem = (char *) malloc(g->real_size);
     
     // oldspace
-    g->old = (obj *) malloc(g->real_size);
+    g->old = (char *) malloc(g->real_size);
 
     //==========
     //  STACK
@@ -78,13 +77,6 @@ void init() {
     // na celociselny nasobek slot_size
     st->real_size = st->size * slot_size;
     st->start = malloc(st->real_size);
-
-    // stackova maska (zaokrouhleno na byty)
-    // na kazdy slot potrebuju bit ... 
-    // ze char ma 8b tomu snad muzu verit 
-    int mask_size = st->size + (st->size % 8==0 ? 0 : 1);
-    stack_mask = (char *) malloc(mask_size);   
-    bzero((void*) stack_mask, mask_size);
 
     //===========
     //  PROGRAM
@@ -180,7 +172,7 @@ int allocate(gc * gcl, int size) {
 int main ( int argc, char **argv ) {
 
     // definice systemove velikosti slotu
-    slot_size = sizeof(int);
+    slot_size = sizeof(vm_val);
 
     // systemove promenne
     gc gcl;

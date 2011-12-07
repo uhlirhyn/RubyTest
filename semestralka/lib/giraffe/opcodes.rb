@@ -1,4 +1,10 @@
 module Opcodes
+        
+    # definice typu
+    INTEGER =   0x00
+    BOOLEAN =   0x01
+    POINTER =   0x10
+    S_POINTER = 0x11
 
     # skoky, rizeni programu
     JNEQ    =   0x10

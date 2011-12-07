@@ -36,7 +36,7 @@ void print_stack() {
         for (int j=0; j < MEM_DUMP_GROUPING; j++) {
             if (st->sp == i) printf("\e[1;33m");
             if (st->fp == i) printf("\e[44m");
-            printf("0x%08x",st->start[i++]);
+            printf("0x%08x",st->start[i++].data);
             printf("\e[0m\t");
             if (i > st->size) break;
         }

@@ -1,6 +1,29 @@
+#include "definitions.h"
 
 void dbg_on();
 void dbg_mute();
+
+//====================
+// VM_VALUE GET/SET 
+//====================
+
+vm_val create_val(int data, char type);
+
+vm_val create_boolean(int data);
+
+int return_boolean(vm_val value);
+
+vm_val create_s_pointer(int data);
+
+int return_s_pointer(vm_val value);
+
+vm_val create_pointer(int data);
+
+int return_pointer(vm_val value);
+
+vm_val create_integer(int data);
+
+int return_integer(vm_val value);
 
 //====================
 // BYTECODE instrukce
@@ -9,7 +32,7 @@ void dbg_mute();
 // Alokace 0x0c
 // necha naalokovat pole int-u
 // a adresu zacatku da na stack
-void alloc(int size);
+void alloc(vm_val size);
 
 // Ulozeni do pameti 0x0d
 // ten base address je tam proto, 
@@ -22,33 +45,17 @@ void ist();
 // Cteni z pameti 0x0e
 void ild(); 
  
-// push 0x01 
-// vloz 1B hodnotu na zasobnik
-void push(char value);
-
-// pop 0x02
-// vydej 1B hodnotu ze zasobniku
-char pop();
-
 // dup 0x05
 // duplikuje vrchol stacku
 void dup();
 
-// push_i 0x03 
+// push 0x03 
 // vloz 4B hodnotu na zasobnik
-void push_i(int value);
+void push(vm_val value);
 
-// pop_i 0x04
+// pop 0x04
 // vydej 4B hodnotu ze zasobniku
-int pop_i();
-
-// push_p 0x07 
-// vloz pointer na zasobnik
-void push_p(char * value);
-
-// pop_p 0x08
-// vydej pointer ze zasobniku
-char * pop_p();
+vm_val pop();
 
 // ARITMETIKA
 // -- 4B operace
@@ -104,23 +111,23 @@ void ieq();
 // RIZENI BEHU PROGRAMU
 
 // jmp 0x11
-void jmp(unsigned int adr); 
+void jmp(vm_val address); 
 
 // jneq 0x10 
 // jump if not equal
-void jneq(unsigned int adr);
+void jneq(vm_val address);
 
 // call 0x09
 // http://unixwiz.net/techtips/win32-callconv-asm.html
 // call od adresy (parametry jsou jiz ulozene na zasobniku !!!)
 // POZOR -- FP ukazuje na prvni pole noveho ramce, takze pod nim
 // pri volani neni adresa stareho FP - ta je adresu za nim !!! (lepe se to psalo)
-void call(int address);
+void call(vm_val address);
 
 // main ma trochu specialni call, 
 // protoze jeho navratova
 // adresa je konec souboru
-void main_call(int address);
+void main_call(vm_val address);
 
 // return 0x0a
 // navratova hodnota je int a je to posledni udaj na zasobniku
@@ -135,19 +142,19 @@ void rer();
 
 // pop stack to locale 4B 0x1d
 // locals jsou cislovane od 0
-void psl(unsigned int offset);
+void psl(vm_val offset_v);
 
 // push locale on stack 4B 0x1e
 // locals jsou cislovane od 0
-void pls(unsigned int offset);
+void pls(vm_val offset_v);
 
 // pop stack to argument 4B 0x2d
 // argumenty jsou cislovane od 0
-void psa(unsigned int offset);
+void psa(vm_val offset_v);
 
 // push argument to stack 4B 0x2e
 // argumenty jsou cislovane od 0
-void pas(unsigned int offset);
+void pas(vm_val offset_v);
 
 // control output 0x12
 void out();

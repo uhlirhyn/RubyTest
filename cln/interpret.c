@@ -4,7 +4,6 @@
 #include <strings.h>
 #include <stdio.h>
 
-#include "definitions.h"
 #include "bytecode.h"
 
 //===============
@@ -31,14 +30,14 @@ void reset_vm() {
     //==========
     //  STACK
     //==========
-    
+
     st->sp = 0;
     st->fp = 0;
 
     //===========
     //  PROGRAM
     //===========
-    
+
     pr->ip = 0;
 }
 
@@ -48,26 +47,28 @@ char next() {
 }
 
 void bytecode_switch(char opcode) {
-    
+
     int pi;
     char pa[4];
+    char type;
 
     switch (opcode) {
 
         // stack operace
     case 0x03:
-        printf("\e[36m-- push_i \e[0m");
+        printf("\e[36m-- push \e[0m");
+        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        push_i(pi);
+        push(create_val(pi, type));
         break;
     case 0x04:
-        printf("\e[36m-- pop_i \e[0m");
-        pop_i();
+        printf("\e[36m-- pop \e[0m");
+        pop();
         break;
     case 0x05:
         printf("\e[36m-- dup \e[0m");
@@ -81,13 +82,14 @@ void bytecode_switch(char opcode) {
         // operace s pameti
     case 0x0c:
         printf("\e[36m-- alloc\e[0m");
+        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m %d slots (%d bytes)\e[0m", pi, pi * slot_size);
-        alloc(pi);
+        alloc(create_val(pi, type));
         break;
     case 0x0d:
         printf("\e[36m-- ist \e[0m");
@@ -101,13 +103,14 @@ void bytecode_switch(char opcode) {
         // rizeni behu programu
     case 0x09:
         printf("\e[36m-- call \e[0m");
+        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        call(pi);
+        call(create_val(pi, type));
         break;
     case 0x0a:
         printf("\e[36m-- ret \e[0m");
@@ -119,23 +122,25 @@ void bytecode_switch(char opcode) {
         break;
     case 0x10:
         printf("\e[36m-- jneq \e[0m");
+        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        jneq(pi);
+        jneq(create_val(pi, type));
         break;
     case 0x11:
         printf("\e[36m-- jmp \e[0m");
+        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        jmp(pi);
+        jmp(create_val(pi, type));
         break;
 
 
@@ -178,45 +183,49 @@ void bytecode_switch(char opcode) {
         // operace s argumenty
     case 0x2d:
         printf("\e[36m-- psa\e[0m ");
+        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        psa(pi);
+        psa(create_val(pi, type));
         break;
     case 0x2e:
         printf("\e[36m-- pas\e[0m ");
+        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        pas(pi);
+        pas(create_val(pi, type));
         break;
 
         // operace s lokalnimi promennymi
     case 0x1d:
         printf("\e[36m-- psl\e[0m ");
+        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        psl(pi);
+        psl(create_val(pi, type));
         break;
     case 0x1e:
         printf("\e[36m-- pls\e[0m ");
+        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        pls(pi);
+        pls(create_val(pi, type));
         break;
 
         // porovnavani
@@ -259,6 +268,7 @@ void run_main() {
 
     int pi;
     char pa[4];
+    char type;
 
     // zkontroluj, ze soubor ma aspon 4B
     if (pr->size < 4) {
@@ -268,6 +278,7 @@ void run_main() {
 
     // skoc na "main"
     // prvni int v souboru je adresa mainu
+    type = next();
     pa[3] = next();
     pa[2] = next();
     pa[1] = next();
@@ -276,7 +287,7 @@ void run_main() {
 
     // zavolej main
     printf(" Header 4B: \e[33m-- Main found on %d (0x%02x)\e[0m\n", pi, pi);
-    main_call(pi);
+    main_call(create_val(pi, type));
 }
 
 // proved cely program a na nic se neptej
