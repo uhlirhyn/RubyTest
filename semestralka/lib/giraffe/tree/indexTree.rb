@@ -19,12 +19,12 @@ module Giraffe
             dbg("run",:IndexTree) 
             
             # vypocitej index
-            returnValue, msg = @index[0].run(env,@index[1])
-            return returnValue, msg if msg != nil
+            return_value, msg = @index[0].run(env,@index[1])
+            return return_value, msg if msg != nil
 
             # vypocitej "adresu"
-            returnValue, msg = @target[0].run(env,@target[1])
-            return returnValue, msg if msg != nil
+            return_value, msg = @target[0].run(env,@target[1])
+            return return_value, msg if msg != nil
 
             # zde uloha IndexTree konci
             # - ziskal adresu pole
@@ -41,7 +41,10 @@ module Giraffe
                 env.write_opcode(ST)
             end
             
-            return nil, nil
+            # TODO ... zkontrolovat
+            # tohle je zatím silnej
+            # hack ...
+            return :number, nil
         end
 
     end

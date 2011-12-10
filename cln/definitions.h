@@ -1,6 +1,7 @@
 
-#define DEFAULT_HEAP_SIZE 1024  // 1 KB
-#define DEFAULT_STACK_SIZE 1024 // 1 KB
+#define DEFAULT_HEAP_SIZE 1024  // 1KB heap
+#define DEFAULT_STACK_SIZE 1024 // 1KB zasobnik
+#define DEFAULT_FD_COUNT 1024   // 1KB file descriptors
 
 #define BUFFER 128
 

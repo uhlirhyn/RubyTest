@@ -181,8 +181,8 @@ void ist() {
     // vsecho brat pres stack
 
     // adresa pole
-    vm_val * base_address = return_s_pointer(pop());
-    
+    vm_val * base_address = return_pointer(pop());
+
     // pak je tam index
     unsigned int offset = (unsigned int) return_integer(pop());
 
@@ -193,7 +193,12 @@ void ist() {
     // kontrola indexu pameti
     mem_check(base_address, offset);
 
-    dbg(" 0x%02x:0x%02x (%d) -> M%d+%d", value.head.type, value.body.it, value.body.it, (int) base_address - (int) g->mem, offset);
+    dbg(" 0x%02x:0x%02x (%d) -> M%d+%d", 
+            value.head.type, 
+            value.body.it, 
+            value.body.it, 
+            ((int) base_address - (int) g->mem) / sizeof(vm_val), 
+            offset);
 
     // vem obsah zasobniku a popni ho
     // do pameti - vem obsah
@@ -292,7 +297,12 @@ void ild() {
 
     // ziskej obsah - skoc na base_address, pricti 1, pricti offset 
     vm_val value = base_address[offset + 1];
-    dbg(" M%d+%d: 0x%02x:0x%02x (%d)", (int) base_address - (int) g->mem, offset, value.head.type, value.body.it, value.body.it);
+    dbg(" M%d+%d: 0x%02x:0x%02x (%d)", 
+            ((int) base_address - (int) g->mem) / sizeof(vm_val), 
+            offset, 
+            value.head.type, 
+            value.body.it, 
+            value.body.it);
 
     // proved push ten pameti na stack
     push(value);

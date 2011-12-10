@@ -86,7 +86,7 @@ instruction returns [result]
 	|	returnInstruction {$result = $returnInstruction.result}	
 	|	exitInstruction {$result = $exitInstruction.result}
 	|	breakInstruction {$result = $breakInstruction.result}
-	|	call {$result = $call.result}
+	|	aloneCall {$result = $aloneCall.result}
 	|	declaration {$result = $declaration.result}
 	|	{$result = nil} 
 	;
@@ -146,7 +146,7 @@ doCycle	returns [result]
  	;
 
 forCycle returns [result]
-	:	FOR as1=assignment (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  condition (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  as2=assignment LCB! block RCB!
+	:	FOR LB as1=assignment (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  condition (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  as2=assignment RB LCB! block RCB!
 		{$result = ForTree.new($as1.result,$condition.result,$as2.result,$block.list)}
 	;	
 	
@@ -173,10 +173,16 @@ paramRest returns [list]
 		{$list = $params.list}		
 	|	{$list = []}
 	;
+
+aloneCall returns [result]
+	:	fun=ID^ LB! args1=args? RB!
+		{$result = [CallTree.new($fun.text,$args1.list,true),$fun.tree]}
+		( DOT method=ID LB! args2=args? RB! {$result = [MethodCallTree.new($result,$method.text,$args2.list),$method.tree]})*
+	;
 	
 call returns [result]
 	:	fun=ID^ LB! args1=args? RB!
-		{$result = [CallTree.new($fun.text,$args1.list),$fun.tree]}
+		{$result = [CallTree.new($fun.text,$args1.list,false),$fun.tree]}
 		( DOT method=ID LB! args2=args? RB! {$result = [MethodCallTree.new($result,$method.text,$args2.list),$method.tree]})*
 	;
 	
@@ -256,9 +262,9 @@ arrayIndexTarget returns [result]
 
 array returns [result]
 	:	'[' {$result = []}
-		(ex1=expression {$result << $ex1.result}
-		(COMMA ex2=expression {$result << $ex2.result} )*)?
-		']'
+		('\n'? ex1=expression {$result << $ex1.result}
+		(COMMA '\n'? ex2=expression {$result << $ex2.result} )*)?
+		'\n'? ']'
 	;
 
 // bere vnitrek a chova se k nemu

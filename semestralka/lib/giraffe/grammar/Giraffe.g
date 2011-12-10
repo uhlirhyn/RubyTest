@@ -146,8 +146,8 @@ doCycle	returns [result]
  	;
 
 forCycle returns [result]
-	:	FOR as1=assignment (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  condition (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  as2=assignment LCB! block RCB!
-		{$result = ForTree.new($as1.result,$condition.result,$as2.result,$block.list)}
+	:	FOR LB as1=assignment (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  condition (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  as2=assignment RB LCB! block RCB!
+		{$result = [ForTree.new($as1.result,$condition.result,$as2.result,$block.list), $FOR.tree]}
 	;	
 	
 func returns [result]
@@ -262,9 +262,9 @@ arrayIndexTarget returns [result]
 
 array returns [result]
 	:	'[' {$result = []}
-		(ex1=expression {$result << $ex1.result}
-		(COMMA ex2=expression {$result << $ex2.result} )*)?
-		']'
+		('\n'? ex1=expression {$result << $ex1.result}
+		(COMMA '\n'? ex2=expression {$result << $ex2.result} )*)?
+		'\n'? ']'
 	;
 
 // bere vnitrek a chova se k nemu

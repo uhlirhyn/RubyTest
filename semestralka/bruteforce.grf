@@ -1,0 +1,38 @@
+int sum_w(arr v, int c) {
+
+    int sum
+    int i
+    for (i = 0; i < c; i = i + 1) {
+        sum = sum + v[i][0]
+    }
+    return sum
+}
+
+int go(arr array, int m, int c) {
+   
+    return 1
+}
+
+main {
+
+    int m
+    int c
+
+    m = 40
+    c = 8
+
+    arr a
+    a = [   [1,5],
+            [4,8],
+            [5,6],
+            [1,5],
+            [8,8],
+            [7,5],
+            [99,2],
+            [1,23]
+        ]
+
+    print (sum_w(a,c))
+
+    return 1
+}

@@ -1,0 +1,11 @@
+main {
+ 
+    int sum
+    sum = 4
+    int i
+    for (i = 5; i < 10; i = i + 1) {
+        sum = sum + 1
+        print(sum)
+    }
+    return 1
+}

@@ -442,11 +442,11 @@ module Giraffe
 
             # o ten posuv je potreba posunout i adresy 
             # navesti - takze upravit pole hooks
-            # posuv je o instrukci IPUSH (1B) a 4B 0x00
-            # pro kazdou instrukci
+            # posuv je o instrukci IPUSH (1B) typ (1B)
+            # a 4B 0x00 pro kazdou instrukci
             @hooks.each_index do
                 |i|
-                @hooks[i] += @variables.size * 5
+                @hooks[i] += @variables.size * 6
             end
 
             # vloz puvodni bytecode funkce

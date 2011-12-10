@@ -7,7 +7,7 @@ int fact (int num) {
     }
 }
 
-int main () {
+main {
     print (fact(6))
     return 0
 }
