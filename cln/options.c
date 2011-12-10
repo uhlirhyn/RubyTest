@@ -12,7 +12,9 @@ void parse_options(int argc, char ** argv) {
     // tak je pouzij
     if (argc > 3) {
         for (int i=3; i < argc; i++) {
-            if (strcmp(argv[i],"-d") == 0) debugger = 1;
+            if (strcmp(argv[i],"-d") == 0) { debugger = 1; continue; }
+            printf("\n Unknown option '%s'\n\n",argv[i]);
+            exit (0);
         }
     }
 

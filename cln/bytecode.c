@@ -17,79 +17,118 @@ void dbg_mute() { verbose = 0x00; }
 // BYTECODE instrukce
 //====================
 
-void type_checker(vm_val value, char pointer) {
+void type_checker(vm_val value, vm_val_type type) {
     
-    if ( value.type != pointer) {
+    if ( value.head.type != type) {
         fprintf(stderr, " \e[31mRuntime exception: bad data type\e[39m\n");
         abort();
     }
 
 }
 
-void st_check(int address) {
+void st_check(vm_val * address) {
     
-    if ( address > STACK_SIZE + 1) {
+    if ( address > st->start + st->slots - 1 ) {
         fprintf(stderr, " \e[31mStack overflow\e[39m\n");
         abort();
     }
     
-    if ( address < 0 ) {
+    if ( address < st->start ) {
         fprintf(stderr, " \e[31mStack underflow\e[39m\n");
         abort();
     }
 }
 
-vm_val create_val(int data, char type) {   
-    vm_val val;
-    val.type = type;
-    val.data = data;
-    return val;
+vm_val create_value(char * bytes, char type) {
+    switch (type) {
+    case INTEGER:
+        return create_integer(*(int *) bytes);
+    default:
+        fprintf(stderr, " \e[31mUknown value type\e[39m\n");
+        abort();
+    }
 }
 
-vm_val create_boolean(int data) {
-    return create_val(data, BOOLEAN);
+vm_val create_boolean(char data) {
+    vm_val value; 
+    value.head.type = BOOLEAN;
+    value.body.bl = data;
+    return value;
 }
 
-int return_boolean(vm_val value) {
+char return_boolean(vm_val value) {
     type_checker(value, BOOLEAN);
-    return value.data;
+    return value.body.bl;
 }
 
-vm_val create_s_pointer(int data) {
-    return create_val(data, S_POINTER);
+vm_val create_slot_id(unsigned int data) {
+    vm_val value; 
+    value.head.type = SLOT_ID;
+    value.body.sl = data;
+    return value;
 }
 
-int return_s_pointer(vm_val value) {
+unsigned int return_slot_id(vm_val value) {
+    type_checker(value, SLOT_ID);
+    return value.body.sl;
+}
+
+vm_val create_i_pointer(unsigned int data) {
+    vm_val value; 
+    value.head.type = I_POINTER;
+    value.body.ip = data;
+    return value;
+}
+
+unsigned int return_i_pointer(vm_val value) {
+    type_checker(value, I_POINTER);
+    return value.body.ip;
+}
+
+vm_val create_s_pointer(vm_val * data) {
+    vm_val value; 
+    value.head.type = S_POINTER;
+    value.body.pt = data;
+    return value;
+}
+
+vm_val * return_s_pointer(vm_val value) {
     type_checker(value, S_POINTER);
-    return value.data;
+    return value.body.pt;
 }
 
-vm_val create_pointer(int data) {
-    return create_val(data, POINTER);
+vm_val create_pointer(vm_val * data) {
+    vm_val value; 
+    value.head.type = POINTER;
+    value.body.rf = data;
+    return value;
 }
 
-int return_pointer(vm_val value) {
+vm_val * return_pointer(vm_val value) {
     type_checker(value, POINTER);
-    return value.data;
+    return value.body.rf;
 }
 
 vm_val create_integer(int data) {
-    return create_val(data, INTEGER);
+    vm_val value; 
+    value.head.type = INTEGER;
+    value.body.it = data;
+    return value;
 }
 
 int return_integer(vm_val value) {
     type_checker(value, INTEGER);
-    return value.data;
+    return value.body.it;
 }
 
 // push 0x03 
 // vloz hodnotu na zasobnik
 void push(vm_val value) {
-    st_check(st->sp);           // kontrola jestli ukazuju jeste na platny 
-                                // slot zasobniku - je totiz validni ukazovat
-                                // na slot tesne za zasobnikem (abych mohl
-                                // provadet pop z posledniho slotu stacku)
-    st->start[st->sp] = value;  // na adresu SP dej hodnotu
+    st_check(st->sp);   // kontrola jestli ukazuju jeste na platny 
+                        // slot zasobniku - je totiz validni ukazovat
+                        // na slot tesne za zasobnikem (abych mohl
+                        // provadet pop z posledniho slotu stacku)
+    *(st->sp) = value;  // na adresu SP dej hodnotu
     st->sp++;
 }
 
@@ -98,7 +137,7 @@ void push(vm_val value) {
 vm_val pop() {
     st_check(st->sp - 1);   // tady se musim podivat o krok zpet
     st->sp--;
-    return st->start[st->sp];
+    return *(st->sp);
 }
 
 // dup 0x05
@@ -110,12 +149,18 @@ void dup() {
 }
 
 // kontrola pameti (jsem stale v pozadovanem bloku ?)
-void mem_check(int base_address, unsigned int offset) {
+void mem_check(vm_val * base_address, unsigned int offset) {
     
+    // je to vubec pole ?
+    if (base_address->head.type != ARRAY_SIZE) {
+        fprintf(stderr, " \e[31mInvalid address - missing element size info\e[39m\n");
+        abort();
+    }
+
     // na base_address je ulozen size toho objektu
     // protoze je to pole, musi byt offset ostre mensi
     // pokud by byl roven tak uz je to preteceni
-    int size = *((int *) (g->mem + base_address));
+    int size = base_address->body.sz;
     if ( size <= offset ) {
         fprintf(stderr, " \e[31mOut of array bounds - %d indexed, but max is %d\e[39m\n", 
                 offset, size - 1);
@@ -136,7 +181,7 @@ void ist() {
     // vsecho brat pres stack
 
     // adresa pole
-    int base_address = return_s_pointer(pop());
+    vm_val * base_address = return_s_pointer(pop());
     
     // pak je tam index
     unsigned int offset = (unsigned int) return_integer(pop());
@@ -148,11 +193,12 @@ void ist() {
     // kontrola indexu pameti
     mem_check(base_address, offset);
 
-    dbg(" 0x%02x:0x%02x (%d) -> M%d+%d", value.type, value.data, value.data, base_address, offset);
+    dbg(" 0x%02x:0x%02x (%d) -> M%d+%d", value.head.type, value.body.it, value.body.it, (int) base_address - (int) g->mem, offset);
 
     // vem obsah zasobniku a popni ho
     // do pameti - vem obsah
-    *((vm_val *) (g->mem + base_address + offset * slot_size + ALLOC_HEADER)) = value;
+    // +1 preskoc udaj o size
+    base_address[offset + 1] = value; 
 }
 
 // Continual store ...
@@ -211,22 +257,16 @@ void ist() {
 void alloc(vm_val size_v) {
 
     int size = return_integer(size_v);
-    int addr = allocate(g, size);
-    dbg(" +M%d", addr);
-
-    char * p = g->mem;
+    vm_val * addr = allocate(g, size);
+    dbg(" +M%d", (int) addr - (int) g->mem );
 
     // zapis delku pole na prvni polozku
-    *((int *) p) = size;
-    p += sizeof(size);
+    addr->head.type = ARRAY_SIZE;
+    addr->body.sz = size;
 
-    vm_val value;
     // na zbytek polozek zapis ty prvky
     for (int i=0; i < size; i++) {
-        value = pop();
-        // po bytech
-        *((vm_val *) p) = value;
-        p += slot_size;
+        addr[i + 1] = pop();
     }
 
     push(create_pointer(addr));
@@ -242,7 +282,7 @@ void ild() {
     // vsecho brat pres stack
     
     // adresa pole
-    int base_address = return_pointer(pop());
+    vm_val * base_address = return_pointer(pop());
     
     // nejprve je tam index
     unsigned int offset = (unsigned int) return_integer(pop());
@@ -250,9 +290,9 @@ void ild() {
     // kontrola indexu pameti
     mem_check(base_address, offset);
 
-    // ziskej obsah - skoc na base_address, pricti ALLOC_HEADER, pricti offset 
-    vm_val value = *((vm_val *) (g->mem + base_address + ALLOC_HEADER + offset * slot_size));
-    dbg(" M%d+%d: 0x%02x:0x%02x (%d))", base_address, offset, value.type, value.data, value.data);
+    // ziskej obsah - skoc na base_address, pricti 1, pricti offset 
+    vm_val value = base_address[offset + 1];
+    dbg(" M%d+%d: 0x%02x:0x%02x (%d))", (int) base_address - (int) g->mem, offset, value.head.type, value.body.it, value.body.it);
 
     // proved push ten pameti na stack
     push(value);
@@ -325,7 +365,7 @@ void iand() {
 void ine() {
     vm_val op1 = pop();
     vm_val op2 = pop();
-    push(create_boolean(op2.data != op1.data));
+    push(create_boolean(op2.body.it != op1.body.it));
 }
 
 // igt 0x30
@@ -360,14 +400,14 @@ void ile() {
 void ieq() {
     vm_val op1 = pop();
     vm_val op2 = pop();
-    push(create_boolean(op2.data == op1.data));
+    push(create_boolean(op2.body.it == op1.body.it));
 }
 
 // RIZENI BEHU PROGRAMU
 
 // jmp 0x11
 void jmp(vm_val address) {
-    unsigned int adr = (unsigned int) return_s_pointer(address);
+    unsigned int adr = return_i_pointer(address);
     if ( adr >= pr->size) {
         fprintf(stderr, " \e[31m Invalid address %d (0x%02x)\e[39m\n", adr, adr);
         abort();
@@ -389,30 +429,30 @@ void jneq(vm_val address) {
 void call(vm_val address) {
     // tyto dve instrukce jsou umyslne prohozene, aby se mohlo s 
     // navratovou hodnotou hned pracovat
-    push(create_s_pointer(pr->ip));   // vlozi na zasobnik navratovou adresu nasledujici instrukce 
-                                        // (+1 protoze ted je ip na instrukci call, ktera prave bezi...)
+    push(create_i_pointer(pr->ip));   // vlozi na zasobnik navratovou adresu nasledujici instrukce 
+                                      // (+1 protoze ted je ip na instrukci call, ktera prave bezi...)
     push(create_s_pointer(st->fp));   // vlozi na zasobnik stary fp    
     st->fp = st->sp;                    // nastav novy fp
-    pr->ip = return_s_pointer(address); // skoc na telo funkce
+    pr->ip = return_i_pointer(address); // skoc na telo funkce
 }
 
 // main ma trochu specialni call, 
 // protoze jeho navratova
 // adresa je konec souboru
 void main_call(vm_val address) {
-    push(create_s_pointer(pr->size)); // tady je ten hacek - z mainu se vraci na konec programu
+    push(create_i_pointer(pr->size)); // tady je ten hacek - z mainu se vraci na konec programu
     push(create_s_pointer(st->fp));   // vlozi na zasobnik stary fp    
     st->fp = st->sp;                    // nastav novy fp
-    pr->ip = return_s_pointer(address); // skoc na telo mainu
+    pr->ip = return_i_pointer(address); // skoc na telo mainu
 }
 
 // return 0x0a
 // navratova hodnota je int a je to posledni udaj na zasobniku
 void ret() {
-    ret_reg = pop();  // zapis navratovou hodnotu 
+    ret_reg = pop();    // zapis navratovou hodnotu 
     st->sp = st->fp;    // nastav vrchol zasobniku na zacatek ramce
     st->fp = return_s_pointer(pop());   // ziskej stary fp
-    pr->ip = return_s_pointer(pop());   // ziskej navratovou adresu
+    pr->ip = return_i_pointer(pop());   // ziskej navratovou adresu
 }
 
 // push obsahu ret_regu 0x0b
@@ -427,49 +467,49 @@ void rer() {
 
 // pop stack to locale 0x1d
 // locals jsou cislovane od 0
-void psl(vm_val offset_v) {
-    unsigned int offset = (unsigned int) return_s_pointer(offset_v);
-    st_check(st->fp + offset);
+void psl(vm_val slot_val) {
+    unsigned int slot = return_slot_id(slot_val);
+    st_check(st->fp + slot);
     vm_val value = pop();                    // tady mne nezajima co to je
-    dbg(" 0x%02x -> L%d", value.data, offset);
-    st->start[st->fp + offset] = value;
+    dbg(" 0x%02x -> L%d", value.body.it, slot);
+    st->fp[slot] = value;
 }
 
 // push locale on stack 0x1e
 // locals jsou cislovane od 0
-void pls(vm_val offset_v) {
-    unsigned int offset = (unsigned int) return_s_pointer(offset_v);
-    st_check(st->fp + offset);
-    push(st->start[st->fp + offset]);
+void pls(vm_val slot_val) {
+    unsigned int slot = return_slot_id(slot_val);
+    st_check(st->fp + slot);
+    push(st->fp[slot]);
 }
 
 // pop stack to argument 0x2d
 // argumenty jsou cislovane od 0
-void psa(vm_val offset_v) {
-    unsigned int offset = (unsigned int) return_s_pointer(offset_v);
+void psa(vm_val slot_val) {
+    unsigned int slot = return_slot_id(slot_val);
     // krok pres stare FP, pres IP, 
     // a na zacatek parametru
     int stepback = 3;
-    st_check(st->fp - offset - stepback);  
+    st_check(st->fp - slot - stepback);  
     vm_val value = pop();                    // tady mne nezajima co to je
-    dbg(" 0x%02x -> A%d", value.data, offset);
-    st->start[st->fp - offset - stepback] = value;
+    dbg(" 0x%02x -> A%d", value.body.it, slot);
+    st->fp[- slot - stepback] = value;
 }
 
 // push argument to stack 0x2e
 // argumenty jsou cislovane od 0
-void pas(vm_val offset_v) {
-    unsigned int offset = (unsigned int) return_s_pointer(offset_v);
+void pas(vm_val slot_val) {
+    unsigned int slot = return_slot_id(slot_val);
     // krok pres stare FP, pres IP, 
     // na zacatek parametru
     int stepback = 3;
-    st_check(st->fp - offset - stepback); 
-    push(st->start[st->fp - offset - stepback]);
+    st_check(st->fp - slot - stepback); 
+    push(st->fp[- slot - stepback]);
 }
 
 // control output 0x12
 void out() {
     vm_val value = pop(); 
-    printf("0x%02x (%d)", value.data, value.data);
-    fprintf(output_file, "%d\n", value.data);
+    printf("0x%02x (%d)", value.body.it, value.body.it);
+    fprintf(output_file, "%d\n", value.body.it);
 }

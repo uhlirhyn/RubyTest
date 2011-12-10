@@ -14,7 +14,7 @@ void tests(gc * g, stack * st, program * pr) {
     
     // nechci nic slyset ...
     dbg_mute();
-
+/*
     // push / pop
     push(create_integer(256));
     test(return_integer(pop()) == 256);
@@ -84,7 +84,7 @@ void tests(gc * g, stack * st, program * pr) {
     push(create_integer(-3));
     iadd();
     test(return_integer(pop()) == 7);
-/*
+
     // sub
     push(10);
     push(3);

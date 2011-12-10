@@ -9,7 +9,8 @@
 
 #define TEXT_BUFFER 256
 #define MAX_BREAKPOINTS 256
-#define MEM_DUMP_GROUPING 5
+#define MEM_DUMP_GROUPING 5 
+#define STACK_DUMP_GROUPING 5
 
 char breakpoint[MAX_BREAKPOINTS];
 int breakpoints = 0;
@@ -17,11 +18,14 @@ int breakpoints = 0;
 void mem_dump() {
 
     int i=0; 
+    vm_val * slot = g->mem;
     while (i < g->size) {
-        printf(" \e[32m0x%02x:\e[0m\t", i);
+        printf(" \e[32m0x%08x:\e[0m\t", i);
         for (int j=0; j < MEM_DUMP_GROUPING; j++) {
-            printf("0x%08x\t",g->mem[i++]);
+            printf("%02x:",slot->head.type);
+            printf("0x%08x\t",slot->body.it);
             if (i > g->size) break;
+            slot++;
         }
         printf("\n");
     }
@@ -31,14 +35,17 @@ void mem_dump() {
 void print_stack() {
 
     int i=0; 
+    vm_val * slot = st->start;
     while (i < st->size) {
-        printf(" \e[32m0x%02x:\e[0m\t", i);
-        for (int j=0; j < MEM_DUMP_GROUPING; j++) {
-            if (st->sp == i) printf("\e[1;33m");
-            if (st->fp == i) printf("\e[44m");
-            printf("0x%08x",st->start[i++].data);
+        printf(" \e[32m0x%08x:\e[0m\t", i);
+        for (int j=0; j < STACK_DUMP_GROUPING; j++) {
+            if (st->sp == slot) printf("\e[1;33m");
+            if (st->fp == slot) printf("\e[44m");
+            printf("%02x:",slot->head.type);
+            printf("0x%08x",slot->body.it);
             printf("\e[0m\t");
             if (i > st->size) break;
+            slot++;
         }
         printf("\n");
     }
@@ -46,17 +53,17 @@ void print_stack() {
 
 void print_freelist() {
 
-    int next_index = g->list;
-    freelist * next;
+    vm_val * next = g->free;
 
-    while(next_index != g->size) {
+    while(next != NULL) {
 
-        next = (freelist *) (g->mem + next_index);
+        printf("Address: 0x%02x, %d B (%d slots), next freespace on 0x%02x\n",
+                (unsigned int) next - (unsigned int) g->mem, 
+                (next->head.slots - 1) * sizeof(vm_val),  
+                next->head.slots - 1, 
+                (unsigned int) next->body.nx - (unsigned int) g->mem);
 
-        printf("Address: 0x%02x, %d B, next freespace on 0x%02x\n",
-                next_index, next->size, next->next);
-
-        next_index = next->next;
+        next = next->body.nx;
     }
 }
 

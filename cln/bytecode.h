@@ -7,19 +7,30 @@ void dbg_mute();
 // VM_VALUE GET/SET 
 //====================
 
-vm_val create_val(int data, char type);
+// universal type dispatcher
+vm_val create_value(char * bytes, char type);
 
-vm_val create_boolean(int data);
+// typed setters/getters
 
-int return_boolean(vm_val value);
+vm_val create_boolean(char data);
 
-vm_val create_s_pointer(int data);
+char return_boolean(vm_val value);
 
-int return_s_pointer(vm_val value);
+vm_val create_slot_id(unsigned int data); 
 
-vm_val create_pointer(int data);
+unsigned int return_slot_id(vm_val value); 
 
-int return_pointer(vm_val value);
+vm_val create_i_pointer(unsigned int data);
+
+unsigned int return_i_pointer(vm_val value); 
+
+vm_val create_s_pointer(vm_val * data);
+
+vm_val * return_s_pointer(vm_val value);
+
+vm_val create_pointer(vm_val * data);
+
+vm_val * return_pointer(vm_val value);
 
 vm_val create_integer(int data);
 

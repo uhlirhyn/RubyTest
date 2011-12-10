@@ -71,8 +71,8 @@ module Giraffe
         end
 
         @@functions = Hash.new(:undeclared)
-        @@current_byte = 4
-        @@bytecode = [0,0,0,0]    # prvni 4byte je adresa funkce main
+        @@current_byte = 5
+        @@bytecode = [Byte.new(S_POINTER),0,0,0,0]    # prvni 4byte je adresa funkce main
 
         def initialize(return_type,super_env=nil)
             dbg("initialize (envID: #{self.object_id})",:Env)
@@ -186,7 +186,7 @@ module Giraffe
             @@current_byte += 1     # pricti k celkove delce
         end
 
-        def write_int_to(value,target)
+        def write_4B_to(value,target)
             write_bytecode_to(value >> 24 & 0xFF, target)
             write_bytecode_to(value >> 16 & 0xFF, target)
             write_bytecode_to(value >> 8 & 0xFF, target)
@@ -206,7 +206,26 @@ module Giraffe
 
         # zapis celeho cisla (int - 4B)
         def write_int(value) 
-            write_int_to(value, @temp_bytecode)
+            write_bytecode_to(INTEGER, @temp_bytecode)
+            write_4B_to(value, @temp_bytecode)
+        end
+
+        # zapis s_pointer (adresu v programu, st, ...)
+        def write_s_pointer(value) 
+            write_bytecode_to(S_POINTER, @temp_bytecode)
+            write_4B_to(value, @temp_bytecode)
+        end
+
+        # zapis pointer
+        def write_pointer(value) 
+            write_bytecode_to(POINTER, @temp_bytecode)
+            write_4B_to(value, @temp_bytecode)
+        end
+
+        # zapis boolean
+        def write_bool(value) 
+            write_bytecode_to(BOOLEAN, @temp_bytecode)
+            write_4B_to(value, @temp_bytecode)
         end
 
         # vrati ID dalsiho navesti
@@ -221,6 +240,7 @@ module Giraffe
             # aby se to mohlo korektne rozbalit pri resolve
             # je potreba udavat, kolikaty byte si to ma 
             # z kotvy brat
+            write_opcode(S_POINTER)
             @temp_bytecode << Hook.new(label,@hooks,3)
             @temp_bytecode << Hook.new(label,@hooks,2)
             @temp_bytecode << Hook.new(label,@hooks,1)
@@ -250,12 +270,12 @@ module Giraffe
                     return nil,:error
                 else
                     write_opcode(PAS)           # budu zapisovat na zasobnik argument
-                    write_int(variable.id)      # jeho id
+                    write_s_pointer(variable.id)      # jeho id
                     return variable.type, nil   # vrat jeji typ k dalsim kontrolam
                 end
             else 
                 write_opcode(PLS)           # budu zapisovat na zasobnik lokalni promennou
-                write_int(variable.id)      # jeji id
+                write_s_pointer(variable.id)      # jeji id
                 return variable.type, nil   # vrat jeji typ k dalsim kontrolam
             end
 
@@ -299,7 +319,7 @@ module Giraffe
                 variable = @arguments[id]
                 if variable != :undeclared
                     write_opcode(PSA)
-                    write_int(variable.id)      # jeho id
+                    write_s_pointer(variable.id)      # jeho id
                     return variable.type, nil   # vrat typ promenne aby
                                                 # se mohlo kontrolovat
                 else 
@@ -309,7 +329,7 @@ module Giraffe
                 # zapis obsah zasobniku 
                 # do lokalni promenne
                 write_opcode(PSL)
-                write_int(variable.id)
+                write_s_pointer(variable.id)
                 return variable.type, nil   # vrat typ promenne aby
                                             # se mohlo kontrolovat
             end
@@ -347,7 +367,7 @@ module Giraffe
             # parametry uz by tady mely byt
             # vloz call a adresu funkce
             write_opcode(CALL)
-            write_int(function.id)
+            write_s_pointer(function.id)
 
             # je potreba uklidit po sobe parametry
             # navratovou hodnotu tim nemazu, ta je
@@ -382,10 +402,10 @@ module Giraffe
                     dbg("Main found on address #{main_add}",:Env)
                     # POZOR !!! Tady je primo indexovani - tady se nevklada
                     # takze nelze pouzit funkce write_int apod... 
+                    @@bytecode[4] = Byte.new(main_add & 0xFF); main_add >>= 8
                     @@bytecode[3] = Byte.new(main_add & 0xFF); main_add >>= 8
                     @@bytecode[2] = Byte.new(main_add & 0xFF); main_add >>= 8
-                    @@bytecode[1] = Byte.new(main_add & 0xFF); main_add >>= 8
-                    @@bytecode[0] = Byte.new(main_add & 0xFF)
+                    @@bytecode[1] = Byte.new(main_add & 0xFF)
                 end
 
             else 
@@ -410,8 +430,9 @@ module Giraffe
             # vloz instrukce pro vytvoreni slotu
             # pro lokalni promenne
             @variables.size.times do
-                write_bytecode_to(PUSH, @@bytecode)    
-                write_int_to(0, @@bytecode)  
+                write_bytecode_to(PUSH, @@bytecode) 
+                write_bytecode_to(INTEGER, @@bytecode)
+                write_4B_to(0, @@bytecode)  
             end
 
             # o ten posuv je potreba posunout i adresy 

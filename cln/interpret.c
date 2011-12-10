@@ -18,21 +18,20 @@ void reset_vm() {
     //==========
 
     // vynuluj pamet
-    bzero((void*) g->mem, g->real_size);
-    bzero((void*) g->old, g->real_size);
+    bzero((void*) g->mem, g->size);
+    bzero((void*) g->old, g->size);
 
     // zalozeni freelistu;
-    g->list = 0;
-    freelist * f = ((freelist *) (g->mem));
-    f->size = g->size;
-    f->next = g->size;
+    g->free = g->mem;
+    g->free->head.slots = g->slots;
+    g->free->body.nx = NULL;
 
     //==========
     //  STACK
     //==========
 
-    st->sp = 0;
-    st->fp = 0;
+    st->sp = st->start;
+    st->fp = st->start;
 
     //===========
     //  PROGRAM
@@ -63,8 +62,8 @@ void bytecode_switch(char opcode) {
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
-        printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        push(create_val(pi, type));
+        printf("\e[36m%d (%02x:0x%02x)\e[0m",pi ,type ,pi);
+        push(create_value(pa, type));
         break;
     case 0x04:
         printf("\e[36m-- pop \e[0m");
@@ -82,14 +81,13 @@ void bytecode_switch(char opcode) {
         // operace s pameti
     case 0x0c:
         printf("\e[36m-- alloc\e[0m");
-        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
-        printf("\e[36m %d slots (%d bytes)\e[0m", pi, pi * slot_size);
-        alloc(create_val(pi, type));
+        printf("\e[36m %d slots (%d bytes)\e[0m", pi, pi * sizeof(vm_val));
+        alloc(create_integer(pi));
         break;
     case 0x0d:
         printf("\e[36m-- ist \e[0m");
@@ -103,14 +101,13 @@ void bytecode_switch(char opcode) {
         // rizeni behu programu
     case 0x09:
         printf("\e[36m-- call \e[0m");
-        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        call(create_val(pi, type));
+        call(create_i_pointer(pi));
         break;
     case 0x0a:
         printf("\e[36m-- ret \e[0m");
@@ -122,25 +119,23 @@ void bytecode_switch(char opcode) {
         break;
     case 0x10:
         printf("\e[36m-- jneq \e[0m");
-        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        jneq(create_val(pi, type));
+        jneq(create_i_pointer(pi));
         break;
     case 0x11:
         printf("\e[36m-- jmp \e[0m");
-        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        jmp(create_val(pi, type));
+        jmp(create_i_pointer(pi));
         break;
 
 
@@ -183,49 +178,45 @@ void bytecode_switch(char opcode) {
         // operace s argumenty
     case 0x2d:
         printf("\e[36m-- psa\e[0m ");
-        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        psa(create_val(pi, type));
+        psa(create_slot_id(pi));
         break;
     case 0x2e:
         printf("\e[36m-- pas\e[0m ");
-        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        pas(create_val(pi, type));
+        pas(create_slot_id(pi));
         break;
 
         // operace s lokalnimi promennymi
     case 0x1d:
         printf("\e[36m-- psl\e[0m ");
-        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        psl(create_val(pi, type));
+        psl(create_slot_id(pi));
         break;
     case 0x1e:
         printf("\e[36m-- pls\e[0m ");
-        type = next();
         pa[3] = next();
         pa[2] = next();
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
-        pls(create_val(pi, type));
+        pls(create_slot_id(pi));
         break;
 
         // porovnavani
@@ -268,7 +259,6 @@ void run_main() {
 
     int pi;
     char pa[4];
-    char type;
 
     // zkontroluj, ze soubor ma aspon 4B
     if (pr->size < 4) {
@@ -278,7 +268,6 @@ void run_main() {
 
     // skoc na "main"
     // prvni int v souboru je adresa mainu
-    type = next();
     pa[3] = next();
     pa[2] = next();
     pa[1] = next();
@@ -287,7 +276,7 @@ void run_main() {
 
     // zavolej main
     printf(" Header 4B: \e[33m-- Main found on %d (0x%02x)\e[0m\n", pi, pi);
-    main_call(create_val(pi, type));
+    main_call(create_i_pointer(pi));
 }
 
 // proved cely program a na nic se neptej

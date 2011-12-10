@@ -3,6 +3,7 @@
 #include <string.h>
 #include <strings.h>
 #include <stdio.h>
+#include <limits.h>
 
 #include "bytecode.h"
 #include "interpret.h"
@@ -49,34 +50,29 @@ void init() {
     //==========
 
     // alokace meho pametoveho prostoru
-    g->real_size = HEAP_SIZE / 2;
-    int ratio = g->real_size / slot_size;
-    int rest = g->real_size % slot_size;
-    g->size = ratio + (rest == 0 ? 0 : 1);
-    g->real_size = g->size * slot_size;
-
-    // je potreba aby velikost byla zaokrouhlena
-    // na celociselny nasobek slot_size
+    g->size = HEAP_SIZE / 2;
+    g->slots = g->size / sizeof(vm_val);
+    g->slots += g->size % sizeof(vm_val) == 0 ? 0 : 1;
+    g->size = g->slots * sizeof(vm_val);
 
     // newspace
-    g->mem = (char *) malloc(g->real_size);
+    g->mem = (vm_val *) malloc(g->size);
     
     // oldspace
-    g->old = (char *) malloc(g->real_size);
+    g->old = (vm_val *) malloc(g->size);
 
     //==========
     //  STACK
     //==========
 
     // alokace prostoru zasobniku
-    ratio = STACK_SIZE / slot_size;
-    rest = STACK_SIZE % slot_size;
-    st->size = ratio + (rest == 0 ? 0 : 1);
+    st->slots = STACK_SIZE / sizeof(vm_val);
+    st->slots += STACK_SIZE % sizeof(vm_val) == 0 ? 0 : 1;
+    st->size = st->slots * sizeof(vm_val);
 
     // opet je potreba aby velikost byla zaokrouhlena
     // na celociselny nasobek slot_size
-    st->real_size = st->size * slot_size;
-    st->start = malloc(st->real_size);
+    st->start = malloc(st->size);
 
     //===========
     //  PROGRAM
@@ -104,32 +100,30 @@ void init() {
 
 // alokuj v GC pameti 
 // gc - garbage collector
-// size - pozadovana velikost v 4B (int)
-int allocate(gc * gcl, int size) {  
+// size - pozadovana velikost v vm_val 
+vm_val * allocate(gc * gcl, unsigned int slots) {      
 
-    size = size + ALLOC_HEADER;   
-    int next_index = gcl->list;
-    freelist * next;
+    vm_val * next = gcl->free;
 
     // najdi takovou velikost volneho prostoru kam by se tohle veslo
-    // gcl->size je tady nahradou za NULL v pripade adresovani pointery
-    while(next_index != gcl->size) {
-
-        next = (freelist *) (gcl->mem + next_index);
+    while (next) {
 
         // pokud jsem nasel dost velke misto, 
         // uprav freelist a vrat na nej referenci
-        if (next->size >= size) {
+        // je potreba kontrolovat o jeden zaznam navic
+        // protoze se nejprve zapisuje udaj o velikosti
+        if (next->head.slots >= slots + 1) {
 
             // pokud za alokovanym mistem neni uz zadny
-            // freespace (vyslo to presne) nebo tam neni 
-            // misto na udaj o dalsim volnem miste (tedy
-            // freespace o velikosti freelist struktury,
+            // freespace (vyslo to presne)
             // pak nezmensuj ale rovnou preskoc na dalsi 
             // polozku o volnem miste
-            if (next->size - size < FREELIST_SIZE) { 
+            // opet - musim to porovnavat vuci 
+            // (array size slot) + (data slot) = 2
+            // pokud nejsou volne aspon 2 sloty je to plne
+            if (next->head.slots - slots - 1 < 2 ) { 
 
-                gcl->list = next->next;
+                gcl->free = next->body.nx;
 
             } else {
 
@@ -140,23 +134,26 @@ int allocate(gc * gcl, int size) {
                 // ze na misto stareho next, prijde nove size
                 // polozce size takove nebezpeci nehrozi, protoze
                 // se zapisuje jako prvni
-                int old_next = next->next;
+                vm_val * old_next = next->body.nx;
 
                 // je tam jeste kus mista,
                 // odecti ho a zaloz "uprav"
                 // polozku freelistu                                             
-                gcl->list = next_index + size;  // posuv
-                freelist * new = (freelist *) (gcl->mem + gcl->list);
-                new->size = next->size - size;  // zmensi jeho velikost
-                new->next = old_next;           // naslednik je stejny
+                gcl->free = next - slots - 1;   // posuv - pouzil jsem 
+                                                // slot pro array size 
+                                                // a pak ty data sloty
+                gcl->free->body.nx = old_next;  // naslednik je stejny 
+                
+                // zmensi size
+                gcl->free->head.slots = next->head.slots - slots - 1;
             }
         
-            return next_index;
+            return next;
 
         } else {    
             // jinak pokracuj dal
-            printf("\t%d can't fit into %d\n", size, next->size);
-            next_index = next->next;
+            printf("\t%d can't fit into %d\n", slots, next->head.slots - 1);
+            next = next->body.nx;
         }
     }
 
@@ -170,9 +167,6 @@ int allocate(gc * gcl, int size) {
 }
 
 int main ( int argc, char **argv ) {
-
-    // definice systemove velikosti slotu
-    slot_size = sizeof(vm_val);
 
     // systemove promenne
     gc gcl;
@@ -204,10 +198,10 @@ int main ( int argc, char **argv ) {
     printf("----------------------------------------\n");
     printf(" \e[1;33mGiraffe\e[31m!\e[0m\n");
     printf("----------------------------------------\n");
-    printf(" Mem loc.:\t%p - %p\n",g->mem, g->mem + g->real_size);
-    printf(" Mem size:\t%d B (%d slots)\n",g->real_size, g->size);
-    printf(" Stack loc.:\t%p - %p\n",st->start, st->start + st->real_size);
-    printf(" Stack size:\t%d B (%d slots)\n",st->real_size, st->size);
+    printf(" Mem loc.:\t%p - %p\n",g->mem, g->mem + g->size);
+    printf(" Mem size:\t%d B (%d slots)\n",g->size, g->slots);
+    printf(" Stack loc.:\t%p - %p\n",st->start, st->start + st->size);
+    printf(" Stack size:\t%d B (%d slots)\n",st->size, st->slots);
     printf("----------------------------------------\n");
 
     // BYTECODE test ... 
