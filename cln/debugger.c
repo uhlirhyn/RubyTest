@@ -19,13 +19,14 @@ void mem_dump() {
 
     int i=0; 
     vm_val * slot = g->mem;
-    while (i < g->size) {
-        printf(" \e[32m0x%08x:\e[0m\t", i);
+    while (i < g->slots) {
+        printf(" \e[32mM%d\t@", i);
+        printf(" \e[32m0x%p:\e[0m\t", slot);
         for (int j=0; j < MEM_DUMP_GROUPING; j++) {
             printf("%02x:",slot->head.type);
             printf("0x%08x\t",slot->body.it);
-            if (i > g->size) break;
-            slot++;
+            slot++; i++;
+            if (i > g->slots) break;
         }
         printf("\n");
     }
@@ -36,16 +37,16 @@ void print_stack() {
 
     int i=0; 
     vm_val * slot = st->start;
-    while (i < st->size) {
-        printf(" \e[32m0x%08x:\e[0m\t", i);
+    while (i < st->slots) {
+        printf(" \e[32m0x%p:\e[0m\t", slot);
         for (int j=0; j < STACK_DUMP_GROUPING; j++) {
             if (st->sp == slot) printf("\e[1;33m");
             if (st->fp == slot) printf("\e[44m");
             printf("%02x:",slot->head.type);
             printf("0x%08x",slot->body.it);
             printf("\e[0m\t");
-            if (i > st->size) break;
-            slot++;
+            slot++; i++;
+            if (i > st->slots) break;
         }
         printf("\n");
     }
@@ -53,18 +54,10 @@ void print_stack() {
 
 void print_freelist() {
 
-    vm_val * next = g->free;
-
-    while(next != NULL) {
-
-        printf("Address: 0x%02x, %d B (%d slots), next freespace on 0x%02x\n",
-                (unsigned int) next - (unsigned int) g->mem, 
-                (next->head.slots - 1) * sizeof(vm_val),  
-                next->head.slots - 1, 
-                (unsigned int) next->body.nx - (unsigned int) g->mem);
-
-        next = next->body.nx;
-    }
+    printf("Address: 0x%p, %d B (%d slots), ", 
+            g->free, 
+            (g->freeslots - 1) * sizeof(vm_val),  
+            g->freeslots - 1);
 }
 
 // console mark

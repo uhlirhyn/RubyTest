@@ -41,7 +41,7 @@ module Giraffe
             # alokuj v pameti tolik kolik je 
             # velikost toho pole
             env.write_opcode(ALOC)      
-            env.write_int(@elements.size < Env::MIN_ALLOC ? 
+            env.write_4B(@elements.size < Env::MIN_ALLOC ? 
                           Env::MIN_ALLOC : @elements.size)    
 
             # ALOC udela to, ze sebere ty hodnoty ze stacku

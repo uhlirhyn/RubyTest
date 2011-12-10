@@ -1,7 +1,14 @@
+int space() {
+    arr a
+    a = [11,22,33,44,55,66]
+    return 1
+}
+
 main {
-    int a; int b
+    arr a; arr b
 
     a = [88]
+    space()
     b = [2,7,8,63]
     print(b[2])
     print(b[0])

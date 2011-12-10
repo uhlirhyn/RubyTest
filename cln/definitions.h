@@ -1,13 +1,14 @@
 
-#define HEAP_SIZE 1024  // 1 KB
-#define STACK_SIZE 1024 // 1 KB
+#define DEFAULT_HEAP_SIZE 1024  // 1 KB
+#define DEFAULT_STACK_SIZE 1024 // 1 KB
+
 #define BUFFER 128
 
 typedef enum {
     
     // cisla
-    INTEGER = 0x00,     // cisla
     BOOLEAN = 0x01,     // true / false
+    INTEGER = 0x02,     // cisla
 
     // ukazatele
     POINTER = 0x10,     // ukazatel do pameti - potrava pro GC
@@ -17,6 +18,8 @@ typedef enum {
     I_POINTER = 0x12,   // instruction pointer - ukazatel do programu
     SLOT_ID = 0x13,     // index slotu promenne
     ARRAY_SIZE = 0x20,  // velikost pole
+    SCAVENGED = 0x30    // mark pro presunute objekty
+
 } vm_val_type;          
 
 // kazda polozka v pameti
@@ -31,7 +34,6 @@ typedef enum {
 typedef struct vm_val {
     union {
         vm_val_type type;       // typ hodnoty
-        unsigned int slots;     // velikost volneho prostoru
     } head;
     union {
         struct vm_val * pt;     // pro SP, FP
@@ -42,7 +44,6 @@ typedef struct vm_val {
         char ch;                // char
         char bl;                // bool
         unsigned int sz;        // array size
-        struct vm_val * nx;     // next freelistu
     } body;
 } vm_val;
 
@@ -81,14 +82,15 @@ typedef struct program {
 
 // Garbage Collector
 typedef struct gc {
-    vm_val * mem;       // pamet je adresovana po vm_val-s
-    vm_val * old;  
-    vm_val * free;      // freelist
-    unsigned int size;  // velikost v B
-    unsigned int slots; // velikost ve slotech (vm_val-s)
+    vm_val * mem;           // pamet je adresovana po vm_val-s
+    vm_val * old;           // scavenge swap
+    vm_val * free;          // freelist
+    unsigned int freeslots; // kolik slotu je volnych
+    unsigned int size;      // velikost v B
+    unsigned int slots;     // velikost ve slotech (vm_val-s)
 } gc;
 
 // alokuj v GC pameti 
 // gc - garbage collector
 // size - pozadovana velikost ve slotech 
-vm_val * allocate(gc * gcl, unsigned int slots);
+vm_val * allocate(unsigned int slots);

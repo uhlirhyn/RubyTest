@@ -257,8 +257,8 @@ void ist() {
 void alloc(vm_val size_v) {
 
     int size = return_integer(size_v);
-    vm_val * addr = allocate(g, size);
-    dbg(" +M%d", (int) addr - (int) g->mem );
+    vm_val * addr = allocate(size);
+    dbg(" +M%d", ((int) addr - (int) g->mem) / sizeof(vm_val));
 
     // zapis delku pole na prvni polozku
     addr->head.type = ARRAY_SIZE;
@@ -292,7 +292,7 @@ void ild() {
 
     // ziskej obsah - skoc na base_address, pricti 1, pricti offset 
     vm_val value = base_address[offset + 1];
-    dbg(" M%d+%d: 0x%02x:0x%02x (%d))", (int) base_address - (int) g->mem, offset, value.head.type, value.body.it, value.body.it);
+    dbg(" M%d+%d: 0x%02x:0x%02x (%d)", (int) base_address - (int) g->mem, offset, value.head.type, value.body.it, value.body.it);
 
     // proved push ten pameti na stack
     push(value);

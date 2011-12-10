@@ -72,9 +72,9 @@ void tests(gc * g, stack * st, program * pr) {
     pop();    // odstran arg1
     rer();
     test(return_integer(pop()) == 10);
-    
+  */  
     printf("\n Arithmetic tests: ");
-
+/*
     // add
     push(create_integer(10));
     push(create_integer(3));
@@ -132,9 +132,9 @@ void tests(gc * g, stack * st, program * pr) {
     push(0x00000036);
     iand();
     test(pop() == 0x00000010);
-
+*/
     printf("\n Comparing tests: ");
-    
+  /*  
     // ne
     push(10);
     push(3);

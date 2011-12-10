@@ -23,8 +23,7 @@ void reset_vm() {
 
     // zalozeni freelistu;
     g->free = g->mem;
-    g->free->head.slots = g->slots;
-    g->free->body.nx = NULL;
+    g->freeslots = g->slots;
 
     //==========
     //  STACK
@@ -86,7 +85,7 @@ void bytecode_switch(char opcode) {
         pa[1] = next();
         pa[0] = next();
         pi = *((int *) pa);
-        printf("\e[36m %d slots (%d bytes)\e[0m", pi, pi * sizeof(vm_val));
+        printf("\e[36m %d + 1 slots (%d bytes)\e[0m", pi, (pi + 1) * sizeof(vm_val));
         alloc(create_integer(pi));
         break;
     case 0x0d:
