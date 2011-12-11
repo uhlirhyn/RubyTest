@@ -20,7 +20,8 @@ void dbg_mute() { verbose = 0x00; }
 void type_checker(vm_val value, vm_val_type type) {
     
     if ( value.head.type != type) {
-        fprintf(stderr, " \e[31mRuntime exception: bad data type\e[39m\n");
+        fprintf(stderr, " \e[31mRuntime exception: bad data type 0x%02x != 0x%02x\e[39m\n", 
+                value.head.type, type);
         abort();
     }
 
@@ -335,6 +336,16 @@ void clalloc() {
     push(create_pointer(addr));
 }
 
+// size of memory object
+void szof() {
+
+    vm_val * addr = return_pointer(pop());
+    mem_check(addr,0);
+    int size = addr->body.sz;
+    dbg(" |M%d| = %d", ((int) addr - (int) g->mem) / sizeof(vm_val), size);
+    push(create_integer(size));
+
+}
 
 // Cteni z pameti 0x0e
 void ild() {
@@ -582,24 +593,46 @@ void pas(vm_val slot_val) {
     push(st->fp[- slot - stepback]);
 }
 
+// printer
+void print(vm_val value, int level) {
+
+    // odsazeni
+    for (int i=0; i < level; i++) {
+        printf("  ");
+    }
+
+    switch (value.head.type) {
+    case BOOLEAN:
+        printf("(BOOLEAN: \"%s\")\n", value.body.it == 1 ? "true" : "false");
+        break;
+    case CHARACTER:
+        printf("(CHARACTER: '%c' (%d))\n", value.body.it, value.body.it);
+        break;
+    case NIL:
+        printf("(NIL)\n"); 
+        break;
+    case INTEGER:
+        printf("(INTEGER: 0x%02x (%d))\n", value.body.it, value.body.it);
+        break;
+    case POINTER:
+        printf("(POINTER: %p):\n", value.body.rf);
+        vm_val * target = return_pointer(value);
+        for (int i=1; i <= target->body.sz; i++) {
+            print(target[i],level+1);
+        }
+        break;
+    default:
+        printf("(--SYSTEM-- 0x%02x)\n", value.head.type); 
+        break;
+    }
+}
+
 // control output 0x12
 void out() {
     vm_val value = pop(); 
-    switch (value.head.type) {
-    case BOOLEAN:
-        printf(" %s", value.body.it == 1 ? "true" : "false");
-        break;
-    case CHARACTER:
-        printf(" %c (%d)", value.body.it, value.body.it);
-        break;
-    case NIL:
-        printf(" nil"); 
-        break;
-    default:
-    case INTEGER:
-        printf(" 0x%02x (%d)", value.body.it, value.body.it);
-        break;
-    }
+    printf("\n\n\e[32m");
+    print(value,1);
+    printf("\e[0m");
     //fprintf(output_file, "%d\n", value.body.it);
 }
 
@@ -694,4 +727,5 @@ void fc() {
     printf("Closing file on FD %p",fd);
     fclose(fd);
 }
+
 

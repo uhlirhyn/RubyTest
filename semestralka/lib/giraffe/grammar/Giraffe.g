@@ -32,6 +32,7 @@ require './lib/giraffe/tree/closeFileTree.rb'
 require './lib/giraffe/tree/readNumberTree.rb'
 require './lib/giraffe/tree/nilTree.rb'
 require './lib/giraffe/tree/allocTree.rb'
+require './lib/giraffe/tree/sizeofTree.rb'
 require './lib/giraffe/operators.rb'
 }
 
@@ -259,6 +260,10 @@ openFile returns [result]
 	:	OPENFILE LB! expression RB! {$result = [OpenFileTree.new($expression.result),$OPENFILE.tree]} 
 	; 
 
+sizeOf returns [result]
+	:	SIZEOF LB! expression RB! {$result = [SizeofTree.new($expression.result),$SIZEOF.tree]} 
+	; 	
+
 readNumber returns [result]
 	:	READNUMBER LB! expression RB! {$result = [ReadNumberTree.new($expression.result),$READNUMBER.tree]} 
 	; 			
@@ -274,6 +279,7 @@ arrayIndexTarget returns [result]
 	|	string {$result = [StringTree.new($string.result),$string.tree]}
 	|	NULL {$result = [NilTree.new,$NULL.tree]}
 	|	openFile {$result = $openFile.result}
+	|	sizeOf {$result = $sizeOf.result}
 	|	readNumber {$result = $readNumber.result}
 	;
 
@@ -342,6 +348,7 @@ UNICODE_ESC
     :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
     ;	
 
+SIZEOF	:	'sizeof';
 ALLOC 	:	'alloc';
 READNUMBER:	'readNumber';
 CLOSEFILE

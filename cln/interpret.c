@@ -106,6 +106,10 @@ void bytecode_switch(char opcode) {
         printf("\e[36m-- ild \e[0m");
         ild();
         break;
+    case 0x1f:
+        printf("\e[36m-- szof \e[0m");
+        szof();
+        break;
 
         // rizeni behu programu
     case 0x09:

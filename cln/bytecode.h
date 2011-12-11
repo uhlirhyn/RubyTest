@@ -54,6 +54,9 @@ void alloc(vm_val size);
 // Clean allocation 0x1c 
 void clalloc();
 
+// size of memory object
+void szof();
+
 // Ulozeni do pameti 0x0d
 // ten base address je tam proto, 
 // abych dokazal rict, zda je po 

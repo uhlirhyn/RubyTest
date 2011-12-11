@@ -1,72 +1,52 @@
-narr (n) {
- 
-    result = [0,0]
-
-    tmp = result
-
-    for (i = 1; i < n; i = i + 1) {
-        tmp[1] = [0,0]
-        tmp = tmp[1]
-    }
-
-    return result
-}
-
-add(a,n) {
-   return 0 
-}
-
-nth(a,n) {
-   
-    tmp = a
-
-    for (i = 0; i < n; i = i + 1) {
-        if (n == i) {
-            return tmp[0]
-        } else {
-            tmp = tmp[1]
-        }
-    }
-    return tmp
-}
-
-# w ~ p=0
-# c ~ p=1
-sum(array,v,c,p) {
-
-    s = 0
-    ai = array  # puvodni pole
-    vi = v      # vektor
-    for (i = 0; i < c; i = i + 1) {
-        
-        # 0. je hodnoty [w,c]
-        # 1. je ukazatel do dalsiho listu 
-        s = s + ai[0][p] * vi[0]
-        
-        # skoc na dalsi prvek listu
-        ai = ai[1]  
-        vi = vi[1]
-    }
-    return s
-}
-
 # array je pole ze ktere se berou prvky
 # m je maximalni vaha
-# c je aktulne zvazovana vec
-go(array,m,c,val) {
+# i je aktulne zvazovana vec
+go(array,m,i,val) {
+
+    print(m)
+    print(i)
 
     # pokud je pocet polozek mensi nez 0
     # nebo nosnost batohu je mensi nez 0
     # tak skonci
-    if (m <= 0 || c <= 0) {
-        return 0
+    if (m <= 0) {
+        print("a")
+        return nil
+    }
+
+    if (i < 0) {
+        print("b")
+        ret = [0,0]
+        ret[0] = alloc(sizeof(array))
+        ret[1] = [0,0]      # suma vah a suma cen
+        return ret
     }
 
     # zkus variantu bez a variantu s 
-    with = go(array, m - array[c][0], c-1, val + array[c][1])
-    without = go(array, m, c-1, val)
+    
+    # u varianty s to preposli s vyssi cenou, ale nizsi nosnosti   
+    with = go(array, m - array[i][0], i-1, val + array[i][1])
+    print (with)
 
-    return 1
+    # u varianty bez uber pocet veci, 
+    # ale nosnost a hodnotu nech stejne
+    without = go(array, m, i-1, val)
+    print (without)
+    
+    # hloubka obou vetvi je stejna,
+    # takze to staci testovat na jedne
+    if (with != nil) {  
+        print(with)
+        with_w = with[1][1] + array[i][1]
+        without_w = without[1][1]
+        if (without_w < with_w) {
+            with[0][i] = 1
+            with[1][0] = with[1][0] + array[i][0]
+            with[1][1] = with[1][1] + array[i][1]
+            return with
+        }
+    }
+    return without
 }
 
 main {
@@ -91,11 +71,11 @@ main {
     }
 
     closeFile(file)
-
-    #arr = narr(3)
     
-    #result = go(a,m,c-1,0)
-    #print (result)
+    result = go(a,max_w,count-1,0)
+    for (i = 0; i < count; i = i + 1) {
+        print (result[i])
+    }
 
     return 1
 }

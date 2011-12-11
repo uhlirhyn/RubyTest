@@ -1,12 +1,12 @@
 module Opcodes
         
     # definice typu
-    BOOLEAN =   0x01
-    INTEGER =   0x02
-    CHARACTER = 0x40 
-    POINTER =   0x10
-    S_POINTER = 0x11
-    NULL =  0x1F
+    BOOLEAN     = 0x01
+    INTEGER     = 0x02
+    CHARACTER   = 0x40 
+    POINTER     = 0x10
+    S_POINTER   = 0x11
+    NULL        = 0x1F
 
     # skoky, rizeni programu
     JEQ     =   0x0f
@@ -21,6 +21,7 @@ module Opcodes
     ST      =   0x0d
     LD      =   0x0e
     CALLOC  =   0x1c
+    SZOF    =   0x1f
 
     # operace s lokalnimu promennymi
     PSL     =   0x1d

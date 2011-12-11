@@ -1,18 +1,25 @@
-int space() {
-    arr a
-    a = [11,22,33,44,55,66]
-    return 1
+space() {
+    return [11,22,33,44,55,66]
 }
 
 main {
-    arr a; arr b
+    
+    a = [space(),5]
+    
+    print(sizeof(a))
+    print(a)
 
-    a = [88]
-    space()
-    b = [2,7,8,63]
-    print(b[2])
-    print(b[0])
-    print(b[3])
-#print(b[4])
+    v = a[0][2]
+
+    print(v)
+
+    b = [[1,5],[7,8]]
+
+    print(b)
+
+    c = a[0][3] + b[0][1]
+
+    print(c)
+
     return 1
 }
