@@ -10,7 +10,7 @@ module Giraffe
         def initialize(functions)
             dbg("ProgramTree initialized",:ProgramTree)
             @functions = functions
-            @env = Env.new(:number) # program vzdy vraci number (exit x)
+            @env = Env.new # program vzdy vraci number (exit x)
         end
 
         def run

@@ -9,11 +9,10 @@ module Giraffe
         include Debug
         include Opcodes
 
-        def initialize(id,params,instructions,type)
+        def initialize(id,params,instructions)
             @id = id
             @params = params
             @instructions = instructions
-            @type = type
         end
 
         def where(place)
@@ -27,10 +26,10 @@ module Giraffe
             dbg("params '#{@params}'",:FuncTree)
 
             # probehla deklarace funkce
-            env.func!(@id, @params, @type)
+            env.func!(@id, @params)
             
             # zaloz si nove izolovane prostredi
-            env = Env.new(@type)
+            env = Env.new
 
             # registruj nazvy parametru
             env.register_params(@params)

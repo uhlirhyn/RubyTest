@@ -1,38 +1,101 @@
-int sum_w(arr v, int c) {
+narr (n) {
+ 
+    result = [0,0]
 
-    int sum
-    int i
-    for (i = 0; i < c; i = i + 1) {
-        sum = sum + v[i][0]
+    tmp = result
+
+    for (i = 1; i < n; i = i + 1) {
+        tmp[1] = [0,0]
+        tmp = tmp[1]
     }
-    return sum
+
+    return result
 }
 
-int go(arr array, int m, int c) {
+add(a,n) {
+   return 0 
+}
+
+nth(a,n) {
    
+    tmp = a
+
+    for (i = 0; i < n; i = i + 1) {
+        if (n == i) {
+            return tmp[0]
+        } else {
+            tmp = tmp[1]
+        }
+    }
+    return tmp
+}
+
+# w ~ p=0
+# c ~ p=1
+sum(array,v,c,p) {
+
+    s = 0
+    ai = array  # puvodni pole
+    vi = v      # vektor
+    for (i = 0; i < c; i = i + 1) {
+        
+        # 0. je hodnoty [w,c]
+        # 1. je ukazatel do dalsiho listu 
+        s = s + ai[0][p] * vi[0]
+        
+        # skoc na dalsi prvek listu
+        ai = ai[1]  
+        vi = vi[1]
+    }
+    return s
+}
+
+# array je pole ze ktere se berou prvky
+# m je maximalni vaha
+# c je aktulne zvazovana vec
+go(array,m,c,val) {
+
+    # pokud je pocet polozek mensi nez 0
+    # nebo nosnost batohu je mensi nez 0
+    # tak skonci
+    if (m <= 0 || c <= 0) {
+        return 0
+    }
+
+    # zkus variantu bez a variantu s 
+    with = go(array, m - array[c][0], c-1, val + array[c][1])
+    without = go(array, m, c-1, val)
+
     return 1
 }
 
 main {
 
-    int m
-    int c
+    # WI = 0
+    # CI = 1
 
-    m = 40
-    c = 8
+    file = openFile("testfile")
 
-    arr a
-    a = [   [1,5],
-            [4,8],
-            [5,6],
-            [1,5],
-            [8,8],
-            [7,5],
-            [99,2],
-            [1,23]
-        ]
+    id = readNumber(file) 
+    count = readNumber(file) 
+    max_w = readNumber(file) 
 
-    print (sum_w(a,c))
+    # alokuj si pole
+    a = alloc(count)
+
+    # read things
+    for (i = 0; i < count; i = i + 1) {
+        w = readNumber(file)
+        c = readNumber(file)
+        a[i] = [w,c]
+    }
+
+    closeFile(file)
+
+    #arr = narr(3)
+    
+    #result = go(a,m,c-1,0)
+    #print (result)
 
     return 1
 }

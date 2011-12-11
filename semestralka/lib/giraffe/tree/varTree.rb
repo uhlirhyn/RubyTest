@@ -48,7 +48,6 @@ module Giraffe
                 return nil, :error
             end
 
-            # vracim typ promenne a zpravu - treba :error 
             return return_value, msg
 
         end

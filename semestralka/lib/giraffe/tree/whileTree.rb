@@ -13,43 +13,37 @@ module Giraffe
 
         def run(env)
 
-            # WhileTree 
-            # - @condition nezpracovava zadnou zpravu
-            # - @instructions zpracovava :break
-            # - neprodukuje zadnou zpravu
-            # - normalni vystup je nil
-
             dbg("run",:WhileTree)
             dbg("@instructions.size #{@instructions == nil ? nil : @instructions.size}",:WhileTree)
-
+           
             # while podminka pri prvnim spusteni
             return_value, msg = @condition.run(env)
-            case msg  
-            when nil;
-            when :error then return return_value + "\n\tin while", msg
-            else return return_value, msg
+            return return_value, msg if msg != nil
+
+            # vloz instrukci skoku pokud nebude rovno
+            env.write_opcode(JNEQ)
+
+            # obstarej si navesti (hak)
+            # a vloz ho do sablony bytecodu
+            false_label = env.next_label
+            env.insert_hook(false_label)
+
+            # vnoruju se
+            env.return_dive
+
+            # jsem v cykl casti
+            env.return_branch_cycle
+
+            for i in @instructions do 
+                return_value, msg = i.run(env)
+                return return_value, msg if msg != nil
             end
 
-            while return_value do
-                for i in @instructions do 
-                    return_value, msg = i.run(env)
-                    case msg  
-                    when :break then return nil, nil
-                    when nil;
-                    when :error then return return_value + "\n\tin while", msg
-                    else return return_value, msg
-                    end
-                end
+            # vynoril jsem se
+            env.return_rise
 
-                # while podminka pri testovani z cyklu
-                return_value, msg = @condition.run(env)
-                case msg  
-                when nil;
-                when :error then return return_value + "\n\tin while", msg
-                else return return_value, msg
-                end
-
-            end
+            # vloz kotvu navesti
+            env.insert_anchor(false_label)
 
             return nil, nil
         end

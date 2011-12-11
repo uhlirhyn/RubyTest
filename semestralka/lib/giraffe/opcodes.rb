@@ -3,10 +3,13 @@ module Opcodes
     # definice typu
     BOOLEAN =   0x01
     INTEGER =   0x02
+    CHARACTER = 0x40 
     POINTER =   0x10
     S_POINTER = 0x11
+    NULL =  0x1F
 
     # skoky, rizeni programu
+    JEQ     =   0x0f
     JNEQ    =   0x10
     JMP     =   0x11
     RET     =   0x0a
@@ -14,9 +17,10 @@ module Opcodes
     RER     =   0x0b
 
     # pamet
-    ALOC    =   0x0c
+    ALLOC   =   0x0c
     ST      =   0x0d
     LD      =   0x0e
+    CALLOC  =   0x1c
 
     # operace s lokalnimu promennymi
     PSL     =   0x1d
@@ -53,5 +57,8 @@ module Opcodes
 
     # jine
     OUT     =   0x12
+    FO      =   0x13
+    RN      =   0x14
+    FC      =   0x15
 
 end

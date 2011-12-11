@@ -12,6 +12,12 @@ vm_val create_value(char * bytes, char type);
 
 // typed setters/getters
 
+vm_val create_nil();
+
+vm_val create_character(unsigned int data);
+
+unsigned int return_character(vm_val value);
+
 vm_val create_boolean(char data);
 
 char return_boolean(vm_val value);
@@ -44,6 +50,9 @@ int return_integer(vm_val value);
 // necha naalokovat pole int-u
 // a adresu zacatku da na stack
 void alloc(vm_val size);
+
+// Clean allocation 0x1c 
+void clalloc();
 
 // Ulozeni do pameti 0x0d
 // ten base address je tam proto, 
@@ -128,6 +137,10 @@ void jmp(vm_val address);
 // jump if not equal
 void jneq(vm_val address);
 
+// jeq 0x0f 
+// jump if equal
+void jeq(vm_val address);
+
 // call 0x09
 // http://unixwiz.net/techtips/win32-callconv-asm.html
 // call od adresy (parametry jsou jiz ulozene na zasobniku !!!)
@@ -169,3 +182,12 @@ void pas(vm_val offset_v);
 
 // control output 0x12
 void out();
+
+// file open 0x13
+void fo();
+
+// read number 0x14
+void rn();
+
+// close file 0x15
+void fc();

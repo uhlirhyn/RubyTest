@@ -26,7 +26,12 @@ require './lib/giraffe/tree/exitTree.rb'
 require './lib/giraffe/tree/returnTree.rb'
 require './lib/giraffe/tree/breakTree.rb'
 require './lib/giraffe/tree/readTree.rb'
-require './lib/giraffe/tree/declareTree.rb'
+require './lib/giraffe/tree/stringTree.rb'
+require './lib/giraffe/tree/openFileTree.rb'
+require './lib/giraffe/tree/closeFileTree.rb'
+require './lib/giraffe/tree/readNumberTree.rb'
+require './lib/giraffe/tree/nilTree.rb'
+require './lib/giraffe/tree/allocTree.rb'
 require './lib/giraffe/operators.rb'
 }
 
@@ -87,7 +92,7 @@ instruction returns [result]
 	|	exitInstruction {$result = $exitInstruction.result}
 	|	breakInstruction {$result = $breakInstruction.result}
 	|	aloneCall {$result = $aloneCall.result}
-	|	declaration {$result = $declaration.result}
+	|	closeFile {$result = $closeFile.result}
 	|	{$result = nil} 
 	;
 
@@ -124,7 +129,7 @@ printText returns [list]
 	; 
  	
 ifInstruction returns [result]	
-	:	IF^ condition LCB! block RCB! ifRest
+	:	IF^ LB! condition RB! LCB! block RCB! ifRest
 		{$result = [IfTree.new($condition.result,$block.list,$ifRest.result),$IF.tree]}
 	;
 
@@ -136,35 +141,30 @@ ifRest returns [result]
 	;
 
 whileCycle returns [result]
- 	:	WHILE condition LCB! block RCB!
- 		{$result = WhileTree.new($condition.result,$block.list)}
+ 	:	WHILE LB condition RB LCB! block RCB!
+ 		{$result = [WhileTree.new($condition.result,$block.list),$WHILE.tree]}
  	;
 
 doCycle	returns [result]
-	:	DO LCB! block RCB! WHILE condition
- 		{$result = DoTree.new($condition.result,$block.list)}
+	:	DO LCB! block RCB! WHILE LB condition RB
+ 		{$result = [DoTree.new($condition.result,$block.list),$DO.tree]}
  	;
 
 forCycle returns [result]
 	:	FOR LB as1=assignment (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  condition (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  as2=assignment RB LCB! block RCB!
-		{$result = ForTree.new($as1.result,$condition.result,$as2.result,$block.list)}
+		{$result = [ForTree.new($as1.result,$condition.result,$as2.result,$block.list), $FOR.tree]}
 	;	
 	
 func returns [result]
-	:	type ID (LB! params RB!)? LCB! block RCB!
-		{$result = [FuncTree.new($ID.text,$params.list == nil ? [] : $params.list,$block.list,$type.result),$type.tree]}
+	:	ID (LB! params RB!)? LCB! block RCB!
+		{$result = [FuncTree.new($ID.text,$params.list == nil ? [] : $params.list,$block.list),$ID.tree]}
 	|	MAIN^ LCB! block RCB!
-		{$result = [FuncTree.new("main",[],$block.list,:number),$MAIN.tree]}
-	;
-
-type returns [result]
-	:	ITYPE {$result = :number}
-	|	ATYPE {$result = :array}
+		{$result = [FuncTree.new("main",[],$block.list),$MAIN.tree]}
 	;
 
 params returns [list]
-	:	type ID paramRest
-		{$list = [[$ID.text,$type.result]] + $paramRest.list}
+	:	ID paramRest
+		{$list = [$ID.text] + $paramRest.list}
 	| 	{$list = []}
 	;
 
@@ -250,6 +250,18 @@ mulOperandRest returns [result]
 	:	arrayIndexTarget {$result = $arrayIndexTarget.result}	
 		('[' expression ']' { $result = [IndexTree.new($result,$expression.result),$expression.tree] })*		
 	;
+
+closeFile returns [result]
+	:	CLOSEFILE LB! expression RB! {$result = [CloseFileTree.new($expression.result),$CLOSEFILE.tree]} 
+	; 
+	
+openFile returns [result]
+	:	OPENFILE LB! expression RB! {$result = [OpenFileTree.new($expression.result),$OPENFILE.tree]} 
+	; 
+
+readNumber returns [result]
+	:	READNUMBER LB! expression RB! {$result = [ReadNumberTree.new($expression.result),$READNUMBER.tree]} 
+	; 			
 	
 arrayIndexTarget returns [result]
 	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
@@ -257,7 +269,12 @@ arrayIndexTarget returns [result]
 	|	INT {$result = [AtomTree.new($INT.text.to_i),$INT.tree]}
 	|	call {$result = $call.result}
 	|	array {$result = [ArrayTree.new($array.result),$array.tree]}
+	|	alloc {$result = [AllocTree.new($alloc.result),$alloc.tree]}
 	|	readInstruction {$result = $readInstruction.result}
+	|	string {$result = [StringTree.new($string.result),$string.tree]}
+	|	NULL {$result = [NilTree.new,$NULL.tree]}
+	|	openFile {$result = $openFile.result}
+	|	readNumber {$result = $readNumber.result}
 	;
 
 array returns [result]
@@ -266,6 +283,10 @@ array returns [result]
 		(COMMA '\n'? ex2=expression {$result << $ex2.result} )*)?
 		'\n'? ']'
 	;
+	
+alloc returns [result]
+	:	ALLOC LB! expression RB! {$result = [AllocTree.new($expression.result),$ALLOC.tree]} 
+	; 	
 
 // bere vnitrek a chova se k nemu
 // jako k adrese ktere prida offset
@@ -281,10 +302,6 @@ identified returns [result]
 	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
 	;
 
-declaration returns [result]
-	:	type ID	{$result = [DeclareTree.new($ID.text,$type.result),$type.tree]}
-	;
-
 assignment returns [result]
 	:	indexed ASSIGN^ expression { $result = [AssignTree.new($indexed.result,$expression.result),$indexed.tree] } 
 	;
@@ -293,10 +310,44 @@ fragment
 bool returns [result]	
 	:	TRUE	{$result = new AtomTree(1)}
 	| 	FALSE	{$result = new AtomTree(0)}
+	;   
+
+string returns [result]	
+	:	STRING {$result = $STRING.text[1..-2]}
 	;
-ITYPE	:	'int';
-ATYPE	:	'arr';    
-    
+
+STRING
+    :  '"' ( ESC_SEQ | ' ' | ~('\\'|'"'|' ') )* '"'
+    ;
+
+fragment
+HEX_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F') ;
+
+fragment
+ESC_SEQ
+    :   '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\'|'e')
+    |   UNICODE_ESC
+    |   OCTAL_ESC
+    ;
+
+fragment
+OCTAL_ESC
+    :   '\\' ('0'..'3') ('0'..'7') ('0'..'7')
+    |   '\\' ('0'..'7') ('0'..'7')
+    |   '\\' ('0'..'7')
+    ;
+
+fragment
+UNICODE_ESC
+    :   '\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+    ;	
+
+ALLOC 	:	'alloc';
+READNUMBER:	'readNumber';
+CLOSEFILE
+	:	'closeFile';
+OPENFILE:	'openFile';
+NULL	:	'nil';    
 MAIN	:	'main';
 READ	:	'read';
 PRINT	:	'print';
@@ -332,6 +383,7 @@ FLOAT
 
 COMMENT
     :   '#' ~('\n'|'\r')* {$channel=HIDDEN;}
+    |	'/*' ~('*/')* '*/' {$channel=HIDDEN;}
     ;
 
 WS  :   ( ' '

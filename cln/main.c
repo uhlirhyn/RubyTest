@@ -228,6 +228,13 @@ void init() {
         exit (-1);
     }
 
+    //===========
+    //    IO
+    //===========
+
+    fds = (FILE **) malloc(sizeof(FILE **) * fds_count);
+    free_fds = fds_count;
+
 }
 
 // alokuj v GC pameti 
@@ -297,6 +304,7 @@ int main ( int argc, char **argv ) {
     debugger = 0;
     heap_size = DEFAULT_HEAP_SIZE;
     stack_size = DEFAULT_STACK_SIZE;
+    fds_count = DEFAULT_FD_COUNT;
 
     // kontrola parametru
     if (argc < 3) { 

@@ -11,15 +11,20 @@ typedef enum {
     BOOLEAN = 0x01,     // true / false
     INTEGER = 0x02,     // cisla
 
+    // znak retezce
+    CHARACTER = 0x40,   // znak
+
     // ukazatele
     POINTER = 0x10,     // ukazatel do pameti - potrava pro GC
+    NIL = 0x1F,         // nil
 
     // systemove udaje
     S_POINTER = 0x11,   // ukazatel do zasobniku
     I_POINTER = 0x12,   // instruction pointer - ukazatel do programu
     SLOT_ID = 0x13,     // index slotu promenne
+    FILE_DESC = 0x14,   // file descrptor
     ARRAY_SIZE = 0x20,  // velikost pole
-    SCAVENGED = 0x30    // mark pro presunute objekty
+    SCAVENGED = 0x30,   // mark pro presunute objekty
 
 } vm_val_type;          
 
@@ -39,6 +44,7 @@ typedef struct vm_val {
     union {
         struct vm_val * pt;     // pro SP, FP
         struct vm_val * rf;     // pro heap
+        FILE * fd;              // file descriptor
         unsigned int sl;        // slot na stacku (local, arg
         unsigned int ip;        // instruction pointer
         int it;                 // int
@@ -55,6 +61,9 @@ struct gc * g;              // pamet (GC)
 char * output_filename;     // jmeno vystupniho souboru
 FILE * output_file;         // vystupni soubor
 struct vm_val ret_reg;      // registr pro navratove hodnoty funkci
+FILE ** fds;                // pole systemovych file deskriptoru
+int free_fds;               // kolik je volnych FD
+int fdsa_size;              // velikost pole FD
 
 // Aby se dali jednoduse realokovat 
 // pole, je potreba mit dvojitou 

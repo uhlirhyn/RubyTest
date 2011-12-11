@@ -43,10 +43,49 @@ vm_val create_value(char * bytes, char type) {
     switch (type) {
     case INTEGER:
         return create_integer(*(int *) bytes);
+    case BOOLEAN:
+        return create_boolean(*(char *) bytes);
+    case NIL:
+        return create_nil();
+    case CHARACTER:
+        return create_character(*(unsigned int *) bytes);
     default:
         fprintf(stderr, " \e[31mUknown value type\e[39m\n");
         abort();
     }
+}
+
+vm_val create_nil() {
+    vm_val value; 
+    value.head.type = NIL;
+    value.body.it = 0x00;   // pro uplnost
+    return value;
+}
+
+// NIL nema vnitrni implementaci - je to proste NIL
+
+vm_val create_fd(FILE * data) {
+    vm_val value; 
+    value.head.type = FILE_DESC;
+    value.body.fd = data;
+    return value;
+}
+
+FILE * return_fd(vm_val value) {
+    type_checker(value, FILE_DESC);
+    return value.body.fd;
+}
+
+vm_val create_character(unsigned int data) {
+    vm_val value; 
+    value.head.type = CHARACTER;
+    value.body.it = data;
+    return value;
+}
+
+unsigned int return_character(vm_val value) {
+    type_checker(value, CHARACTER);
+    return value.body.it;
 }
 
 vm_val create_boolean(char data) {
@@ -277,6 +316,24 @@ void alloc(vm_val size_v) {
     push(create_pointer(addr));
 }
 
+// Clean allocation 0x1c 
+void clalloc() {
+
+    int size = return_integer(pop());
+    vm_val * addr = allocate(size);
+    dbg(" +M%d", ((int) addr - (int) g->mem) / sizeof(vm_val));
+
+    // zapis delku pole na prvni polozku
+    addr->head.type = ARRAY_SIZE;
+    addr->body.sz = size;
+
+    // na zbytek polozek zapis nil
+    for (int i=0; i < size; i++) {
+        addr[i + 1] = create_nil();
+    }
+
+    push(create_pointer(addr));
+}
 
 
 // Cteni z pameti 0x0e
@@ -410,6 +467,8 @@ void ile() {
 void ieq() {
     vm_val op1 = pop();
     vm_val op2 = pop();
+    if (op1.head.type == NIL && op2.head.type == NIL)
+        push(create_boolean(1));
     push(create_boolean(op2.body.it == op1.body.it));
 }
 
@@ -429,6 +488,12 @@ void jmp(vm_val address) {
 // jump if not equal
 void jneq(vm_val address) {
     if (return_boolean(pop()) == 0) jmp(address);
+}
+
+// jeq 0x0f 
+// jump if equal
+void jeq(vm_val address) {
+    if (return_boolean(pop()) == 1) jmp(address);
 }
 
 // call 0x09
@@ -520,6 +585,113 @@ void pas(vm_val slot_val) {
 // control output 0x12
 void out() {
     vm_val value = pop(); 
-    printf("0x%02x (%d)", value.body.it, value.body.it);
-    fprintf(output_file, "%d\n", value.body.it);
+    switch (value.head.type) {
+    case BOOLEAN:
+        printf(" %s", value.body.it == 1 ? "true" : "false");
+        break;
+    case CHARACTER:
+        printf(" %c (%d)", value.body.it, value.body.it);
+        break;
+    case NIL:
+        printf(" nil"); 
+        break;
+    default:
+    case INTEGER:
+        printf(" 0x%02x (%d)", value.body.it, value.body.it);
+        break;
+    }
+    //fprintf(output_file, "%d\n", value.body.it);
 }
+
+// file open
+void fo() {      
+    
+    // je volny nejaky FD
+    if ( free_fds <= 0) {
+        fprintf(stderr, " \e[31m Out of file descriptors \e[39m\n");
+        abort();
+    }
+    
+    // na stacku by mela byt adresa 
+    // do pameti, kde je ulozeny
+    // nazev souboru, co se ma 
+    // otevrit
+    vm_val * file_name_mem_adr = return_pointer(pop());
+
+    // kontrola pole
+    mem_check(file_name_mem_adr, 0);
+
+    // kolik je znaku toho nazvu 
+    int name_size = file_name_mem_adr->body.sz;
+
+    // do fopen se ten nazev musi dat jako
+    // pole charu, takze to musim nahazet
+    // na zasobnik a prevest do pouzitelne
+    // podoby
+    //
+    // TODO ... no, melo - ja to ted pro 
+    // rychlost davam do samostatne pameti 
+    // (to by ve finale byt nemelo ...)
+    // Mohlo by tady totiz dochazet k memory
+    // leakum kdyz by nekdo vytvoril ku**vsky
+    // dlouhy text, tak by si ho giraffe naalo-
+    // koval uplne mimo bariery HEAP a STACK size
+    char * filename = (char*) malloc(sizeof(char) * name_size);
+    int i;
+    for (i=0; i < name_size; i++) {         
+        // 1 + i ... musim preskakovat ten udaj o delce 
+        filename[i] = (char) return_character(file_name_mem_adr[1+i]);
+    }
+
+    // a \0
+    filename[i] = '\0';
+
+    printf("Opening file: '%s'",filename);
+
+    // ziskany FD dej do pole
+    fds[free_fds-1] = fopen(filename,"r");
+
+    if (fds[free_fds-1] == NULL) {        
+        printf(" ... failed");
+        push(create_nil()); // pokud se nezdarilo otevreni, tak dej jako vysledek nil
+        return;
+    }
+
+    free_fds--;     // sniz pocet volnych FD
+
+    // TODO uvolni ten pomocny kus pameti
+    free(filename);
+
+    printf(" FD: %p", fds[free_fds]);
+
+    // uloz na stack FD
+    push(create_fd(fds[free_fds]));
+}
+
+// read number 0x14
+void rn() {
+
+    // na zasobniku by mel byt ulozeny FD 
+    FILE * fd = return_fd(pop());
+
+    int number;
+    if (fscanf(fd, "%d", &number) > 0 ) {
+        printf("From file on FD %p i've read number %d",fd,number);
+        push(create_integer(number));
+    } else {
+        printf(" ... failed");
+        push(create_nil()); // pokud se nezdarilo otevreni, tak dej jako vysledek nil
+        return;
+    }
+}
+
+// close file
+void fc() {
+
+    // na zasobniku by mel byt ulozeny FD 
+    FILE * fd = return_fd(pop());
+
+    printf("Closing file on FD %p",fd);
+    fclose(fd);
+}
+

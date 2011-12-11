@@ -30,15 +30,6 @@ module Giraffe
             return_value2, msg = @op2[0].run(env,@op2[1])
             return return_value2, msg if msg != nil
 
-            # kontrola typu operandu 
-            # - oba musi byt cislo 
-            if return_value1 != return_value2
-                puts red("Error: ") + 
-                    orange("Can't operate with #{return_value1} and #{return_value2}") + 
-                    where 
-                return nil,:error
-            end
-
             dbg("operands: #{return_value1} #{return_value2}",:BinaryOperatorTree)
            
             return_value, msg = @operator.call(return_value1,return_value2)
@@ -50,7 +41,7 @@ module Giraffe
             # binarni operator zatim
             # vraci pouze cislo - na
             # nic jineho operatory nemam
-            return :number, nil
+            return nil, nil
         end
         
     end

@@ -7,13 +7,7 @@ module Giraffe
 
         include Debug
         include Opcodes
-
-        # kolik je minimalni velikost pole
-        # k naalokovani ? Jinymi slovy, kdyz
-        # budu alokovat a = [] tak si dopredu 
-        # radeji naalokuju uz velikost napr. 2
-        MIN_ALLOC = 2
-
+        
         # Kotvy a haky
         # ----------------------------------------------
         # - kotva je misto kde je navesti
@@ -47,34 +41,32 @@ module Giraffe
 
         # variable
         class Var
-            def initialize(id,type)
+            def initialize(id)
                 @id = id        # id na stacku
-                @type = type    # typ
             end
 
-            attr_reader :type, :id
+            attr_reader :id
         end
 
         # funkce 
         class Func
-            def initialize(id,args,type)
+            def initialize(id,args)
                 @id = id        # jeji adresy v BC
                 @args = args    # argumenty
-                @type = type    # jaky je typ
             end
 
             def args_size 
                 @args == nil ? 0 : @args.size
             end
 
-            attr_reader :id, :args, :type
+            attr_reader :id, :args
         end
 
         @@functions = Hash.new(:undeclared)
         @@current_byte = 4
         @@bytecode = [0,0,0,0]    # prvni 4byte je adresa funkce main
 
-        def initialize(return_type,super_env=nil)
+        def initialize(super_env=nil)
             dbg("initialize (envID: #{self.object_id})",:Env)
             @variables = Hash.new(:undeclared)
             @classes = Hash.new(:undeclared)
@@ -88,7 +80,6 @@ module Giraffe
             @hooks = []        # mechanizmus na post-dopisovani adres navesti
             
             @return_depth = 0
-            @return_type = return_type
             @return_branching = [0]
             @return_code_part = []
         end
@@ -170,10 +161,10 @@ module Giraffe
                 @return_branching[@return_depth] = true if @return_branching[@return_depth] == :if
             end
  
-            dbg("return_found #{@return}",:Env)
+            dbg("return_found #{@return_code_part[@return_depth]}",:Env)
         end
 
-        attr_reader :level, :bytecode, :return_type
+        attr_reader :level, :bytecode
 
         def self.bytecode
             @@bytecode
@@ -204,9 +195,27 @@ module Giraffe
             write_bytecode(code)
         end
 
+        # zapis nil
+        def write_nil 
+            write_bytecode(NULL)
+            write_bytecode(0x00)
+            write_bytecode(0x00)
+            write_bytecode(0x00)
+            write_bytecode(0x00)
+        end
+        
         # zapis 4B
         def write_4B(value) 
             write_4B_to(value, @temp_bytecode)
+        end
+
+        # zapis znaku (4B)
+        def write_character(value) 
+            write_bytecode_to(CHARACTER, @temp_bytecode)
+            write_bytecode_to(value[0], @temp_bytecode)
+            write_bytecode_to(value[1], @temp_bytecode)
+            write_bytecode_to(value[2], @temp_bytecode)
+            write_bytecode_to(value[3], @temp_bytecode)
         end
 
         # zapis celeho cisla (int - 4B)
@@ -276,18 +285,18 @@ module Giraffe
                 else
                     write_opcode(PAS)           # budu zapisovat na zasobnik argument
                     write_4B(variable.id)      # jeho id
-                    return variable.type, nil   # vrat jeji typ k dalsim kontrolam
+                    return nil, nil  
                 end
             else 
                 write_opcode(PLS)           # budu zapisovat na zasobnik lokalni promennou
                 write_4B(variable.id)      # jeji id
-                return variable.type, nil   # vrat jeji typ k dalsim kontrolam
+                return nil, nil
             end
 
         end
 
         # deklaruje promennou
-        def declare(id,type)
+        def declare(id)
 
             # zjisti zda promenna jiz neexistuje
             variable = @variables[id]
@@ -303,11 +312,10 @@ module Giraffe
             end
 
             # jinak ji deklaruj
-            @variables[id] = Var.new(@locals,type)
+            @variables[id] = Var.new(@locals)
             @locals += 1
 
-            # vrat typ 
-            return type, nil
+            return @variables[id], nil
 
         end
 
@@ -325,23 +333,28 @@ module Giraffe
                 if variable != :undeclared
                     write_opcode(PSA)
                     write_4B(variable.id)      # jeho id
-                    return variable.type, nil   # vrat typ promenne aby
-                                                # se mohlo kontrolovat
+                    return nil, nil  
+                                    
                 else 
-                    return nil,:error
+                    return_value, msg = declare(id)
+                    return return_value, msg if msg != nil
+                    variable = return_value
                 end
-            else
-                # zapis obsah zasobniku 
-                # do lokalni promenne
-                write_opcode(PSL)
-                write_4B(variable.id)
-                return variable.type, nil   # vrat typ promenne aby
-                                            # se mohlo kontrolovat
             end
+
+            # spolecne pro nove 
+            # deklarovane, a uz
+            # deklarovane 
+
+            # zapis obsah zasobniku 
+            # do lokalni promenne
+            write_opcode(PSL)
+            write_4B(variable.id)
+            return nil, nil
         end
 
         # volam funkci
-        def func(id,arg_types) 
+        def func(id, args)
 
             function = @@functions[id]
 
@@ -352,20 +365,9 @@ module Giraffe
             end
 
             # ma stejny pocet argumentu ?
-            if arg_types.size != function.args_size
+            if args.size != function.args_size
                 return red("Error: ") + 
-                    orange("Function '#{id}' with #{arg_types.size} arguments is not declared"), :error
-            end
-
-            # jsou argumenty stejneho typu ?
-            arg_i = 0
-            for type in arg_types do
-                fa_type = function.args[arg_i].type
-                if type != fa_type 
-                    return red("Error: ") + 
-                        orange("Argument #{arg_i} in function '#{id}' is type of #{fa_type}, not #{type}"), :error
-                end
-                arg_i += 1
+                    orange("Function '#{id}' with #{args.size} arguments is not declared"), :error
             end
 
             # zavolej funkci
@@ -377,29 +379,28 @@ module Giraffe
             # je potreba uklidit po sobe parametry
             # navratovou hodnotu tim nemazu, ta je
             # uklizena do navratoveho registru ;)
-            arg_types.size.times do
+            args.size.times do
                 write_opcode(POP)
             end
 
             # push obsahu navratoveho registru
             write_opcode(RER)
 
-            # vrat typ navratove hodnoty funkce
-            return function.type, nil
+            return nil, nil
         end
 
         # zakladam funkci
-        def func!(id, params, type)
+        def func!(id, params)
             function = @@functions[id]
             if function == :undeclared 
 
-                # funkce je identifikovana svoji adresou, typem
+                # funkce je identifikovana svoji adresou
                 # a poctem parametru (to je tady jen pro compile kontrolu)
                 parameters = []
                 for p in params do
-                    parameters << Var.new(p[0],p[1])    # prevede do Var
+                    parameters << Var.new(p)    # prevede do Var
                 end
-                @@functions[id] = Func.new(@@current_byte, parameters, type)
+                @@functions[id] = Func.new(@@current_byte, parameters)
 
                 # pokud jsem definoval main, pak aktualni adresu dej do hlavicky
                 if id == "main" 
@@ -424,8 +425,7 @@ module Giraffe
             return if params == nil
             arg_i = params.size - 1
             for p in params 
-                # [0] = id, [1] = typ 
-                @arguments[p[0]] = Var.new(arg_i,p[1])
+                @arguments[p] = Var.new(arg_i)
                 arg_i -= 1
             end
         end

@@ -12,21 +12,10 @@ module Giraffe
             @elements = elements
         end
 
-        # ArrayTree
-        #
-        # Provadi alokace novych poli
-        #
         def run(env,tree)
 
             dbg("run",:ArrayTree)
           
-            # pokud jeste neco chybi, pak
-            # dosazej nulove prvky
-            for i in 1..(Env::MIN_ALLOC - @elements.size) do
-                env.write_opcode(PUSH)
-                env.write_int(0xFFFFFFFF)
-            end
-  
             # vypocitej hodnoty elementu
             # a vloz je na stack - je to pozpatku
             # aby se dalo ze stacku vybirat v poradi
@@ -40,15 +29,14 @@ module Giraffe
 
             # alokuj v pameti tolik kolik je 
             # velikost toho pole
-            env.write_opcode(ALOC)      
-            env.write_4B(@elements.size < Env::MIN_ALLOC ? 
-                          Env::MIN_ALLOC : @elements.size)    
+            env.write_opcode(ALLOC)      
+            env.write_4B(@elements.size)    
 
-            # ALOC udela to, ze sebere ty hodnoty ze stacku
+            # ALLOC udela to, ze sebere ty hodnoty ze stacku
             # a rovnou je nasazi do toho pole 
 
             # vysledkem je pole - resp. ukazatel
-            return :array, nil
+            return nil, nil
         end
 
     end

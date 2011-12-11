@@ -39,6 +39,7 @@ void parse_options(int argc, char ** argv) {
                 i++;
                 continue; 
             }
+            /** TODO - file descriptors limit **/
             printf("\n Unknown option '%s'\n\n",argv[i]);
             exit (0);
         }

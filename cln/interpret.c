@@ -37,6 +37,12 @@ void reset_vm() {
     //===========
 
     pr->ip = 0;
+    
+    //===========
+    //    IO
+    //===========
+    
+    // ...
 }
 
 // vezme dalsi byte z bytecodu
@@ -88,6 +94,10 @@ void bytecode_switch(char opcode) {
         printf("\e[36m %d + 1 slots (%d bytes)\e[0m", pi, (pi + 1) * sizeof(vm_val));
         alloc(create_integer(pi));
         break;
+    case 0x1c:
+        printf("\e[36m-- clalloc\e[0m");
+        clalloc();
+        break;
     case 0x0d:
         printf("\e[36m-- ist \e[0m");
         ist();
@@ -125,6 +135,16 @@ void bytecode_switch(char opcode) {
         pi = *((int *) pa);
         printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
         jneq(create_i_pointer(pi));
+        break;
+    case 0x0f:
+        printf("\e[36m-- jeq \e[0m");
+        pa[3] = next();
+        pa[2] = next();
+        pa[1] = next();
+        pa[0] = next();
+        pi = *((int *) pa);
+        printf("\e[36m%d (0x%02x)\e[0m",pi ,pi);
+        jeq(create_i_pointer(pi));
         break;
     case 0x11:
         printf("\e[36m-- jmp \e[0m");
@@ -244,11 +264,24 @@ void bytecode_switch(char opcode) {
         ieq();
         break;
 
-        // jine
+        // IO
     case 0x12:
         printf("\e[36m-- out\e[0m ");
         out();
         break;
+    case 0x13:
+        printf("\e[36m-- fo\e[0m ");
+        fo();
+        break;
+    case 0x14:
+        printf("\e[36m-- rn\e[0m ");
+        rn();
+        break;
+    case 0x15:
+        printf("\e[36m-- cf\e[0m ");
+        fc();
+        break;
+
     default:
         printf("\e[33m-- WARNING: Uknown opcode 0x%02x (ignored)\e[0m", opcode);
     }
