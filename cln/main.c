@@ -29,8 +29,7 @@ vm_val * examine_slot(vm_val * slot) {
     // a zkontroluj jestli neni pointer
     // pokud je, vem udaj z pameti a 
     // zkopiruj ho do vedle
-    // pokud neni vrat obsah co na tom 
-    // policku sedi 
+    // pokud neni vrat NULL
     if (slot->head.type != POINTER) return NULL;
 
     // vem referenci na ten cil
@@ -85,7 +84,7 @@ vm_val * examine_slot(vm_val * slot) {
     // pokud je, tak zkopiruj do nove pameti uz novy pointer
     // jinak kopiruj stary obsah
     // (prvni pole preskoc, tam je ten array size)
-    for (int i=1; i < size; i++) {
+    for (int i=1; i <= size; i++) {
                         
         changed_rf = examine_slot(source + i);  
         
