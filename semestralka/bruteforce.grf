@@ -3,6 +3,7 @@
 # i je aktulne zvazovana vec
 go(array,m,i,val) {
 
+    print("s")
     print(m)
     print(i)
 
@@ -26,26 +27,33 @@ go(array,m,i,val) {
     
     # u varianty s to preposli s vyssi cenou, ale nizsi nosnosti   
     with = go(array, m - array[i][0], i-1, val + array[i][1])
+    print("f")
     print (with)
 
     # u varianty bez uber pocet veci, 
     # ale nosnost a hodnotu nech stejne
     without = go(array, m, i-1, val)
+    print("e")
     print (without)
     
     # hloubka obou vetvi je stejna,
     # takze to staci testovat na jedne
     if (with != nil) {  
+        print("c")
         print(with)
         with_w = with[1][1] + array[i][1]
         without_w = without[1][1]
         if (without_w < with_w) {
+            print("d")
             with[0][i] = 1
             with[1][0] = with[1][0] + array[i][0]
             with[1][1] = with[1][1] + array[i][1]
             return with
         }
     }
+
+    # jinak to dej do without
+    without[0][i] = 0
     return without
 }
 
@@ -73,9 +81,11 @@ main {
     closeFile(file)
     
     result = go(a,max_w,count-1,0)
-    for (i = 0; i < count; i = i + 1) {
-        print (result[i])
-    }
+    print("r")
+    print(result)
+#for (i = 0; i < count; i = i + 1) {
+#        print (result[0][i])
+#    }
 
     return 1
 }
