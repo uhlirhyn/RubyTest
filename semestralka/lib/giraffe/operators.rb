@@ -61,4 +61,8 @@ module Operators
         return Opcodes::NEG, nil
     end
 
+    def Operators.not(x)
+        return Opcodes::NOT, nil
+    end
+
 end

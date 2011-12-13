@@ -35,8 +35,6 @@ module Giraffe
             return_value, msg = @target[0].run(env,@target[1],:store)
             return return_value, msg if msg != nil
 
-            dbg("assigning '#{@id}' to '#{return_value}'",:AssignTree)
-        
             return nil, nil
         end
 

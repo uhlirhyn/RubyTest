@@ -8,6 +8,7 @@ module Giraffe
                 |f|
                 counter = 0;
                 for byte in bytecode do
+                    #puts(byte.value)
                     f.write(byte.value.chr)
                     counter += 1
                 end

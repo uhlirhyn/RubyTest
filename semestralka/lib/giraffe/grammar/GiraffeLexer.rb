@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Jul 31, 2010 19:34:52
 # Ruby runtime library version: 1.8.11
 # Input grammar file: Giraffe.g
-# Generated at: 2011-12-13 20:20:22
+# Generated at: 2011-12-13 22:44:49
 # 
 
 # ~~~> start load path setup
@@ -66,21 +66,21 @@ module Giraffe
   module TokenData
 
     # define the token constants
-    define_tokens( :T__68 => 68, :T__66 => 66, :LT => 34, :MAIN => 27, :EXPONENT => 59, 
-                   :T__67 => 67, :T__65 => 65, :WHILE => 23, :RB => 11, 
-                   :MOD => 40, :OPENFILE => 42, :READNUMBER => 44, :OCTAL_ESC => 55, 
-                   :FOR => 25, :DO => 24, :FLOAT => 60, :NOT => 31, :RCB => 19, 
-                   :ID => 26, :AND => 30, :EOF => -1, :BREAK => 7, :IF => 17, 
-                   :QUOTE => 62, :ESC_SEQ => 52, :CONTINUE => 58, :QM => 64, 
-                   :COMMA => 16, :LCB => 18, :PRINTLN => 57, :RETURN => 8, 
-                   :PLUS => 12, :EQ => 32, :COMMENT => 4, :DOT => 28, :NE => 33, 
-                   :EXIT => 9, :GE => 37, :UNICODE_ESC => 54, :NULL => 46, 
-                   :ELSE => 20, :HEX_DIGIT => 53, :SEMICOLON => 5, :INT => 14, 
-                   :MINUS => 13, :MUL => 38, :TRUE => 49, :PRINT => 15, 
-                   :ELSEIF => 21, :PRINTL => 56, :COLON => 63, :ELIF => 22, 
-                   :WS => 61, :WRITEFILE => 45, :READ => 6, :OR => 29, :ASSIGN => 48, 
-                   :SIZEOF => 43, :ALLOC => 47, :GT => 35, :LB => 10, :CLOSEFILE => 41, 
-                   :DIV => 39, :FALSE => 50, :LE => 36, :STRING => 51 )
+    define_tokens( :T__68 => 68, :T__66 => 66, :LT => 30, :MAIN => 25, :EXPONENT => 58, 
+                   :T__67 => 67, :T__65 => 65, :WHILE => 21, :RB => 13, 
+                   :MOD => 37, :OPENFILE => 39, :READNUMBER => 41, :OCTAL_ESC => 52, 
+                   :FOR => 23, :DO => 22, :FLOAT => 59, :NOT => 34, :RCB => 17, 
+                   :ID => 24, :AND => 27, :EOF => -1, :BREAK => 56, :IF => 15, 
+                   :QUOTE => 61, :ESC_SEQ => 49, :CONTINUE => 57, :QM => 64, 
+                   :COMMA => 14, :LCB => 16, :PRINTLN => 54, :RETURN => 7, 
+                   :PLUS => 8, :EQ => 28, :DOT => 62, :COMMENT => 4, :NE => 29, 
+                   :EXIT => 55, :GE => 33, :UNICODE_ESC => 51, :NULL => 43, 
+                   :ELSE => 18, :HEX_DIGIT => 50, :SEMICOLON => 5, :INT => 10, 
+                   :MINUS => 9, :MUL => 35, :TRUE => 46, :PRINT => 11, :ELSEIF => 19, 
+                   :PRINTL => 53, :COLON => 63, :ELIF => 20, :WS => 60, 
+                   :WRITEFILE => 42, :READ => 6, :OR => 26, :ASSIGN => 45, 
+                   :SIZEOF => 40, :ALLOC => 44, :GT => 31, :LB => 12, :CLOSEFILE => 38, 
+                   :DIV => 36, :FALSE => 47, :LE => 32, :STRING => 48 )
     
   end
 
@@ -234,9 +234,9 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 345:8: '\"' ( ESC_SEQ | ' ' | ~ ( '\\\\' | '\"' | ' ' ) )* '\"'
+      # at line 338:8: '\"' ( ESC_SEQ | ' ' | ~ ( '\\\\' | '\"' | ' ' ) )* '\"'
       match( 0x22 )
-      # at line 345:12: ( ESC_SEQ | ' ' | ~ ( '\\\\' | '\"' | ' ' ) )*
+      # at line 338:12: ( ESC_SEQ | ' ' | ~ ( '\\\\' | '\"' | ' ' ) )*
       while true # decision 1
         alt_1 = 4
         look_1_0 = @input.peek( 1 )
@@ -251,15 +251,15 @@ module Giraffe
         end
         case alt_1
         when 1
-          # at line 345:14: ESC_SEQ
+          # at line 338:14: ESC_SEQ
           esc_seq!
 
         when 2
-          # at line 345:24: ' '
+          # at line 338:24: ' '
           match( 0x20 )
 
         when 3
-          # at line 345:30: ~ ( '\\\\' | '\"' | ' ' )
+          # at line 338:30: ~ ( '\\\\' | '\"' | ' ' )
           if @input.peek( 1 ).between?( 0x0, 0x1f ) || @input.peek(1) == 0x21 || @input.peek( 1 ).between?( 0x23, 0x5b ) || @input.peek( 1 ).between?( 0x5d, 0xff )
             @input.consume
           else
@@ -294,7 +294,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 349:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+      # at line 342:13: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
       if @input.peek( 1 ).between?( 0x30, 0x39 ) || @input.peek( 1 ).between?( 0x41, 0x46 ) || @input.peek( 1 ).between?( 0x61, 0x66 )
         @input.consume
       else
@@ -319,7 +319,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 353:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | 'e' ) | UNICODE_ESC | OCTAL_ESC )
+      # at line 346:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | 'e' ) | UNICODE_ESC | OCTAL_ESC )
       alt_2 = 3
       look_2_0 = @input.peek( 1 )
 
@@ -336,7 +336,7 @@ module Giraffe
       end
       case alt_2
       when 1
-        # at line 353:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | 'e' )
+        # at line 346:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | 'e' )
         match( 0x5c )
         if @input.peek(1) == 0x22 || @input.peek(1) == 0x27 || @input.peek(1) == 0x5c || @input.peek(1) == 0x62 || @input.peek( 1 ).between?( 0x65, 0x66 ) || @input.peek(1) == 0x6e || @input.peek(1) == 0x72 || @input.peek(1) == 0x74
           @input.consume
@@ -349,11 +349,11 @@ module Giraffe
 
 
       when 2
-        # at line 354:9: UNICODE_ESC
+        # at line 347:9: UNICODE_ESC
         unicode_esc!
 
       when 3
-        # at line 355:9: OCTAL_ESC
+        # at line 348:9: OCTAL_ESC
         octal_esc!
 
       end
@@ -371,7 +371,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 360:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+      # at line 353:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
       alt_3 = 3
       look_3_0 = @input.peek( 1 )
 
@@ -408,38 +408,38 @@ module Giraffe
       end
       case alt_3
       when 1
-        # at line 360:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+        # at line 353:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
         match( 0x5c )
-        # at line 360:14: ( '0' .. '3' )
-        # at line 360:15: '0' .. '3'
+        # at line 353:14: ( '0' .. '3' )
+        # at line 353:15: '0' .. '3'
         match_range( 0x30, 0x33 )
 
-        # at line 360:25: ( '0' .. '7' )
-        # at line 360:26: '0' .. '7'
+        # at line 353:25: ( '0' .. '7' )
+        # at line 353:26: '0' .. '7'
         match_range( 0x30, 0x37 )
 
-        # at line 360:36: ( '0' .. '7' )
-        # at line 360:37: '0' .. '7'
+        # at line 353:36: ( '0' .. '7' )
+        # at line 353:37: '0' .. '7'
         match_range( 0x30, 0x37 )
 
 
       when 2
-        # at line 361:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+        # at line 354:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
         match( 0x5c )
-        # at line 361:14: ( '0' .. '7' )
-        # at line 361:15: '0' .. '7'
+        # at line 354:14: ( '0' .. '7' )
+        # at line 354:15: '0' .. '7'
         match_range( 0x30, 0x37 )
 
-        # at line 361:25: ( '0' .. '7' )
-        # at line 361:26: '0' .. '7'
+        # at line 354:25: ( '0' .. '7' )
+        # at line 354:26: '0' .. '7'
         match_range( 0x30, 0x37 )
 
 
       when 3
-        # at line 362:9: '\\\\' ( '0' .. '7' )
+        # at line 355:9: '\\\\' ( '0' .. '7' )
         match( 0x5c )
-        # at line 362:14: ( '0' .. '7' )
-        # at line 362:15: '0' .. '7'
+        # at line 355:14: ( '0' .. '7' )
+        # at line 355:15: '0' .. '7'
         match_range( 0x30, 0x37 )
 
 
@@ -458,7 +458,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 367:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+      # at line 360:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
       match( 0x5c )
       match( 0x75 )
       hex_digit!
@@ -483,7 +483,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 370:10: 'sizeof'
+      # at line 363:10: 'sizeof'
       match( "sizeof" )
 
       
@@ -507,7 +507,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 371:10: 'alloc'
+      # at line 364:10: 'alloc'
       match( "alloc" )
 
       
@@ -531,7 +531,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 372:13: 'readNumber'
+      # at line 365:13: 'readNumber'
       match( "readNumber" )
 
       
@@ -555,7 +555,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 373:12: 'writeFile'
+      # at line 366:12: 'writeFile'
       match( "writeFile" )
 
       
@@ -579,7 +579,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 375:4: 'closeFile'
+      # at line 368:4: 'closeFile'
       match( "closeFile" )
 
       
@@ -603,7 +603,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 376:11: 'openFile'
+      # at line 369:11: 'openFile'
       match( "openFile" )
 
       
@@ -627,7 +627,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 377:8: 'nil'
+      # at line 370:8: 'nil'
       match( "nil" )
 
       
@@ -651,7 +651,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 378:8: 'main'
+      # at line 371:8: 'main'
       match( "main" )
 
       
@@ -675,7 +675,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 379:8: 'read'
+      # at line 372:8: 'read'
       match( "read" )
 
       
@@ -699,7 +699,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 380:9: 'print'
+      # at line 373:9: 'print'
       match( "print" )
 
       
@@ -723,7 +723,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 381:10: 'printl'
+      # at line 374:10: 'printl'
       match( "printl" )
 
       
@@ -747,7 +747,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 382:11: 'println'
+      # at line 375:11: 'println'
       match( "println" )
 
       
@@ -771,7 +771,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 383:8: 'true'
+      # at line 376:8: 'true'
       match( "true" )
 
       
@@ -795,7 +795,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 384:9: 'false'
+      # at line 377:9: 'false'
       match( "false" )
 
       
@@ -819,7 +819,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 385:7: 'for'
+      # at line 378:7: 'for'
       match( "for" )
 
       
@@ -843,7 +843,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 386:6: 'if'
+      # at line 379:6: 'if'
       match( "if" )
 
       
@@ -867,7 +867,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 387:8: 'else'
+      # at line 380:8: 'else'
       match( "else" )
 
       
@@ -891,7 +891,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 388:8: 'elif'
+      # at line 381:8: 'elif'
       match( "elif" )
 
       
@@ -915,7 +915,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 389:10: 'elseif'
+      # at line 382:10: 'elseif'
       match( "elseif" )
 
       
@@ -939,7 +939,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 390:9: 'while'
+      # at line 383:9: 'while'
       match( "while" )
 
       
@@ -963,7 +963,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 391:6: 'do'
+      # at line 384:6: 'do'
       match( "do" )
 
       
@@ -987,7 +987,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 392:10: 'return'
+      # at line 385:10: 'return'
       match( "return" )
 
       
@@ -1011,7 +1011,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 393:8: 'exit'
+      # at line 386:8: 'exit'
       match( "exit" )
 
       
@@ -1035,7 +1035,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 394:9: 'break'
+      # at line 387:9: 'break'
       match( "break" )
 
       
@@ -1059,7 +1059,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 395:11: 'continue'
+      # at line 388:11: 'continue'
       match( "continue" )
 
       
@@ -1083,7 +1083,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 398:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      # at line 391:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
       if @input.peek( 1 ).between?( 0x41, 0x5a ) || @input.peek(1) == 0x5f || @input.peek( 1 ).between?( 0x61, 0x7a )
         @input.consume
       else
@@ -1093,7 +1093,7 @@ module Giraffe
       end
 
 
-      # at line 398:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+      # at line 391:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
       while true # decision 4
         alt_4 = 2
         look_4_0 = @input.peek( 1 )
@@ -1141,8 +1141,8 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 401:7: ( '0' .. '9' )+
-      # at file 401:7: ( '0' .. '9' )+
+      # at line 394:7: ( '0' .. '9' )+
+      # at file 394:7: ( '0' .. '9' )+
       match_count_5 = 0
       while true
         alt_5 = 2
@@ -1154,7 +1154,7 @@ module Giraffe
         end
         case alt_5
         when 1
-          # at line 401:7: '0' .. '9'
+          # at line 394:7: '0' .. '9'
           match_range( 0x30, 0x39 )
 
         else
@@ -1186,13 +1186,13 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 406:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+      # at line 399:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
       alt_12 = 3
       alt_12 = @dfa12.predict( @input )
       case alt_12
       when 1
-        # at line 406:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
-        # at file 406:9: ( '0' .. '9' )+
+        # at line 399:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+        # at file 399:9: ( '0' .. '9' )+
         match_count_6 = 0
         while true
           alt_6 = 2
@@ -1204,7 +1204,7 @@ module Giraffe
           end
           case alt_6
           when 1
-            # at line 406:10: '0' .. '9'
+            # at line 399:10: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
@@ -1218,7 +1218,7 @@ module Giraffe
         end
 
         match( 0x2e )
-        # at line 406:25: ( '0' .. '9' )*
+        # at line 399:25: ( '0' .. '9' )*
         while true # decision 7
           alt_7 = 2
           look_7_0 = @input.peek( 1 )
@@ -1229,14 +1229,14 @@ module Giraffe
           end
           case alt_7
           when 1
-            # at line 406:26: '0' .. '9'
+            # at line 399:26: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
             break # out of loop for decision 7
           end
         end # loop for decision 7
-        # at line 406:37: ( EXPONENT )?
+        # at line 399:37: ( EXPONENT )?
         alt_8 = 2
         look_8_0 = @input.peek( 1 )
 
@@ -1245,15 +1245,15 @@ module Giraffe
         end
         case alt_8
         when 1
-          # at line 406:37: EXPONENT
+          # at line 399:37: EXPONENT
           exponent!
 
         end
 
       when 2
-        # at line 407:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+        # at line 400:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
         match( 0x2e )
-        # at file 407:13: ( '0' .. '9' )+
+        # at file 400:13: ( '0' .. '9' )+
         match_count_9 = 0
         while true
           alt_9 = 2
@@ -1265,7 +1265,7 @@ module Giraffe
           end
           case alt_9
           when 1
-            # at line 407:14: '0' .. '9'
+            # at line 400:14: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
@@ -1278,7 +1278,7 @@ module Giraffe
           match_count_9 += 1
         end
 
-        # at line 407:25: ( EXPONENT )?
+        # at line 400:25: ( EXPONENT )?
         alt_10 = 2
         look_10_0 = @input.peek( 1 )
 
@@ -1287,14 +1287,14 @@ module Giraffe
         end
         case alt_10
         when 1
-          # at line 407:25: EXPONENT
+          # at line 400:25: EXPONENT
           exponent!
 
         end
 
       when 3
-        # at line 408:9: ( '0' .. '9' )+ EXPONENT
-        # at file 408:9: ( '0' .. '9' )+
+        # at line 401:9: ( '0' .. '9' )+ EXPONENT
+        # at file 401:9: ( '0' .. '9' )+
         match_count_11 = 0
         while true
           alt_11 = 2
@@ -1306,7 +1306,7 @@ module Giraffe
           end
           case alt_11
           when 1
-            # at line 408:10: '0' .. '9'
+            # at line 401:10: '0' .. '9'
             match_range( 0x30, 0x39 )
 
           else
@@ -1339,100 +1339,38 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 412:5: ( '#' (~ ( '\\n' | '\\r' ) )* | '/*' (~ ( '*/' ) )* '*/' )
-      alt_15 = 2
-      look_15_0 = @input.peek( 1 )
+      # at line 405:9: '#' (~ ( '\\n' | '\\r' ) )*
+      match( 0x23 )
+      # at line 405:13: (~ ( '\\n' | '\\r' ) )*
+      while true # decision 13
+        alt_13 = 2
+        look_13_0 = @input.peek( 1 )
 
-      if ( look_15_0 == 0x23 )
-        alt_15 = 1
-      elsif ( look_15_0 == 0x2f )
-        alt_15 = 2
-      else
-        raise NoViableAlternative( "", 15, 0 )
-      end
-      case alt_15
-      when 1
-        # at line 412:9: '#' (~ ( '\\n' | '\\r' ) )*
-        match( 0x23 )
-        # at line 412:13: (~ ( '\\n' | '\\r' ) )*
-        while true # decision 13
-          alt_13 = 2
-          look_13_0 = @input.peek( 1 )
+        if ( look_13_0.between?( 0x0, 0x9 ) || look_13_0.between?( 0xb, 0xc ) || look_13_0.between?( 0xe, 0xffff ) )
+          alt_13 = 1
 
-          if ( look_13_0.between?( 0x0, 0x9 ) || look_13_0.between?( 0xb, 0xc ) || look_13_0.between?( 0xe, 0xffff ) )
-            alt_13 = 1
-
-          end
-          case alt_13
-          when 1
-            # at line 412:13: ~ ( '\\n' | '\\r' )
-            if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xc ) || @input.peek( 1 ).between?( 0xe, 0xff )
-              @input.consume
-            else
-              mse = MismatchedSet( nil )
-              recover mse
-              raise mse
-            end
-
-
-
+        end
+        case alt_13
+        when 1
+          # at line 405:13: ~ ( '\\n' | '\\r' )
+          if @input.peek( 1 ).between?( 0x0, 0x9 ) || @input.peek( 1 ).between?( 0xb, 0xc ) || @input.peek( 1 ).between?( 0xe, 0xff )
+            @input.consume
           else
-            break # out of loop for decision 13
+            mse = MismatchedSet( nil )
+            recover mse
+            raise mse
           end
-        end # loop for decision 13
-        # --> action
-        channel=HIDDEN;
-        # <-- action
-
-      when 2
-        # at line 413:7: '/*' (~ ( '*/' ) )* '*/'
-        match( "/*" )
-        # at line 413:12: (~ ( '*/' ) )*
-        while true # decision 14
-          alt_14 = 2
-          look_14_0 = @input.peek( 1 )
-
-          if ( look_14_0 == 0x2a )
-            look_14_1 = @input.peek( 2 )
-
-            if ( look_14_1 == 0x2f )
-              look_14_3 = @input.peek( 3 )
-
-              if ( look_14_3.between?( 0x0, 0xffff ) )
-                alt_14 = 1
-
-              end
-            elsif ( look_14_1.between?( 0x0, 0x2e ) || look_14_1.between?( 0x30, 0xffff ) )
-              alt_14 = 1
-
-            end
-          elsif ( look_14_0.between?( 0x0, 0x29 ) || look_14_0.between?( 0x2b, 0xffff ) )
-            alt_14 = 1
-
-          end
-          case alt_14
-          when 1
-            # at line 413:12: ~ ( '*/' )
-            if @input.peek( 1 ).between?( 0x0, 0xff )
-              @input.consume
-            else
-              mse = MismatchedSet( nil )
-              recover mse
-              raise mse
-            end
 
 
 
-          else
-            break # out of loop for decision 14
-          end
-        end # loop for decision 14
-        match( "*/" )
-        # --> action
-        channel=HIDDEN;
-        # <-- action
+        else
+          break # out of loop for decision 13
+        end
+      end # loop for decision 13
+      # --> action
+      channel=HIDDEN;
+      # <-- action
 
-      end
       
       @state.type = type
       @state.channel = channel
@@ -1454,7 +1392,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 416:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+      # at line 408:9: ( ' ' | '\\t' | '\\r' | '\\n' )
       if @input.peek( 1 ).between?( 0x9, 0xa ) || @input.peek(1) == 0xd || @input.peek(1) == 0x20
         @input.consume
       else
@@ -1486,7 +1424,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 424:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+      # at line 416:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
       if @input.peek(1) == 0x45 || @input.peek(1) == 0x65
         @input.consume
       else
@@ -1496,14 +1434,14 @@ module Giraffe
       end
 
 
-      # at line 424:22: ( '+' | '-' )?
-      alt_16 = 2
-      look_16_0 = @input.peek( 1 )
+      # at line 416:22: ( '+' | '-' )?
+      alt_14 = 2
+      look_14_0 = @input.peek( 1 )
 
-      if ( look_16_0 == 0x2b || look_16_0 == 0x2d )
-        alt_16 = 1
+      if ( look_14_0 == 0x2b || look_14_0 == 0x2d )
+        alt_14 = 1
       end
-      case alt_16
+      case alt_14
       when 1
         # at line 
         if @input.peek(1) == 0x2b || @input.peek(1) == 0x2d
@@ -1517,29 +1455,29 @@ module Giraffe
 
 
       end
-      # at file 424:33: ( '0' .. '9' )+
-      match_count_17 = 0
+      # at file 416:33: ( '0' .. '9' )+
+      match_count_15 = 0
       while true
-        alt_17 = 2
-        look_17_0 = @input.peek( 1 )
+        alt_15 = 2
+        look_15_0 = @input.peek( 1 )
 
-        if ( look_17_0.between?( 0x30, 0x39 ) )
-          alt_17 = 1
+        if ( look_15_0.between?( 0x30, 0x39 ) )
+          alt_15 = 1
 
         end
-        case alt_17
+        case alt_15
         when 1
-          # at line 424:34: '0' .. '9'
+          # at line 416:34: '0' .. '9'
           match_range( 0x30, 0x39 )
 
         else
-          match_count_17 > 0 and break
-          eee = EarlyExit(17)
+          match_count_15 > 0 and break
+          eee = EarlyExit(15)
 
 
           raise eee
         end
-        match_count_17 += 1
+        match_count_15 += 1
       end
 
 
@@ -1560,7 +1498,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 426:6: '('
+      # at line 418:6: '('
       match( 0x28 )
 
       
@@ -1584,7 +1522,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 427:6: ')'
+      # at line 419:6: ')'
       match( 0x29 )
 
       
@@ -1608,7 +1546,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 428:7: '{'
+      # at line 420:7: '{'
       match( 0x7b )
 
       
@@ -1632,7 +1570,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 429:7: '}'
+      # at line 421:7: '}'
       match( 0x7d )
 
       
@@ -1656,7 +1594,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 430:9: '\"'
+      # at line 422:9: '\"'
       match( 0x22 )
 
       
@@ -1680,7 +1618,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 431:9: ','
+      # at line 423:9: ','
       match( 0x2c )
 
       
@@ -1704,7 +1642,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 432:7: '.'
+      # at line 424:7: '.'
       match( 0x2e )
 
       
@@ -1728,7 +1666,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 433:9: ':'
+      # at line 425:9: ':'
       match( 0x3a )
 
       
@@ -1752,7 +1690,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 435:4: ';'
+      # at line 427:4: ';'
       match( 0x3b )
 
       
@@ -1776,7 +1714,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 436:10: '='
+      # at line 428:10: '='
       match( 0x3d )
 
       
@@ -1800,7 +1738,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 437:8: '+'
+      # at line 429:8: '+'
       match( 0x2b )
 
       
@@ -1824,7 +1762,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 438:9: '-'
+      # at line 430:9: '-'
       match( 0x2d )
 
       
@@ -1848,7 +1786,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 439:7: '*'
+      # at line 431:7: '*'
       match( 0x2a )
 
       
@@ -1872,7 +1810,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 440:7: '/'
+      # at line 432:7: '/'
       match( 0x2f )
 
       
@@ -1896,7 +1834,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 441:7: '%'
+      # at line 433:7: '%'
       match( 0x25 )
 
       
@@ -1920,7 +1858,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 443:6: '=='
+      # at line 435:6: '=='
       match( "==" )
 
       
@@ -1944,7 +1882,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 444:6: '!='
+      # at line 436:6: '!='
       match( "!=" )
 
       
@@ -1968,7 +1906,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 445:6: '<'
+      # at line 437:6: '<'
       match( 0x3c )
 
       
@@ -1992,7 +1930,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 446:6: '>'
+      # at line 438:6: '>'
       match( 0x3e )
 
       
@@ -2016,7 +1954,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 447:6: '<='
+      # at line 439:6: '<='
       match( "<=" )
 
       
@@ -2040,7 +1978,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 448:6: '>='
+      # at line 440:6: '>='
       match( ">=" )
 
       
@@ -2064,7 +2002,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 450:7: '&&'
+      # at line 442:7: '&&'
       match( "&&" )
 
       
@@ -2088,7 +2026,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 451:6: '||'
+      # at line 443:6: '||'
       match( "||" )
 
       
@@ -2112,7 +2050,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 452:7: '!'
+      # at line 444:7: '!'
       match( 0x21 )
 
       
@@ -2136,7 +2074,7 @@ module Giraffe
 
       
       # - - - - main rule block - - - -
-      # at line 454:6: '?'
+      # at line 446:6: '?'
       match( 0x3f )
 
       
@@ -2158,9 +2096,9 @@ module Giraffe
     # build and emit the actual next token
     def token!
       # at line 1:8: ( T__65 | T__66 | T__67 | T__68 | STRING | SIZEOF | ALLOC | READNUMBER | WRITEFILE | CLOSEFILE | OPENFILE | NULL | MAIN | READ | PRINT | PRINTL | PRINTLN | TRUE | FALSE | FOR | IF | ELSE | ELIF | ELSEIF | WHILE | DO | RETURN | EXIT | BREAK | CONTINUE | ID | INT | COMMENT | WS | LB | RB | LCB | RCB | QUOTE | COMMA | DOT | COLON | SEMICOLON | ASSIGN | PLUS | MINUS | MUL | DIV | MOD | EQ | NE | LT | GT | LE | GE | AND | OR | NOT | QM )
-      alt_18 = 59
-      alt_18 = @dfa18.predict( @input )
-      case alt_18
+      alt_16 = 59
+      alt_16 = @dfa16.predict( @input )
+      case alt_16
       when 1
         # at line 1:10: T__65
         t__65!
@@ -2428,80 +2366,79 @@ module Giraffe
 
       def description
         <<-'__dfa_description__'.strip!
-          404:1: fragment FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );
+          397:1: fragment FLOAT : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT );
         __dfa_description__
       end
     end
-    class DFA18 < ANTLR3::DFA
-      EOT = unpack( 5, -1, 1, 48, 15, 21, 3, -1, 1, 68, 9, -1, 1, 70, 4, 
-                    -1, 1, 72, 1, 74, 1, 76, 7, -1, 14, 21, 1, 92, 2, 21, 
-                    1, 96, 1, 21, 9, -1, 9, 21, 1, 107, 4, 21, 1, 112, 1, 
-                    -1, 3, 21, 1, -1, 3, 21, 1, 120, 6, 21, 1, -1, 1, 127, 
-                    1, 21, 1, 129, 1, 21, 1, -1, 1, 132, 1, 133, 1, 134, 
-                    2, 21, 1, 137, 1, 21, 1, -1, 2, 21, 1, 141, 3, 21, 1, 
-                    -1, 1, 146, 1, -1, 1, 147, 1, 21, 3, -1, 1, 149, 1, 
-                    150, 1, -1, 1, 21, 1, 152, 1, 21, 1, -1, 3, 21, 1, 158, 
-                    2, -1, 1, 159, 2, -1, 1, 21, 1, -1, 4, 21, 1, 165, 2, 
-                    -1, 3, 21, 1, 169, 1, 170, 1, -1, 1, 21, 1, 172, 1, 
-                    173, 2, -1, 1, 174, 3, -1 )
-      EOF = unpack( 175, -1 )
+    class DFA16 < ANTLR3::DFA
+      EOT = unpack( 5, -1, 1, 48, 15, 21, 12, -1, 1, 69, 5, -1, 1, 71, 1, 
+                    73, 1, 75, 7, -1, 14, 21, 1, 91, 2, 21, 1, 95, 1, 21, 
+                    8, -1, 9, 21, 1, 106, 4, 21, 1, 111, 1, -1, 3, 21, 1, 
+                    -1, 3, 21, 1, 119, 6, 21, 1, -1, 1, 126, 1, 21, 1, 128, 
+                    1, 21, 1, -1, 1, 131, 1, 132, 1, 133, 2, 21, 1, 136, 
+                    1, 21, 1, -1, 2, 21, 1, 140, 3, 21, 1, -1, 1, 145, 1, 
+                    -1, 1, 146, 1, 21, 3, -1, 1, 148, 1, 149, 1, -1, 1, 
+                    21, 1, 151, 1, 21, 1, -1, 3, 21, 1, 157, 2, -1, 1, 158, 
+                    2, -1, 1, 21, 1, -1, 4, 21, 1, 164, 2, -1, 3, 21, 1, 
+                    168, 1, 169, 1, -1, 1, 21, 1, 171, 1, 172, 2, -1, 1, 
+                    173, 3, -1 )
+      EOF = unpack( 174, -1 )
       MIN = unpack( 1, 9, 4, -1, 1, 0, 1, 105, 1, 108, 1, 101, 1, 104, 1, 
                     108, 1, 112, 1, 105, 1, 97, 2, 114, 1, 97, 1, 102, 1, 
-                    108, 1, 111, 1, 114, 3, -1, 1, 42, 9, -1, 1, 61, 4, 
-                    -1, 3, 61, 7, -1, 1, 122, 1, 108, 1, 97, 2, 105, 1, 
-                    111, 1, 110, 1, 101, 1, 108, 2, 105, 1, 117, 1, 108, 
-                    1, 114, 1, 48, 2, 105, 1, 48, 1, 101, 9, -1, 1, 101, 
-                    1, 111, 1, 100, 1, 117, 1, 116, 1, 108, 1, 115, 1, 116, 
-                    1, 110, 1, 48, 2, 110, 1, 101, 1, 115, 1, 48, 1, -1, 
-                    1, 101, 1, 102, 1, 116, 1, -1, 1, 97, 1, 111, 1, 99, 
-                    1, 48, 1, 114, 3, 101, 1, 105, 1, 70, 1, -1, 1, 48, 
-                    1, 116, 1, 48, 1, 101, 1, -1, 3, 48, 1, 107, 1, 102, 
-                    1, 48, 1, 117, 1, -1, 1, 110, 1, 70, 1, 48, 1, 70, 1, 
-                    110, 1, 105, 1, -1, 1, 48, 1, -1, 1, 48, 1, 102, 3, 
-                    -1, 2, 48, 1, -1, 1, 109, 1, 48, 1, 105, 1, -1, 1, 105, 
-                    1, 117, 1, 108, 1, 48, 2, -1, 1, 48, 2, -1, 1, 98, 1, 
-                    -1, 2, 108, 2, 101, 1, 48, 2, -1, 3, 101, 2, 48, 1, 
-                    -1, 1, 114, 2, 48, 2, -1, 1, 48, 3, -1 )
+                    108, 1, 111, 1, 114, 12, -1, 1, 61, 5, -1, 3, 61, 7, 
+                    -1, 1, 122, 1, 108, 1, 97, 2, 105, 1, 111, 1, 110, 1, 
+                    101, 1, 108, 2, 105, 1, 117, 1, 108, 1, 114, 1, 48, 
+                    2, 105, 1, 48, 1, 101, 8, -1, 1, 101, 1, 111, 1, 100, 
+                    1, 117, 1, 116, 1, 108, 1, 115, 1, 116, 1, 110, 1, 48, 
+                    2, 110, 1, 101, 1, 115, 1, 48, 1, -1, 1, 101, 1, 102, 
+                    1, 116, 1, -1, 1, 97, 1, 111, 1, 99, 1, 48, 1, 114, 
+                    3, 101, 1, 105, 1, 70, 1, -1, 1, 48, 1, 116, 1, 48, 
+                    1, 101, 1, -1, 3, 48, 1, 107, 1, 102, 1, 48, 1, 117, 
+                    1, -1, 1, 110, 1, 70, 1, 48, 1, 70, 1, 110, 1, 105, 
+                    1, -1, 1, 48, 1, -1, 1, 48, 1, 102, 3, -1, 2, 48, 1, 
+                    -1, 1, 109, 1, 48, 1, 105, 1, -1, 1, 105, 1, 117, 1, 
+                    108, 1, 48, 2, -1, 1, 48, 2, -1, 1, 98, 1, -1, 2, 108, 
+                    2, 101, 1, 48, 2, -1, 3, 101, 2, 48, 1, -1, 1, 114, 
+                    2, 48, 2, -1, 1, 48, 3, -1 )
       MAX = unpack( 1, 125, 4, -1, 1, -1, 1, 105, 1, 108, 1, 101, 1, 114, 
                     1, 111, 1, 112, 1, 105, 1, 97, 2, 114, 1, 111, 1, 102, 
-                    1, 120, 1, 111, 1, 114, 3, -1, 1, 42, 9, -1, 1, 61, 
-                    4, -1, 3, 61, 7, -1, 1, 122, 1, 108, 1, 116, 2, 105, 
-                    1, 111, 1, 110, 1, 101, 1, 108, 2, 105, 1, 117, 1, 108, 
-                    1, 114, 1, 122, 1, 115, 1, 105, 1, 122, 1, 101, 9, -1, 
-                    1, 101, 1, 111, 1, 100, 1, 117, 1, 116, 1, 108, 1, 115, 
-                    1, 116, 1, 110, 1, 122, 2, 110, 1, 101, 1, 115, 1, 122, 
-                    1, -1, 1, 101, 1, 102, 1, 116, 1, -1, 1, 97, 1, 111, 
-                    1, 99, 1, 122, 1, 114, 3, 101, 1, 105, 1, 70, 1, -1, 
-                    1, 122, 1, 116, 1, 122, 1, 101, 1, -1, 3, 122, 1, 107, 
-                    1, 102, 1, 122, 1, 117, 1, -1, 1, 110, 1, 70, 1, 122, 
-                    1, 70, 1, 110, 1, 105, 1, -1, 1, 122, 1, -1, 1, 122, 
-                    1, 102, 3, -1, 2, 122, 1, -1, 1, 109, 1, 122, 1, 105, 
-                    1, -1, 1, 105, 1, 117, 1, 108, 1, 122, 2, -1, 1, 122, 
-                    2, -1, 1, 98, 1, -1, 2, 108, 2, 101, 1, 122, 2, -1, 
-                    3, 101, 2, 122, 1, -1, 1, 114, 2, 122, 2, -1, 1, 122, 
-                    3, -1 )
+                    1, 120, 1, 111, 1, 114, 12, -1, 1, 61, 5, -1, 3, 61, 
+                    7, -1, 1, 122, 1, 108, 1, 116, 2, 105, 1, 111, 1, 110, 
+                    1, 101, 1, 108, 2, 105, 1, 117, 1, 108, 1, 114, 1, 122, 
+                    1, 115, 1, 105, 1, 122, 1, 101, 8, -1, 1, 101, 1, 111, 
+                    1, 100, 1, 117, 1, 116, 1, 108, 1, 115, 1, 116, 1, 110, 
+                    1, 122, 2, 110, 1, 101, 1, 115, 1, 122, 1, -1, 1, 101, 
+                    1, 102, 1, 116, 1, -1, 1, 97, 1, 111, 1, 99, 1, 122, 
+                    1, 114, 3, 101, 1, 105, 1, 70, 1, -1, 1, 122, 1, 116, 
+                    1, 122, 1, 101, 1, -1, 3, 122, 1, 107, 1, 102, 1, 122, 
+                    1, 117, 1, -1, 1, 110, 1, 70, 1, 122, 1, 70, 1, 110, 
+                    1, 105, 1, -1, 1, 122, 1, -1, 1, 122, 1, 102, 3, -1, 
+                    2, 122, 1, -1, 1, 109, 1, 122, 1, 105, 1, -1, 1, 105, 
+                    1, 117, 1, 108, 1, 122, 2, -1, 1, 122, 2, -1, 1, 98, 
+                    1, -1, 2, 108, 2, 101, 1, 122, 2, -1, 3, 101, 2, 122, 
+                    1, -1, 1, 114, 2, 122, 2, -1, 1, 122, 3, -1 )
       ACCEPT = unpack( 1, -1, 1, 1, 1, 2, 1, 3, 1, 4, 16, -1, 1, 31, 1, 
-                       32, 1, 33, 1, -1, 1, 34, 1, 35, 1, 36, 1, 37, 1, 
-                       38, 1, 40, 1, 41, 1, 42, 1, 43, 1, -1, 1, 45, 1, 
-                       46, 1, 47, 1, 49, 3, -1, 1, 56, 1, 57, 1, 59, 1, 
-                       1, 1, 2, 1, 5, 1, 39, 19, -1, 1, 48, 1, 50, 1, 44, 
-                       1, 51, 1, 58, 1, 54, 1, 52, 1, 55, 1, 53, 15, -1, 
-                       1, 21, 3, -1, 1, 26, 10, -1, 1, 12, 4, -1, 1, 20, 
-                       7, -1, 1, 14, 6, -1, 1, 13, 1, -1, 1, 18, 2, -1, 
-                       1, 22, 1, 23, 1, 28, 2, -1, 1, 7, 3, -1, 1, 25, 4, 
-                       -1, 1, 15, 1, 19, 1, -1, 1, 29, 1, 6, 1, -1, 1, 27, 
-                       5, -1, 1, 16, 1, 24, 5, -1, 1, 17, 3, -1, 1, 30, 
-                       1, 11, 1, -1, 1, 9, 1, 10, 1, 8 )
-      SPECIAL = unpack( 5, -1, 1, 0, 169, -1 )
+                       32, 1, 33, 1, 34, 1, 35, 1, 36, 1, 37, 1, 38, 1, 
+                       40, 1, 41, 1, 42, 1, 43, 1, -1, 1, 45, 1, 46, 1, 
+                       47, 1, 48, 1, 49, 3, -1, 1, 56, 1, 57, 1, 59, 1, 
+                       1, 1, 2, 1, 5, 1, 39, 19, -1, 1, 50, 1, 44, 1, 51, 
+                       1, 58, 1, 54, 1, 52, 1, 55, 1, 53, 15, -1, 1, 21, 
+                       3, -1, 1, 26, 10, -1, 1, 12, 4, -1, 1, 20, 7, -1, 
+                       1, 14, 6, -1, 1, 13, 1, -1, 1, 18, 2, -1, 1, 22, 
+                       1, 23, 1, 28, 2, -1, 1, 7, 3, -1, 1, 25, 4, -1, 1, 
+                       15, 1, 19, 1, -1, 1, 29, 1, 6, 1, -1, 1, 27, 5, -1, 
+                       1, 16, 1, 24, 5, -1, 1, 17, 3, -1, 1, 30, 1, 11, 
+                       1, -1, 1, 9, 1, 10, 1, 8 )
+      SPECIAL = unpack( 5, -1, 1, 0, 168, -1 )
       TRANSITION = [
-        unpack( 1, 25, 1, 2, 2, -1, 1, 1, 18, -1, 1, 25, 1, 39, 1, 5, 1, 
-                23, 1, -1, 1, 38, 1, 42, 1, -1, 1, 26, 1, 27, 1, 37, 1, 
-                35, 1, 30, 1, 36, 1, 31, 1, 24, 10, 22, 1, 32, 1, 33, 1, 
-                40, 1, 34, 1, 41, 1, 44, 1, -1, 26, 21, 1, 3, 1, -1, 1, 
+        unpack( 1, 24, 1, 2, 2, -1, 1, 1, 18, -1, 1, 24, 1, 39, 1, 5, 1, 
+                23, 1, -1, 1, 38, 1, 42, 1, -1, 1, 25, 1, 26, 1, 36, 1, 
+                34, 1, 29, 1, 35, 1, 30, 1, 37, 10, 22, 1, 31, 1, 32, 1, 
+                40, 1, 33, 1, 41, 1, 44, 1, -1, 26, 21, 1, 3, 1, -1, 1, 
                 4, 1, -1, 1, 21, 1, -1, 1, 7, 1, 20, 1, 10, 1, 19, 1, 18, 
                 1, 16, 2, 21, 1, 17, 3, 21, 1, 13, 1, 12, 1, 11, 1, 14, 
-                1, 21, 1, 8, 1, 6, 1, 15, 2, 21, 1, 9, 3, 21, 1, 28, 1, 
-                43, 1, 29 ),
+                1, 21, 1, 8, 1, 6, 1, 15, 2, 21, 1, 9, 3, 21, 1, 27, 1, 
+                43, 1, 28 ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
@@ -2525,7 +2462,6 @@ module Giraffe
         unpack(  ),
         unpack(  ),
         unpack(  ),
-        unpack( 1, 23 ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
@@ -2535,24 +2471,26 @@ module Giraffe
         unpack(  ),
         unpack(  ),
         unpack(  ),
-        unpack( 1, 69 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack( 1, 71 ),
-        unpack( 1, 73 ),
-        unpack( 1, 75 ),
+        unpack( 1, 68 ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
+        unpack( 1, 70 ),
+        unpack( 1, 72 ),
+        unpack( 1, 74 ),
         unpack(  ),
         unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack( 1, 76 ),
         unpack( 1, 77 ),
-        unpack( 1, 78 ),
-        unpack( 1, 79, 18, -1, 1, 80 ),
+        unpack( 1, 78, 18, -1, 1, 79 ),
+        unpack( 1, 80 ),
         unpack( 1, 81 ),
         unpack( 1, 82 ),
         unpack( 1, 83 ),
@@ -2563,21 +2501,20 @@ module Giraffe
         unpack( 1, 88 ),
         unpack( 1, 89 ),
         unpack( 1, 90 ),
-        unpack( 1, 91 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
-        unpack( 1, 94, 9, -1, 1, 93 ),
-        unpack( 1, 95 ),
+        unpack( 1, 93, 9, -1, 1, 92 ),
+        unpack( 1, 94 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
+        unpack( 1, 96 ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
+        unpack(  ),
         unpack( 1, 97 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
         unpack( 1, 98 ),
         unpack( 1, 99 ),
         unpack( 1, 100 ),
@@ -2586,92 +2523,91 @@ module Giraffe
         unpack( 1, 103 ),
         unpack( 1, 104 ),
         unpack( 1, 105 ),
-        unpack( 1, 106 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
+        unpack( 1, 107 ),
         unpack( 1, 108 ),
         unpack( 1, 109 ),
         unpack( 1, 110 ),
-        unpack( 1, 111 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack(  ),
+        unpack( 1, 112 ),
         unpack( 1, 113 ),
         unpack( 1, 114 ),
-        unpack( 1, 115 ),
         unpack(  ),
+        unpack( 1, 115 ),
         unpack( 1, 116 ),
         unpack( 1, 117 ),
-        unpack( 1, 118 ),
-        unpack( 10, 21, 7, -1, 13, 21, 1, 119, 12, 21, 4, -1, 1, 21, 1, 
+        unpack( 10, 21, 7, -1, 13, 21, 1, 118, 12, 21, 4, -1, 1, 21, 1, 
                  -1, 26, 21 ),
+        unpack( 1, 120 ),
         unpack( 1, 121 ),
         unpack( 1, 122 ),
         unpack( 1, 123 ),
         unpack( 1, 124 ),
         unpack( 1, 125 ),
-        unpack( 1, 126 ),
         unpack(  ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
-        unpack( 1, 128 ),
+        unpack( 1, 127 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
-        unpack( 1, 130 ),
+        unpack( 1, 129 ),
         unpack(  ),
-        unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 8, 21, 1, 131, 
+        unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 8, 21, 1, 130, 
                  17, 21 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
+        unpack( 1, 134 ),
         unpack( 1, 135 ),
-        unpack( 1, 136 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
-        unpack( 1, 138 ),
+        unpack( 1, 137 ),
         unpack(  ),
+        unpack( 1, 138 ),
         unpack( 1, 139 ),
-        unpack( 1, 140 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
+        unpack( 1, 141 ),
         unpack( 1, 142 ),
         unpack( 1, 143 ),
-        unpack( 1, 144 ),
         unpack(  ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 11, 21, 1, 
-                 145, 14, 21 ),
+                 144, 14, 21 ),
         unpack(  ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
-        unpack( 1, 148 ),
+        unpack( 1, 147 ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack(  ),
-        unpack( 1, 151 ),
+        unpack( 1, 150 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
+        unpack( 1, 152 ),
+        unpack(  ),
         unpack( 1, 153 ),
-        unpack(  ),
         unpack( 1, 154 ),
         unpack( 1, 155 ),
-        unpack( 1, 156 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 13, 21, 1, 
-                 157, 12, 21 ),
+                 156, 12, 21 ),
         unpack(  ),
         unpack(  ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack(  ),
         unpack(  ),
-        unpack( 1, 160 ),
+        unpack( 1, 159 ),
         unpack(  ),
+        unpack( 1, 160 ),
         unpack( 1, 161 ),
         unpack( 1, 162 ),
         unpack( 1, 163 ),
-        unpack( 1, 164 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack(  ),
         unpack(  ),
+        unpack( 1, 165 ),
         unpack( 1, 166 ),
         unpack( 1, 167 ),
-        unpack( 1, 168 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack(  ),
-        unpack( 1, 171 ),
+        unpack( 1, 170 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack( 10, 21, 7, -1, 26, 21, 4, -1, 1, 21, 1, -1, 26, 21 ),
         unpack(  ),
@@ -2688,7 +2624,7 @@ module Giraffe
         end
       end
       
-      @decision = 18
+      @decision = 16
       
 
       def description
@@ -2704,12 +2640,12 @@ module Giraffe
     def initialize_dfas
       super rescue nil
       @dfa12 = DFA12.new( self, 12 )
-      @dfa18 = DFA18.new( self, 18 ) do |s|
+      @dfa16 = DFA16.new( self, 16 ) do |s|
         case s
         when 0
-          look_18_5 = @input.peek
+          look_16_5 = @input.peek
           s = -1
-          if ( look_18_5.between?( 0x0, 0xffff ) )
+          if ( look_16_5.between?( 0x0, 0xffff ) )
             s = 47
           else
             s = 48
@@ -2718,8 +2654,8 @@ module Giraffe
         end
         
         if s < 0
-          nva = ANTLR3::Error::NoViableAlternative.new( @dfa18.description, 18, s, input )
-          @dfa18.error( nva )
+          nva = ANTLR3::Error::NoViableAlternative.new( @dfa16.description, 16, s, input )
+          @dfa16.error( nva )
           raise nva
         end
         

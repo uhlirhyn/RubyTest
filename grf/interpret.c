@@ -197,6 +197,10 @@ void bytecode_switch(char opcode) {
         dbg("\e[36m-- iand\e[0m ");
         iand();
         break;
+    case 0x17:
+        dbg("\e[36m-- inot\e[0m ");
+        inot();
+        break;
 
         // operace s argumenty
     case 0x2d:

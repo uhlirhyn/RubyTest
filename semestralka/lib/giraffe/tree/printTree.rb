@@ -14,7 +14,9 @@ module Giraffe
         end
 
         def run(env,tree)
-        
+       
+            dbg("run", :PrintTree)
+
             @tree = tree
 
             if @texts != nil 

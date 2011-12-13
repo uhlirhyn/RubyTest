@@ -22,25 +22,18 @@ module Giraffe
 
             dbg("run #{@operator}",:BinaryOperatorTree)
            
-            #dbg("op1: #{@op1}",:BinaryOperatorTree)
             return_value1, msg = @op1[0].run(env,@op1[1])
             return return_value1, msg if msg != nil
 
-            #dbg("op2: #{@op2}",:BinaryOperatorTree)
             return_value2, msg = @op2[0].run(env,@op2[1])
             return return_value2, msg if msg != nil
 
-            dbg("operands: #{return_value1} #{return_value2}",:BinaryOperatorTree)
-           
             return_value, msg = @operator.call(return_value1,return_value2)
             return return_value, msg if msg != nil
 
             # operandy by mely byt ted uz pushnute na stacku
             env.write_opcode(return_value)
 
-            # binarni operator zatim
-            # vraci pouze cislo - na
-            # nic jineho operatory nemam
             return nil, nil
         end
         

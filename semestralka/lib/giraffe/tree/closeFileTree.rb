@@ -15,7 +15,6 @@ module Giraffe
         def run(env, tree)
 
             dbg("run",:CloseFileTree)
-            dbg("expression '#{@expression}'",:CloseFileTree)
 
             # nech vyhodnotit ten obsah
             return_value, msg = @expression[0].run(env,@expression[1])

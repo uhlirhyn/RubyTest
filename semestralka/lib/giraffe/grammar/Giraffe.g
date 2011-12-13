@@ -22,10 +22,7 @@ require './lib/giraffe/tree/unaryOperatorTree.rb'
 require './lib/giraffe/tree/atomTree.rb'
 require './lib/giraffe/tree/arrayTree.rb'
 require './lib/giraffe/tree/varTree.rb'
-require './lib/giraffe/tree/exitTree.rb'
 require './lib/giraffe/tree/returnTree.rb'
-require './lib/giraffe/tree/breakTree.rb'
-require './lib/giraffe/tree/readTree.rb'
 require './lib/giraffe/tree/stringTree.rb'
 require './lib/giraffe/tree/openFileTree.rb'
 require './lib/giraffe/tree/closeFileTree.rb'
@@ -104,11 +101,9 @@ instruction returns [result]
 	|	doCycle {$result = $doCycle.result}
 	|	printInstruction {$result = $printInstruction.result}
 	|	returnInstruction {$result = $returnInstruction.result}	
-	|	exitInstruction {$result = $exitInstruction.result}
-	|	breakInstruction {$result = $breakInstruction.result}
 	|	aloneCall {$result = $aloneCall.result}
 	|	closeFile {$result = $closeFile.result}
-	|	writeFile {$result = $writeFile.result}
+	|	writeFileA {$result = $writeFileA.result}
 	|	{$result = nil} 
 	;
 
@@ -116,17 +111,8 @@ readInstruction returns [result]
 	:	READ {$result = ReadTree.new}
 	;
 
-breakInstruction returns [result]
-	:	BREAK {$result = BreakTree.new}
-	;
-
 returnInstruction returns [result]
 	:	RETURN^ expression {$result = [ReturnTree.new($expression.result),$RETURN.tree]}
-	;
-
-exitInstruction returns [result]
-	:	EXIT^ 	(LB! alt1=statusCode RB! {$result = ExitTree.new($alt1.result)} 
-			| alt2=statusCode {$result = ExitTree.new($alt2.result)})? 
 	;
 
 statusCode returns [result]
@@ -145,30 +131,30 @@ printText returns [list]
 	; 
  	
 ifInstruction returns [result]	
-	:	IF^ LB! condition RB! LCB! block RCB! ifRest
-		{$result = [IfTree.new($condition.result,$block.list,$ifRest.result),$IF.tree]}
+	:	IF^ LB! expression RB! LCB! block RCB! ifRest
+		{$result = [IfTree.new($expression.result,$block.list,$ifRest.result),$IF.tree]}
 	;
 
 ifRest returns [result]
 	:	ELSE LCB! block RCB! {$result = $block.list}
-	|	(ELSEIF | ELIF) condition LCB! block RCB! op=ifRest 
-		{$result = IfTree.new($condition.result,$block.list,$op.result)}	
+	|	(ELSEIF | ELIF) expression LCB! block RCB! op=ifRest 
+		{$result = IfTree.new($expression.result,$block.list,$op.result)}	
 	|	{$result = nil}
 	;
 
 whileCycle returns [result]
- 	:	WHILE LB condition RB LCB! block RCB!
- 		{$result = [WhileTree.new($condition.result,$block.list),$WHILE.tree]}
+ 	:	WHILE LB expression RB LCB! block RCB!
+ 		{$result = [WhileTree.new($expression.result,$block.list),$WHILE.tree]}
  	;
 
 doCycle	returns [result]
-	:	DO LCB! block RCB! WHILE LB condition RB
- 		{$result = [DoTree.new($condition.result,$block.list),$DO.tree]}
+	:	DO LCB! block RCB! WHILE LB expression RB
+ 		{$result = [DoTree.new($expression.result,$block.list),$DO.tree]}
  	;
 
 forCycle returns [result]
-	:	FOR LB as1=assignment (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  condition (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  as2=assignment RB LCB! block RCB!
-		{$result = [ForTree.new($as1.result,$condition.result,$as2.result,$block.list), $FOR.tree]}
+	:	FOR LB as1=assignment (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  expression (( COMMENT!? '\r'!? '\n'!) | SEMICOLON!)  as2=assignment RB LCB! block RCB!
+		{$result = [ForTree.new($as1.result,$expression.result,$as2.result,$block.list), $FOR.tree]}
 	;	
 	
 func returns [result]
@@ -193,15 +179,16 @@ paramRest returns [list]
 aloneCall returns [result]
 	:	fun=ID^ LB! args1=args? RB!
 		{$result = [CallTree.new($fun.text,$args1.list,true),$fun.tree]}
-		( DOT method=ID LB! args2=args? RB! {$result = [MethodCallTree.new($result,$method.text,$args2.list),$method.tree]})*
 	;
-	
-call returns [result]
-	:	fun=ID^ LB! args1=args? RB!
-		{$result = [CallTree.new($fun.text,$args1.list,false),$fun.tree]}
-		( DOT method=ID LB! args2=args? RB! {$result = [MethodCallTree.new($result,$method.text,$args2.list),$method.tree]})*
+
+callVar returns [result]
+	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
+		( 
+		LB args1=args? RB 
+		{$result = [CallTree.new($ID.text,$args1.list,false),$ID.tree]} 
+		)?
 	;
-	
+
 args returns [list]
 	: 	expression argsRest {$list = [$expression.result] + $argsRest.list}
 	; 
@@ -214,45 +201,43 @@ argsRest returns [list]
 
 // OR (closer to root -> will process after AND)
 
-condition returns [result]
-	:	orOperand {$result = $orOperand.result}
-		(OR^ op=condition {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:or)),$op.tree]})?
+expression returns [result]
+	:	op1=orOperand {$result = $op1.result}
+		(OR^ op2=expression {$result = [BinaryOperatorTree.new($result,$op2.result,Operators.method(:or)),$op2.tree]})?
 	;
 
 // AND (further from root -> will process before OR)
 
 orOperand returns [result]
-	:	boolOperand {$result = $boolOperand.result}
-		(AND^ op=orOperand {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:and)),$op.tree] })?
+	:	op1=andOperand {$result = $op1.result}
+		(AND^ op2=orOperand {$result = [BinaryOperatorTree.new($result,$op2.result,Operators.method(:and)),$op2.tree] })?
 	;
 
-boolOperand returns [result]
-	:	bool {$result = $bool.result}
-	|	NOT LB! condition RB! {$result = !$condition.result}
-	|	op1=expression (EQ^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:eq)),$op2.tree]}
-			|	NE^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:ne)),$op2.tree]}
-			|	LT^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:lt)),$op2.tree]}
-			|	GT^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:gt)),$op2.tree]}
-			|	LE^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:le)),$op2.tree]}
-			|	GE^ (	op2=bool | op2=expression ) {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:ge)),$op2.tree]}
-		) 
+andOperand returns [result]
+	:	op1=compareOperand {$result = $op1.result}		
+		(	EQ^ op2=andOperand  {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:eq)),$op2.tree]}
+		|	NE^ op2=andOperand  {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:ne)),$op2.tree]}
+		|	LT^ op2=andOperand  {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:lt)),$op2.tree]}
+		|	GT^ op2=andOperand  {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:gt)),$op2.tree]}
+		|	LE^ op2=andOperand  {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:le)),$op2.tree]}
+		|	GE^ op2=andOperand  {$result = [BinaryOperatorTree.new($op1.result,$op2.result,Operators.method(:ge)),$op2.tree]}		
+		)?
+	|	NOT^ LB! op1=expression RB! {$result = [UnaryOperatorTree.new($op1.result,Operators.method(:not)),$op1.tree]}		
 	;
 
 // add / substract (closer to root -> will process later)
-expression returns [result]
-	:	addOperand {$result = $addOperand.result}
-		(
-			PLUS^ op=expression {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:add)),$op.tree]}
-		|	MINUS^ op=expression {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:sub)),$op.tree]}
+compareOperand returns [result]
+	:	op1=addOperand {$result = $op1.result}
+		(	PLUS^ op2=compareOperand {$result = [BinaryOperatorTree.new($result,$op2.result,Operators.method(:add)),$op2.tree]}
+		|	MINUS^ op2=compareOperand {$result = [BinaryOperatorTree.new($result,$op2.result,Operators.method(:sub)),$op2.tree]}
 		)?
 	;
 
 addOperand returns [result]
-	:	mulOperand {$result = $mulOperand.result}
-		(
-			MUL^ op=addOperand {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:mul)),$op.tree]}
-		|	DIV^ op=addOperand {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:div)),$op.tree]}
-		|	MOD^ op=addOperand {$result = [BinaryOperatorTree.new($result,$op.result,Operators.method(:mod)),$op.tree]}
+	:	op1=mulOperand {$result = $op1.result}
+		(	MUL^ op2=addOperand {$result = [BinaryOperatorTree.new($result,$op2.result,Operators.method(:mul)),$op2.tree]}
+		|	DIV^ op2=addOperand {$result = [BinaryOperatorTree.new($result,$op2.result,Operators.method(:div)),$op2.tree]}
+		|	MOD^ op2=addOperand {$result = [BinaryOperatorTree.new($result,$op2.result,Operators.method(:mod)),$op2.tree]}
 		)?
 	;
 
@@ -284,14 +269,17 @@ readNumber returns [result]
 	; 	
 
 writeFile returns [result]
-	:	WRITEFILE LB! where=expression COMMA what=expression RB! {$result = [WriteFileTree.new($where.result, $what.result),$WRITEFILE.tree]} 
+	:	WRITEFILE LB! where=expression COMMA what=expression RB! {$result = [WriteFileTree.new($where.result, $what.result, false),$WRITEFILE.tree]} 
 	; 		
 	
+writeFileA returns [result]
+	:	WRITEFILE LB! where=expression COMMA what=expression RB! {$result = [WriteFileTree.new($where.result, $what.result, true),$WRITEFILE.tree]} 
+	; 
+	
 arrayIndexTarget returns [result]
-	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
-	|	subexpression {$result = $subexpression.result}
+	:	subexpression {$result = $subexpression.result}
 	|	INT {$result = [AtomTree.new($INT.text.to_i),$INT.tree]}
-	|	call {$result = $call.result}
+	|	callVar {$result = $callVar.result}
 	|	array {$result = [ArrayTree.new($array.result),$array.tree]}
 	|	alloc {$result = $alloc.result}
 	|	readInstruction {$result = $readInstruction.result}
@@ -300,10 +288,11 @@ arrayIndexTarget returns [result]
 	|	openFile {$result = $openFile.result}
 	|	sizeOf {$result = $sizeOf.result}
 	|	readNumber {$result = $readNumber.result}
+	|	writeFile {$result = $writeFile.result}
 	;
 
 subexpression returns [result]
-	:	LB! expression RB! {$result = $expression.result}
+	:	LB expression RB {$result = $expression.result}
 	;
 
 array returns [result]
@@ -414,7 +403,6 @@ FLOAT
 
 COMMENT
     :   '#' ~('\n'|'\r')* {$channel=HIDDEN;}
-    |	'/*' ~('*/')* '*/' {$channel=HIDDEN;}
     ;
 
 WS  :   ( ' '

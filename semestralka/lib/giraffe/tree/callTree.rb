@@ -56,7 +56,6 @@ module Giraffe
             # je nikdo nechce
             env.write_opcode(POP) if @alone
 
-            # tady by se mel vracet typ te funkce
             return return_value, nil
         end
 

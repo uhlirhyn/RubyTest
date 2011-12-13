@@ -5,7 +5,7 @@
 # Generated using ANTLR version: 3.2.1-SNAPSHOT Jul 31, 2010 19:34:52
 # Ruby runtime library version: 1.8.11
 # Input grammar file: Giraffe.g
-# Generated at: 2011-12-13 20:20:20
+# Generated at: 2011-12-13 22:44:47
 # 
 
 # ~~~> start load path setup
@@ -75,10 +75,7 @@ require './lib/giraffe/tree/unaryOperatorTree.rb'
 require './lib/giraffe/tree/atomTree.rb'
 require './lib/giraffe/tree/arrayTree.rb'
 require './lib/giraffe/tree/varTree.rb'
-require './lib/giraffe/tree/exitTree.rb'
 require './lib/giraffe/tree/returnTree.rb'
-require './lib/giraffe/tree/breakTree.rb'
-require './lib/giraffe/tree/readTree.rb'
 require './lib/giraffe/tree/stringTree.rb'
 require './lib/giraffe/tree/openFileTree.rb'
 require './lib/giraffe/tree/closeFileTree.rb'
@@ -102,21 +99,21 @@ module Giraffe
   module TokenData
 
     # define the token constants
-    define_tokens( :T__68 => 68, :T__66 => 66, :EXPONENT => 59, :T__67 => 67, 
-                   :MAIN => 27, :LT => 34, :T__65 => 65, :RB => 11, :WHILE => 23, 
-                   :MOD => 40, :OPENFILE => 42, :OCTAL_ESC => 55, :READNUMBER => 44, 
-                   :DO => 24, :FOR => 25, :FLOAT => 60, :NOT => 31, :RCB => 19, 
-                   :ID => 26, :AND => 30, :EOF => -1, :BREAK => 7, :IF => 17, 
-                   :QUOTE => 62, :ESC_SEQ => 52, :CONTINUE => 58, :QM => 64, 
-                   :COMMA => 16, :LCB => 18, :PRINTLN => 57, :RETURN => 8, 
-                   :PLUS => 12, :EQ => 32, :COMMENT => 4, :DOT => 28, :NE => 33, 
-                   :EXIT => 9, :GE => 37, :UNICODE_ESC => 54, :NULL => 46, 
-                   :ELSE => 20, :HEX_DIGIT => 53, :INT => 14, :SEMICOLON => 5, 
-                   :MINUS => 13, :TRUE => 49, :MUL => 38, :PRINT => 15, 
-                   :PRINTL => 56, :ELSEIF => 21, :COLON => 63, :ELIF => 22, 
-                   :WS => 61, :WRITEFILE => 45, :READ => 6, :OR => 29, :ASSIGN => 48, 
-                   :SIZEOF => 43, :ALLOC => 47, :GT => 35, :LB => 10, :CLOSEFILE => 41, 
-                   :DIV => 39, :FALSE => 50, :LE => 36, :STRING => 51 )
+    define_tokens( :T__68 => 68, :T__66 => 66, :EXPONENT => 58, :T__67 => 67, 
+                   :MAIN => 25, :LT => 30, :T__65 => 65, :RB => 13, :WHILE => 21, 
+                   :MOD => 37, :OPENFILE => 39, :OCTAL_ESC => 52, :READNUMBER => 41, 
+                   :DO => 22, :FOR => 23, :FLOAT => 59, :NOT => 34, :RCB => 17, 
+                   :ID => 24, :AND => 27, :EOF => -1, :BREAK => 56, :IF => 15, 
+                   :QUOTE => 61, :ESC_SEQ => 49, :CONTINUE => 57, :QM => 64, 
+                   :COMMA => 14, :LCB => 16, :PRINTLN => 54, :RETURN => 7, 
+                   :PLUS => 8, :EQ => 28, :DOT => 62, :COMMENT => 4, :NE => 29, 
+                   :EXIT => 55, :GE => 33, :UNICODE_ESC => 51, :NULL => 43, 
+                   :ELSE => 18, :HEX_DIGIT => 50, :INT => 10, :SEMICOLON => 5, 
+                   :MINUS => 9, :TRUE => 46, :MUL => 35, :PRINT => 11, :PRINTL => 53, 
+                   :ELSEIF => 19, :COLON => 63, :ELIF => 20, :WS => 60, 
+                   :WRITEFILE => 42, :READ => 6, :OR => 26, :ASSIGN => 45, 
+                   :SIZEOF => 40, :ALLOC => 44, :GT => 31, :LB => 12, :CLOSEFILE => 38, 
+                   :DIV => 36, :FALSE => 47, :LE => 32, :STRING => 48 )
 
     # register the proper human-readable name or literal value
     # for each token type
@@ -124,17 +121,16 @@ module Giraffe
     # this is necessary because anonymous tokens, which are
     # created from literal values in the grammar, do not
     # have descriptive names
-    register_names( "COMMENT", "SEMICOLON", "READ", "BREAK", "RETURN", "EXIT", 
-                    "LB", "RB", "PLUS", "MINUS", "INT", "PRINT", "COMMA", 
-                    "IF", "LCB", "RCB", "ELSE", "ELSEIF", "ELIF", "WHILE", 
-                    "DO", "FOR", "ID", "MAIN", "DOT", "OR", "AND", "NOT", 
-                    "EQ", "NE", "LT", "GT", "LE", "GE", "MUL", "DIV", "MOD", 
-                    "CLOSEFILE", "OPENFILE", "SIZEOF", "READNUMBER", "WRITEFILE", 
-                    "NULL", "ALLOC", "ASSIGN", "TRUE", "FALSE", "STRING", 
-                    "ESC_SEQ", "HEX_DIGIT", "UNICODE_ESC", "OCTAL_ESC", 
-                    "PRINTL", "PRINTLN", "CONTINUE", "EXPONENT", "FLOAT", 
-                    "WS", "QUOTE", "COLON", "QM", "'\\r'", "'\\n'", "'['", 
-                    "']'" )
+    register_names( "COMMENT", "SEMICOLON", "READ", "RETURN", "PLUS", "MINUS", 
+                    "INT", "PRINT", "LB", "RB", "COMMA", "IF", "LCB", "RCB", 
+                    "ELSE", "ELSEIF", "ELIF", "WHILE", "DO", "FOR", "ID", 
+                    "MAIN", "OR", "AND", "EQ", "NE", "LT", "GT", "LE", "GE", 
+                    "NOT", "MUL", "DIV", "MOD", "CLOSEFILE", "OPENFILE", 
+                    "SIZEOF", "READNUMBER", "WRITEFILE", "NULL", "ALLOC", 
+                    "ASSIGN", "TRUE", "FALSE", "STRING", "ESC_SEQ", "HEX_DIGIT", 
+                    "UNICODE_ESC", "OCTAL_ESC", "PRINTL", "PRINTLN", "EXIT", 
+                    "BREAK", "CONTINUE", "EXPONENT", "FLOAT", "WS", "QUOTE", 
+                    "DOT", "COLON", "QM", "'\\r'", "'\\n'", "'['", "']'" )
     
   end
 
@@ -144,15 +140,15 @@ module Giraffe
     include ANTLR3::ASTBuilder
 
     RULE_METHODS = [ :program, :funcdef, :functions, :functionsRest, :block, 
-                     :instructionRest, :instruction, :readInstruction, :breakInstruction, 
-                     :returnInstruction, :exitInstruction, :statusCode, 
-                     :printInstruction, :printText, :ifInstruction, :ifRest, 
-                     :whileCycle, :doCycle, :forCycle, :func, :params, :paramRest, 
-                     :aloneCall, :call, :args, :argsRest, :condition, :orOperand, 
-                     :boolOperand, :expression, :addOperand, :mulOperand, 
-                     :mulOperandRest, :closeFile, :openFile, :sizeOf, :readNumber, 
-                     :writeFile, :arrayIndexTarget, :array, :alloc, :indexed, 
-                     :identified, :assignment, :bool, :string ].freeze
+                     :instructionRest, :instruction, :readInstruction, :returnInstruction, 
+                     :statusCode, :printInstruction, :printText, :ifInstruction, 
+                     :ifRest, :whileCycle, :doCycle, :forCycle, :func, :params, 
+                     :paramRest, :aloneCall, :callVar, :args, :argsRest, 
+                     :expression, :orOperand, :andOperand, :compareOperand, 
+                     :addOperand, :mulOperand, :mulOperandRest, :closeFile, 
+                     :openFile, :sizeOf, :readNumber, :writeFile, :writeFileA, 
+                     :arrayIndexTarget, :subexpression, :array, :alloc, 
+                     :indexed, :identified, :assignment, :bool, :string ].freeze
 
 
     include TokenData
@@ -190,7 +186,7 @@ module Giraffe
     # parser rule program
     # 
     # (in Giraffe.g)
-    # 60:1: program returns [result] : functions ;
+    # 57:1: program returns [result] : functions ;
     # 
     def program
       # -> uncomment the next line to manually enable rule tracing
@@ -208,7 +204,7 @@ module Giraffe
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 61:4: functions
+        # at line 58:4: functions
         @state.following.push( TOKENS_FOLLOWING_functions_IN_program_52 )
         functions1 = functions
         @state.following.pop
@@ -243,7 +239,7 @@ module Giraffe
     # parser rule funcdef
     # 
     # (in Giraffe.g)
-    # 64:1: funcdef returns [result] : ( func | );
+    # 61:1: funcdef returns [result] : ( func | );
     # 
     def funcdef
       # -> uncomment the next line to manually enable rule tracing
@@ -258,7 +254,7 @@ module Giraffe
 
 
       begin
-        # at line 65:2: ( func | )
+        # at line 62:2: ( func | )
         alt_1 = 2
         look_1_0 = @input.peek( 1 )
 
@@ -274,7 +270,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 65:4: func
+          # at line 62:4: func
           @state.following.push( TOKENS_FOLLOWING_func_IN_funcdef_70 )
           func2 = func
           @state.following.pop
@@ -287,7 +283,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 66:4: 
+          # at line 63:4: 
           # --> action
           return_value.result = nil
           # <-- action
@@ -319,7 +315,7 @@ module Giraffe
     # parser rule functions
     # 
     # (in Giraffe.g)
-    # 69:1: functions returns [list] : funcdef functionsRest ;
+    # 66:1: functions returns [list] : funcdef functionsRest ;
     # 
     def functions
       # -> uncomment the next line to manually enable rule tracing
@@ -338,7 +334,7 @@ module Giraffe
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 70:4: funcdef functionsRest
+        # at line 67:4: funcdef functionsRest
         # --> action
         return_value.list = []
         # <-- action
@@ -383,7 +379,7 @@ module Giraffe
     # parser rule functionsRest
     # 
     # (in Giraffe.g)
-    # 77:1: functionsRest returns [list] : ( ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) functions | );
+    # 74:1: functionsRest returns [list] : ( ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) functions | );
     # 
     def functionsRest
       # -> uncomment the next line to manually enable rule tracing
@@ -406,7 +402,7 @@ module Giraffe
       tree_for_SEMICOLON8 = nil
 
       begin
-        # at line 78:2: ( ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) functions | )
+        # at line 75:2: ( ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) functions | )
         alt_5 = 2
         look_5_0 = @input.peek( 1 )
 
@@ -422,8 +418,8 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 78:5: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) functions
-          # at line 78:5: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON )
+          # at line 75:5: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) functions
+          # at line 75:5: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON )
           alt_4 = 2
           look_4_0 = @input.peek( 1 )
 
@@ -436,10 +432,10 @@ module Giraffe
           end
           case alt_4
           when 1
-            # at line 78:6: ( ( COMMENT )? ( '\\r' )? '\\n' )
-            # at line 78:6: ( ( COMMENT )? ( '\\r' )? '\\n' )
-            # at line 78:8: ( COMMENT )? ( '\\r' )? '\\n'
-            # at line 78:15: ( COMMENT )?
+            # at line 75:6: ( ( COMMENT )? ( '\\r' )? '\\n' )
+            # at line 75:6: ( ( COMMENT )? ( '\\r' )? '\\n' )
+            # at line 75:8: ( COMMENT )? ( '\\r' )? '\\n'
+            # at line 75:15: ( COMMENT )?
             alt_2 = 2
             look_2_0 = @input.peek( 1 )
 
@@ -448,11 +444,11 @@ module Giraffe
             end
             case alt_2
             when 1
-              # at line 78:15: COMMENT
+              # at line 75:15: COMMENT
               __COMMENT5__ = match( COMMENT, TOKENS_FOLLOWING_COMMENT_IN_functionsRest_132 )
 
             end
-            # at line 78:22: ( '\\r' )?
+            # at line 75:22: ( '\\r' )?
             alt_3 = 2
             look_3_0 = @input.peek( 1 )
 
@@ -461,7 +457,7 @@ module Giraffe
             end
             case alt_3
             when 1
-              # at line 78:22: '\\r'
+              # at line 75:22: '\\r'
               char_literal6 = match( T__65, TOKENS_FOLLOWING_T__65_IN_functionsRest_136 )
 
             end
@@ -469,7 +465,7 @@ module Giraffe
 
 
           when 2
-            # at line 78:34: SEMICOLON
+            # at line 75:34: SEMICOLON
             __SEMICOLON8__ = match( SEMICOLON, TOKENS_FOLLOWING_SEMICOLON_IN_functionsRest_146 )
 
           end
@@ -485,7 +481,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 81:4: 
+          # at line 78:4: 
           # --> action
           return_value.list = []
           # <-- action
@@ -517,7 +513,7 @@ module Giraffe
     # parser rule block
     # 
     # (in Giraffe.g)
-    # 84:1: block returns [list] : instruction instructionRest ;
+    # 81:1: block returns [list] : instruction instructionRest ;
     # 
     def block
       # -> uncomment the next line to manually enable rule tracing
@@ -536,7 +532,7 @@ module Giraffe
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 85:4: instruction instructionRest
+        # at line 82:4: instruction instructionRest
         # --> action
         return_value.list = []
         # <-- action
@@ -581,7 +577,7 @@ module Giraffe
     # parser rule instructionRest
     # 
     # (in Giraffe.g)
-    # 92:1: instructionRest returns [list] : ( ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) block | );
+    # 89:1: instructionRest returns [list] : ( ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) block | );
     # 
     def instructionRest
       # -> uncomment the next line to manually enable rule tracing
@@ -604,7 +600,7 @@ module Giraffe
       tree_for_SEMICOLON15 = nil
 
       begin
-        # at line 93:2: ( ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) block | )
+        # at line 90:2: ( ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) block | )
         alt_9 = 2
         look_9_0 = @input.peek( 1 )
 
@@ -620,8 +616,8 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 93:5: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) block
-          # at line 93:5: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON )
+          # at line 90:5: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) block
+          # at line 90:5: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON )
           alt_8 = 2
           look_8_0 = @input.peek( 1 )
 
@@ -634,10 +630,10 @@ module Giraffe
           end
           case alt_8
           when 1
-            # at line 93:6: ( ( COMMENT )? ( '\\r' )? '\\n' )
-            # at line 93:6: ( ( COMMENT )? ( '\\r' )? '\\n' )
-            # at line 93:8: ( COMMENT )? ( '\\r' )? '\\n'
-            # at line 93:15: ( COMMENT )?
+            # at line 90:6: ( ( COMMENT )? ( '\\r' )? '\\n' )
+            # at line 90:6: ( ( COMMENT )? ( '\\r' )? '\\n' )
+            # at line 90:8: ( COMMENT )? ( '\\r' )? '\\n'
+            # at line 90:15: ( COMMENT )?
             alt_6 = 2
             look_6_0 = @input.peek( 1 )
 
@@ -646,11 +642,11 @@ module Giraffe
             end
             case alt_6
             when 1
-              # at line 93:15: COMMENT
+              # at line 90:15: COMMENT
               __COMMENT12__ = match( COMMENT, TOKENS_FOLLOWING_COMMENT_IN_instructionRest_223 )
 
             end
-            # at line 93:22: ( '\\r' )?
+            # at line 90:22: ( '\\r' )?
             alt_7 = 2
             look_7_0 = @input.peek( 1 )
 
@@ -659,7 +655,7 @@ module Giraffe
             end
             case alt_7
             when 1
-              # at line 93:22: '\\r'
+              # at line 90:22: '\\r'
               char_literal13 = match( T__65, TOKENS_FOLLOWING_T__65_IN_instructionRest_227 )
 
             end
@@ -667,7 +663,7 @@ module Giraffe
 
 
           when 2
-            # at line 93:34: SEMICOLON
+            # at line 90:34: SEMICOLON
             __SEMICOLON15__ = match( SEMICOLON, TOKENS_FOLLOWING_SEMICOLON_IN_instructionRest_237 )
 
           end
@@ -683,7 +679,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 96:4: 
+          # at line 93:4: 
           # --> action
           return_value.list = []
           # <-- action
@@ -715,7 +711,7 @@ module Giraffe
     # parser rule instruction
     # 
     # (in Giraffe.g)
-    # 99:1: instruction returns [result] : ( assignment | forCycle | ifInstruction | whileCycle | doCycle | printInstruction | returnInstruction | exitInstruction | breakInstruction | aloneCall | closeFile | writeFile | );
+    # 96:1: instruction returns [result] : ( assignment | forCycle | ifInstruction | whileCycle | doCycle | printInstruction | returnInstruction | aloneCall | closeFile | writeFileA | );
     # 
     def instruction
       # -> uncomment the next line to manually enable rule tracing
@@ -733,23 +729,21 @@ module Giraffe
       doCycle21 = nil
       printInstruction22 = nil
       returnInstruction23 = nil
-      exitInstruction24 = nil
-      breakInstruction25 = nil
-      aloneCall26 = nil
-      closeFile27 = nil
-      writeFile28 = nil
+      aloneCall24 = nil
+      closeFile25 = nil
+      writeFileA26 = nil
 
 
       begin
-        # at line 100:2: ( assignment | forCycle | ifInstruction | whileCycle | doCycle | printInstruction | returnInstruction | exitInstruction | breakInstruction | aloneCall | closeFile | writeFile | )
-        alt_10 = 13
+        # at line 97:2: ( assignment | forCycle | ifInstruction | whileCycle | doCycle | printInstruction | returnInstruction | aloneCall | closeFile | writeFileA | )
+        alt_10 = 11
         alt_10 = @dfa10.predict( @input )
         case alt_10
         when 1
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 100:4: assignment
+          # at line 97:4: assignment
           @state.following.push( TOKENS_FOLLOWING_assignment_IN_instruction_273 )
           assignment17 = assignment
           @state.following.pop
@@ -762,7 +756,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 101:4: forCycle
+          # at line 98:4: forCycle
           @state.following.push( TOKENS_FOLLOWING_forCycle_IN_instruction_280 )
           forCycle18 = forCycle
           @state.following.pop
@@ -775,7 +769,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 102:4: ifInstruction
+          # at line 99:4: ifInstruction
           @state.following.push( TOKENS_FOLLOWING_ifInstruction_IN_instruction_287 )
           ifInstruction19 = ifInstruction
           @state.following.pop
@@ -788,7 +782,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 103:4: whileCycle
+          # at line 100:4: whileCycle
           @state.following.push( TOKENS_FOLLOWING_whileCycle_IN_instruction_294 )
           whileCycle20 = whileCycle
           @state.following.pop
@@ -801,7 +795,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 104:4: doCycle
+          # at line 101:4: doCycle
           @state.following.push( TOKENS_FOLLOWING_doCycle_IN_instruction_301 )
           doCycle21 = doCycle
           @state.following.pop
@@ -814,7 +808,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 105:4: printInstruction
+          # at line 102:4: printInstruction
           @state.following.push( TOKENS_FOLLOWING_printInstruction_IN_instruction_308 )
           printInstruction22 = printInstruction
           @state.following.pop
@@ -827,7 +821,7 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 106:4: returnInstruction
+          # at line 103:4: returnInstruction
           @state.following.push( TOKENS_FOLLOWING_returnInstruction_IN_instruction_315 )
           returnInstruction23 = returnInstruction
           @state.following.pop
@@ -840,72 +834,46 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 107:4: exitInstruction
-          @state.following.push( TOKENS_FOLLOWING_exitInstruction_IN_instruction_323 )
-          exitInstruction24 = exitInstruction
+          # at line 104:4: aloneCall
+          @state.following.push( TOKENS_FOLLOWING_aloneCall_IN_instruction_323 )
+          aloneCall24 = aloneCall
           @state.following.pop
-          @adaptor.add_child( root_0, exitInstruction24.tree )
+          @adaptor.add_child( root_0, aloneCall24.tree )
           # --> action
-          return_value.result = ( exitInstruction24.nil? ? nil : exitInstruction24.result )
+          return_value.result = ( aloneCall24.nil? ? nil : aloneCall24.result )
           # <-- action
 
         when 9
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 108:4: breakInstruction
-          @state.following.push( TOKENS_FOLLOWING_breakInstruction_IN_instruction_330 )
-          breakInstruction25 = breakInstruction
+          # at line 105:4: closeFile
+          @state.following.push( TOKENS_FOLLOWING_closeFile_IN_instruction_330 )
+          closeFile25 = closeFile
           @state.following.pop
-          @adaptor.add_child( root_0, breakInstruction25.tree )
+          @adaptor.add_child( root_0, closeFile25.tree )
           # --> action
-          return_value.result = ( breakInstruction25.nil? ? nil : breakInstruction25.result )
+          return_value.result = ( closeFile25.nil? ? nil : closeFile25.result )
           # <-- action
 
         when 10
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 109:4: aloneCall
-          @state.following.push( TOKENS_FOLLOWING_aloneCall_IN_instruction_337 )
-          aloneCall26 = aloneCall
+          # at line 106:4: writeFileA
+          @state.following.push( TOKENS_FOLLOWING_writeFileA_IN_instruction_337 )
+          writeFileA26 = writeFileA
           @state.following.pop
-          @adaptor.add_child( root_0, aloneCall26.tree )
+          @adaptor.add_child( root_0, writeFileA26.tree )
           # --> action
-          return_value.result = ( aloneCall26.nil? ? nil : aloneCall26.result )
+          return_value.result = ( writeFileA26.nil? ? nil : writeFileA26.result )
           # <-- action
 
         when 11
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 110:4: closeFile
-          @state.following.push( TOKENS_FOLLOWING_closeFile_IN_instruction_344 )
-          closeFile27 = closeFile
-          @state.following.pop
-          @adaptor.add_child( root_0, closeFile27.tree )
-          # --> action
-          return_value.result = ( closeFile27.nil? ? nil : closeFile27.result )
-          # <-- action
-
-        when 12
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 111:4: writeFile
-          @state.following.push( TOKENS_FOLLOWING_writeFile_IN_instruction_351 )
-          writeFile28 = writeFile
-          @state.following.pop
-          @adaptor.add_child( root_0, writeFile28.tree )
-          # --> action
-          return_value.result = ( writeFile28.nil? ? nil : writeFile28.result )
-          # <-- action
-
-        when 13
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 112:4: 
+          # at line 107:4: 
           # --> action
           return_value.result = nil
           # <-- action
@@ -937,7 +905,7 @@ module Giraffe
     # parser rule readInstruction
     # 
     # (in Giraffe.g)
-    # 115:1: readInstruction returns [result] : READ ;
+    # 110:1: readInstruction returns [result] : READ ;
     # 
     def readInstruction
       # -> uncomment the next line to manually enable rule tracing
@@ -948,19 +916,19 @@ module Giraffe
       return_value.start = @input.look
 
       root_0 = nil
-      __READ29__ = nil
+      __READ27__ = nil
 
-      tree_for_READ29 = nil
+      tree_for_READ27 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 116:4: READ
-        __READ29__ = match( READ, TOKENS_FOLLOWING_READ_IN_readInstruction_374 )
+        # at line 111:4: READ
+        __READ27__ = match( READ, TOKENS_FOLLOWING_READ_IN_readInstruction_360 )
 
-        tree_for_READ29 = @adaptor.create_with_payload( __READ29__ )
-        @adaptor.add_child( root_0, tree_for_READ29 )
+        tree_for_READ27 = @adaptor.create_with_payload( __READ27__ )
+        @adaptor.add_child( root_0, tree_for_READ27 )
 
         # --> action
         return_value.result = ReadTree.new
@@ -986,39 +954,44 @@ module Giraffe
       return return_value
     end
 
-    BreakInstructionReturnValue = define_return_scope :result
+    ReturnInstructionReturnValue = define_return_scope :result
 
     # 
-    # parser rule breakInstruction
+    # parser rule returnInstruction
     # 
     # (in Giraffe.g)
-    # 119:1: breakInstruction returns [result] : BREAK ;
+    # 114:1: returnInstruction returns [result] : RETURN expression ;
     # 
-    def breakInstruction
+    def returnInstruction
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 9 )
-      return_value = BreakInstructionReturnValue.new
+      return_value = ReturnInstructionReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __BREAK30__ = nil
+      __RETURN28__ = nil
+      expression29 = nil
 
-      tree_for_BREAK30 = nil
+      tree_for_RETURN28 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 120:4: BREAK
-        __BREAK30__ = match( BREAK, TOKENS_FOLLOWING_BREAK_IN_breakInstruction_391 )
+        # at line 115:4: RETURN expression
+        __RETURN28__ = match( RETURN, TOKENS_FOLLOWING_RETURN_IN_returnInstruction_377 )
 
-        tree_for_BREAK30 = @adaptor.create_with_payload( __BREAK30__ )
-        @adaptor.add_child( root_0, tree_for_BREAK30 )
+        tree_for_RETURN28 = @adaptor.create_with_payload( __RETURN28__ )
+        root_0 = @adaptor.become_root( tree_for_RETURN28, root_0 )
 
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_returnInstruction_380 )
+        expression29 = expression
+        @state.following.pop
+        @adaptor.add_child( root_0, expression29.tree )
         # --> action
-        return_value.result = BreakTree.new
+        return_value.result = [ReturnTree.new(( expression29.nil? ? nil : expression29.result )),tree_for_RETURN28]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -1041,44 +1014,76 @@ module Giraffe
       return return_value
     end
 
-    ReturnInstructionReturnValue = define_return_scope :result
+    StatusCodeReturnValue = define_return_scope :result
 
     # 
-    # parser rule returnInstruction
+    # parser rule statusCode
     # 
     # (in Giraffe.g)
-    # 123:1: returnInstruction returns [result] : RETURN expression ;
+    # 118:1: statusCode returns [result] : ( PLUS | MINUS )? INT ;
     # 
-    def returnInstruction
+    def statusCode
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 10 )
-      return_value = ReturnInstructionReturnValue.new
+      return_value = StatusCodeReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __RETURN31__ = nil
-      expression32 = nil
+      __PLUS30__ = nil
+      __MINUS31__ = nil
+      __INT32__ = nil
 
-      tree_for_RETURN31 = nil
+      tree_for_PLUS30 = nil
+      tree_for_MINUS31 = nil
+      tree_for_INT32 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 124:4: RETURN expression
-        __RETURN31__ = match( RETURN, TOKENS_FOLLOWING_RETURN_IN_returnInstruction_408 )
-
-        tree_for_RETURN31 = @adaptor.create_with_payload( __RETURN31__ )
-        root_0 = @adaptor.become_root( tree_for_RETURN31, root_0 )
-
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_returnInstruction_411 )
-        expression32 = expression
-        @state.following.pop
-        @adaptor.add_child( root_0, expression32.tree )
+        # at line 119:4: ( PLUS | MINUS )? INT
         # --> action
-        return_value.result = [ReturnTree.new(( expression32.nil? ? nil : expression32.result )),tree_for_RETURN31]
+        sign = ""
+        # <-- action
+        # at line 120:3: ( PLUS | MINUS )?
+        alt_11 = 3
+        look_11_0 = @input.peek( 1 )
+
+        if ( look_11_0 == PLUS )
+          alt_11 = 1
+        elsif ( look_11_0 == MINUS )
+          alt_11 = 2
+        end
+        case alt_11
+        when 1
+          # at line 120:4: PLUS
+          __PLUS30__ = match( PLUS, TOKENS_FOLLOWING_PLUS_IN_statusCode_402 )
+
+          tree_for_PLUS30 = @adaptor.create_with_payload( __PLUS30__ )
+          @adaptor.add_child( root_0, tree_for_PLUS30 )
+
+
+        when 2
+          # at line 120:11: MINUS
+          __MINUS31__ = match( MINUS, TOKENS_FOLLOWING_MINUS_IN_statusCode_406 )
+
+          tree_for_MINUS31 = @adaptor.create_with_payload( __MINUS31__ )
+          @adaptor.add_child( root_0, tree_for_MINUS31 )
+
+          # --> action
+          sign = __MINUS31__.text
+          # <-- action
+
+        end
+        __INT32__ = match( INT, TOKENS_FOLLOWING_INT_IN_statusCode_412 )
+
+        tree_for_INT32 = @adaptor.create_with_payload( __INT32__ )
+        @adaptor.add_child( root_0, tree_for_INT32 )
+
+        # --> action
+        (sign + __INT32__.text).to_i
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -1101,76 +1106,51 @@ module Giraffe
       return return_value
     end
 
-    ExitInstructionReturnValue = define_return_scope :result
+    PrintInstructionReturnValue = define_return_scope :result
 
     # 
-    # parser rule exitInstruction
+    # parser rule printInstruction
     # 
     # (in Giraffe.g)
-    # 127:1: exitInstruction returns [result] : EXIT ( LB alt1= statusCode RB | alt2= statusCode )? ;
+    # 124:1: printInstruction returns [result] : PRINT LB printText RB ;
     # 
-    def exitInstruction
+    def printInstruction
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 11 )
-      return_value = ExitInstructionReturnValue.new
+      return_value = PrintInstructionReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __EXIT33__ = nil
+      __PRINT33__ = nil
       __LB34__ = nil
-      __RB35__ = nil
-      alt1 = nil
-      alt2 = nil
+      __RB36__ = nil
+      printText35 = nil
 
-      tree_for_EXIT33 = nil
+      tree_for_PRINT33 = nil
       tree_for_LB34 = nil
-      tree_for_RB35 = nil
+      tree_for_RB36 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 128:4: EXIT ( LB alt1= statusCode RB | alt2= statusCode )?
-        __EXIT33__ = match( EXIT, TOKENS_FOLLOWING_EXIT_IN_exitInstruction_428 )
+        # at line 125:5: PRINT LB printText RB
+        __PRINT33__ = match( PRINT, TOKENS_FOLLOWING_PRINT_IN_printInstruction_433 )
 
-        tree_for_EXIT33 = @adaptor.create_with_payload( __EXIT33__ )
-        root_0 = @adaptor.become_root( tree_for_EXIT33, root_0 )
+        tree_for_PRINT33 = @adaptor.create_with_payload( __PRINT33__ )
+        root_0 = @adaptor.become_root( tree_for_PRINT33, root_0 )
 
-        # at line 128:11: ( LB alt1= statusCode RB | alt2= statusCode )?
-        alt_11 = 3
-        look_11_0 = @input.peek( 1 )
-
-        if ( look_11_0 == LB )
-          alt_11 = 1
-        elsif ( look_11_0.between?( PLUS, INT ) )
-          alt_11 = 2
-        end
-        case alt_11
-        when 1
-          # at line 128:12: LB alt1= statusCode RB
-          __LB34__ = match( LB, TOKENS_FOLLOWING_LB_IN_exitInstruction_433 )
-          @state.following.push( TOKENS_FOLLOWING_statusCode_IN_exitInstruction_438 )
-          alt1 = statusCode
-          @state.following.pop
-          @adaptor.add_child( root_0, alt1.tree )
-          __RB35__ = match( RB, TOKENS_FOLLOWING_RB_IN_exitInstruction_440 )
-          # --> action
-          return_value.result = ExitTree.new(( alt1.nil? ? nil : alt1.result ))
-          # <-- action
-
-        when 2
-          # at line 129:6: alt2= statusCode
-          @state.following.push( TOKENS_FOLLOWING_statusCode_IN_exitInstruction_453 )
-          alt2 = statusCode
-          @state.following.pop
-          @adaptor.add_child( root_0, alt2.tree )
-          # --> action
-          return_value.result = ExitTree.new(( alt2.nil? ? nil : alt2.result ))
-          # <-- action
-
-        end
+        __LB34__ = match( LB, TOKENS_FOLLOWING_LB_IN_printInstruction_436 )
+        @state.following.push( TOKENS_FOLLOWING_printText_IN_printInstruction_439 )
+        printText35 = printText
+        @state.following.pop
+        @adaptor.add_child( root_0, printText35.tree )
+        __RB36__ = match( RB, TOKENS_FOLLOWING_RB_IN_printInstruction_441 )
+        # --> action
+        return_value.result = [PrintTree.new(( printText35.nil? ? nil : printText35.list )),tree_for_PRINT33]
+        # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
@@ -1192,215 +1172,57 @@ module Giraffe
       return return_value
     end
 
-    StatusCodeReturnValue = define_return_scope :result
-
-    # 
-    # parser rule statusCode
-    # 
-    # (in Giraffe.g)
-    # 132:1: statusCode returns [result] : ( PLUS | MINUS )? INT ;
-    # 
-    def statusCode
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 12 )
-      return_value = StatusCodeReturnValue.new
-
-      # $rule.start = the first token seen before matching
-      return_value.start = @input.look
-
-      root_0 = nil
-      __PLUS36__ = nil
-      __MINUS37__ = nil
-      __INT38__ = nil
-
-      tree_for_PLUS36 = nil
-      tree_for_MINUS37 = nil
-      tree_for_INT38 = nil
-
-      begin
-        root_0 = @adaptor.create_flat_list
-
-
-        # at line 133:4: ( PLUS | MINUS )? INT
-        # --> action
-        sign = ""
-        # <-- action
-        # at line 134:3: ( PLUS | MINUS )?
-        alt_12 = 3
-        look_12_0 = @input.peek( 1 )
-
-        if ( look_12_0 == PLUS )
-          alt_12 = 1
-        elsif ( look_12_0 == MINUS )
-          alt_12 = 2
-        end
-        case alt_12
-        when 1
-          # at line 134:4: PLUS
-          __PLUS36__ = match( PLUS, TOKENS_FOLLOWING_PLUS_IN_statusCode_478 )
-
-          tree_for_PLUS36 = @adaptor.create_with_payload( __PLUS36__ )
-          @adaptor.add_child( root_0, tree_for_PLUS36 )
-
-
-        when 2
-          # at line 134:11: MINUS
-          __MINUS37__ = match( MINUS, TOKENS_FOLLOWING_MINUS_IN_statusCode_482 )
-
-          tree_for_MINUS37 = @adaptor.create_with_payload( __MINUS37__ )
-          @adaptor.add_child( root_0, tree_for_MINUS37 )
-
-          # --> action
-          sign = __MINUS37__.text
-          # <-- action
-
-        end
-        __INT38__ = match( INT, TOKENS_FOLLOWING_INT_IN_statusCode_488 )
-
-        tree_for_INT38 = @adaptor.create_with_payload( __INT38__ )
-        @adaptor.add_child( root_0, tree_for_INT38 )
-
-        # --> action
-        (sign + __INT38__.text).to_i
-        # <-- action
-        # - - - - - - - rule clean up - - - - - - - -
-        return_value.stop = @input.look( -1 )
-
-
-        return_value.tree = @adaptor.rule_post_processing( root_0 )
-        @adaptor.set_token_boundaries( return_value.tree, return_value.start, return_value.stop )
-
-      rescue ANTLR3::Error::RecognitionError => re
-        report_error(re)
-        recover(re)
-        return_value.tree = @adaptor.create_error_node( @input, return_value.start, @input.look(-1), re )
-
-      ensure
-        # -> uncomment the next line to manually enable rule tracing
-        # trace_out( __method__, 12 )
-
-      end
-      
-      return return_value
-    end
-
-    PrintInstructionReturnValue = define_return_scope :result
-
-    # 
-    # parser rule printInstruction
-    # 
-    # (in Giraffe.g)
-    # 138:1: printInstruction returns [result] : PRINT LB printText RB ;
-    # 
-    def printInstruction
-      # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 13 )
-      return_value = PrintInstructionReturnValue.new
-
-      # $rule.start = the first token seen before matching
-      return_value.start = @input.look
-
-      root_0 = nil
-      __PRINT39__ = nil
-      __LB40__ = nil
-      __RB42__ = nil
-      printText41 = nil
-
-      tree_for_PRINT39 = nil
-      tree_for_LB40 = nil
-      tree_for_RB42 = nil
-
-      begin
-        root_0 = @adaptor.create_flat_list
-
-
-        # at line 139:5: PRINT LB printText RB
-        __PRINT39__ = match( PRINT, TOKENS_FOLLOWING_PRINT_IN_printInstruction_509 )
-
-        tree_for_PRINT39 = @adaptor.create_with_payload( __PRINT39__ )
-        root_0 = @adaptor.become_root( tree_for_PRINT39, root_0 )
-
-        __LB40__ = match( LB, TOKENS_FOLLOWING_LB_IN_printInstruction_512 )
-        @state.following.push( TOKENS_FOLLOWING_printText_IN_printInstruction_515 )
-        printText41 = printText
-        @state.following.pop
-        @adaptor.add_child( root_0, printText41.tree )
-        __RB42__ = match( RB, TOKENS_FOLLOWING_RB_IN_printInstruction_517 )
-        # --> action
-        return_value.result = [PrintTree.new(( printText41.nil? ? nil : printText41.list )),tree_for_PRINT39]
-        # <-- action
-        # - - - - - - - rule clean up - - - - - - - -
-        return_value.stop = @input.look( -1 )
-
-
-        return_value.tree = @adaptor.rule_post_processing( root_0 )
-        @adaptor.set_token_boundaries( return_value.tree, return_value.start, return_value.stop )
-
-      rescue ANTLR3::Error::RecognitionError => re
-        report_error(re)
-        recover(re)
-        return_value.tree = @adaptor.create_error_node( @input, return_value.start, @input.look(-1), re )
-
-      ensure
-        # -> uncomment the next line to manually enable rule tracing
-        # trace_out( __method__, 13 )
-
-      end
-      
-      return return_value
-    end
-
     PrintTextReturnValue = define_return_scope :list
 
     # 
     # parser rule printText
     # 
     # (in Giraffe.g)
-    # 142:1: printText returns [list] : expression ( COMMA rest= printText )? ;
+    # 128:1: printText returns [list] : expression ( COMMA rest= printText )? ;
     # 
     def printText
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 14 )
+      # trace_in( __method__, 12 )
       return_value = PrintTextReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __COMMA44__ = nil
+      __COMMA38__ = nil
       rest = nil
-      expression43 = nil
+      expression37 = nil
 
-      tree_for_COMMA44 = nil
+      tree_for_COMMA38 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 143:4: expression ( COMMA rest= printText )?
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_printText_542 )
-        expression43 = expression
+        # at line 129:4: expression ( COMMA rest= printText )?
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_printText_466 )
+        expression37 = expression
         @state.following.pop
-        @adaptor.add_child( root_0, expression43.tree )
+        @adaptor.add_child( root_0, expression37.tree )
         # --> action
-        return_value.list = [( expression43.nil? ? nil : expression43.result )]
+        return_value.list = [( expression37.nil? ? nil : expression37.result )]
         # <-- action
-        # at line 144:3: ( COMMA rest= printText )?
-        alt_13 = 2
-        look_13_0 = @input.peek( 1 )
+        # at line 130:3: ( COMMA rest= printText )?
+        alt_12 = 2
+        look_12_0 = @input.peek( 1 )
 
-        if ( look_13_0 == COMMA )
-          alt_13 = 1
+        if ( look_12_0 == COMMA )
+          alt_12 = 1
         end
-        case alt_13
+        case alt_12
         when 1
-          # at line 144:4: COMMA rest= printText
-          __COMMA44__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_printText_549 )
+          # at line 130:4: COMMA rest= printText
+          __COMMA38__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_printText_473 )
 
-          tree_for_COMMA44 = @adaptor.create_with_payload( __COMMA44__ )
-          @adaptor.add_child( root_0, tree_for_COMMA44 )
+          tree_for_COMMA38 = @adaptor.create_with_payload( __COMMA38__ )
+          @adaptor.add_child( root_0, tree_for_COMMA38 )
 
-          @state.following.push( TOKENS_FOLLOWING_printText_IN_printText_553 )
+          @state.following.push( TOKENS_FOLLOWING_printText_IN_printText_477 )
           rest = printText
           @state.following.pop
           @adaptor.add_child( root_0, rest.tree )
@@ -1423,7 +1245,7 @@ module Giraffe
 
       ensure
         # -> uncomment the next line to manually enable rule tracing
-        # trace_out( __method__, 14 )
+        # trace_out( __method__, 12 )
 
       end
       
@@ -1436,60 +1258,275 @@ module Giraffe
     # parser rule ifInstruction
     # 
     # (in Giraffe.g)
-    # 147:1: ifInstruction returns [result] : IF LB condition RB LCB block RCB ifRest ;
+    # 133:1: ifInstruction returns [result] : IF LB expression RB LCB block RCB ifRest ;
     # 
     def ifInstruction
       # -> uncomment the next line to manually enable rule tracing
-      # trace_in( __method__, 15 )
+      # trace_in( __method__, 13 )
       return_value = IfInstructionReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __IF45__ = nil
-      __LB46__ = nil
-      __RB48__ = nil
-      __LCB49__ = nil
-      __RCB51__ = nil
-      condition47 = nil
-      block50 = nil
-      ifRest52 = nil
+      __IF39__ = nil
+      __LB40__ = nil
+      __RB42__ = nil
+      __LCB43__ = nil
+      __RCB45__ = nil
+      expression41 = nil
+      block44 = nil
+      ifRest46 = nil
 
-      tree_for_IF45 = nil
-      tree_for_LB46 = nil
-      tree_for_RB48 = nil
-      tree_for_LCB49 = nil
-      tree_for_RCB51 = nil
+      tree_for_IF39 = nil
+      tree_for_LB40 = nil
+      tree_for_RB42 = nil
+      tree_for_LCB43 = nil
+      tree_for_RCB45 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 148:4: IF LB condition RB LCB block RCB ifRest
-        __IF45__ = match( IF, TOKENS_FOLLOWING_IF_IN_ifInstruction_577 )
+        # at line 134:4: IF LB expression RB LCB block RCB ifRest
+        __IF39__ = match( IF, TOKENS_FOLLOWING_IF_IN_ifInstruction_501 )
 
-        tree_for_IF45 = @adaptor.create_with_payload( __IF45__ )
-        root_0 = @adaptor.become_root( tree_for_IF45, root_0 )
+        tree_for_IF39 = @adaptor.create_with_payload( __IF39__ )
+        root_0 = @adaptor.become_root( tree_for_IF39, root_0 )
 
-        __LB46__ = match( LB, TOKENS_FOLLOWING_LB_IN_ifInstruction_580 )
-        @state.following.push( TOKENS_FOLLOWING_condition_IN_ifInstruction_583 )
-        condition47 = condition
+        __LB40__ = match( LB, TOKENS_FOLLOWING_LB_IN_ifInstruction_504 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_ifInstruction_507 )
+        expression41 = expression
         @state.following.pop
-        @adaptor.add_child( root_0, condition47.tree )
-        __RB48__ = match( RB, TOKENS_FOLLOWING_RB_IN_ifInstruction_585 )
-        __LCB49__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_ifInstruction_588 )
-        @state.following.push( TOKENS_FOLLOWING_block_IN_ifInstruction_591 )
-        block50 = block
+        @adaptor.add_child( root_0, expression41.tree )
+        __RB42__ = match( RB, TOKENS_FOLLOWING_RB_IN_ifInstruction_509 )
+        __LCB43__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_ifInstruction_512 )
+        @state.following.push( TOKENS_FOLLOWING_block_IN_ifInstruction_515 )
+        block44 = block
         @state.following.pop
-        @adaptor.add_child( root_0, block50.tree )
-        __RCB51__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_ifInstruction_593 )
-        @state.following.push( TOKENS_FOLLOWING_ifRest_IN_ifInstruction_596 )
-        ifRest52 = ifRest
+        @adaptor.add_child( root_0, block44.tree )
+        __RCB45__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_ifInstruction_517 )
+        @state.following.push( TOKENS_FOLLOWING_ifRest_IN_ifInstruction_520 )
+        ifRest46 = ifRest
         @state.following.pop
-        @adaptor.add_child( root_0, ifRest52.tree )
+        @adaptor.add_child( root_0, ifRest46.tree )
         # --> action
-        return_value.result = [IfTree.new(( condition47.nil? ? nil : condition47.result ),( block50.nil? ? nil : block50.list ),( ifRest52.nil? ? nil : ifRest52.result )),tree_for_IF45]
+        return_value.result = [IfTree.new(( expression41.nil? ? nil : expression41.result ),( block44.nil? ? nil : block44.list ),( ifRest46.nil? ? nil : ifRest46.result )),tree_for_IF39]
+        # <-- action
+        # - - - - - - - rule clean up - - - - - - - -
+        return_value.stop = @input.look( -1 )
+
+
+        return_value.tree = @adaptor.rule_post_processing( root_0 )
+        @adaptor.set_token_boundaries( return_value.tree, return_value.start, return_value.stop )
+
+      rescue ANTLR3::Error::RecognitionError => re
+        report_error(re)
+        recover(re)
+        return_value.tree = @adaptor.create_error_node( @input, return_value.start, @input.look(-1), re )
+
+      ensure
+        # -> uncomment the next line to manually enable rule tracing
+        # trace_out( __method__, 13 )
+
+      end
+      
+      return return_value
+    end
+
+    IfRestReturnValue = define_return_scope :result
+
+    # 
+    # parser rule ifRest
+    # 
+    # (in Giraffe.g)
+    # 138:1: ifRest returns [result] : ( ELSE LCB block RCB | ( ELSEIF | ELIF ) expression LCB block RCB op= ifRest | );
+    # 
+    def ifRest
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 14 )
+      return_value = IfRestReturnValue.new
+
+      # $rule.start = the first token seen before matching
+      return_value.start = @input.look
+
+      root_0 = nil
+      __ELSE47__ = nil
+      __LCB48__ = nil
+      __RCB50__ = nil
+      set51 = nil
+      __LCB53__ = nil
+      __RCB55__ = nil
+      op = nil
+      block49 = nil
+      expression52 = nil
+      block54 = nil
+
+      tree_for_ELSE47 = nil
+      tree_for_LCB48 = nil
+      tree_for_RCB50 = nil
+      tree_for_set51 = nil
+      tree_for_LCB53 = nil
+      tree_for_RCB55 = nil
+
+      begin
+        # at line 139:2: ( ELSE LCB block RCB | ( ELSEIF | ELIF ) expression LCB block RCB op= ifRest | )
+        alt_13 = 3
+        case look_13 = @input.peek( 1 )
+        when ELSE then alt_13 = 1
+        when ELSEIF, ELIF then alt_13 = 2
+        when COMMENT, SEMICOLON, RCB, T__65, T__66 then alt_13 = 3
+        else
+          raise NoViableAlternative( "", 13, 0 )
+        end
+        case alt_13
+        when 1
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 139:4: ELSE LCB block RCB
+          __ELSE47__ = match( ELSE, TOKENS_FOLLOWING_ELSE_IN_ifRest_539 )
+
+          tree_for_ELSE47 = @adaptor.create_with_payload( __ELSE47__ )
+          @adaptor.add_child( root_0, tree_for_ELSE47 )
+
+          __LCB48__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_ifRest_541 )
+          @state.following.push( TOKENS_FOLLOWING_block_IN_ifRest_544 )
+          block49 = block
+          @state.following.pop
+          @adaptor.add_child( root_0, block49.tree )
+          __RCB50__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_ifRest_546 )
+          # --> action
+          return_value.result = ( block49.nil? ? nil : block49.list )
+          # <-- action
+
+        when 2
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 140:4: ( ELSEIF | ELIF ) expression LCB block RCB op= ifRest
+          set51 = @input.look
+          if @input.peek( 1 ).between?( ELSEIF, ELIF )
+            @input.consume
+            @adaptor.add_child( root_0, @adaptor.create_with_payload( set51 ) )
+            @state.error_recovery = false
+          else
+            mse = MismatchedSet( nil )
+            raise mse
+          end
+
+
+          @state.following.push( TOKENS_FOLLOWING_expression_IN_ifRest_562 )
+          expression52 = expression
+          @state.following.pop
+          @adaptor.add_child( root_0, expression52.tree )
+          __LCB53__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_ifRest_564 )
+          @state.following.push( TOKENS_FOLLOWING_block_IN_ifRest_567 )
+          block54 = block
+          @state.following.pop
+          @adaptor.add_child( root_0, block54.tree )
+          __RCB55__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_ifRest_569 )
+          @state.following.push( TOKENS_FOLLOWING_ifRest_IN_ifRest_574 )
+          op = ifRest
+          @state.following.pop
+          @adaptor.add_child( root_0, op.tree )
+          # --> action
+          return_value.result = IfTree.new(( expression52.nil? ? nil : expression52.result ),( block54.nil? ? nil : block54.list ),( op.nil? ? nil : op.result ))
+          # <-- action
+
+        when 3
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 142:4: 
+          # --> action
+          return_value.result = nil
+          # <-- action
+
+        end# - - - - - - - rule clean up - - - - - - - -
+        return_value.stop = @input.look( -1 )
+
+
+        return_value.tree = @adaptor.rule_post_processing( root_0 )
+        @adaptor.set_token_boundaries( return_value.tree, return_value.start, return_value.stop )
+
+      rescue ANTLR3::Error::RecognitionError => re
+        report_error(re)
+        recover(re)
+        return_value.tree = @adaptor.create_error_node( @input, return_value.start, @input.look(-1), re )
+
+      ensure
+        # -> uncomment the next line to manually enable rule tracing
+        # trace_out( __method__, 14 )
+
+      end
+      
+      return return_value
+    end
+
+    WhileCycleReturnValue = define_return_scope :result
+
+    # 
+    # parser rule whileCycle
+    # 
+    # (in Giraffe.g)
+    # 145:1: whileCycle returns [result] : WHILE LB expression RB LCB block RCB ;
+    # 
+    def whileCycle
+      # -> uncomment the next line to manually enable rule tracing
+      # trace_in( __method__, 15 )
+      return_value = WhileCycleReturnValue.new
+
+      # $rule.start = the first token seen before matching
+      return_value.start = @input.look
+
+      root_0 = nil
+      __WHILE56__ = nil
+      __LB57__ = nil
+      __RB59__ = nil
+      __LCB60__ = nil
+      __RCB62__ = nil
+      expression58 = nil
+      block61 = nil
+
+      tree_for_WHILE56 = nil
+      tree_for_LB57 = nil
+      tree_for_RB59 = nil
+      tree_for_LCB60 = nil
+      tree_for_RCB62 = nil
+
+      begin
+        root_0 = @adaptor.create_flat_list
+
+
+        # at line 146:5: WHILE LB expression RB LCB block RCB
+        __WHILE56__ = match( WHILE, TOKENS_FOLLOWING_WHILE_IN_whileCycle_601 )
+
+        tree_for_WHILE56 = @adaptor.create_with_payload( __WHILE56__ )
+        @adaptor.add_child( root_0, tree_for_WHILE56 )
+
+        __LB57__ = match( LB, TOKENS_FOLLOWING_LB_IN_whileCycle_603 )
+
+        tree_for_LB57 = @adaptor.create_with_payload( __LB57__ )
+        @adaptor.add_child( root_0, tree_for_LB57 )
+
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_whileCycle_605 )
+        expression58 = expression
+        @state.following.pop
+        @adaptor.add_child( root_0, expression58.tree )
+        __RB59__ = match( RB, TOKENS_FOLLOWING_RB_IN_whileCycle_607 )
+
+        tree_for_RB59 = @adaptor.create_with_payload( __RB59__ )
+        @adaptor.add_child( root_0, tree_for_RB59 )
+
+        __LCB60__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_whileCycle_609 )
+        @state.following.push( TOKENS_FOLLOWING_block_IN_whileCycle_612 )
+        block61 = block
+        @state.following.pop
+        @adaptor.add_child( root_0, block61.tree )
+        __RCB62__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_whileCycle_614 )
+        # --> action
+        return_value.result = [WhileTree.new(( expression58.nil? ? nil : expression58.result ),( block61.nil? ? nil : block61.list )),tree_for_WHILE56]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -1512,116 +1549,78 @@ module Giraffe
       return return_value
     end
 
-    IfRestReturnValue = define_return_scope :result
+    DoCycleReturnValue = define_return_scope :result
 
     # 
-    # parser rule ifRest
+    # parser rule doCycle
     # 
     # (in Giraffe.g)
-    # 152:1: ifRest returns [result] : ( ELSE LCB block RCB | ( ELSEIF | ELIF ) condition LCB block RCB op= ifRest | );
+    # 150:1: doCycle returns [result] : DO LCB block RCB WHILE LB expression RB ;
     # 
-    def ifRest
+    def doCycle
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 16 )
-      return_value = IfRestReturnValue.new
+      return_value = DoCycleReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __ELSE53__ = nil
-      __LCB54__ = nil
-      __RCB56__ = nil
-      set57 = nil
-      __LCB59__ = nil
-      __RCB61__ = nil
-      op = nil
-      block55 = nil
-      condition58 = nil
-      block60 = nil
+      __DO63__ = nil
+      __LCB64__ = nil
+      __RCB66__ = nil
+      __WHILE67__ = nil
+      __LB68__ = nil
+      __RB70__ = nil
+      block65 = nil
+      expression69 = nil
 
-      tree_for_ELSE53 = nil
-      tree_for_LCB54 = nil
-      tree_for_RCB56 = nil
-      tree_for_set57 = nil
-      tree_for_LCB59 = nil
-      tree_for_RCB61 = nil
+      tree_for_DO63 = nil
+      tree_for_LCB64 = nil
+      tree_for_RCB66 = nil
+      tree_for_WHILE67 = nil
+      tree_for_LB68 = nil
+      tree_for_RB70 = nil
 
       begin
-        # at line 153:2: ( ELSE LCB block RCB | ( ELSEIF | ELIF ) condition LCB block RCB op= ifRest | )
-        alt_14 = 3
-        case look_14 = @input.peek( 1 )
-        when ELSE then alt_14 = 1
-        when ELSEIF, ELIF then alt_14 = 2
-        when COMMENT, SEMICOLON, RCB, T__65, T__66 then alt_14 = 3
-        else
-          raise NoViableAlternative( "", 14, 0 )
-        end
-        case alt_14
-        when 1
-          root_0 = @adaptor.create_flat_list
+        root_0 = @adaptor.create_flat_list
 
 
-          # at line 153:4: ELSE LCB block RCB
-          __ELSE53__ = match( ELSE, TOKENS_FOLLOWING_ELSE_IN_ifRest_615 )
+        # at line 151:4: DO LCB block RCB WHILE LB expression RB
+        __DO63__ = match( DO, TOKENS_FOLLOWING_DO_IN_doCycle_636 )
 
-          tree_for_ELSE53 = @adaptor.create_with_payload( __ELSE53__ )
-          @adaptor.add_child( root_0, tree_for_ELSE53 )
+        tree_for_DO63 = @adaptor.create_with_payload( __DO63__ )
+        @adaptor.add_child( root_0, tree_for_DO63 )
 
-          __LCB54__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_ifRest_617 )
-          @state.following.push( TOKENS_FOLLOWING_block_IN_ifRest_620 )
-          block55 = block
-          @state.following.pop
-          @adaptor.add_child( root_0, block55.tree )
-          __RCB56__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_ifRest_622 )
-          # --> action
-          return_value.result = ( block55.nil? ? nil : block55.list )
-          # <-- action
+        __LCB64__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_doCycle_638 )
+        @state.following.push( TOKENS_FOLLOWING_block_IN_doCycle_641 )
+        block65 = block
+        @state.following.pop
+        @adaptor.add_child( root_0, block65.tree )
+        __RCB66__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_doCycle_643 )
+        __WHILE67__ = match( WHILE, TOKENS_FOLLOWING_WHILE_IN_doCycle_646 )
 
-        when 2
-          root_0 = @adaptor.create_flat_list
+        tree_for_WHILE67 = @adaptor.create_with_payload( __WHILE67__ )
+        @adaptor.add_child( root_0, tree_for_WHILE67 )
 
+        __LB68__ = match( LB, TOKENS_FOLLOWING_LB_IN_doCycle_648 )
 
-          # at line 154:4: ( ELSEIF | ELIF ) condition LCB block RCB op= ifRest
-          set57 = @input.look
-          if @input.peek( 1 ).between?( ELSEIF, ELIF )
-            @input.consume
-            @adaptor.add_child( root_0, @adaptor.create_with_payload( set57 ) )
-            @state.error_recovery = false
-          else
-            mse = MismatchedSet( nil )
-            raise mse
-          end
+        tree_for_LB68 = @adaptor.create_with_payload( __LB68__ )
+        @adaptor.add_child( root_0, tree_for_LB68 )
 
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_doCycle_650 )
+        expression69 = expression
+        @state.following.pop
+        @adaptor.add_child( root_0, expression69.tree )
+        __RB70__ = match( RB, TOKENS_FOLLOWING_RB_IN_doCycle_652 )
 
-          @state.following.push( TOKENS_FOLLOWING_condition_IN_ifRest_638 )
-          condition58 = condition
-          @state.following.pop
-          @adaptor.add_child( root_0, condition58.tree )
-          __LCB59__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_ifRest_640 )
-          @state.following.push( TOKENS_FOLLOWING_block_IN_ifRest_643 )
-          block60 = block
-          @state.following.pop
-          @adaptor.add_child( root_0, block60.tree )
-          __RCB61__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_ifRest_645 )
-          @state.following.push( TOKENS_FOLLOWING_ifRest_IN_ifRest_650 )
-          op = ifRest
-          @state.following.pop
-          @adaptor.add_child( root_0, op.tree )
-          # --> action
-          return_value.result = IfTree.new(( condition58.nil? ? nil : condition58.result ),( block60.nil? ? nil : block60.list ),( op.nil? ? nil : op.result ))
-          # <-- action
+        tree_for_RB70 = @adaptor.create_with_payload( __RB70__ )
+        @adaptor.add_child( root_0, tree_for_RB70 )
 
-        when 3
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 156:4: 
-          # --> action
-          return_value.result = nil
-          # <-- action
-
-        end# - - - - - - - rule clean up - - - - - - - -
+        # --> action
+        return_value.result = [DoTree.new(( expression69.nil? ? nil : expression69.result ),( block65.nil? ? nil : block65.list )),tree_for_DO63]
+        # <-- action
+        # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -1642,69 +1641,195 @@ module Giraffe
       return return_value
     end
 
-    WhileCycleReturnValue = define_return_scope :result
+    ForCycleReturnValue = define_return_scope :result
 
     # 
-    # parser rule whileCycle
+    # parser rule forCycle
     # 
     # (in Giraffe.g)
-    # 159:1: whileCycle returns [result] : WHILE LB condition RB LCB block RCB ;
+    # 155:1: forCycle returns [result] : FOR LB as1= assignment ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) expression ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) as2= assignment RB LCB block RCB ;
     # 
-    def whileCycle
+    def forCycle
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 17 )
-      return_value = WhileCycleReturnValue.new
+      return_value = ForCycleReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __WHILE62__ = nil
-      __LB63__ = nil
-      __RB65__ = nil
-      __LCB66__ = nil
-      __RCB68__ = nil
-      condition64 = nil
-      block67 = nil
+      __FOR71__ = nil
+      __LB72__ = nil
+      __COMMENT73__ = nil
+      char_literal74 = nil
+      char_literal75 = nil
+      __SEMICOLON76__ = nil
+      __COMMENT78__ = nil
+      char_literal79 = nil
+      char_literal80 = nil
+      __SEMICOLON81__ = nil
+      __RB82__ = nil
+      __LCB83__ = nil
+      __RCB85__ = nil
+      as1 = nil
+      as2 = nil
+      expression77 = nil
+      block84 = nil
 
-      tree_for_WHILE62 = nil
-      tree_for_LB63 = nil
-      tree_for_RB65 = nil
-      tree_for_LCB66 = nil
-      tree_for_RCB68 = nil
+      tree_for_FOR71 = nil
+      tree_for_LB72 = nil
+      tree_for_COMMENT73 = nil
+      tree_for_char_literal74 = nil
+      tree_for_char_literal75 = nil
+      tree_for_SEMICOLON76 = nil
+      tree_for_COMMENT78 = nil
+      tree_for_char_literal79 = nil
+      tree_for_char_literal80 = nil
+      tree_for_SEMICOLON81 = nil
+      tree_for_RB82 = nil
+      tree_for_LCB83 = nil
+      tree_for_RCB85 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 160:5: WHILE LB condition RB LCB block RCB
-        __WHILE62__ = match( WHILE, TOKENS_FOLLOWING_WHILE_IN_whileCycle_677 )
+        # at line 156:4: FOR LB as1= assignment ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) expression ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) as2= assignment RB LCB block RCB
+        __FOR71__ = match( FOR, TOKENS_FOLLOWING_FOR_IN_forCycle_673 )
 
-        tree_for_WHILE62 = @adaptor.create_with_payload( __WHILE62__ )
-        @adaptor.add_child( root_0, tree_for_WHILE62 )
+        tree_for_FOR71 = @adaptor.create_with_payload( __FOR71__ )
+        @adaptor.add_child( root_0, tree_for_FOR71 )
 
-        __LB63__ = match( LB, TOKENS_FOLLOWING_LB_IN_whileCycle_679 )
+        __LB72__ = match( LB, TOKENS_FOLLOWING_LB_IN_forCycle_675 )
 
-        tree_for_LB63 = @adaptor.create_with_payload( __LB63__ )
-        @adaptor.add_child( root_0, tree_for_LB63 )
+        tree_for_LB72 = @adaptor.create_with_payload( __LB72__ )
+        @adaptor.add_child( root_0, tree_for_LB72 )
 
-        @state.following.push( TOKENS_FOLLOWING_condition_IN_whileCycle_681 )
-        condition64 = condition
+        @state.following.push( TOKENS_FOLLOWING_assignment_IN_forCycle_679 )
+        as1 = assignment
         @state.following.pop
-        @adaptor.add_child( root_0, condition64.tree )
-        __RB65__ = match( RB, TOKENS_FOLLOWING_RB_IN_whileCycle_683 )
+        @adaptor.add_child( root_0, as1.tree )
+        # at line 156:26: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON )
+        alt_16 = 2
+        look_16_0 = @input.peek( 1 )
 
-        tree_for_RB65 = @adaptor.create_with_payload( __RB65__ )
-        @adaptor.add_child( root_0, tree_for_RB65 )
+        if ( look_16_0 == COMMENT || look_16_0.between?( T__65, T__66 ) )
+          alt_16 = 1
+        elsif ( look_16_0 == SEMICOLON )
+          alt_16 = 2
+        else
+          raise NoViableAlternative( "", 16, 0 )
+        end
+        case alt_16
+        when 1
+          # at line 156:27: ( ( COMMENT )? ( '\\r' )? '\\n' )
+          # at line 156:27: ( ( COMMENT )? ( '\\r' )? '\\n' )
+          # at line 156:29: ( COMMENT )? ( '\\r' )? '\\n'
+          # at line 156:36: ( COMMENT )?
+          alt_14 = 2
+          look_14_0 = @input.peek( 1 )
 
-        __LCB66__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_whileCycle_685 )
-        @state.following.push( TOKENS_FOLLOWING_block_IN_whileCycle_688 )
-        block67 = block
+          if ( look_14_0 == COMMENT )
+            alt_14 = 1
+          end
+          case alt_14
+          when 1
+            # at line 156:36: COMMENT
+            __COMMENT73__ = match( COMMENT, TOKENS_FOLLOWING_COMMENT_IN_forCycle_684 )
+
+          end
+          # at line 156:43: ( '\\r' )?
+          alt_15 = 2
+          look_15_0 = @input.peek( 1 )
+
+          if ( look_15_0 == T__65 )
+            alt_15 = 1
+          end
+          case alt_15
+          when 1
+            # at line 156:43: '\\r'
+            char_literal74 = match( T__65, TOKENS_FOLLOWING_T__65_IN_forCycle_688 )
+
+          end
+          char_literal75 = match( T__66, TOKENS_FOLLOWING_T__66_IN_forCycle_692 )
+
+
+        when 2
+          # at line 156:55: SEMICOLON
+          __SEMICOLON76__ = match( SEMICOLON, TOKENS_FOLLOWING_SEMICOLON_IN_forCycle_698 )
+
+        end
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_forCycle_703 )
+        expression77 = expression
         @state.following.pop
-        @adaptor.add_child( root_0, block67.tree )
-        __RCB68__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_whileCycle_690 )
+        @adaptor.add_child( root_0, expression77.tree )
+        # at line 156:79: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON )
+        alt_19 = 2
+        look_19_0 = @input.peek( 1 )
+
+        if ( look_19_0 == COMMENT || look_19_0.between?( T__65, T__66 ) )
+          alt_19 = 1
+        elsif ( look_19_0 == SEMICOLON )
+          alt_19 = 2
+        else
+          raise NoViableAlternative( "", 19, 0 )
+        end
+        case alt_19
+        when 1
+          # at line 156:80: ( ( COMMENT )? ( '\\r' )? '\\n' )
+          # at line 156:80: ( ( COMMENT )? ( '\\r' )? '\\n' )
+          # at line 156:82: ( COMMENT )? ( '\\r' )? '\\n'
+          # at line 156:89: ( COMMENT )?
+          alt_17 = 2
+          look_17_0 = @input.peek( 1 )
+
+          if ( look_17_0 == COMMENT )
+            alt_17 = 1
+          end
+          case alt_17
+          when 1
+            # at line 156:89: COMMENT
+            __COMMENT78__ = match( COMMENT, TOKENS_FOLLOWING_COMMENT_IN_forCycle_708 )
+
+          end
+          # at line 156:96: ( '\\r' )?
+          alt_18 = 2
+          look_18_0 = @input.peek( 1 )
+
+          if ( look_18_0 == T__65 )
+            alt_18 = 1
+          end
+          case alt_18
+          when 1
+            # at line 156:96: '\\r'
+            char_literal79 = match( T__65, TOKENS_FOLLOWING_T__65_IN_forCycle_712 )
+
+          end
+          char_literal80 = match( T__66, TOKENS_FOLLOWING_T__66_IN_forCycle_716 )
+
+
+        when 2
+          # at line 156:108: SEMICOLON
+          __SEMICOLON81__ = match( SEMICOLON, TOKENS_FOLLOWING_SEMICOLON_IN_forCycle_722 )
+
+        end
+        @state.following.push( TOKENS_FOLLOWING_assignment_IN_forCycle_729 )
+        as2 = assignment
+        @state.following.pop
+        @adaptor.add_child( root_0, as2.tree )
+        __RB82__ = match( RB, TOKENS_FOLLOWING_RB_IN_forCycle_731 )
+
+        tree_for_RB82 = @adaptor.create_with_payload( __RB82__ )
+        @adaptor.add_child( root_0, tree_for_RB82 )
+
+        __LCB83__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_forCycle_733 )
+        @state.following.push( TOKENS_FOLLOWING_block_IN_forCycle_736 )
+        block84 = block
+        @state.following.pop
+        @adaptor.add_child( root_0, block84.tree )
+        __RCB85__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_forCycle_738 )
         # --> action
-        return_value.result = [WhileTree.new(( condition64.nil? ? nil : condition64.result ),( block67.nil? ? nil : block67.list )),tree_for_WHILE62]
+        return_value.result = [ForTree.new(( as1.nil? ? nil : as1.result ),( expression77.nil? ? nil : expression77.result ),( as2.nil? ? nil : as2.result ),( block84.nil? ? nil : block84.list )), tree_for_FOR71]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -1727,78 +1852,116 @@ module Giraffe
       return return_value
     end
 
-    DoCycleReturnValue = define_return_scope :result
+    FuncReturnValue = define_return_scope :result
 
     # 
-    # parser rule doCycle
+    # parser rule func
     # 
     # (in Giraffe.g)
-    # 164:1: doCycle returns [result] : DO LCB block RCB WHILE LB condition RB ;
+    # 160:1: func returns [result] : ( ID ( LB params RB )? LCB block RCB | MAIN LCB block RCB );
     # 
-    def doCycle
+    def func
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 18 )
-      return_value = DoCycleReturnValue.new
+      return_value = FuncReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __DO69__ = nil
-      __LCB70__ = nil
-      __RCB72__ = nil
-      __WHILE73__ = nil
-      __LB74__ = nil
-      __RB76__ = nil
-      block71 = nil
-      condition75 = nil
+      __ID86__ = nil
+      __LB87__ = nil
+      __RB89__ = nil
+      __LCB90__ = nil
+      __RCB92__ = nil
+      __MAIN93__ = nil
+      __LCB94__ = nil
+      __RCB96__ = nil
+      params88 = nil
+      block91 = nil
+      block95 = nil
 
-      tree_for_DO69 = nil
-      tree_for_LCB70 = nil
-      tree_for_RCB72 = nil
-      tree_for_WHILE73 = nil
-      tree_for_LB74 = nil
-      tree_for_RB76 = nil
+      tree_for_ID86 = nil
+      tree_for_LB87 = nil
+      tree_for_RB89 = nil
+      tree_for_LCB90 = nil
+      tree_for_RCB92 = nil
+      tree_for_MAIN93 = nil
+      tree_for_LCB94 = nil
+      tree_for_RCB96 = nil
 
       begin
-        root_0 = @adaptor.create_flat_list
+        # at line 161:2: ( ID ( LB params RB )? LCB block RCB | MAIN LCB block RCB )
+        alt_21 = 2
+        look_21_0 = @input.peek( 1 )
+
+        if ( look_21_0 == ID )
+          alt_21 = 1
+        elsif ( look_21_0 == MAIN )
+          alt_21 = 2
+        else
+          raise NoViableAlternative( "", 21, 0 )
+        end
+        case alt_21
+        when 1
+          root_0 = @adaptor.create_flat_list
 
 
-        # at line 165:4: DO LCB block RCB WHILE LB condition RB
-        __DO69__ = match( DO, TOKENS_FOLLOWING_DO_IN_doCycle_712 )
+          # at line 161:4: ID ( LB params RB )? LCB block RCB
+          __ID86__ = match( ID, TOKENS_FOLLOWING_ID_IN_func_760 )
 
-        tree_for_DO69 = @adaptor.create_with_payload( __DO69__ )
-        @adaptor.add_child( root_0, tree_for_DO69 )
+          tree_for_ID86 = @adaptor.create_with_payload( __ID86__ )
+          @adaptor.add_child( root_0, tree_for_ID86 )
 
-        __LCB70__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_doCycle_714 )
-        @state.following.push( TOKENS_FOLLOWING_block_IN_doCycle_717 )
-        block71 = block
-        @state.following.pop
-        @adaptor.add_child( root_0, block71.tree )
-        __RCB72__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_doCycle_719 )
-        __WHILE73__ = match( WHILE, TOKENS_FOLLOWING_WHILE_IN_doCycle_722 )
+          # at line 161:7: ( LB params RB )?
+          alt_20 = 2
+          look_20_0 = @input.peek( 1 )
 
-        tree_for_WHILE73 = @adaptor.create_with_payload( __WHILE73__ )
-        @adaptor.add_child( root_0, tree_for_WHILE73 )
+          if ( look_20_0 == LB )
+            alt_20 = 1
+          end
+          case alt_20
+          when 1
+            # at line 161:8: LB params RB
+            __LB87__ = match( LB, TOKENS_FOLLOWING_LB_IN_func_763 )
+            @state.following.push( TOKENS_FOLLOWING_params_IN_func_766 )
+            params88 = params
+            @state.following.pop
+            @adaptor.add_child( root_0, params88.tree )
+            __RB89__ = match( RB, TOKENS_FOLLOWING_RB_IN_func_768 )
 
-        __LB74__ = match( LB, TOKENS_FOLLOWING_LB_IN_doCycle_724 )
+          end
+          __LCB90__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_func_773 )
+          @state.following.push( TOKENS_FOLLOWING_block_IN_func_776 )
+          block91 = block
+          @state.following.pop
+          @adaptor.add_child( root_0, block91.tree )
+          __RCB92__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_func_778 )
+          # --> action
+          return_value.result = [FuncTree.new(__ID86__.text,( params88.nil? ? nil : params88.list ) == nil ? [] : ( params88.nil? ? nil : params88.list ),( block91.nil? ? nil : block91.list )),tree_for_ID86]
+          # <-- action
 
-        tree_for_LB74 = @adaptor.create_with_payload( __LB74__ )
-        @adaptor.add_child( root_0, tree_for_LB74 )
+        when 2
+          root_0 = @adaptor.create_flat_list
 
-        @state.following.push( TOKENS_FOLLOWING_condition_IN_doCycle_726 )
-        condition75 = condition
-        @state.following.pop
-        @adaptor.add_child( root_0, condition75.tree )
-        __RB76__ = match( RB, TOKENS_FOLLOWING_RB_IN_doCycle_728 )
 
-        tree_for_RB76 = @adaptor.create_with_payload( __RB76__ )
-        @adaptor.add_child( root_0, tree_for_RB76 )
+          # at line 163:4: MAIN LCB block RCB
+          __MAIN93__ = match( MAIN, TOKENS_FOLLOWING_MAIN_IN_func_788 )
 
-        # --> action
-        return_value.result = [DoTree.new(( condition75.nil? ? nil : condition75.result ),( block71.nil? ? nil : block71.list )),tree_for_DO69]
-        # <-- action
-        # - - - - - - - rule clean up - - - - - - - -
+          tree_for_MAIN93 = @adaptor.create_with_payload( __MAIN93__ )
+          root_0 = @adaptor.become_root( tree_for_MAIN93, root_0 )
+
+          __LCB94__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_func_791 )
+          @state.following.push( TOKENS_FOLLOWING_block_IN_func_794 )
+          block95 = block
+          @state.following.pop
+          @adaptor.add_child( root_0, block95.tree )
+          __RCB96__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_func_796 )
+          # --> action
+          return_value.result = [FuncTree.new("main",[],( block95.nil? ? nil : block95.list )),tree_for_MAIN93]
+          # <-- action
+
+        end# - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -1819,197 +1982,69 @@ module Giraffe
       return return_value
     end
 
-    ForCycleReturnValue = define_return_scope :result
+    ParamsReturnValue = define_return_scope :list
 
     # 
-    # parser rule forCycle
+    # parser rule params
     # 
     # (in Giraffe.g)
-    # 169:1: forCycle returns [result] : FOR LB as1= assignment ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) condition ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) as2= assignment RB LCB block RCB ;
+    # 167:1: params returns [list] : ( ID paramRest | );
     # 
-    def forCycle
+    def params
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 19 )
-      return_value = ForCycleReturnValue.new
+      return_value = ParamsReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __FOR77__ = nil
-      __LB78__ = nil
-      __COMMENT79__ = nil
-      char_literal80 = nil
-      char_literal81 = nil
-      __SEMICOLON82__ = nil
-      __COMMENT84__ = nil
-      char_literal85 = nil
-      char_literal86 = nil
-      __SEMICOLON87__ = nil
-      __RB88__ = nil
-      __LCB89__ = nil
-      __RCB91__ = nil
-      as1 = nil
-      as2 = nil
-      condition83 = nil
-      block90 = nil
+      __ID97__ = nil
+      paramRest98 = nil
 
-      tree_for_FOR77 = nil
-      tree_for_LB78 = nil
-      tree_for_COMMENT79 = nil
-      tree_for_char_literal80 = nil
-      tree_for_char_literal81 = nil
-      tree_for_SEMICOLON82 = nil
-      tree_for_COMMENT84 = nil
-      tree_for_char_literal85 = nil
-      tree_for_char_literal86 = nil
-      tree_for_SEMICOLON87 = nil
-      tree_for_RB88 = nil
-      tree_for_LCB89 = nil
-      tree_for_RCB91 = nil
+      tree_for_ID97 = nil
 
       begin
-        root_0 = @adaptor.create_flat_list
+        # at line 168:2: ( ID paramRest | )
+        alt_22 = 2
+        look_22_0 = @input.peek( 1 )
 
-
-        # at line 170:4: FOR LB as1= assignment ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) condition ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON ) as2= assignment RB LCB block RCB
-        __FOR77__ = match( FOR, TOKENS_FOLLOWING_FOR_IN_forCycle_749 )
-
-        tree_for_FOR77 = @adaptor.create_with_payload( __FOR77__ )
-        @adaptor.add_child( root_0, tree_for_FOR77 )
-
-        __LB78__ = match( LB, TOKENS_FOLLOWING_LB_IN_forCycle_751 )
-
-        tree_for_LB78 = @adaptor.create_with_payload( __LB78__ )
-        @adaptor.add_child( root_0, tree_for_LB78 )
-
-        @state.following.push( TOKENS_FOLLOWING_assignment_IN_forCycle_755 )
-        as1 = assignment
-        @state.following.pop
-        @adaptor.add_child( root_0, as1.tree )
-        # at line 170:26: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON )
-        alt_17 = 2
-        look_17_0 = @input.peek( 1 )
-
-        if ( look_17_0 == COMMENT || look_17_0.between?( T__65, T__66 ) )
-          alt_17 = 1
-        elsif ( look_17_0 == SEMICOLON )
-          alt_17 = 2
+        if ( look_22_0 == ID )
+          alt_22 = 1
+        elsif ( look_22_0 == RB )
+          alt_22 = 2
         else
-          raise NoViableAlternative( "", 17, 0 )
+          raise NoViableAlternative( "", 22, 0 )
         end
-        case alt_17
+        case alt_22
         when 1
-          # at line 170:27: ( ( COMMENT )? ( '\\r' )? '\\n' )
-          # at line 170:27: ( ( COMMENT )? ( '\\r' )? '\\n' )
-          # at line 170:29: ( COMMENT )? ( '\\r' )? '\\n'
-          # at line 170:36: ( COMMENT )?
-          alt_15 = 2
-          look_15_0 = @input.peek( 1 )
+          root_0 = @adaptor.create_flat_list
 
-          if ( look_15_0 == COMMENT )
-            alt_15 = 1
-          end
-          case alt_15
-          when 1
-            # at line 170:36: COMMENT
-            __COMMENT79__ = match( COMMENT, TOKENS_FOLLOWING_COMMENT_IN_forCycle_760 )
 
-          end
-          # at line 170:43: ( '\\r' )?
-          alt_16 = 2
-          look_16_0 = @input.peek( 1 )
+          # at line 168:4: ID paramRest
+          __ID97__ = match( ID, TOKENS_FOLLOWING_ID_IN_params_816 )
 
-          if ( look_16_0 == T__65 )
-            alt_16 = 1
-          end
-          case alt_16
-          when 1
-            # at line 170:43: '\\r'
-            char_literal80 = match( T__65, TOKENS_FOLLOWING_T__65_IN_forCycle_764 )
+          tree_for_ID97 = @adaptor.create_with_payload( __ID97__ )
+          @adaptor.add_child( root_0, tree_for_ID97 )
 
-          end
-          char_literal81 = match( T__66, TOKENS_FOLLOWING_T__66_IN_forCycle_768 )
-
+          @state.following.push( TOKENS_FOLLOWING_paramRest_IN_params_818 )
+          paramRest98 = paramRest
+          @state.following.pop
+          @adaptor.add_child( root_0, paramRest98.tree )
+          # --> action
+          return_value.list = [__ID97__.text] + ( paramRest98.nil? ? nil : paramRest98.list )
+          # <-- action
 
         when 2
-          # at line 170:55: SEMICOLON
-          __SEMICOLON82__ = match( SEMICOLON, TOKENS_FOLLOWING_SEMICOLON_IN_forCycle_774 )
-
-        end
-        @state.following.push( TOKENS_FOLLOWING_condition_IN_forCycle_779 )
-        condition83 = condition
-        @state.following.pop
-        @adaptor.add_child( root_0, condition83.tree )
-        # at line 170:78: ( ( ( COMMENT )? ( '\\r' )? '\\n' ) | SEMICOLON )
-        alt_20 = 2
-        look_20_0 = @input.peek( 1 )
-
-        if ( look_20_0 == COMMENT || look_20_0.between?( T__65, T__66 ) )
-          alt_20 = 1
-        elsif ( look_20_0 == SEMICOLON )
-          alt_20 = 2
-        else
-          raise NoViableAlternative( "", 20, 0 )
-        end
-        case alt_20
-        when 1
-          # at line 170:79: ( ( COMMENT )? ( '\\r' )? '\\n' )
-          # at line 170:79: ( ( COMMENT )? ( '\\r' )? '\\n' )
-          # at line 170:81: ( COMMENT )? ( '\\r' )? '\\n'
-          # at line 170:88: ( COMMENT )?
-          alt_18 = 2
-          look_18_0 = @input.peek( 1 )
-
-          if ( look_18_0 == COMMENT )
-            alt_18 = 1
-          end
-          case alt_18
-          when 1
-            # at line 170:88: COMMENT
-            __COMMENT84__ = match( COMMENT, TOKENS_FOLLOWING_COMMENT_IN_forCycle_784 )
-
-          end
-          # at line 170:95: ( '\\r' )?
-          alt_19 = 2
-          look_19_0 = @input.peek( 1 )
-
-          if ( look_19_0 == T__65 )
-            alt_19 = 1
-          end
-          case alt_19
-          when 1
-            # at line 170:95: '\\r'
-            char_literal85 = match( T__65, TOKENS_FOLLOWING_T__65_IN_forCycle_788 )
-
-          end
-          char_literal86 = match( T__66, TOKENS_FOLLOWING_T__66_IN_forCycle_792 )
+          root_0 = @adaptor.create_flat_list
 
 
-        when 2
-          # at line 170:107: SEMICOLON
-          __SEMICOLON87__ = match( SEMICOLON, TOKENS_FOLLOWING_SEMICOLON_IN_forCycle_798 )
+          # at line 170:5: 
+          # --> action
+          return_value.list = []
+          # <-- action
 
-        end
-        @state.following.push( TOKENS_FOLLOWING_assignment_IN_forCycle_805 )
-        as2 = assignment
-        @state.following.pop
-        @adaptor.add_child( root_0, as2.tree )
-        __RB88__ = match( RB, TOKENS_FOLLOWING_RB_IN_forCycle_807 )
-
-        tree_for_RB88 = @adaptor.create_with_payload( __RB88__ )
-        @adaptor.add_child( root_0, tree_for_RB88 )
-
-        __LCB89__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_forCycle_809 )
-        @state.following.push( TOKENS_FOLLOWING_block_IN_forCycle_812 )
-        block90 = block
-        @state.following.pop
-        @adaptor.add_child( root_0, block90.tree )
-        __RCB91__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_forCycle_814 )
-        # --> action
-        return_value.result = [ForTree.new(( as1.nil? ? nil : as1.result ),( condition83.nil? ? nil : condition83.result ),( as2.nil? ? nil : as2.result ),( block90.nil? ? nil : block90.list )), tree_for_FOR77]
-        # <-- action
-        # - - - - - - - rule clean up - - - - - - - -
+        end# - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -2030,113 +2065,62 @@ module Giraffe
       return return_value
     end
 
-    FuncReturnValue = define_return_scope :result
+    ParamRestReturnValue = define_return_scope :list
 
     # 
-    # parser rule func
+    # parser rule paramRest
     # 
     # (in Giraffe.g)
-    # 174:1: func returns [result] : ( ID ( LB params RB )? LCB block RCB | MAIN LCB block RCB );
+    # 173:1: paramRest returns [list] : ( COMMA params | );
     # 
-    def func
+    def paramRest
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 20 )
-      return_value = FuncReturnValue.new
+      return_value = ParamRestReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __ID92__ = nil
-      __LB93__ = nil
-      __RB95__ = nil
-      __LCB96__ = nil
-      __RCB98__ = nil
-      __MAIN99__ = nil
-      __LCB100__ = nil
-      __RCB102__ = nil
-      params94 = nil
-      block97 = nil
-      block101 = nil
+      __COMMA99__ = nil
+      params100 = nil
 
-      tree_for_ID92 = nil
-      tree_for_LB93 = nil
-      tree_for_RB95 = nil
-      tree_for_LCB96 = nil
-      tree_for_RCB98 = nil
-      tree_for_MAIN99 = nil
-      tree_for_LCB100 = nil
-      tree_for_RCB102 = nil
+      tree_for_COMMA99 = nil
 
       begin
-        # at line 175:2: ( ID ( LB params RB )? LCB block RCB | MAIN LCB block RCB )
-        alt_22 = 2
-        look_22_0 = @input.peek( 1 )
+        # at line 174:2: ( COMMA params | )
+        alt_23 = 2
+        look_23_0 = @input.peek( 1 )
 
-        if ( look_22_0 == ID )
-          alt_22 = 1
-        elsif ( look_22_0 == MAIN )
-          alt_22 = 2
+        if ( look_23_0 == COMMA )
+          alt_23 = 1
+        elsif ( look_23_0 == RB )
+          alt_23 = 2
         else
-          raise NoViableAlternative( "", 22, 0 )
+          raise NoViableAlternative( "", 23, 0 )
         end
-        case alt_22
+        case alt_23
         when 1
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 175:4: ID ( LB params RB )? LCB block RCB
-          __ID92__ = match( ID, TOKENS_FOLLOWING_ID_IN_func_836 )
-
-          tree_for_ID92 = @adaptor.create_with_payload( __ID92__ )
-          @adaptor.add_child( root_0, tree_for_ID92 )
-
-          # at line 175:7: ( LB params RB )?
-          alt_21 = 2
-          look_21_0 = @input.peek( 1 )
-
-          if ( look_21_0 == LB )
-            alt_21 = 1
-          end
-          case alt_21
-          when 1
-            # at line 175:8: LB params RB
-            __LB93__ = match( LB, TOKENS_FOLLOWING_LB_IN_func_839 )
-            @state.following.push( TOKENS_FOLLOWING_params_IN_func_842 )
-            params94 = params
-            @state.following.pop
-            @adaptor.add_child( root_0, params94.tree )
-            __RB95__ = match( RB, TOKENS_FOLLOWING_RB_IN_func_844 )
-
-          end
-          __LCB96__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_func_849 )
-          @state.following.push( TOKENS_FOLLOWING_block_IN_func_852 )
-          block97 = block
+          # at line 174:4: COMMA params
+          __COMMA99__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_paramRest_843 )
+          @state.following.push( TOKENS_FOLLOWING_params_IN_paramRest_846 )
+          params100 = params
           @state.following.pop
-          @adaptor.add_child( root_0, block97.tree )
-          __RCB98__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_func_854 )
+          @adaptor.add_child( root_0, params100.tree )
           # --> action
-          return_value.result = [FuncTree.new(__ID92__.text,( params94.nil? ? nil : params94.list ) == nil ? [] : ( params94.nil? ? nil : params94.list ),( block97.nil? ? nil : block97.list )),tree_for_ID92]
+          return_value.list = ( params100.nil? ? nil : params100.list )
           # <-- action
 
         when 2
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 177:4: MAIN LCB block RCB
-          __MAIN99__ = match( MAIN, TOKENS_FOLLOWING_MAIN_IN_func_864 )
-
-          tree_for_MAIN99 = @adaptor.create_with_payload( __MAIN99__ )
-          root_0 = @adaptor.become_root( tree_for_MAIN99, root_0 )
-
-          __LCB100__ = match( LCB, TOKENS_FOLLOWING_LCB_IN_func_867 )
-          @state.following.push( TOKENS_FOLLOWING_block_IN_func_870 )
-          block101 = block
-          @state.following.pop
-          @adaptor.add_child( root_0, block101.tree )
-          __RCB102__ = match( RCB, TOKENS_FOLLOWING_RCB_IN_func_872 )
+          # at line 176:4: 
           # --> action
-          return_value.result = [FuncTree.new("main",[],( block101.nil? ? nil : block101.list )),tree_for_MAIN99]
+          return_value.list = []
           # <-- action
 
         end# - - - - - - - rule clean up - - - - - - - -
@@ -2160,69 +2144,64 @@ module Giraffe
       return return_value
     end
 
-    ParamsReturnValue = define_return_scope :list
+    AloneCallReturnValue = define_return_scope :result
 
     # 
-    # parser rule params
+    # parser rule aloneCall
     # 
     # (in Giraffe.g)
-    # 181:1: params returns [list] : ( ID paramRest | );
+    # 179:1: aloneCall returns [result] : fun= ID LB (args1= args )? RB ;
     # 
-    def params
+    def aloneCall
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 21 )
-      return_value = ParamsReturnValue.new
+      return_value = AloneCallReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __ID103__ = nil
-      paramRest104 = nil
+      fun = nil
+      __LB101__ = nil
+      __RB102__ = nil
+      args1 = nil
 
-      tree_for_ID103 = nil
+      tree_for_fun = nil
+      tree_for_LB101 = nil
+      tree_for_RB102 = nil
 
       begin
-        # at line 182:2: ( ID paramRest | )
-        alt_23 = 2
-        look_23_0 = @input.peek( 1 )
+        root_0 = @adaptor.create_flat_list
 
-        if ( look_23_0 == ID )
-          alt_23 = 1
-        elsif ( look_23_0 == RB )
-          alt_23 = 2
-        else
-          raise NoViableAlternative( "", 23, 0 )
+
+        # at line 180:4: fun= ID LB (args1= args )? RB
+        fun = match( ID, TOKENS_FOLLOWING_ID_IN_aloneCall_874 )
+
+        tree_for_fun = @adaptor.create_with_payload( fun )
+        root_0 = @adaptor.become_root( tree_for_fun, root_0 )
+
+        __LB101__ = match( LB, TOKENS_FOLLOWING_LB_IN_aloneCall_877 )
+        # at line 180:21: (args1= args )?
+        alt_24 = 2
+        look_24_0 = @input.peek( 1 )
+
+        if ( look_24_0 == READ || look_24_0.between?( PLUS, INT ) || look_24_0 == LB || look_24_0 == ID || look_24_0 == NOT || look_24_0.between?( OPENFILE, ALLOC ) || look_24_0 == STRING || look_24_0 == T__67 )
+          alt_24 = 1
         end
-        case alt_23
+        case alt_24
         when 1
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 182:4: ID paramRest
-          __ID103__ = match( ID, TOKENS_FOLLOWING_ID_IN_params_892 )
-
-          tree_for_ID103 = @adaptor.create_with_payload( __ID103__ )
-          @adaptor.add_child( root_0, tree_for_ID103 )
-
-          @state.following.push( TOKENS_FOLLOWING_paramRest_IN_params_894 )
-          paramRest104 = paramRest
+          # at line 180:21: args1= args
+          @state.following.push( TOKENS_FOLLOWING_args_IN_aloneCall_882 )
+          args1 = args
           @state.following.pop
-          @adaptor.add_child( root_0, paramRest104.tree )
-          # --> action
-          return_value.list = [__ID103__.text] + ( paramRest104.nil? ? nil : paramRest104.list )
-          # <-- action
+          @adaptor.add_child( root_0, args1.tree )
 
-        when 2
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 184:5: 
-          # --> action
-          return_value.list = []
-          # <-- action
-
-        end# - - - - - - - rule clean up - - - - - - - -
+        end
+        __RB102__ = match( RB, TOKENS_FOLLOWING_RB_IN_aloneCall_885 )
+        # --> action
+        return_value.result = [CallTree.new(fun.text,( args1.nil? ? nil : args1.list ),true),tree_for_fun]
+        # <-- action
+        # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -2243,65 +2222,87 @@ module Giraffe
       return return_value
     end
 
-    ParamRestReturnValue = define_return_scope :list
+    CallVarReturnValue = define_return_scope :result
 
     # 
-    # parser rule paramRest
+    # parser rule callVar
     # 
     # (in Giraffe.g)
-    # 187:1: paramRest returns [list] : ( COMMA params | );
+    # 184:1: callVar returns [result] : ID ( LB (args1= args )? RB )? ;
     # 
-    def paramRest
+    def callVar
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 22 )
-      return_value = ParamRestReturnValue.new
+      return_value = CallVarReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __COMMA105__ = nil
-      params106 = nil
+      __ID103__ = nil
+      __LB104__ = nil
+      __RB105__ = nil
+      args1 = nil
 
-      tree_for_COMMA105 = nil
+      tree_for_ID103 = nil
+      tree_for_LB104 = nil
+      tree_for_RB105 = nil
 
       begin
-        # at line 188:2: ( COMMA params | )
-        alt_24 = 2
-        look_24_0 = @input.peek( 1 )
+        root_0 = @adaptor.create_flat_list
 
-        if ( look_24_0 == COMMA )
-          alt_24 = 1
-        elsif ( look_24_0 == RB )
-          alt_24 = 2
-        else
-          raise NoViableAlternative( "", 24, 0 )
+
+        # at line 185:4: ID ( LB (args1= args )? RB )?
+        __ID103__ = match( ID, TOKENS_FOLLOWING_ID_IN_callVar_905 )
+
+        tree_for_ID103 = @adaptor.create_with_payload( __ID103__ )
+        @adaptor.add_child( root_0, tree_for_ID103 )
+
+        # --> action
+        return_value.result = [VarTree.new(__ID103__.text),tree_for_ID103]
+        # <-- action
+        # at line 186:3: ( LB (args1= args )? RB )?
+        alt_26 = 2
+        look_26_0 = @input.peek( 1 )
+
+        if ( look_26_0 == LB )
+          alt_26 = 1
         end
-        case alt_24
+        case alt_26
         when 1
-          root_0 = @adaptor.create_flat_list
+          # at line 187:3: LB (args1= args )? RB
+          __LB104__ = match( LB, TOKENS_FOLLOWING_LB_IN_callVar_916 )
 
+          tree_for_LB104 = @adaptor.create_with_payload( __LB104__ )
+          @adaptor.add_child( root_0, tree_for_LB104 )
 
-          # at line 188:4: COMMA params
-          __COMMA105__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_paramRest_919 )
-          @state.following.push( TOKENS_FOLLOWING_params_IN_paramRest_922 )
-          params106 = params
-          @state.following.pop
-          @adaptor.add_child( root_0, params106.tree )
+          # at line 187:11: (args1= args )?
+          alt_25 = 2
+          look_25_0 = @input.peek( 1 )
+
+          if ( look_25_0 == READ || look_25_0.between?( PLUS, INT ) || look_25_0 == LB || look_25_0 == ID || look_25_0 == NOT || look_25_0.between?( OPENFILE, ALLOC ) || look_25_0 == STRING || look_25_0 == T__67 )
+            alt_25 = 1
+          end
+          case alt_25
+          when 1
+            # at line 187:11: args1= args
+            @state.following.push( TOKENS_FOLLOWING_args_IN_callVar_920 )
+            args1 = args
+            @state.following.pop
+            @adaptor.add_child( root_0, args1.tree )
+
+          end
+          __RB105__ = match( RB, TOKENS_FOLLOWING_RB_IN_callVar_923 )
+
+          tree_for_RB105 = @adaptor.create_with_payload( __RB105__ )
+          @adaptor.add_child( root_0, tree_for_RB105 )
+
           # --> action
-          return_value.list = ( params106.nil? ? nil : params106.list )
+          return_value.result = [CallTree.new(__ID103__.text,( args1.nil? ? nil : args1.list ),false),tree_for_ID103]
           # <-- action
 
-        when 2
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 190:4: 
-          # --> action
-          return_value.list = []
-          # <-- action
-
-        end# - - - - - - - rule clean up - - - - - - - -
+        end
+        # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -2322,120 +2323,43 @@ module Giraffe
       return return_value
     end
 
-    AloneCallReturnValue = define_return_scope :result
+    ArgsReturnValue = define_return_scope :list
 
     # 
-    # parser rule aloneCall
+    # parser rule args
     # 
     # (in Giraffe.g)
-    # 193:1: aloneCall returns [result] : fun= ID LB (args1= args )? RB ( DOT method= ID LB (args2= args )? RB )* ;
+    # 192:1: args returns [list] : expression argsRest ;
     # 
-    def aloneCall
+    def args
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 23 )
-      return_value = AloneCallReturnValue.new
+      return_value = ArgsReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      fun = nil
-      method = nil
-      __LB107__ = nil
-      __RB108__ = nil
-      __DOT109__ = nil
-      __LB110__ = nil
-      __RB111__ = nil
-      args1 = nil
-      args2 = nil
+      expression106 = nil
+      argsRest107 = nil
 
-      tree_for_fun = nil
-      tree_for_method = nil
-      tree_for_LB107 = nil
-      tree_for_RB108 = nil
-      tree_for_DOT109 = nil
-      tree_for_LB110 = nil
-      tree_for_RB111 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 194:4: fun= ID LB (args1= args )? RB ( DOT method= ID LB (args2= args )? RB )*
-        fun = match( ID, TOKENS_FOLLOWING_ID_IN_aloneCall_950 )
-
-        tree_for_fun = @adaptor.create_with_payload( fun )
-        root_0 = @adaptor.become_root( tree_for_fun, root_0 )
-
-        __LB107__ = match( LB, TOKENS_FOLLOWING_LB_IN_aloneCall_953 )
-        # at line 194:21: (args1= args )?
-        alt_25 = 2
-        look_25_0 = @input.peek( 1 )
-
-        if ( look_25_0 == READ || look_25_0 == LB || look_25_0.between?( PLUS, INT ) || look_25_0 == ID || look_25_0.between?( OPENFILE, READNUMBER ) || look_25_0.between?( NULL, ALLOC ) || look_25_0 == STRING || look_25_0 == T__67 )
-          alt_25 = 1
-        end
-        case alt_25
-        when 1
-          # at line 194:21: args1= args
-          @state.following.push( TOKENS_FOLLOWING_args_IN_aloneCall_958 )
-          args1 = args
-          @state.following.pop
-          @adaptor.add_child( root_0, args1.tree )
-
-        end
-        __RB108__ = match( RB, TOKENS_FOLLOWING_RB_IN_aloneCall_961 )
+        # at line 193:5: expression argsRest
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_args_950 )
+        expression106 = expression
+        @state.following.pop
+        @adaptor.add_child( root_0, expression106.tree )
+        @state.following.push( TOKENS_FOLLOWING_argsRest_IN_args_952 )
+        argsRest107 = argsRest
+        @state.following.pop
+        @adaptor.add_child( root_0, argsRest107.tree )
         # --> action
-        return_value.result = [CallTree.new(fun.text,( args1.nil? ? nil : args1.list ),true),tree_for_fun]
+        return_value.list = [( expression106.nil? ? nil : expression106.result )] + ( argsRest107.nil? ? nil : argsRest107.list )
         # <-- action
-        # at line 196:3: ( DOT method= ID LB (args2= args )? RB )*
-        while true # decision 27
-          alt_27 = 2
-          look_27_0 = @input.peek( 1 )
-
-          if ( look_27_0 == DOT )
-            alt_27 = 1
-
-          end
-          case alt_27
-          when 1
-            # at line 196:5: DOT method= ID LB (args2= args )? RB
-            __DOT109__ = match( DOT, TOKENS_FOLLOWING_DOT_IN_aloneCall_972 )
-
-            tree_for_DOT109 = @adaptor.create_with_payload( __DOT109__ )
-            @adaptor.add_child( root_0, tree_for_DOT109 )
-
-            method = match( ID, TOKENS_FOLLOWING_ID_IN_aloneCall_976 )
-
-            tree_for_method = @adaptor.create_with_payload( method )
-            @adaptor.add_child( root_0, tree_for_method )
-
-            __LB110__ = match( LB, TOKENS_FOLLOWING_LB_IN_aloneCall_978 )
-            # at line 196:28: (args2= args )?
-            alt_26 = 2
-            look_26_0 = @input.peek( 1 )
-
-            if ( look_26_0 == READ || look_26_0 == LB || look_26_0.between?( PLUS, INT ) || look_26_0 == ID || look_26_0.between?( OPENFILE, READNUMBER ) || look_26_0.between?( NULL, ALLOC ) || look_26_0 == STRING || look_26_0 == T__67 )
-              alt_26 = 1
-            end
-            case alt_26
-            when 1
-              # at line 196:28: args2= args
-              @state.following.push( TOKENS_FOLLOWING_args_IN_aloneCall_983 )
-              args2 = args
-              @state.following.pop
-              @adaptor.add_child( root_0, args2.tree )
-
-            end
-            __RB111__ = match( RB, TOKENS_FOLLOWING_RB_IN_aloneCall_986 )
-            # --> action
-            return_value.result = [MethodCallTree.new(return_value.result,method.text,( args2.nil? ? nil : args2.list )),tree_for_method]
-            # <-- action
-
-          else
-            break # out of loop for decision 27
-          end
-        end # loop for decision 27
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
@@ -2457,121 +2381,65 @@ module Giraffe
       return return_value
     end
 
-    CallReturnValue = define_return_scope :result
+    ArgsRestReturnValue = define_return_scope :list
 
     # 
-    # parser rule call
+    # parser rule argsRest
     # 
     # (in Giraffe.g)
-    # 199:1: call returns [result] : fun= ID LB (args1= args )? RB ( DOT method= ID LB (args2= args )? RB )* ;
+    # 196:1: argsRest returns [list] : ( COMMA args | );
     # 
-    def call
+    def argsRest
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 24 )
-      return_value = CallReturnValue.new
+      return_value = ArgsRestReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      fun = nil
-      method = nil
-      __LB112__ = nil
-      __RB113__ = nil
-      __DOT114__ = nil
-      __LB115__ = nil
-      __RB116__ = nil
-      args1 = nil
-      args2 = nil
+      __COMMA108__ = nil
+      args109 = nil
 
-      tree_for_fun = nil
-      tree_for_method = nil
-      tree_for_LB112 = nil
-      tree_for_RB113 = nil
-      tree_for_DOT114 = nil
-      tree_for_LB115 = nil
-      tree_for_RB116 = nil
+      tree_for_COMMA108 = nil
 
       begin
-        root_0 = @adaptor.create_flat_list
+        # at line 197:2: ( COMMA args | )
+        alt_27 = 2
+        look_27_0 = @input.peek( 1 )
 
-
-        # at line 200:4: fun= ID LB (args1= args )? RB ( DOT method= ID LB (args2= args )? RB )*
-        fun = match( ID, TOKENS_FOLLOWING_ID_IN_call_1009 )
-
-        tree_for_fun = @adaptor.create_with_payload( fun )
-        root_0 = @adaptor.become_root( tree_for_fun, root_0 )
-
-        __LB112__ = match( LB, TOKENS_FOLLOWING_LB_IN_call_1012 )
-        # at line 200:21: (args1= args )?
-        alt_28 = 2
-        look_28_0 = @input.peek( 1 )
-
-        if ( look_28_0 == READ || look_28_0 == LB || look_28_0.between?( PLUS, INT ) || look_28_0 == ID || look_28_0.between?( OPENFILE, READNUMBER ) || look_28_0.between?( NULL, ALLOC ) || look_28_0 == STRING || look_28_0 == T__67 )
-          alt_28 = 1
+        if ( look_27_0 == COMMA )
+          alt_27 = 1
+        elsif ( look_27_0 == RB )
+          alt_27 = 2
+        else
+          raise NoViableAlternative( "", 27, 0 )
         end
-        case alt_28
+        case alt_27
         when 1
-          # at line 200:21: args1= args
-          @state.following.push( TOKENS_FOLLOWING_args_IN_call_1017 )
-          args1 = args
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 197:4: COMMA args
+          __COMMA108__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_argsRest_971 )
+          @state.following.push( TOKENS_FOLLOWING_args_IN_argsRest_974 )
+          args109 = args
           @state.following.pop
-          @adaptor.add_child( root_0, args1.tree )
+          @adaptor.add_child( root_0, args109.tree )
+          # --> action
+          return_value.list = ( args109.nil? ? nil : args109.list )
+          # <-- action
 
-        end
-        __RB113__ = match( RB, TOKENS_FOLLOWING_RB_IN_call_1020 )
-        # --> action
-        return_value.result = [CallTree.new(fun.text,( args1.nil? ? nil : args1.list ),false),tree_for_fun]
-        # <-- action
-        # at line 202:3: ( DOT method= ID LB (args2= args )? RB )*
-        while true # decision 30
-          alt_30 = 2
-          look_30_0 = @input.peek( 1 )
+        when 2
+          root_0 = @adaptor.create_flat_list
 
-          if ( look_30_0 == DOT )
-            alt_30 = 1
 
-          end
-          case alt_30
-          when 1
-            # at line 202:5: DOT method= ID LB (args2= args )? RB
-            __DOT114__ = match( DOT, TOKENS_FOLLOWING_DOT_IN_call_1031 )
+          # at line 199:4: 
+          # --> action
+          return_value.list = []
+          # <-- action
 
-            tree_for_DOT114 = @adaptor.create_with_payload( __DOT114__ )
-            @adaptor.add_child( root_0, tree_for_DOT114 )
-
-            method = match( ID, TOKENS_FOLLOWING_ID_IN_call_1035 )
-
-            tree_for_method = @adaptor.create_with_payload( method )
-            @adaptor.add_child( root_0, tree_for_method )
-
-            __LB115__ = match( LB, TOKENS_FOLLOWING_LB_IN_call_1037 )
-            # at line 202:28: (args2= args )?
-            alt_29 = 2
-            look_29_0 = @input.peek( 1 )
-
-            if ( look_29_0 == READ || look_29_0 == LB || look_29_0.between?( PLUS, INT ) || look_29_0 == ID || look_29_0.between?( OPENFILE, READNUMBER ) || look_29_0.between?( NULL, ALLOC ) || look_29_0 == STRING || look_29_0 == T__67 )
-              alt_29 = 1
-            end
-            case alt_29
-            when 1
-              # at line 202:28: args2= args
-              @state.following.push( TOKENS_FOLLOWING_args_IN_call_1042 )
-              args2 = args
-              @state.following.pop
-              @adaptor.add_child( root_0, args2.tree )
-
-            end
-            __RB116__ = match( RB, TOKENS_FOLLOWING_RB_IN_call_1045 )
-            # --> action
-            return_value.result = [MethodCallTree.new(return_value.result,method.text,( args2.nil? ? nil : args2.list )),tree_for_method]
-            # <-- action
-
-          else
-            break # out of loop for decision 30
-          end
-        end # loop for decision 30
-        # - - - - - - - rule clean up - - - - - - - -
+        end# - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -2592,43 +2460,65 @@ module Giraffe
       return return_value
     end
 
-    ArgsReturnValue = define_return_scope :list
+    ExpressionReturnValue = define_return_scope :result
 
     # 
-    # parser rule args
+    # parser rule expression
     # 
     # (in Giraffe.g)
-    # 205:1: args returns [list] : expression argsRest ;
+    # 204:1: expression returns [result] : op1= orOperand ( OR op2= expression )? ;
     # 
-    def args
+    def expression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 25 )
-      return_value = ArgsReturnValue.new
+      return_value = ExpressionReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      expression117 = nil
-      argsRest118 = nil
+      __OR110__ = nil
+      op1 = nil
+      op2 = nil
 
+      tree_for_OR110 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 206:5: expression argsRest
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_args_1067 )
-        expression117 = expression
+        # at line 205:4: op1= orOperand ( OR op2= expression )?
+        @state.following.push( TOKENS_FOLLOWING_orOperand_IN_expression_1002 )
+        op1 = orOperand
         @state.following.pop
-        @adaptor.add_child( root_0, expression117.tree )
-        @state.following.push( TOKENS_FOLLOWING_argsRest_IN_args_1069 )
-        argsRest118 = argsRest
-        @state.following.pop
-        @adaptor.add_child( root_0, argsRest118.tree )
+        @adaptor.add_child( root_0, op1.tree )
         # --> action
-        return_value.list = [( expression117.nil? ? nil : expression117.result )] + ( argsRest118.nil? ? nil : argsRest118.list )
+        return_value.result = ( op1.nil? ? nil : op1.result )
         # <-- action
+        # at line 206:3: ( OR op2= expression )?
+        alt_28 = 2
+        look_28_0 = @input.peek( 1 )
+
+        if ( look_28_0 == OR )
+          alt_28 = 1
+        end
+        case alt_28
+        when 1
+          # at line 206:4: OR op2= expression
+          __OR110__ = match( OR, TOKENS_FOLLOWING_OR_IN_expression_1009 )
+
+          tree_for_OR110 = @adaptor.create_with_payload( __OR110__ )
+          root_0 = @adaptor.become_root( tree_for_OR110, root_0 )
+
+          @state.following.push( TOKENS_FOLLOWING_expression_IN_expression_1014 )
+          op2 = expression
+          @state.following.pop
+          @adaptor.add_child( root_0, op2.tree )
+          # --> action
+          return_value.result = [BinaryOperatorTree.new(return_value.result,( op2.nil? ? nil : op2.result ),Operators.method(:or)),op2.tree]
+          # <-- action
+
+        end
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
@@ -2650,65 +2540,66 @@ module Giraffe
       return return_value
     end
 
-    ArgsRestReturnValue = define_return_scope :list
+    OrOperandReturnValue = define_return_scope :result
 
     # 
-    # parser rule argsRest
+    # parser rule orOperand
     # 
     # (in Giraffe.g)
-    # 209:1: argsRest returns [list] : ( COMMA args | );
+    # 211:1: orOperand returns [result] : op1= andOperand ( AND op2= orOperand )? ;
     # 
-    def argsRest
+    def orOperand
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 26 )
-      return_value = ArgsRestReturnValue.new
+      return_value = OrOperandReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __COMMA119__ = nil
-      args120 = nil
+      __AND111__ = nil
+      op1 = nil
+      op2 = nil
 
-      tree_for_COMMA119 = nil
+      tree_for_AND111 = nil
 
       begin
-        # at line 210:2: ( COMMA args | )
-        alt_31 = 2
-        look_31_0 = @input.peek( 1 )
+        root_0 = @adaptor.create_flat_list
 
-        if ( look_31_0 == COMMA )
-          alt_31 = 1
-        elsif ( look_31_0 == RB )
-          alt_31 = 2
-        else
-          raise NoViableAlternative( "", 31, 0 )
+
+        # at line 212:4: op1= andOperand ( AND op2= orOperand )?
+        @state.following.push( TOKENS_FOLLOWING_andOperand_IN_orOperand_1037 )
+        op1 = andOperand
+        @state.following.pop
+        @adaptor.add_child( root_0, op1.tree )
+        # --> action
+        return_value.result = ( op1.nil? ? nil : op1.result )
+        # <-- action
+        # at line 213:3: ( AND op2= orOperand )?
+        alt_29 = 2
+        look_29_0 = @input.peek( 1 )
+
+        if ( look_29_0 == AND )
+          alt_29 = 1
         end
-        case alt_31
+        case alt_29
         when 1
-          root_0 = @adaptor.create_flat_list
+          # at line 213:4: AND op2= orOperand
+          __AND111__ = match( AND, TOKENS_FOLLOWING_AND_IN_orOperand_1044 )
 
+          tree_for_AND111 = @adaptor.create_with_payload( __AND111__ )
+          root_0 = @adaptor.become_root( tree_for_AND111, root_0 )
 
-          # at line 210:4: COMMA args
-          __COMMA119__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_argsRest_1088 )
-          @state.following.push( TOKENS_FOLLOWING_args_IN_argsRest_1091 )
-          args120 = args
+          @state.following.push( TOKENS_FOLLOWING_orOperand_IN_orOperand_1049 )
+          op2 = orOperand
           @state.following.pop
-          @adaptor.add_child( root_0, args120.tree )
+          @adaptor.add_child( root_0, op2.tree )
           # --> action
-          return_value.list = ( args120.nil? ? nil : args120.list )
+          return_value.result = [BinaryOperatorTree.new(return_value.result,( op2.nil? ? nil : op2.result ),Operators.method(:and)),op2.tree] 
           # <-- action
 
-        when 2
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 212:4: 
-          # --> action
-          return_value.list = []
-          # <-- action
-
-        end# - - - - - - - rule clean up - - - - - - - -
+        end
+        # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -2729,66 +2620,194 @@ module Giraffe
       return return_value
     end
 
-    ConditionReturnValue = define_return_scope :result
+    AndOperandReturnValue = define_return_scope :result
 
     # 
-    # parser rule condition
+    # parser rule andOperand
     # 
     # (in Giraffe.g)
-    # 217:1: condition returns [result] : orOperand ( OR op= condition )? ;
+    # 216:1: andOperand returns [result] : (op1= compareOperand ( EQ op2= andOperand | NE op2= andOperand | LT op2= andOperand | GT op2= andOperand | LE op2= andOperand | GE op2= andOperand )? | NOT LB op1= expression RB );
     # 
-    def condition
+    def andOperand
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 27 )
-      return_value = ConditionReturnValue.new
+      return_value = AndOperandReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __OR122__ = nil
-      op = nil
-      orOperand121 = nil
+      __EQ112__ = nil
+      __NE113__ = nil
+      __LT114__ = nil
+      __GT115__ = nil
+      __LE116__ = nil
+      __GE117__ = nil
+      __NOT118__ = nil
+      __LB119__ = nil
+      __RB120__ = nil
+      op1 = nil
+      op2 = nil
 
-      tree_for_OR122 = nil
+      tree_for_EQ112 = nil
+      tree_for_NE113 = nil
+      tree_for_LT114 = nil
+      tree_for_GT115 = nil
+      tree_for_LE116 = nil
+      tree_for_GE117 = nil
+      tree_for_NOT118 = nil
+      tree_for_LB119 = nil
+      tree_for_RB120 = nil
 
       begin
-        root_0 = @adaptor.create_flat_list
+        # at line 217:2: (op1= compareOperand ( EQ op2= andOperand | NE op2= andOperand | LT op2= andOperand | GT op2= andOperand | LE op2= andOperand | GE op2= andOperand )? | NOT LB op1= expression RB )
+        alt_31 = 2
+        look_31_0 = @input.peek( 1 )
 
-
-        # at line 218:4: orOperand ( OR op= condition )?
-        @state.following.push( TOKENS_FOLLOWING_orOperand_IN_condition_1117 )
-        orOperand121 = orOperand
-        @state.following.pop
-        @adaptor.add_child( root_0, orOperand121.tree )
-        # --> action
-        return_value.result = ( orOperand121.nil? ? nil : orOperand121.result )
-        # <-- action
-        # at line 219:3: ( OR op= condition )?
-        alt_32 = 2
-        look_32_0 = @input.peek( 1 )
-
-        if ( look_32_0 == OR )
-          alt_32 = 1
+        if ( look_31_0 == READ || look_31_0.between?( PLUS, INT ) || look_31_0 == LB || look_31_0 == ID || look_31_0.between?( OPENFILE, ALLOC ) || look_31_0 == STRING || look_31_0 == T__67 )
+          alt_31 = 1
+        elsif ( look_31_0 == NOT )
+          alt_31 = 2
+        else
+          raise NoViableAlternative( "", 31, 0 )
         end
-        case alt_32
+        case alt_31
         when 1
-          # at line 219:4: OR op= condition
-          __OR122__ = match( OR, TOKENS_FOLLOWING_OR_IN_condition_1124 )
+          root_0 = @adaptor.create_flat_list
 
-          tree_for_OR122 = @adaptor.create_with_payload( __OR122__ )
-          root_0 = @adaptor.become_root( tree_for_OR122, root_0 )
 
-          @state.following.push( TOKENS_FOLLOWING_condition_IN_condition_1129 )
-          op = condition
+          # at line 217:4: op1= compareOperand ( EQ op2= andOperand | NE op2= andOperand | LT op2= andOperand | GT op2= andOperand | LE op2= andOperand | GE op2= andOperand )?
+          @state.following.push( TOKENS_FOLLOWING_compareOperand_IN_andOperand_1070 )
+          op1 = compareOperand
           @state.following.pop
-          @adaptor.add_child( root_0, op.tree )
+          @adaptor.add_child( root_0, op1.tree )
           # --> action
-          return_value.result = [BinaryOperatorTree.new(return_value.result,( op.nil? ? nil : op.result ),Operators.method(:or)),op.tree]
+          return_value.result = ( op1.nil? ? nil : op1.result )
+          # <-- action
+          # at line 218:3: ( EQ op2= andOperand | NE op2= andOperand | LT op2= andOperand | GT op2= andOperand | LE op2= andOperand | GE op2= andOperand )?
+          alt_30 = 7
+          case look_30 = @input.peek( 1 )
+          when EQ then alt_30 = 1
+          when NE then alt_30 = 2
+          when LT then alt_30 = 3
+          when GT then alt_30 = 4
+          when LE then alt_30 = 5
+          when GE then alt_30 = 6
+          end
+          case alt_30
+          when 1
+            # at line 218:5: EQ op2= andOperand
+            __EQ112__ = match( EQ, TOKENS_FOLLOWING_EQ_IN_andOperand_1080 )
+
+            tree_for_EQ112 = @adaptor.create_with_payload( __EQ112__ )
+            root_0 = @adaptor.become_root( tree_for_EQ112, root_0 )
+
+            @state.following.push( TOKENS_FOLLOWING_andOperand_IN_andOperand_1085 )
+            op2 = andOperand
+            @state.following.pop
+            @adaptor.add_child( root_0, op2.tree )
+            # --> action
+            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:eq)),op2.tree]
+            # <-- action
+
+          when 2
+            # at line 219:5: NE op2= andOperand
+            __NE113__ = match( NE, TOKENS_FOLLOWING_NE_IN_andOperand_1094 )
+
+            tree_for_NE113 = @adaptor.create_with_payload( __NE113__ )
+            root_0 = @adaptor.become_root( tree_for_NE113, root_0 )
+
+            @state.following.push( TOKENS_FOLLOWING_andOperand_IN_andOperand_1099 )
+            op2 = andOperand
+            @state.following.pop
+            @adaptor.add_child( root_0, op2.tree )
+            # --> action
+            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:ne)),op2.tree]
+            # <-- action
+
+          when 3
+            # at line 220:5: LT op2= andOperand
+            __LT114__ = match( LT, TOKENS_FOLLOWING_LT_IN_andOperand_1108 )
+
+            tree_for_LT114 = @adaptor.create_with_payload( __LT114__ )
+            root_0 = @adaptor.become_root( tree_for_LT114, root_0 )
+
+            @state.following.push( TOKENS_FOLLOWING_andOperand_IN_andOperand_1113 )
+            op2 = andOperand
+            @state.following.pop
+            @adaptor.add_child( root_0, op2.tree )
+            # --> action
+            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:lt)),op2.tree]
+            # <-- action
+
+          when 4
+            # at line 221:5: GT op2= andOperand
+            __GT115__ = match( GT, TOKENS_FOLLOWING_GT_IN_andOperand_1122 )
+
+            tree_for_GT115 = @adaptor.create_with_payload( __GT115__ )
+            root_0 = @adaptor.become_root( tree_for_GT115, root_0 )
+
+            @state.following.push( TOKENS_FOLLOWING_andOperand_IN_andOperand_1127 )
+            op2 = andOperand
+            @state.following.pop
+            @adaptor.add_child( root_0, op2.tree )
+            # --> action
+            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:gt)),op2.tree]
+            # <-- action
+
+          when 5
+            # at line 222:5: LE op2= andOperand
+            __LE116__ = match( LE, TOKENS_FOLLOWING_LE_IN_andOperand_1136 )
+
+            tree_for_LE116 = @adaptor.create_with_payload( __LE116__ )
+            root_0 = @adaptor.become_root( tree_for_LE116, root_0 )
+
+            @state.following.push( TOKENS_FOLLOWING_andOperand_IN_andOperand_1141 )
+            op2 = andOperand
+            @state.following.pop
+            @adaptor.add_child( root_0, op2.tree )
+            # --> action
+            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:le)),op2.tree]
+            # <-- action
+
+          when 6
+            # at line 223:5: GE op2= andOperand
+            __GE117__ = match( GE, TOKENS_FOLLOWING_GE_IN_andOperand_1150 )
+
+            tree_for_GE117 = @adaptor.create_with_payload( __GE117__ )
+            root_0 = @adaptor.become_root( tree_for_GE117, root_0 )
+
+            @state.following.push( TOKENS_FOLLOWING_andOperand_IN_andOperand_1155 )
+            op2 = andOperand
+            @state.following.pop
+            @adaptor.add_child( root_0, op2.tree )
+            # --> action
+            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:ge)),op2.tree]
+            # <-- action
+
+          end
+
+        when 2
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 225:4: NOT LB op1= expression RB
+          __NOT118__ = match( NOT, TOKENS_FOLLOWING_NOT_IN_andOperand_1170 )
+
+          tree_for_NOT118 = @adaptor.create_with_payload( __NOT118__ )
+          root_0 = @adaptor.become_root( tree_for_NOT118, root_0 )
+
+          __LB119__ = match( LB, TOKENS_FOLLOWING_LB_IN_andOperand_1173 )
+          @state.following.push( TOKENS_FOLLOWING_expression_IN_andOperand_1178 )
+          op1 = expression
+          @state.following.pop
+          @adaptor.add_child( root_0, op1.tree )
+          __RB120__ = match( RB, TOKENS_FOLLOWING_RB_IN_andOperand_1180 )
+          # --> action
+          return_value.result = [UnaryOperatorTree.new(( op1.nil? ? nil : op1.result ),Operators.method(:not)),op1.tree]
           # <-- action
 
-        end
-        # - - - - - - - rule clean up - - - - - - - -
+        end# - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -2809,62 +2828,81 @@ module Giraffe
       return return_value
     end
 
-    OrOperandReturnValue = define_return_scope :result
+    CompareOperandReturnValue = define_return_scope :result
 
     # 
-    # parser rule orOperand
+    # parser rule compareOperand
     # 
     # (in Giraffe.g)
-    # 224:1: orOperand returns [result] : boolOperand ( AND op= orOperand )? ;
+    # 229:1: compareOperand returns [result] : op1= addOperand ( PLUS op2= compareOperand | MINUS op2= compareOperand )? ;
     # 
-    def orOperand
+    def compareOperand
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 28 )
-      return_value = OrOperandReturnValue.new
+      return_value = CompareOperandReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __AND124__ = nil
-      op = nil
-      boolOperand123 = nil
+      __PLUS121__ = nil
+      __MINUS122__ = nil
+      op1 = nil
+      op2 = nil
 
-      tree_for_AND124 = nil
+      tree_for_PLUS121 = nil
+      tree_for_MINUS122 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 225:4: boolOperand ( AND op= orOperand )?
-        @state.following.push( TOKENS_FOLLOWING_boolOperand_IN_orOperand_1150 )
-        boolOperand123 = boolOperand
+        # at line 230:4: op1= addOperand ( PLUS op2= compareOperand | MINUS op2= compareOperand )?
+        @state.following.push( TOKENS_FOLLOWING_addOperand_IN_compareOperand_1203 )
+        op1 = addOperand
         @state.following.pop
-        @adaptor.add_child( root_0, boolOperand123.tree )
+        @adaptor.add_child( root_0, op1.tree )
         # --> action
-        return_value.result = ( boolOperand123.nil? ? nil : boolOperand123.result )
+        return_value.result = ( op1.nil? ? nil : op1.result )
         # <-- action
-        # at line 226:3: ( AND op= orOperand )?
-        alt_33 = 2
-        look_33_0 = @input.peek( 1 )
+        # at line 231:3: ( PLUS op2= compareOperand | MINUS op2= compareOperand )?
+        alt_32 = 3
+        look_32_0 = @input.peek( 1 )
 
-        if ( look_33_0 == AND )
-          alt_33 = 1
+        if ( look_32_0 == PLUS )
+          alt_32 = 1
+        elsif ( look_32_0 == MINUS )
+          alt_32 = 2
         end
-        case alt_33
+        case alt_32
         when 1
-          # at line 226:4: AND op= orOperand
-          __AND124__ = match( AND, TOKENS_FOLLOWING_AND_IN_orOperand_1157 )
+          # at line 231:5: PLUS op2= compareOperand
+          __PLUS121__ = match( PLUS, TOKENS_FOLLOWING_PLUS_IN_compareOperand_1211 )
 
-          tree_for_AND124 = @adaptor.create_with_payload( __AND124__ )
-          root_0 = @adaptor.become_root( tree_for_AND124, root_0 )
+          tree_for_PLUS121 = @adaptor.create_with_payload( __PLUS121__ )
+          root_0 = @adaptor.become_root( tree_for_PLUS121, root_0 )
 
-          @state.following.push( TOKENS_FOLLOWING_orOperand_IN_orOperand_1162 )
-          op = orOperand
+          @state.following.push( TOKENS_FOLLOWING_compareOperand_IN_compareOperand_1216 )
+          op2 = compareOperand
           @state.following.pop
-          @adaptor.add_child( root_0, op.tree )
+          @adaptor.add_child( root_0, op2.tree )
           # --> action
-          return_value.result = [BinaryOperatorTree.new(return_value.result,( op.nil? ? nil : op.result ),Operators.method(:and)),op.tree] 
+          return_value.result = [BinaryOperatorTree.new(return_value.result,( op2.nil? ? nil : op2.result ),Operators.method(:add)),op2.tree]
+          # <-- action
+
+        when 2
+          # at line 232:5: MINUS op2= compareOperand
+          __MINUS122__ = match( MINUS, TOKENS_FOLLOWING_MINUS_IN_compareOperand_1224 )
+
+          tree_for_MINUS122 = @adaptor.create_with_payload( __MINUS122__ )
+          root_0 = @adaptor.become_root( tree_for_MINUS122, root_0 )
+
+          @state.following.push( TOKENS_FOLLOWING_compareOperand_IN_compareOperand_1229 )
+          op2 = compareOperand
+          @state.following.pop
+          @adaptor.add_child( root_0, op2.tree )
+          # --> action
+          return_value.result = [BinaryOperatorTree.new(return_value.result,( op2.nil? ? nil : op2.result ),Operators.method(:sub)),op2.tree]
           # <-- action
 
         end
@@ -2889,344 +2927,100 @@ module Giraffe
       return return_value
     end
 
-    BoolOperandReturnValue = define_return_scope :result
+    AddOperandReturnValue = define_return_scope :result
 
     # 
-    # parser rule boolOperand
+    # parser rule addOperand
     # 
     # (in Giraffe.g)
-    # 229:1: boolOperand returns [result] : ( bool | NOT LB condition RB | op1= expression ( EQ (op2= bool | op2= expression ) | NE (op2= bool | op2= expression ) | LT (op2= bool | op2= expression ) | GT (op2= bool | op2= expression ) | LE (op2= bool | op2= expression ) | GE (op2= bool | op2= expression ) ) );
+    # 236:1: addOperand returns [result] : op1= mulOperand ( MUL op2= addOperand | DIV op2= addOperand | MOD op2= addOperand )? ;
     # 
-    def boolOperand
+    def addOperand
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 29 )
-      return_value = BoolOperandReturnValue.new
+      return_value = AddOperandReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __NOT126__ = nil
-      __LB127__ = nil
-      __RB129__ = nil
-      __EQ130__ = nil
-      __NE131__ = nil
-      __LT132__ = nil
-      __GT133__ = nil
-      __LE134__ = nil
-      __GE135__ = nil
+      __MUL123__ = nil
+      __DIV124__ = nil
+      __MOD125__ = nil
       op1 = nil
       op2 = nil
-      bool125 = nil
-      condition128 = nil
 
-      tree_for_NOT126 = nil
-      tree_for_LB127 = nil
-      tree_for_RB129 = nil
-      tree_for_EQ130 = nil
-      tree_for_NE131 = nil
-      tree_for_LT132 = nil
-      tree_for_GT133 = nil
-      tree_for_LE134 = nil
-      tree_for_GE135 = nil
+      tree_for_MUL123 = nil
+      tree_for_DIV124 = nil
+      tree_for_MOD125 = nil
 
       begin
-        # at line 230:2: ( bool | NOT LB condition RB | op1= expression ( EQ (op2= bool | op2= expression ) | NE (op2= bool | op2= expression ) | LT (op2= bool | op2= expression ) | GT (op2= bool | op2= expression ) | LE (op2= bool | op2= expression ) | GE (op2= bool | op2= expression ) ) )
-        alt_41 = 3
-        case look_41 = @input.peek( 1 )
-        when TRUE, FALSE then alt_41 = 1
-        when NOT then alt_41 = 2
-        when READ, LB, PLUS, MINUS, INT, ID, OPENFILE, SIZEOF, READNUMBER, NULL, ALLOC, STRING, T__67 then alt_41 = 3
-        else
-          raise NoViableAlternative( "", 41, 0 )
+        root_0 = @adaptor.create_flat_list
+
+
+        # at line 237:4: op1= mulOperand ( MUL op2= addOperand | DIV op2= addOperand | MOD op2= addOperand )?
+        @state.following.push( TOKENS_FOLLOWING_mulOperand_IN_addOperand_1253 )
+        op1 = mulOperand
+        @state.following.pop
+        @adaptor.add_child( root_0, op1.tree )
+        # --> action
+        return_value.result = ( op1.nil? ? nil : op1.result )
+        # <-- action
+        # at line 238:3: ( MUL op2= addOperand | DIV op2= addOperand | MOD op2= addOperand )?
+        alt_33 = 4
+        case look_33 = @input.peek( 1 )
+        when MUL then alt_33 = 1
+        when DIV then alt_33 = 2
+        when MOD then alt_33 = 3
         end
-        case alt_41
+        case alt_33
         when 1
-          root_0 = @adaptor.create_flat_list
+          # at line 238:5: MUL op2= addOperand
+          __MUL123__ = match( MUL, TOKENS_FOLLOWING_MUL_IN_addOperand_1261 )
 
+          tree_for_MUL123 = @adaptor.create_with_payload( __MUL123__ )
+          root_0 = @adaptor.become_root( tree_for_MUL123, root_0 )
 
-          # at line 230:4: bool
-          @state.following.push( TOKENS_FOLLOWING_bool_IN_boolOperand_1181 )
-          bool125 = bool
+          @state.following.push( TOKENS_FOLLOWING_addOperand_IN_addOperand_1266 )
+          op2 = addOperand
           @state.following.pop
-          @adaptor.add_child( root_0, bool125.tree )
+          @adaptor.add_child( root_0, op2.tree )
           # --> action
-          return_value.result = ( bool125.nil? ? nil : bool125.result )
+          return_value.result = [BinaryOperatorTree.new(return_value.result,( op2.nil? ? nil : op2.result ),Operators.method(:mul)),op2.tree]
           # <-- action
 
         when 2
-          root_0 = @adaptor.create_flat_list
+          # at line 239:5: DIV op2= addOperand
+          __DIV124__ = match( DIV, TOKENS_FOLLOWING_DIV_IN_addOperand_1274 )
 
+          tree_for_DIV124 = @adaptor.create_with_payload( __DIV124__ )
+          root_0 = @adaptor.become_root( tree_for_DIV124, root_0 )
 
-          # at line 231:4: NOT LB condition RB
-          __NOT126__ = match( NOT, TOKENS_FOLLOWING_NOT_IN_boolOperand_1188 )
-
-          tree_for_NOT126 = @adaptor.create_with_payload( __NOT126__ )
-          @adaptor.add_child( root_0, tree_for_NOT126 )
-
-          __LB127__ = match( LB, TOKENS_FOLLOWING_LB_IN_boolOperand_1190 )
-          @state.following.push( TOKENS_FOLLOWING_condition_IN_boolOperand_1193 )
-          condition128 = condition
+          @state.following.push( TOKENS_FOLLOWING_addOperand_IN_addOperand_1279 )
+          op2 = addOperand
           @state.following.pop
-          @adaptor.add_child( root_0, condition128.tree )
-          __RB129__ = match( RB, TOKENS_FOLLOWING_RB_IN_boolOperand_1195 )
+          @adaptor.add_child( root_0, op2.tree )
           # --> action
-          return_value.result = !( condition128.nil? ? nil : condition128.result )
+          return_value.result = [BinaryOperatorTree.new(return_value.result,( op2.nil? ? nil : op2.result ),Operators.method(:div)),op2.tree]
           # <-- action
 
         when 3
-          root_0 = @adaptor.create_flat_list
+          # at line 240:5: MOD op2= addOperand
+          __MOD125__ = match( MOD, TOKENS_FOLLOWING_MOD_IN_addOperand_1287 )
 
+          tree_for_MOD125 = @adaptor.create_with_payload( __MOD125__ )
+          root_0 = @adaptor.become_root( tree_for_MOD125, root_0 )
 
-          # at line 232:4: op1= expression ( EQ (op2= bool | op2= expression ) | NE (op2= bool | op2= expression ) | LT (op2= bool | op2= expression ) | GT (op2= bool | op2= expression ) | LE (op2= bool | op2= expression ) | GE (op2= bool | op2= expression ) )
-          @state.following.push( TOKENS_FOLLOWING_expression_IN_boolOperand_1205 )
-          op1 = expression
+          @state.following.push( TOKENS_FOLLOWING_addOperand_IN_addOperand_1292 )
+          op2 = addOperand
           @state.following.pop
-          @adaptor.add_child( root_0, op1.tree )
-          # at line 232:19: ( EQ (op2= bool | op2= expression ) | NE (op2= bool | op2= expression ) | LT (op2= bool | op2= expression ) | GT (op2= bool | op2= expression ) | LE (op2= bool | op2= expression ) | GE (op2= bool | op2= expression ) )
-          alt_40 = 6
-          case look_40 = @input.peek( 1 )
-          when EQ then alt_40 = 1
-          when NE then alt_40 = 2
-          when LT then alt_40 = 3
-          when GT then alt_40 = 4
-          when LE then alt_40 = 5
-          when GE then alt_40 = 6
-          else
-            raise NoViableAlternative( "", 40, 0 )
-          end
-          case alt_40
-          when 1
-            # at line 232:20: EQ (op2= bool | op2= expression )
-            __EQ130__ = match( EQ, TOKENS_FOLLOWING_EQ_IN_boolOperand_1208 )
+          @adaptor.add_child( root_0, op2.tree )
+          # --> action
+          return_value.result = [BinaryOperatorTree.new(return_value.result,( op2.nil? ? nil : op2.result ),Operators.method(:mod)),op2.tree]
+          # <-- action
 
-            tree_for_EQ130 = @adaptor.create_with_payload( __EQ130__ )
-            root_0 = @adaptor.become_root( tree_for_EQ130, root_0 )
-
-            # at line 232:24: (op2= bool | op2= expression )
-            alt_34 = 2
-            look_34_0 = @input.peek( 1 )
-
-            if ( look_34_0.between?( TRUE, FALSE ) )
-              alt_34 = 1
-            elsif ( look_34_0 == READ || look_34_0 == LB || look_34_0.between?( PLUS, INT ) || look_34_0 == ID || look_34_0.between?( OPENFILE, READNUMBER ) || look_34_0.between?( NULL, ALLOC ) || look_34_0 == STRING || look_34_0 == T__67 )
-              alt_34 = 2
-            else
-              raise NoViableAlternative( "", 34, 0 )
-            end
-            case alt_34
-            when 1
-              # at line 232:26: op2= bool
-              @state.following.push( TOKENS_FOLLOWING_bool_IN_boolOperand_1215 )
-              op2 = bool
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            when 2
-              # at line 232:37: op2= expression
-              @state.following.push( TOKENS_FOLLOWING_expression_IN_boolOperand_1221 )
-              op2 = expression
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            end
-            # --> action
-            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:eq)),op2.tree]
-            # <-- action
-
-          when 2
-            # at line 233:6: NE (op2= bool | op2= expression )
-            __NE131__ = match( NE, TOKENS_FOLLOWING_NE_IN_boolOperand_1232 )
-
-            tree_for_NE131 = @adaptor.create_with_payload( __NE131__ )
-            root_0 = @adaptor.become_root( tree_for_NE131, root_0 )
-
-            # at line 233:10: (op2= bool | op2= expression )
-            alt_35 = 2
-            look_35_0 = @input.peek( 1 )
-
-            if ( look_35_0.between?( TRUE, FALSE ) )
-              alt_35 = 1
-            elsif ( look_35_0 == READ || look_35_0 == LB || look_35_0.between?( PLUS, INT ) || look_35_0 == ID || look_35_0.between?( OPENFILE, READNUMBER ) || look_35_0.between?( NULL, ALLOC ) || look_35_0 == STRING || look_35_0 == T__67 )
-              alt_35 = 2
-            else
-              raise NoViableAlternative( "", 35, 0 )
-            end
-            case alt_35
-            when 1
-              # at line 233:12: op2= bool
-              @state.following.push( TOKENS_FOLLOWING_bool_IN_boolOperand_1239 )
-              op2 = bool
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            when 2
-              # at line 233:23: op2= expression
-              @state.following.push( TOKENS_FOLLOWING_expression_IN_boolOperand_1245 )
-              op2 = expression
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            end
-            # --> action
-            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:ne)),op2.tree]
-            # <-- action
-
-          when 3
-            # at line 234:6: LT (op2= bool | op2= expression )
-            __LT132__ = match( LT, TOKENS_FOLLOWING_LT_IN_boolOperand_1256 )
-
-            tree_for_LT132 = @adaptor.create_with_payload( __LT132__ )
-            root_0 = @adaptor.become_root( tree_for_LT132, root_0 )
-
-            # at line 234:10: (op2= bool | op2= expression )
-            alt_36 = 2
-            look_36_0 = @input.peek( 1 )
-
-            if ( look_36_0.between?( TRUE, FALSE ) )
-              alt_36 = 1
-            elsif ( look_36_0 == READ || look_36_0 == LB || look_36_0.between?( PLUS, INT ) || look_36_0 == ID || look_36_0.between?( OPENFILE, READNUMBER ) || look_36_0.between?( NULL, ALLOC ) || look_36_0 == STRING || look_36_0 == T__67 )
-              alt_36 = 2
-            else
-              raise NoViableAlternative( "", 36, 0 )
-            end
-            case alt_36
-            when 1
-              # at line 234:12: op2= bool
-              @state.following.push( TOKENS_FOLLOWING_bool_IN_boolOperand_1263 )
-              op2 = bool
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            when 2
-              # at line 234:23: op2= expression
-              @state.following.push( TOKENS_FOLLOWING_expression_IN_boolOperand_1269 )
-              op2 = expression
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            end
-            # --> action
-            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:lt)),op2.tree]
-            # <-- action
-
-          when 4
-            # at line 235:6: GT (op2= bool | op2= expression )
-            __GT133__ = match( GT, TOKENS_FOLLOWING_GT_IN_boolOperand_1280 )
-
-            tree_for_GT133 = @adaptor.create_with_payload( __GT133__ )
-            root_0 = @adaptor.become_root( tree_for_GT133, root_0 )
-
-            # at line 235:10: (op2= bool | op2= expression )
-            alt_37 = 2
-            look_37_0 = @input.peek( 1 )
-
-            if ( look_37_0.between?( TRUE, FALSE ) )
-              alt_37 = 1
-            elsif ( look_37_0 == READ || look_37_0 == LB || look_37_0.between?( PLUS, INT ) || look_37_0 == ID || look_37_0.between?( OPENFILE, READNUMBER ) || look_37_0.between?( NULL, ALLOC ) || look_37_0 == STRING || look_37_0 == T__67 )
-              alt_37 = 2
-            else
-              raise NoViableAlternative( "", 37, 0 )
-            end
-            case alt_37
-            when 1
-              # at line 235:12: op2= bool
-              @state.following.push( TOKENS_FOLLOWING_bool_IN_boolOperand_1287 )
-              op2 = bool
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            when 2
-              # at line 235:23: op2= expression
-              @state.following.push( TOKENS_FOLLOWING_expression_IN_boolOperand_1293 )
-              op2 = expression
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            end
-            # --> action
-            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:gt)),op2.tree]
-            # <-- action
-
-          when 5
-            # at line 236:6: LE (op2= bool | op2= expression )
-            __LE134__ = match( LE, TOKENS_FOLLOWING_LE_IN_boolOperand_1304 )
-
-            tree_for_LE134 = @adaptor.create_with_payload( __LE134__ )
-            root_0 = @adaptor.become_root( tree_for_LE134, root_0 )
-
-            # at line 236:10: (op2= bool | op2= expression )
-            alt_38 = 2
-            look_38_0 = @input.peek( 1 )
-
-            if ( look_38_0.between?( TRUE, FALSE ) )
-              alt_38 = 1
-            elsif ( look_38_0 == READ || look_38_0 == LB || look_38_0.between?( PLUS, INT ) || look_38_0 == ID || look_38_0.between?( OPENFILE, READNUMBER ) || look_38_0.between?( NULL, ALLOC ) || look_38_0 == STRING || look_38_0 == T__67 )
-              alt_38 = 2
-            else
-              raise NoViableAlternative( "", 38, 0 )
-            end
-            case alt_38
-            when 1
-              # at line 236:12: op2= bool
-              @state.following.push( TOKENS_FOLLOWING_bool_IN_boolOperand_1311 )
-              op2 = bool
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            when 2
-              # at line 236:23: op2= expression
-              @state.following.push( TOKENS_FOLLOWING_expression_IN_boolOperand_1317 )
-              op2 = expression
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            end
-            # --> action
-            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:le)),op2.tree]
-            # <-- action
-
-          when 6
-            # at line 237:6: GE (op2= bool | op2= expression )
-            __GE135__ = match( GE, TOKENS_FOLLOWING_GE_IN_boolOperand_1328 )
-
-            tree_for_GE135 = @adaptor.create_with_payload( __GE135__ )
-            root_0 = @adaptor.become_root( tree_for_GE135, root_0 )
-
-            # at line 237:10: (op2= bool | op2= expression )
-            alt_39 = 2
-            look_39_0 = @input.peek( 1 )
-
-            if ( look_39_0.between?( TRUE, FALSE ) )
-              alt_39 = 1
-            elsif ( look_39_0 == READ || look_39_0 == LB || look_39_0.between?( PLUS, INT ) || look_39_0 == ID || look_39_0.between?( OPENFILE, READNUMBER ) || look_39_0.between?( NULL, ALLOC ) || look_39_0 == STRING || look_39_0 == T__67 )
-              alt_39 = 2
-            else
-              raise NoViableAlternative( "", 39, 0 )
-            end
-            case alt_39
-            when 1
-              # at line 237:12: op2= bool
-              @state.following.push( TOKENS_FOLLOWING_bool_IN_boolOperand_1335 )
-              op2 = bool
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            when 2
-              # at line 237:23: op2= expression
-              @state.following.push( TOKENS_FOLLOWING_expression_IN_boolOperand_1341 )
-              op2 = expression
-              @state.following.pop
-              @adaptor.add_child( root_0, op2.tree )
-
-            end
-            # --> action
-            return_value.result = [BinaryOperatorTree.new(( op1.nil? ? nil : op1.result ),( op2.nil? ? nil : op2.result ),Operators.method(:ge)),op2.tree]
-            # <-- action
-
-          end
-
-        end# - - - - - - - rule clean up - - - - - - - -
+        end
+        # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -3247,85 +3041,93 @@ module Giraffe
       return return_value
     end
 
-    ExpressionReturnValue = define_return_scope :result
+    MulOperandReturnValue = define_return_scope :result
 
     # 
-    # parser rule expression
+    # parser rule mulOperand
     # 
     # (in Giraffe.g)
-    # 242:1: expression returns [result] : addOperand ( PLUS op= expression | MINUS op= expression )? ;
+    # 244:1: mulOperand returns [result] : ( PLUS mulOperandRest | MINUS mulOperandRest | mulOperandRest );
     # 
-    def expression
+    def mulOperand
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 30 )
-      return_value = ExpressionReturnValue.new
+      return_value = MulOperandReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __PLUS137__ = nil
-      __MINUS138__ = nil
-      op = nil
-      addOperand136 = nil
+      __PLUS126__ = nil
+      __MINUS128__ = nil
+      mulOperandRest127 = nil
+      mulOperandRest129 = nil
+      mulOperandRest130 = nil
 
-      tree_for_PLUS137 = nil
-      tree_for_MINUS138 = nil
+      tree_for_PLUS126 = nil
+      tree_for_MINUS128 = nil
 
       begin
-        root_0 = @adaptor.create_flat_list
-
-
-        # at line 243:4: addOperand ( PLUS op= expression | MINUS op= expression )?
-        @state.following.push( TOKENS_FOLLOWING_addOperand_IN_expression_1366 )
-        addOperand136 = addOperand
-        @state.following.pop
-        @adaptor.add_child( root_0, addOperand136.tree )
-        # --> action
-        return_value.result = ( addOperand136.nil? ? nil : addOperand136.result )
-        # <-- action
-        # at line 244:3: ( PLUS op= expression | MINUS op= expression )?
-        alt_42 = 3
-        look_42_0 = @input.peek( 1 )
-
-        if ( look_42_0 == PLUS )
-          alt_42 = 1
-        elsif ( look_42_0 == MINUS )
-          alt_42 = 2
+        # at line 245:2: ( PLUS mulOperandRest | MINUS mulOperandRest | mulOperandRest )
+        alt_34 = 3
+        case look_34 = @input.peek( 1 )
+        when PLUS then alt_34 = 1
+        when MINUS then alt_34 = 2
+        when READ, INT, LB, ID, OPENFILE, SIZEOF, READNUMBER, WRITEFILE, NULL, ALLOC, STRING, T__67 then alt_34 = 3
+        else
+          raise NoViableAlternative( "", 34, 0 )
         end
-        case alt_42
+        case alt_34
         when 1
-          # at line 245:4: PLUS op= expression
-          __PLUS137__ = match( PLUS, TOKENS_FOLLOWING_PLUS_IN_expression_1377 )
+          root_0 = @adaptor.create_flat_list
 
-          tree_for_PLUS137 = @adaptor.create_with_payload( __PLUS137__ )
-          root_0 = @adaptor.become_root( tree_for_PLUS137, root_0 )
 
-          @state.following.push( TOKENS_FOLLOWING_expression_IN_expression_1382 )
-          op = expression
+          # at line 245:4: PLUS mulOperandRest
+          __PLUS126__ = match( PLUS, TOKENS_FOLLOWING_PLUS_IN_mulOperand_1314 )
+
+          tree_for_PLUS126 = @adaptor.create_with_payload( __PLUS126__ )
+          @adaptor.add_child( root_0, tree_for_PLUS126 )
+
+          @state.following.push( TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1316 )
+          mulOperandRest127 = mulOperandRest
           @state.following.pop
-          @adaptor.add_child( root_0, op.tree )
+          @adaptor.add_child( root_0, mulOperandRest127.tree )
           # --> action
-          return_value.result = [BinaryOperatorTree.new(return_value.result,( op.nil? ? nil : op.result ),Operators.method(:add)),op.tree]
+          return_value.result = ( mulOperandRest127.nil? ? nil : mulOperandRest127.result )
           # <-- action
 
         when 2
-          # at line 246:5: MINUS op= expression
-          __MINUS138__ = match( MINUS, TOKENS_FOLLOWING_MINUS_IN_expression_1390 )
+          root_0 = @adaptor.create_flat_list
 
-          tree_for_MINUS138 = @adaptor.create_with_payload( __MINUS138__ )
-          root_0 = @adaptor.become_root( tree_for_MINUS138, root_0 )
 
-          @state.following.push( TOKENS_FOLLOWING_expression_IN_expression_1395 )
-          op = expression
+          # at line 246:4: MINUS mulOperandRest
+          __MINUS128__ = match( MINUS, TOKENS_FOLLOWING_MINUS_IN_mulOperand_1323 )
+
+          tree_for_MINUS128 = @adaptor.create_with_payload( __MINUS128__ )
+          @adaptor.add_child( root_0, tree_for_MINUS128 )
+
+          @state.following.push( TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1325 )
+          mulOperandRest129 = mulOperandRest
           @state.following.pop
-          @adaptor.add_child( root_0, op.tree )
+          @adaptor.add_child( root_0, mulOperandRest129.tree )
           # --> action
-          return_value.result = [BinaryOperatorTree.new(return_value.result,( op.nil? ? nil : op.result ),Operators.method(:sub)),op.tree]
+          return_value.result = [UnaryOperatorTree.new(( mulOperandRest129.nil? ? nil : mulOperandRest129.result ),Operators.method(:neg)),mulOperandRest129.tree]
           # <-- action
 
-        end
-        # - - - - - - - rule clean up - - - - - - - -
+        when 3
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 247:4: mulOperandRest
+          @state.following.push( TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1332 )
+          mulOperandRest130 = mulOperandRest
+          @state.following.pop
+          @adaptor.add_child( root_0, mulOperandRest130.tree )
+          # --> action
+          return_value.result = ( mulOperandRest130.nil? ? nil : mulOperandRest130.result )
+          # <-- action
+
+        end# - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -3346,99 +3148,77 @@ module Giraffe
       return return_value
     end
 
-    AddOperandReturnValue = define_return_scope :result
+    MulOperandRestReturnValue = define_return_scope :result
 
     # 
-    # parser rule addOperand
+    # parser rule mulOperandRest
     # 
     # (in Giraffe.g)
-    # 250:1: addOperand returns [result] : mulOperand ( MUL op= addOperand | DIV op= addOperand | MOD op= addOperand )? ;
+    # 250:1: mulOperandRest returns [result] : arrayIndexTarget ( '[' expression ']' )* ;
     # 
-    def addOperand
+    def mulOperandRest
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 31 )
-      return_value = AddOperandReturnValue.new
+      return_value = MulOperandRestReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __MUL140__ = nil
-      __DIV141__ = nil
-      __MOD142__ = nil
-      op = nil
-      mulOperand139 = nil
+      char_literal132 = nil
+      char_literal134 = nil
+      arrayIndexTarget131 = nil
+      expression133 = nil
 
-      tree_for_MUL140 = nil
-      tree_for_DIV141 = nil
-      tree_for_MOD142 = nil
+      tree_for_char_literal132 = nil
+      tree_for_char_literal134 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 251:4: mulOperand ( MUL op= addOperand | DIV op= addOperand | MOD op= addOperand )?
-        @state.following.push( TOKENS_FOLLOWING_mulOperand_IN_addOperand_1417 )
-        mulOperand139 = mulOperand
+        # at line 251:4: arrayIndexTarget ( '[' expression ']' )*
+        @state.following.push( TOKENS_FOLLOWING_arrayIndexTarget_IN_mulOperandRest_1349 )
+        arrayIndexTarget131 = arrayIndexTarget
         @state.following.pop
-        @adaptor.add_child( root_0, mulOperand139.tree )
+        @adaptor.add_child( root_0, arrayIndexTarget131.tree )
         # --> action
-        return_value.result = ( mulOperand139.nil? ? nil : mulOperand139.result )
+        return_value.result = ( arrayIndexTarget131.nil? ? nil : arrayIndexTarget131.result )
         # <-- action
-        # at line 252:3: ( MUL op= addOperand | DIV op= addOperand | MOD op= addOperand )?
-        alt_43 = 4
-        case look_43 = @input.peek( 1 )
-        when MUL then alt_43 = 1
-        when DIV then alt_43 = 2
-        when MOD then alt_43 = 3
-        end
-        case alt_43
-        when 1
-          # at line 253:4: MUL op= addOperand
-          __MUL140__ = match( MUL, TOKENS_FOLLOWING_MUL_IN_addOperand_1428 )
+        # at line 252:3: ( '[' expression ']' )*
+        while true # decision 35
+          alt_35 = 2
+          look_35_0 = @input.peek( 1 )
 
-          tree_for_MUL140 = @adaptor.create_with_payload( __MUL140__ )
-          root_0 = @adaptor.become_root( tree_for_MUL140, root_0 )
+          if ( look_35_0 == T__67 )
+            alt_35 = 1
 
-          @state.following.push( TOKENS_FOLLOWING_addOperand_IN_addOperand_1433 )
-          op = addOperand
-          @state.following.pop
-          @adaptor.add_child( root_0, op.tree )
-          # --> action
-          return_value.result = [BinaryOperatorTree.new(return_value.result,( op.nil? ? nil : op.result ),Operators.method(:mul)),op.tree]
-          # <-- action
+          end
+          case alt_35
+          when 1
+            # at line 252:4: '[' expression ']'
+            char_literal132 = match( T__67, TOKENS_FOLLOWING_T__67_IN_mulOperandRest_1357 )
 
-        when 2
-          # at line 254:5: DIV op= addOperand
-          __DIV141__ = match( DIV, TOKENS_FOLLOWING_DIV_IN_addOperand_1441 )
+            tree_for_char_literal132 = @adaptor.create_with_payload( char_literal132 )
+            @adaptor.add_child( root_0, tree_for_char_literal132 )
 
-          tree_for_DIV141 = @adaptor.create_with_payload( __DIV141__ )
-          root_0 = @adaptor.become_root( tree_for_DIV141, root_0 )
+            @state.following.push( TOKENS_FOLLOWING_expression_IN_mulOperandRest_1359 )
+            expression133 = expression
+            @state.following.pop
+            @adaptor.add_child( root_0, expression133.tree )
+            char_literal134 = match( T__68, TOKENS_FOLLOWING_T__68_IN_mulOperandRest_1361 )
 
-          @state.following.push( TOKENS_FOLLOWING_addOperand_IN_addOperand_1446 )
-          op = addOperand
-          @state.following.pop
-          @adaptor.add_child( root_0, op.tree )
-          # --> action
-          return_value.result = [BinaryOperatorTree.new(return_value.result,( op.nil? ? nil : op.result ),Operators.method(:div)),op.tree]
-          # <-- action
+            tree_for_char_literal134 = @adaptor.create_with_payload( char_literal134 )
+            @adaptor.add_child( root_0, tree_for_char_literal134 )
 
-        when 3
-          # at line 255:5: MOD op= addOperand
-          __MOD142__ = match( MOD, TOKENS_FOLLOWING_MOD_IN_addOperand_1454 )
+            # --> action
+             return_value.result = [IndexTree.new(return_value.result,( expression133.nil? ? nil : expression133.result )),expression133.tree] 
+            # <-- action
 
-          tree_for_MOD142 = @adaptor.create_with_payload( __MOD142__ )
-          root_0 = @adaptor.become_root( tree_for_MOD142, root_0 )
-
-          @state.following.push( TOKENS_FOLLOWING_addOperand_IN_addOperand_1459 )
-          op = addOperand
-          @state.following.pop
-          @adaptor.add_child( root_0, op.tree )
-          # --> action
-          return_value.result = [BinaryOperatorTree.new(return_value.result,( op.nil? ? nil : op.result ),Operators.method(:mod)),op.tree]
-          # <-- action
-
-        end
+          else
+            break # out of loop for decision 35
+          end
+        end # loop for decision 35
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
@@ -3460,93 +3240,52 @@ module Giraffe
       return return_value
     end
 
-    MulOperandReturnValue = define_return_scope :result
+    CloseFileReturnValue = define_return_scope :result
 
     # 
-    # parser rule mulOperand
+    # parser rule closeFile
     # 
     # (in Giraffe.g)
-    # 259:1: mulOperand returns [result] : ( PLUS mulOperandRest | MINUS mulOperandRest | mulOperandRest );
+    # 255:1: closeFile returns [result] : CLOSEFILE LB expression RB ;
     # 
-    def mulOperand
+    def closeFile
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 32 )
-      return_value = MulOperandReturnValue.new
+      return_value = CloseFileReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __PLUS143__ = nil
-      __MINUS145__ = nil
-      mulOperandRest144 = nil
-      mulOperandRest146 = nil
-      mulOperandRest147 = nil
+      __CLOSEFILE135__ = nil
+      __LB136__ = nil
+      __RB138__ = nil
+      expression137 = nil
 
-      tree_for_PLUS143 = nil
-      tree_for_MINUS145 = nil
+      tree_for_CLOSEFILE135 = nil
+      tree_for_LB136 = nil
+      tree_for_RB138 = nil
 
       begin
-        # at line 260:2: ( PLUS mulOperandRest | MINUS mulOperandRest | mulOperandRest )
-        alt_44 = 3
-        case look_44 = @input.peek( 1 )
-        when PLUS then alt_44 = 1
-        when MINUS then alt_44 = 2
-        when READ, LB, INT, ID, OPENFILE, SIZEOF, READNUMBER, NULL, ALLOC, STRING, T__67 then alt_44 = 3
-        else
-          raise NoViableAlternative( "", 44, 0 )
-        end
-        case alt_44
-        when 1
-          root_0 = @adaptor.create_flat_list
+        root_0 = @adaptor.create_flat_list
 
 
-          # at line 260:4: PLUS mulOperandRest
-          __PLUS143__ = match( PLUS, TOKENS_FOLLOWING_PLUS_IN_mulOperand_1481 )
+        # at line 256:4: CLOSEFILE LB expression RB
+        __CLOSEFILE135__ = match( CLOSEFILE, TOKENS_FOLLOWING_CLOSEFILE_IN_closeFile_1382 )
 
-          tree_for_PLUS143 = @adaptor.create_with_payload( __PLUS143__ )
-          @adaptor.add_child( root_0, tree_for_PLUS143 )
+        tree_for_CLOSEFILE135 = @adaptor.create_with_payload( __CLOSEFILE135__ )
+        @adaptor.add_child( root_0, tree_for_CLOSEFILE135 )
 
-          @state.following.push( TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1483 )
-          mulOperandRest144 = mulOperandRest
-          @state.following.pop
-          @adaptor.add_child( root_0, mulOperandRest144.tree )
-          # --> action
-          return_value.result = ( mulOperandRest144.nil? ? nil : mulOperandRest144.result )
-          # <-- action
-
-        when 2
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 261:4: MINUS mulOperandRest
-          __MINUS145__ = match( MINUS, TOKENS_FOLLOWING_MINUS_IN_mulOperand_1490 )
-
-          tree_for_MINUS145 = @adaptor.create_with_payload( __MINUS145__ )
-          @adaptor.add_child( root_0, tree_for_MINUS145 )
-
-          @state.following.push( TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1492 )
-          mulOperandRest146 = mulOperandRest
-          @state.following.pop
-          @adaptor.add_child( root_0, mulOperandRest146.tree )
-          # --> action
-          return_value.result = [UnaryOperatorTree.new(( mulOperandRest146.nil? ? nil : mulOperandRest146.result ),Operators.method(:neg)),mulOperandRest146.tree]
-          # <-- action
-
-        when 3
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 262:4: mulOperandRest
-          @state.following.push( TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1499 )
-          mulOperandRest147 = mulOperandRest
-          @state.following.pop
-          @adaptor.add_child( root_0, mulOperandRest147.tree )
-          # --> action
-          return_value.result = ( mulOperandRest147.nil? ? nil : mulOperandRest147.result )
-          # <-- action
-
-        end# - - - - - - - rule clean up - - - - - - - -
+        __LB136__ = match( LB, TOKENS_FOLLOWING_LB_IN_closeFile_1384 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_closeFile_1387 )
+        expression137 = expression
+        @state.following.pop
+        @adaptor.add_child( root_0, expression137.tree )
+        __RB138__ = match( RB, TOKENS_FOLLOWING_RB_IN_closeFile_1389 )
+        # --> action
+        return_value.result = [CloseFileTree.new(( expression137.nil? ? nil : expression137.result )),tree_for_CLOSEFILE135]
+        # <-- action
+        # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -3567,77 +3306,63 @@ module Giraffe
       return return_value
     end
 
-    MulOperandRestReturnValue = define_return_scope :result
+    OpenFileReturnValue = define_return_scope :result
 
     # 
-    # parser rule mulOperandRest
+    # parser rule openFile
     # 
     # (in Giraffe.g)
-    # 265:1: mulOperandRest returns [result] : arrayIndexTarget ( '[' expression ']' )* ;
+    # 259:1: openFile returns [result] : OPENFILE LB what= expression COMMA mode= expression RB ;
     # 
-    def mulOperandRest
+    def openFile
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 33 )
-      return_value = MulOperandRestReturnValue.new
+      return_value = OpenFileReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      char_literal149 = nil
-      char_literal151 = nil
-      arrayIndexTarget148 = nil
-      expression150 = nil
+      __OPENFILE139__ = nil
+      __LB140__ = nil
+      __COMMA141__ = nil
+      __RB142__ = nil
+      what = nil
+      mode = nil
 
-      tree_for_char_literal149 = nil
-      tree_for_char_literal151 = nil
+      tree_for_OPENFILE139 = nil
+      tree_for_LB140 = nil
+      tree_for_COMMA141 = nil
+      tree_for_RB142 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 266:4: arrayIndexTarget ( '[' expression ']' )*
-        @state.following.push( TOKENS_FOLLOWING_arrayIndexTarget_IN_mulOperandRest_1516 )
-        arrayIndexTarget148 = arrayIndexTarget
+        # at line 260:4: OPENFILE LB what= expression COMMA mode= expression RB
+        __OPENFILE139__ = match( OPENFILE, TOKENS_FOLLOWING_OPENFILE_IN_openFile_1410 )
+
+        tree_for_OPENFILE139 = @adaptor.create_with_payload( __OPENFILE139__ )
+        @adaptor.add_child( root_0, tree_for_OPENFILE139 )
+
+        __LB140__ = match( LB, TOKENS_FOLLOWING_LB_IN_openFile_1412 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_openFile_1417 )
+        what = expression
         @state.following.pop
-        @adaptor.add_child( root_0, arrayIndexTarget148.tree )
+        @adaptor.add_child( root_0, what.tree )
+        __COMMA141__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_openFile_1419 )
+
+        tree_for_COMMA141 = @adaptor.create_with_payload( __COMMA141__ )
+        @adaptor.add_child( root_0, tree_for_COMMA141 )
+
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_openFile_1423 )
+        mode = expression
+        @state.following.pop
+        @adaptor.add_child( root_0, mode.tree )
+        __RB142__ = match( RB, TOKENS_FOLLOWING_RB_IN_openFile_1425 )
         # --> action
-        return_value.result = ( arrayIndexTarget148.nil? ? nil : arrayIndexTarget148.result )
+        return_value.result = [OpenFileTree.new(( what.nil? ? nil : what.result ), ( mode.nil? ? nil : mode.result )),tree_for_OPENFILE139]
         # <-- action
-        # at line 267:3: ( '[' expression ']' )*
-        while true # decision 45
-          alt_45 = 2
-          look_45_0 = @input.peek( 1 )
-
-          if ( look_45_0 == T__67 )
-            alt_45 = 1
-
-          end
-          case alt_45
-          when 1
-            # at line 267:4: '[' expression ']'
-            char_literal149 = match( T__67, TOKENS_FOLLOWING_T__67_IN_mulOperandRest_1524 )
-
-            tree_for_char_literal149 = @adaptor.create_with_payload( char_literal149 )
-            @adaptor.add_child( root_0, tree_for_char_literal149 )
-
-            @state.following.push( TOKENS_FOLLOWING_expression_IN_mulOperandRest_1526 )
-            expression150 = expression
-            @state.following.pop
-            @adaptor.add_child( root_0, expression150.tree )
-            char_literal151 = match( T__68, TOKENS_FOLLOWING_T__68_IN_mulOperandRest_1528 )
-
-            tree_for_char_literal151 = @adaptor.create_with_payload( char_literal151 )
-            @adaptor.add_child( root_0, tree_for_char_literal151 )
-
-            # --> action
-             return_value.result = [IndexTree.new(return_value.result,( expression150.nil? ? nil : expression150.result )),expression150.tree] 
-            # <-- action
-
-          else
-            break # out of loop for decision 45
-          end
-        end # loop for decision 45
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
@@ -3659,50 +3384,50 @@ module Giraffe
       return return_value
     end
 
-    CloseFileReturnValue = define_return_scope :result
+    SizeOfReturnValue = define_return_scope :result
 
     # 
-    # parser rule closeFile
+    # parser rule sizeOf
     # 
     # (in Giraffe.g)
-    # 270:1: closeFile returns [result] : CLOSEFILE LB expression RB ;
+    # 263:1: sizeOf returns [result] : SIZEOF LB expression RB ;
     # 
-    def closeFile
+    def sizeOf
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 34 )
-      return_value = CloseFileReturnValue.new
+      return_value = SizeOfReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __CLOSEFILE152__ = nil
-      __LB153__ = nil
-      __RB155__ = nil
-      expression154 = nil
+      __SIZEOF143__ = nil
+      __LB144__ = nil
+      __RB146__ = nil
+      expression145 = nil
 
-      tree_for_CLOSEFILE152 = nil
-      tree_for_LB153 = nil
-      tree_for_RB155 = nil
+      tree_for_SIZEOF143 = nil
+      tree_for_LB144 = nil
+      tree_for_RB146 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 271:4: CLOSEFILE LB expression RB
-        __CLOSEFILE152__ = match( CLOSEFILE, TOKENS_FOLLOWING_CLOSEFILE_IN_closeFile_1549 )
+        # at line 264:4: SIZEOF LB expression RB
+        __SIZEOF143__ = match( SIZEOF, TOKENS_FOLLOWING_SIZEOF_IN_sizeOf_1445 )
 
-        tree_for_CLOSEFILE152 = @adaptor.create_with_payload( __CLOSEFILE152__ )
-        @adaptor.add_child( root_0, tree_for_CLOSEFILE152 )
+        tree_for_SIZEOF143 = @adaptor.create_with_payload( __SIZEOF143__ )
+        @adaptor.add_child( root_0, tree_for_SIZEOF143 )
 
-        __LB153__ = match( LB, TOKENS_FOLLOWING_LB_IN_closeFile_1551 )
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_closeFile_1554 )
-        expression154 = expression
+        __LB144__ = match( LB, TOKENS_FOLLOWING_LB_IN_sizeOf_1447 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_sizeOf_1450 )
+        expression145 = expression
         @state.following.pop
-        @adaptor.add_child( root_0, expression154.tree )
-        __RB155__ = match( RB, TOKENS_FOLLOWING_RB_IN_closeFile_1556 )
+        @adaptor.add_child( root_0, expression145.tree )
+        __RB146__ = match( RB, TOKENS_FOLLOWING_RB_IN_sizeOf_1452 )
         # --> action
-        return_value.result = [CloseFileTree.new(( expression154.nil? ? nil : expression154.result )),tree_for_CLOSEFILE152]
+        return_value.result = [SizeofTree.new(( expression145.nil? ? nil : expression145.result )),tree_for_SIZEOF143]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -3725,62 +3450,50 @@ module Giraffe
       return return_value
     end
 
-    OpenFileReturnValue = define_return_scope :result
+    ReadNumberReturnValue = define_return_scope :result
 
     # 
-    # parser rule openFile
+    # parser rule readNumber
     # 
     # (in Giraffe.g)
-    # 274:1: openFile returns [result] : OPENFILE LB what= expression COMMA mode= expression RB ;
+    # 267:1: readNumber returns [result] : READNUMBER LB expression RB ;
     # 
-    def openFile
+    def readNumber
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 35 )
-      return_value = OpenFileReturnValue.new
+      return_value = ReadNumberReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __OPENFILE156__ = nil
-      __LB157__ = nil
-      __COMMA158__ = nil
-      __RB159__ = nil
-      what = nil
-      mode = nil
+      __READNUMBER147__ = nil
+      __LB148__ = nil
+      __RB150__ = nil
+      expression149 = nil
 
-      tree_for_OPENFILE156 = nil
-      tree_for_LB157 = nil
-      tree_for_COMMA158 = nil
-      tree_for_RB159 = nil
+      tree_for_READNUMBER147 = nil
+      tree_for_LB148 = nil
+      tree_for_RB150 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 275:4: OPENFILE LB what= expression COMMA mode= expression RB
-        __OPENFILE156__ = match( OPENFILE, TOKENS_FOLLOWING_OPENFILE_IN_openFile_1577 )
+        # at line 268:4: READNUMBER LB expression RB
+        __READNUMBER147__ = match( READNUMBER, TOKENS_FOLLOWING_READNUMBER_IN_readNumber_1473 )
 
-        tree_for_OPENFILE156 = @adaptor.create_with_payload( __OPENFILE156__ )
-        @adaptor.add_child( root_0, tree_for_OPENFILE156 )
+        tree_for_READNUMBER147 = @adaptor.create_with_payload( __READNUMBER147__ )
+        @adaptor.add_child( root_0, tree_for_READNUMBER147 )
 
-        __LB157__ = match( LB, TOKENS_FOLLOWING_LB_IN_openFile_1579 )
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_openFile_1584 )
-        what = expression
+        __LB148__ = match( LB, TOKENS_FOLLOWING_LB_IN_readNumber_1475 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_readNumber_1478 )
+        expression149 = expression
         @state.following.pop
-        @adaptor.add_child( root_0, what.tree )
-        __COMMA158__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_openFile_1586 )
-
-        tree_for_COMMA158 = @adaptor.create_with_payload( __COMMA158__ )
-        @adaptor.add_child( root_0, tree_for_COMMA158 )
-
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_openFile_1590 )
-        mode = expression
-        @state.following.pop
-        @adaptor.add_child( root_0, mode.tree )
-        __RB159__ = match( RB, TOKENS_FOLLOWING_RB_IN_openFile_1592 )
+        @adaptor.add_child( root_0, expression149.tree )
+        __RB150__ = match( RB, TOKENS_FOLLOWING_RB_IN_readNumber_1480 )
         # --> action
-        return_value.result = [OpenFileTree.new(( what.nil? ? nil : what.result ), ( mode.nil? ? nil : mode.result )),tree_for_OPENFILE156]
+        return_value.result = [ReadNumberTree.new(( expression149.nil? ? nil : expression149.result )),tree_for_READNUMBER147]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -3803,50 +3516,62 @@ module Giraffe
       return return_value
     end
 
-    SizeOfReturnValue = define_return_scope :result
+    WriteFileReturnValue = define_return_scope :result
 
     # 
-    # parser rule sizeOf
+    # parser rule writeFile
     # 
     # (in Giraffe.g)
-    # 278:1: sizeOf returns [result] : SIZEOF LB expression RB ;
+    # 271:1: writeFile returns [result] : WRITEFILE LB where= expression COMMA what= expression RB ;
     # 
-    def sizeOf
+    def writeFile
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 36 )
-      return_value = SizeOfReturnValue.new
+      return_value = WriteFileReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __SIZEOF160__ = nil
-      __LB161__ = nil
-      __RB163__ = nil
-      expression162 = nil
+      __WRITEFILE151__ = nil
+      __LB152__ = nil
+      __COMMA153__ = nil
+      __RB154__ = nil
+      where = nil
+      what = nil
 
-      tree_for_SIZEOF160 = nil
-      tree_for_LB161 = nil
-      tree_for_RB163 = nil
+      tree_for_WRITEFILE151 = nil
+      tree_for_LB152 = nil
+      tree_for_COMMA153 = nil
+      tree_for_RB154 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 279:4: SIZEOF LB expression RB
-        __SIZEOF160__ = match( SIZEOF, TOKENS_FOLLOWING_SIZEOF_IN_sizeOf_1612 )
+        # at line 272:4: WRITEFILE LB where= expression COMMA what= expression RB
+        __WRITEFILE151__ = match( WRITEFILE, TOKENS_FOLLOWING_WRITEFILE_IN_writeFile_1501 )
 
-        tree_for_SIZEOF160 = @adaptor.create_with_payload( __SIZEOF160__ )
-        @adaptor.add_child( root_0, tree_for_SIZEOF160 )
+        tree_for_WRITEFILE151 = @adaptor.create_with_payload( __WRITEFILE151__ )
+        @adaptor.add_child( root_0, tree_for_WRITEFILE151 )
 
-        __LB161__ = match( LB, TOKENS_FOLLOWING_LB_IN_sizeOf_1614 )
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_sizeOf_1617 )
-        expression162 = expression
+        __LB152__ = match( LB, TOKENS_FOLLOWING_LB_IN_writeFile_1503 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_writeFile_1508 )
+        where = expression
         @state.following.pop
-        @adaptor.add_child( root_0, expression162.tree )
-        __RB163__ = match( RB, TOKENS_FOLLOWING_RB_IN_sizeOf_1619 )
+        @adaptor.add_child( root_0, where.tree )
+        __COMMA153__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_writeFile_1510 )
+
+        tree_for_COMMA153 = @adaptor.create_with_payload( __COMMA153__ )
+        @adaptor.add_child( root_0, tree_for_COMMA153 )
+
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_writeFile_1514 )
+        what = expression
+        @state.following.pop
+        @adaptor.add_child( root_0, what.tree )
+        __RB154__ = match( RB, TOKENS_FOLLOWING_RB_IN_writeFile_1516 )
         # --> action
-        return_value.result = [SizeofTree.new(( expression162.nil? ? nil : expression162.result )),tree_for_SIZEOF160]
+        return_value.result = [WriteFileTree.new(( where.nil? ? nil : where.result ), ( what.nil? ? nil : what.result ), false),tree_for_WRITEFILE151]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -3869,50 +3594,62 @@ module Giraffe
       return return_value
     end
 
-    ReadNumberReturnValue = define_return_scope :result
+    WriteFileAReturnValue = define_return_scope :result
 
     # 
-    # parser rule readNumber
+    # parser rule writeFileA
     # 
     # (in Giraffe.g)
-    # 282:1: readNumber returns [result] : READNUMBER LB expression RB ;
+    # 275:1: writeFileA returns [result] : WRITEFILE LB where= expression COMMA what= expression RB ;
     # 
-    def readNumber
+    def writeFileA
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 37 )
-      return_value = ReadNumberReturnValue.new
+      return_value = WriteFileAReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __READNUMBER164__ = nil
-      __LB165__ = nil
-      __RB167__ = nil
-      expression166 = nil
+      __WRITEFILE155__ = nil
+      __LB156__ = nil
+      __COMMA157__ = nil
+      __RB158__ = nil
+      where = nil
+      what = nil
 
-      tree_for_READNUMBER164 = nil
-      tree_for_LB165 = nil
-      tree_for_RB167 = nil
+      tree_for_WRITEFILE155 = nil
+      tree_for_LB156 = nil
+      tree_for_COMMA157 = nil
+      tree_for_RB158 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 283:4: READNUMBER LB expression RB
-        __READNUMBER164__ = match( READNUMBER, TOKENS_FOLLOWING_READNUMBER_IN_readNumber_1640 )
+        # at line 276:4: WRITEFILE LB where= expression COMMA what= expression RB
+        __WRITEFILE155__ = match( WRITEFILE, TOKENS_FOLLOWING_WRITEFILE_IN_writeFileA_1539 )
 
-        tree_for_READNUMBER164 = @adaptor.create_with_payload( __READNUMBER164__ )
-        @adaptor.add_child( root_0, tree_for_READNUMBER164 )
+        tree_for_WRITEFILE155 = @adaptor.create_with_payload( __WRITEFILE155__ )
+        @adaptor.add_child( root_0, tree_for_WRITEFILE155 )
 
-        __LB165__ = match( LB, TOKENS_FOLLOWING_LB_IN_readNumber_1642 )
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_readNumber_1645 )
-        expression166 = expression
+        __LB156__ = match( LB, TOKENS_FOLLOWING_LB_IN_writeFileA_1541 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_writeFileA_1546 )
+        where = expression
         @state.following.pop
-        @adaptor.add_child( root_0, expression166.tree )
-        __RB167__ = match( RB, TOKENS_FOLLOWING_RB_IN_readNumber_1647 )
+        @adaptor.add_child( root_0, where.tree )
+        __COMMA157__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_writeFileA_1548 )
+
+        tree_for_COMMA157 = @adaptor.create_with_payload( __COMMA157__ )
+        @adaptor.add_child( root_0, tree_for_COMMA157 )
+
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_writeFileA_1552 )
+        what = expression
+        @state.following.pop
+        @adaptor.add_child( root_0, what.tree )
+        __RB158__ = match( RB, TOKENS_FOLLOWING_RB_IN_writeFileA_1554 )
         # --> action
-        return_value.result = [ReadNumberTree.new(( expression166.nil? ? nil : expression166.result )),tree_for_READNUMBER164]
+        return_value.result = [WriteFileTree.new(( where.nil? ? nil : where.result ), ( what.nil? ? nil : what.result ), true),tree_for_WRITEFILE155]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -3935,64 +3672,218 @@ module Giraffe
       return return_value
     end
 
-    WriteFileReturnValue = define_return_scope :result
+    ArrayIndexTargetReturnValue = define_return_scope :result
 
     # 
-    # parser rule writeFile
+    # parser rule arrayIndexTarget
     # 
     # (in Giraffe.g)
-    # 286:1: writeFile returns [result] : WRITEFILE LB where= expression COMMA what= expression RB ;
+    # 279:1: arrayIndexTarget returns [result] : ( subexpression | INT | callVar | array | alloc | readInstruction | string | NULL | openFile | sizeOf | readNumber | writeFile );
     # 
-    def writeFile
+    def arrayIndexTarget
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 38 )
-      return_value = WriteFileReturnValue.new
+      return_value = ArrayIndexTargetReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __WRITEFILE168__ = nil
-      __LB169__ = nil
-      __COMMA170__ = nil
-      __RB171__ = nil
-      where = nil
-      what = nil
+      __INT160__ = nil
+      __NULL166__ = nil
+      subexpression159 = nil
+      callVar161 = nil
+      array162 = nil
+      alloc163 = nil
+      readInstruction164 = nil
+      string165 = nil
+      openFile167 = nil
+      sizeOf168 = nil
+      readNumber169 = nil
+      writeFile170 = nil
 
-      tree_for_WRITEFILE168 = nil
-      tree_for_LB169 = nil
-      tree_for_COMMA170 = nil
-      tree_for_RB171 = nil
+      tree_for_INT160 = nil
+      tree_for_NULL166 = nil
 
       begin
-        root_0 = @adaptor.create_flat_list
+        # at line 280:2: ( subexpression | INT | callVar | array | alloc | readInstruction | string | NULL | openFile | sizeOf | readNumber | writeFile )
+        alt_36 = 12
+        case look_36 = @input.peek( 1 )
+        when LB then alt_36 = 1
+        when INT then alt_36 = 2
+        when ID then alt_36 = 3
+        when T__67 then alt_36 = 4
+        when ALLOC then alt_36 = 5
+        when READ then alt_36 = 6
+        when STRING then alt_36 = 7
+        when NULL then alt_36 = 8
+        when OPENFILE then alt_36 = 9
+        when SIZEOF then alt_36 = 10
+        when READNUMBER then alt_36 = 11
+        when WRITEFILE then alt_36 = 12
+        else
+          raise NoViableAlternative( "", 36, 0 )
+        end
+        case alt_36
+        when 1
+          root_0 = @adaptor.create_flat_list
 
 
-        # at line 287:4: WRITEFILE LB where= expression COMMA what= expression RB
-        __WRITEFILE168__ = match( WRITEFILE, TOKENS_FOLLOWING_WRITEFILE_IN_writeFile_1668 )
+          # at line 280:4: subexpression
+          @state.following.push( TOKENS_FOLLOWING_subexpression_IN_arrayIndexTarget_1575 )
+          subexpression159 = subexpression
+          @state.following.pop
+          @adaptor.add_child( root_0, subexpression159.tree )
+          # --> action
+          return_value.result = ( subexpression159.nil? ? nil : subexpression159.result )
+          # <-- action
 
-        tree_for_WRITEFILE168 = @adaptor.create_with_payload( __WRITEFILE168__ )
-        @adaptor.add_child( root_0, tree_for_WRITEFILE168 )
+        when 2
+          root_0 = @adaptor.create_flat_list
 
-        __LB169__ = match( LB, TOKENS_FOLLOWING_LB_IN_writeFile_1670 )
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_writeFile_1675 )
-        where = expression
-        @state.following.pop
-        @adaptor.add_child( root_0, where.tree )
-        __COMMA170__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_writeFile_1677 )
 
-        tree_for_COMMA170 = @adaptor.create_with_payload( __COMMA170__ )
-        @adaptor.add_child( root_0, tree_for_COMMA170 )
+          # at line 281:4: INT
+          __INT160__ = match( INT, TOKENS_FOLLOWING_INT_IN_arrayIndexTarget_1582 )
 
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_writeFile_1681 )
-        what = expression
-        @state.following.pop
-        @adaptor.add_child( root_0, what.tree )
-        __RB171__ = match( RB, TOKENS_FOLLOWING_RB_IN_writeFile_1683 )
-        # --> action
-        return_value.result = [WriteFileTree.new(( where.nil? ? nil : where.result ), ( what.nil? ? nil : what.result )),tree_for_WRITEFILE168]
-        # <-- action
-        # - - - - - - - rule clean up - - - - - - - -
+          tree_for_INT160 = @adaptor.create_with_payload( __INT160__ )
+          @adaptor.add_child( root_0, tree_for_INT160 )
+
+          # --> action
+          return_value.result = [AtomTree.new(__INT160__.text.to_i),tree_for_INT160]
+          # <-- action
+
+        when 3
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 282:4: callVar
+          @state.following.push( TOKENS_FOLLOWING_callVar_IN_arrayIndexTarget_1589 )
+          callVar161 = callVar
+          @state.following.pop
+          @adaptor.add_child( root_0, callVar161.tree )
+          # --> action
+          return_value.result = ( callVar161.nil? ? nil : callVar161.result )
+          # <-- action
+
+        when 4
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 283:4: array
+          @state.following.push( TOKENS_FOLLOWING_array_IN_arrayIndexTarget_1596 )
+          array162 = array
+          @state.following.pop
+          @adaptor.add_child( root_0, array162.tree )
+          # --> action
+          return_value.result = [ArrayTree.new(( array162.nil? ? nil : array162.result )),array162.tree]
+          # <-- action
+
+        when 5
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 284:4: alloc
+          @state.following.push( TOKENS_FOLLOWING_alloc_IN_arrayIndexTarget_1603 )
+          alloc163 = alloc
+          @state.following.pop
+          @adaptor.add_child( root_0, alloc163.tree )
+          # --> action
+          return_value.result = ( alloc163.nil? ? nil : alloc163.result )
+          # <-- action
+
+        when 6
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 285:4: readInstruction
+          @state.following.push( TOKENS_FOLLOWING_readInstruction_IN_arrayIndexTarget_1610 )
+          readInstruction164 = readInstruction
+          @state.following.pop
+          @adaptor.add_child( root_0, readInstruction164.tree )
+          # --> action
+          return_value.result = ( readInstruction164.nil? ? nil : readInstruction164.result )
+          # <-- action
+
+        when 7
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 286:4: string
+          @state.following.push( TOKENS_FOLLOWING_string_IN_arrayIndexTarget_1617 )
+          string165 = string
+          @state.following.pop
+          @adaptor.add_child( root_0, string165.tree )
+          # --> action
+          return_value.result = [StringTree.new(( string165.nil? ? nil : string165.result )),string165.tree]
+          # <-- action
+
+        when 8
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 287:4: NULL
+          __NULL166__ = match( NULL, TOKENS_FOLLOWING_NULL_IN_arrayIndexTarget_1624 )
+
+          tree_for_NULL166 = @adaptor.create_with_payload( __NULL166__ )
+          @adaptor.add_child( root_0, tree_for_NULL166 )
+
+          # --> action
+          return_value.result = [NilTree.new,tree_for_NULL166]
+          # <-- action
+
+        when 9
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 288:4: openFile
+          @state.following.push( TOKENS_FOLLOWING_openFile_IN_arrayIndexTarget_1631 )
+          openFile167 = openFile
+          @state.following.pop
+          @adaptor.add_child( root_0, openFile167.tree )
+          # --> action
+          return_value.result = ( openFile167.nil? ? nil : openFile167.result )
+          # <-- action
+
+        when 10
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 289:4: sizeOf
+          @state.following.push( TOKENS_FOLLOWING_sizeOf_IN_arrayIndexTarget_1638 )
+          sizeOf168 = sizeOf
+          @state.following.pop
+          @adaptor.add_child( root_0, sizeOf168.tree )
+          # --> action
+          return_value.result = ( sizeOf168.nil? ? nil : sizeOf168.result )
+          # <-- action
+
+        when 11
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 290:4: readNumber
+          @state.following.push( TOKENS_FOLLOWING_readNumber_IN_arrayIndexTarget_1645 )
+          readNumber169 = readNumber
+          @state.following.pop
+          @adaptor.add_child( root_0, readNumber169.tree )
+          # --> action
+          return_value.result = ( readNumber169.nil? ? nil : readNumber169.result )
+          # <-- action
+
+        when 12
+          root_0 = @adaptor.create_flat_list
+
+
+          # at line 291:4: writeFile
+          @state.following.push( TOKENS_FOLLOWING_writeFile_IN_arrayIndexTarget_1652 )
+          writeFile170 = writeFile
+          @state.following.pop
+          @adaptor.add_child( root_0, writeFile170.tree )
+          # --> action
+          return_value.result = ( writeFile170.nil? ? nil : writeFile170.result )
+          # <-- action
+
+        end# - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -4013,211 +3904,53 @@ module Giraffe
       return return_value
     end
 
-    ArrayIndexTargetReturnValue = define_return_scope :result
+    SubexpressionReturnValue = define_return_scope :result
 
     # 
-    # parser rule arrayIndexTarget
+    # parser rule subexpression
     # 
     # (in Giraffe.g)
-    # 290:1: arrayIndexTarget returns [result] : ( ID | LB expression RB | INT | call | array | alloc | readInstruction | string | NULL | openFile | sizeOf | readNumber );
+    # 294:1: subexpression returns [result] : LB expression RB ;
     # 
-    def arrayIndexTarget
+    def subexpression
       # -> uncomment the next line to manually enable rule tracing
       # trace_in( __method__, 39 )
-      return_value = ArrayIndexTargetReturnValue.new
+      return_value = SubexpressionReturnValue.new
 
       # $rule.start = the first token seen before matching
       return_value.start = @input.look
 
       root_0 = nil
-      __ID172__ = nil
-      __LB173__ = nil
-      __RB175__ = nil
-      __INT176__ = nil
-      __NULL182__ = nil
-      expression174 = nil
-      call177 = nil
-      array178 = nil
-      alloc179 = nil
-      readInstruction180 = nil
-      string181 = nil
-      openFile183 = nil
-      sizeOf184 = nil
-      readNumber185 = nil
+      __LB171__ = nil
+      __RB173__ = nil
+      expression172 = nil
 
-      tree_for_ID172 = nil
-      tree_for_LB173 = nil
-      tree_for_RB175 = nil
-      tree_for_INT176 = nil
-      tree_for_NULL182 = nil
+      tree_for_LB171 = nil
+      tree_for_RB173 = nil
 
       begin
-        # at line 291:2: ( ID | LB expression RB | INT | call | array | alloc | readInstruction | string | NULL | openFile | sizeOf | readNumber )
-        alt_46 = 12
-        alt_46 = @dfa46.predict( @input )
-        case alt_46
-        when 1
-          root_0 = @adaptor.create_flat_list
+        root_0 = @adaptor.create_flat_list
 
 
-          # at line 291:4: ID
-          __ID172__ = match( ID, TOKENS_FOLLOWING_ID_IN_arrayIndexTarget_1706 )
+        # at line 295:4: LB expression RB
+        __LB171__ = match( LB, TOKENS_FOLLOWING_LB_IN_subexpression_1669 )
 
-          tree_for_ID172 = @adaptor.create_with_payload( __ID172__ )
-          @adaptor.add_child( root_0, tree_for_ID172 )
+        tree_for_LB171 = @adaptor.create_with_payload( __LB171__ )
+        @adaptor.add_child( root_0, tree_for_LB171 )
 
-          # --> action
-          return_value.result = [VarTree.new(__ID172__.text),tree_for_ID172]
-          # <-- action
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_subexpression_1671 )
+        expression172 = expression
+        @state.following.pop
+        @adaptor.add_child( root_0, expression172.tree )
+        __RB173__ = match( RB, TOKENS_FOLLOWING_RB_IN_subexpression_1673 )
 
-        when 2
-          root_0 = @adaptor.create_flat_list
+        tree_for_RB173 = @adaptor.create_with_payload( __RB173__ )
+        @adaptor.add_child( root_0, tree_for_RB173 )
 
-
-          # at line 292:4: LB expression RB
-          __LB173__ = match( LB, TOKENS_FOLLOWING_LB_IN_arrayIndexTarget_1713 )
-          @state.following.push( TOKENS_FOLLOWING_expression_IN_arrayIndexTarget_1716 )
-          expression174 = expression
-          @state.following.pop
-          @adaptor.add_child( root_0, expression174.tree )
-          __RB175__ = match( RB, TOKENS_FOLLOWING_RB_IN_arrayIndexTarget_1718 )
-          # --> action
-          return_value.result = ( expression174.nil? ? nil : expression174.result )
-          # <-- action
-
-        when 3
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 293:4: INT
-          __INT176__ = match( INT, TOKENS_FOLLOWING_INT_IN_arrayIndexTarget_1726 )
-
-          tree_for_INT176 = @adaptor.create_with_payload( __INT176__ )
-          @adaptor.add_child( root_0, tree_for_INT176 )
-
-          # --> action
-          return_value.result = [AtomTree.new(__INT176__.text.to_i),tree_for_INT176]
-          # <-- action
-
-        when 4
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 294:4: call
-          @state.following.push( TOKENS_FOLLOWING_call_IN_arrayIndexTarget_1733 )
-          call177 = call
-          @state.following.pop
-          @adaptor.add_child( root_0, call177.tree )
-          # --> action
-          return_value.result = ( call177.nil? ? nil : call177.result )
-          # <-- action
-
-        when 5
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 295:4: array
-          @state.following.push( TOKENS_FOLLOWING_array_IN_arrayIndexTarget_1740 )
-          array178 = array
-          @state.following.pop
-          @adaptor.add_child( root_0, array178.tree )
-          # --> action
-          return_value.result = [ArrayTree.new(( array178.nil? ? nil : array178.result )),array178.tree]
-          # <-- action
-
-        when 6
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 296:4: alloc
-          @state.following.push( TOKENS_FOLLOWING_alloc_IN_arrayIndexTarget_1747 )
-          alloc179 = alloc
-          @state.following.pop
-          @adaptor.add_child( root_0, alloc179.tree )
-          # --> action
-          return_value.result = ( alloc179.nil? ? nil : alloc179.result )
-          # <-- action
-
-        when 7
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 297:4: readInstruction
-          @state.following.push( TOKENS_FOLLOWING_readInstruction_IN_arrayIndexTarget_1754 )
-          readInstruction180 = readInstruction
-          @state.following.pop
-          @adaptor.add_child( root_0, readInstruction180.tree )
-          # --> action
-          return_value.result = ( readInstruction180.nil? ? nil : readInstruction180.result )
-          # <-- action
-
-        when 8
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 298:4: string
-          @state.following.push( TOKENS_FOLLOWING_string_IN_arrayIndexTarget_1761 )
-          string181 = string
-          @state.following.pop
-          @adaptor.add_child( root_0, string181.tree )
-          # --> action
-          return_value.result = [StringTree.new(( string181.nil? ? nil : string181.result )),string181.tree]
-          # <-- action
-
-        when 9
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 299:4: NULL
-          __NULL182__ = match( NULL, TOKENS_FOLLOWING_NULL_IN_arrayIndexTarget_1768 )
-
-          tree_for_NULL182 = @adaptor.create_with_payload( __NULL182__ )
-          @adaptor.add_child( root_0, tree_for_NULL182 )
-
-          # --> action
-          return_value.result = [NilTree.new,tree_for_NULL182]
-          # <-- action
-
-        when 10
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 300:4: openFile
-          @state.following.push( TOKENS_FOLLOWING_openFile_IN_arrayIndexTarget_1775 )
-          openFile183 = openFile
-          @state.following.pop
-          @adaptor.add_child( root_0, openFile183.tree )
-          # --> action
-          return_value.result = ( openFile183.nil? ? nil : openFile183.result )
-          # <-- action
-
-        when 11
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 301:4: sizeOf
-          @state.following.push( TOKENS_FOLLOWING_sizeOf_IN_arrayIndexTarget_1782 )
-          sizeOf184 = sizeOf
-          @state.following.pop
-          @adaptor.add_child( root_0, sizeOf184.tree )
-          # --> action
-          return_value.result = ( sizeOf184.nil? ? nil : sizeOf184.result )
-          # <-- action
-
-        when 12
-          root_0 = @adaptor.create_flat_list
-
-
-          # at line 302:4: readNumber
-          @state.following.push( TOKENS_FOLLOWING_readNumber_IN_arrayIndexTarget_1789 )
-          readNumber185 = readNumber
-          @state.following.pop
-          @adaptor.add_child( root_0, readNumber185.tree )
-          # --> action
-          return_value.result = ( readNumber185.nil? ? nil : readNumber185.result )
-          # <-- action
-
-        end# - - - - - - - rule clean up - - - - - - - -
+        # --> action
+        return_value.result = ( expression172.nil? ? nil : expression172.result )
+        # <-- action
+        # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
 
@@ -4244,7 +3977,7 @@ module Giraffe
     # parser rule array
     # 
     # (in Giraffe.g)
-    # 305:1: array returns [result] : '[' ( ( '\\n' )? ex1= expression ( COMMA ( '\\n' )? ex2= expression )* )? ( '\\n' )? ']' ;
+    # 298:1: array returns [result] : '[' ( ( '\\n' )? ex1= expression ( COMMA ( '\\n' )? ex2= expression )* )? ( '\\n' )? ']' ;
     # 
     def array
       # -> uncomment the next line to manually enable rule tracing
@@ -4255,110 +3988,110 @@ module Giraffe
       return_value.start = @input.look
 
       root_0 = nil
-      char_literal186 = nil
-      char_literal187 = nil
-      __COMMA188__ = nil
-      char_literal189 = nil
-      char_literal190 = nil
-      char_literal191 = nil
+      char_literal174 = nil
+      char_literal175 = nil
+      __COMMA176__ = nil
+      char_literal177 = nil
+      char_literal178 = nil
+      char_literal179 = nil
       ex1 = nil
       ex2 = nil
 
-      tree_for_char_literal186 = nil
-      tree_for_char_literal187 = nil
-      tree_for_COMMA188 = nil
-      tree_for_char_literal189 = nil
-      tree_for_char_literal190 = nil
-      tree_for_char_literal191 = nil
+      tree_for_char_literal174 = nil
+      tree_for_char_literal175 = nil
+      tree_for_COMMA176 = nil
+      tree_for_char_literal177 = nil
+      tree_for_char_literal178 = nil
+      tree_for_char_literal179 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 306:4: '[' ( ( '\\n' )? ex1= expression ( COMMA ( '\\n' )? ex2= expression )* )? ( '\\n' )? ']'
-        char_literal186 = match( T__67, TOKENS_FOLLOWING_T__67_IN_array_1806 )
+        # at line 299:4: '[' ( ( '\\n' )? ex1= expression ( COMMA ( '\\n' )? ex2= expression )* )? ( '\\n' )? ']'
+        char_literal174 = match( T__67, TOKENS_FOLLOWING_T__67_IN_array_1690 )
 
-        tree_for_char_literal186 = @adaptor.create_with_payload( char_literal186 )
-        @adaptor.add_child( root_0, tree_for_char_literal186 )
+        tree_for_char_literal174 = @adaptor.create_with_payload( char_literal174 )
+        @adaptor.add_child( root_0, tree_for_char_literal174 )
 
         # --> action
         return_value.result = []
         # <-- action
-        # at line 307:3: ( ( '\\n' )? ex1= expression ( COMMA ( '\\n' )? ex2= expression )* )?
-        alt_50 = 2
-        look_50_0 = @input.peek( 1 )
+        # at line 300:3: ( ( '\\n' )? ex1= expression ( COMMA ( '\\n' )? ex2= expression )* )?
+        alt_40 = 2
+        look_40_0 = @input.peek( 1 )
 
-        if ( look_50_0 == T__66 )
-          look_50_1 = @input.peek( 2 )
+        if ( look_40_0 == T__66 )
+          look_40_1 = @input.peek( 2 )
 
-          if ( look_50_1 == READ || look_50_1 == LB || look_50_1.between?( PLUS, INT ) || look_50_1 == ID || look_50_1.between?( OPENFILE, READNUMBER ) || look_50_1.between?( NULL, ALLOC ) || look_50_1 == STRING || look_50_1 == T__67 )
-            alt_50 = 1
+          if ( look_40_1 == READ || look_40_1.between?( PLUS, INT ) || look_40_1 == LB || look_40_1 == ID || look_40_1 == NOT || look_40_1.between?( OPENFILE, ALLOC ) || look_40_1 == STRING || look_40_1 == T__67 )
+            alt_40 = 1
           end
-        elsif ( look_50_0 == READ || look_50_0 == LB || look_50_0.between?( PLUS, INT ) || look_50_0 == ID || look_50_0.between?( OPENFILE, READNUMBER ) || look_50_0.between?( NULL, ALLOC ) || look_50_0 == STRING || look_50_0 == T__67 )
-          alt_50 = 1
+        elsif ( look_40_0 == READ || look_40_0.between?( PLUS, INT ) || look_40_0 == LB || look_40_0 == ID || look_40_0 == NOT || look_40_0.between?( OPENFILE, ALLOC ) || look_40_0 == STRING || look_40_0 == T__67 )
+          alt_40 = 1
         end
-        case alt_50
+        case alt_40
         when 1
-          # at line 307:4: ( '\\n' )? ex1= expression ( COMMA ( '\\n' )? ex2= expression )*
-          # at line 307:4: ( '\\n' )?
-          alt_47 = 2
-          look_47_0 = @input.peek( 1 )
+          # at line 300:4: ( '\\n' )? ex1= expression ( COMMA ( '\\n' )? ex2= expression )*
+          # at line 300:4: ( '\\n' )?
+          alt_37 = 2
+          look_37_0 = @input.peek( 1 )
 
-          if ( look_47_0 == T__66 )
-            alt_47 = 1
+          if ( look_37_0 == T__66 )
+            alt_37 = 1
           end
-          case alt_47
+          case alt_37
           when 1
-            # at line 307:4: '\\n'
-            char_literal187 = match( T__66, TOKENS_FOLLOWING_T__66_IN_array_1813 )
+            # at line 300:4: '\\n'
+            char_literal175 = match( T__66, TOKENS_FOLLOWING_T__66_IN_array_1697 )
 
-            tree_for_char_literal187 = @adaptor.create_with_payload( char_literal187 )
-            @adaptor.add_child( root_0, tree_for_char_literal187 )
+            tree_for_char_literal175 = @adaptor.create_with_payload( char_literal175 )
+            @adaptor.add_child( root_0, tree_for_char_literal175 )
 
 
           end
-          @state.following.push( TOKENS_FOLLOWING_expression_IN_array_1818 )
+          @state.following.push( TOKENS_FOLLOWING_expression_IN_array_1702 )
           ex1 = expression
           @state.following.pop
           @adaptor.add_child( root_0, ex1.tree )
           # --> action
           return_value.result << ( ex1.nil? ? nil : ex1.result )
           # <-- action
-          # at line 308:3: ( COMMA ( '\\n' )? ex2= expression )*
-          while true # decision 49
-            alt_49 = 2
-            look_49_0 = @input.peek( 1 )
+          # at line 301:3: ( COMMA ( '\\n' )? ex2= expression )*
+          while true # decision 39
+            alt_39 = 2
+            look_39_0 = @input.peek( 1 )
 
-            if ( look_49_0 == COMMA )
-              alt_49 = 1
+            if ( look_39_0 == COMMA )
+              alt_39 = 1
 
             end
-            case alt_49
+            case alt_39
             when 1
-              # at line 308:4: COMMA ( '\\n' )? ex2= expression
-              __COMMA188__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_array_1825 )
+              # at line 301:4: COMMA ( '\\n' )? ex2= expression
+              __COMMA176__ = match( COMMA, TOKENS_FOLLOWING_COMMA_IN_array_1709 )
 
-              tree_for_COMMA188 = @adaptor.create_with_payload( __COMMA188__ )
-              @adaptor.add_child( root_0, tree_for_COMMA188 )
+              tree_for_COMMA176 = @adaptor.create_with_payload( __COMMA176__ )
+              @adaptor.add_child( root_0, tree_for_COMMA176 )
 
-              # at line 308:10: ( '\\n' )?
-              alt_48 = 2
-              look_48_0 = @input.peek( 1 )
+              # at line 301:10: ( '\\n' )?
+              alt_38 = 2
+              look_38_0 = @input.peek( 1 )
 
-              if ( look_48_0 == T__66 )
-                alt_48 = 1
+              if ( look_38_0 == T__66 )
+                alt_38 = 1
               end
-              case alt_48
+              case alt_38
               when 1
-                # at line 308:10: '\\n'
-                char_literal189 = match( T__66, TOKENS_FOLLOWING_T__66_IN_array_1827 )
+                # at line 301:10: '\\n'
+                char_literal177 = match( T__66, TOKENS_FOLLOWING_T__66_IN_array_1711 )
 
-                tree_for_char_literal189 = @adaptor.create_with_payload( char_literal189 )
-                @adaptor.add_child( root_0, tree_for_char_literal189 )
+                tree_for_char_literal177 = @adaptor.create_with_payload( char_literal177 )
+                @adaptor.add_child( root_0, tree_for_char_literal177 )
 
 
               end
-              @state.following.push( TOKENS_FOLLOWING_expression_IN_array_1832 )
+              @state.following.push( TOKENS_FOLLOWING_expression_IN_array_1716 )
               ex2 = expression
               @state.following.pop
               @adaptor.add_child( root_0, ex2.tree )
@@ -4367,32 +4100,32 @@ module Giraffe
               # <-- action
 
             else
-              break # out of loop for decision 49
+              break # out of loop for decision 39
             end
-          end # loop for decision 49
+          end # loop for decision 39
 
         end
-        # at line 309:3: ( '\\n' )?
-        alt_51 = 2
-        look_51_0 = @input.peek( 1 )
+        # at line 302:3: ( '\\n' )?
+        alt_41 = 2
+        look_41_0 = @input.peek( 1 )
 
-        if ( look_51_0 == T__66 )
-          alt_51 = 1
+        if ( look_41_0 == T__66 )
+          alt_41 = 1
         end
-        case alt_51
+        case alt_41
         when 1
-          # at line 309:3: '\\n'
-          char_literal190 = match( T__66, TOKENS_FOLLOWING_T__66_IN_array_1843 )
+          # at line 302:3: '\\n'
+          char_literal178 = match( T__66, TOKENS_FOLLOWING_T__66_IN_array_1727 )
 
-          tree_for_char_literal190 = @adaptor.create_with_payload( char_literal190 )
-          @adaptor.add_child( root_0, tree_for_char_literal190 )
+          tree_for_char_literal178 = @adaptor.create_with_payload( char_literal178 )
+          @adaptor.add_child( root_0, tree_for_char_literal178 )
 
 
         end
-        char_literal191 = match( T__68, TOKENS_FOLLOWING_T__68_IN_array_1846 )
+        char_literal179 = match( T__68, TOKENS_FOLLOWING_T__68_IN_array_1730 )
 
-        tree_for_char_literal191 = @adaptor.create_with_payload( char_literal191 )
-        @adaptor.add_child( root_0, tree_for_char_literal191 )
+        tree_for_char_literal179 = @adaptor.create_with_payload( char_literal179 )
+        @adaptor.add_child( root_0, tree_for_char_literal179 )
 
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -4421,7 +4154,7 @@ module Giraffe
     # parser rule alloc
     # 
     # (in Giraffe.g)
-    # 312:1: alloc returns [result] : ALLOC LB expression RB ;
+    # 305:1: alloc returns [result] : ALLOC LB expression RB ;
     # 
     def alloc
       # -> uncomment the next line to manually enable rule tracing
@@ -4432,33 +4165,33 @@ module Giraffe
       return_value.start = @input.look
 
       root_0 = nil
-      __ALLOC192__ = nil
-      __LB193__ = nil
-      __RB195__ = nil
-      expression194 = nil
+      __ALLOC180__ = nil
+      __LB181__ = nil
+      __RB183__ = nil
+      expression182 = nil
 
-      tree_for_ALLOC192 = nil
-      tree_for_LB193 = nil
-      tree_for_RB195 = nil
+      tree_for_ALLOC180 = nil
+      tree_for_LB181 = nil
+      tree_for_RB183 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 313:4: ALLOC LB expression RB
-        __ALLOC192__ = match( ALLOC, TOKENS_FOLLOWING_ALLOC_IN_alloc_1862 )
+        # at line 306:4: ALLOC LB expression RB
+        __ALLOC180__ = match( ALLOC, TOKENS_FOLLOWING_ALLOC_IN_alloc_1746 )
 
-        tree_for_ALLOC192 = @adaptor.create_with_payload( __ALLOC192__ )
-        @adaptor.add_child( root_0, tree_for_ALLOC192 )
+        tree_for_ALLOC180 = @adaptor.create_with_payload( __ALLOC180__ )
+        @adaptor.add_child( root_0, tree_for_ALLOC180 )
 
-        __LB193__ = match( LB, TOKENS_FOLLOWING_LB_IN_alloc_1864 )
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_alloc_1867 )
-        expression194 = expression
+        __LB181__ = match( LB, TOKENS_FOLLOWING_LB_IN_alloc_1748 )
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_alloc_1751 )
+        expression182 = expression
         @state.following.pop
-        @adaptor.add_child( root_0, expression194.tree )
-        __RB195__ = match( RB, TOKENS_FOLLOWING_RB_IN_alloc_1869 )
+        @adaptor.add_child( root_0, expression182.tree )
+        __RB183__ = match( RB, TOKENS_FOLLOWING_RB_IN_alloc_1753 )
         # --> action
-        return_value.result = [AllocTree.new(( expression194.nil? ? nil : expression194.result )),tree_for_ALLOC192]
+        return_value.result = [AllocTree.new(( expression182.nil? ? nil : expression182.result )),tree_for_ALLOC180]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -4487,7 +4220,7 @@ module Giraffe
     # parser rule indexed
     # 
     # (in Giraffe.g)
-    # 318:1: indexed returns [result] : identified ( '[' expression ']' )* ;
+    # 311:1: indexed returns [result] : identified ( '[' expression ']' )* ;
     # 
     def indexed
       # -> uncomment the next line to manually enable rule tracing
@@ -4498,60 +4231,60 @@ module Giraffe
       return_value.start = @input.look
 
       root_0 = nil
-      char_literal197 = nil
-      char_literal199 = nil
-      identified196 = nil
-      expression198 = nil
+      char_literal185 = nil
+      char_literal187 = nil
+      identified184 = nil
+      expression186 = nil
 
-      tree_for_char_literal197 = nil
-      tree_for_char_literal199 = nil
+      tree_for_char_literal185 = nil
+      tree_for_char_literal187 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 319:4: identified ( '[' expression ']' )*
-        @state.following.push( TOKENS_FOLLOWING_identified_IN_indexed_1892 )
-        identified196 = identified
+        # at line 312:4: identified ( '[' expression ']' )*
+        @state.following.push( TOKENS_FOLLOWING_identified_IN_indexed_1776 )
+        identified184 = identified
         @state.following.pop
-        @adaptor.add_child( root_0, identified196.tree )
+        @adaptor.add_child( root_0, identified184.tree )
         # --> action
-        return_value.result = ( identified196.nil? ? nil : identified196.result )
+        return_value.result = ( identified184.nil? ? nil : identified184.result )
         # <-- action
-        # at line 321:3: ( '[' expression ']' )*
-        while true # decision 52
-          alt_52 = 2
-          look_52_0 = @input.peek( 1 )
+        # at line 314:3: ( '[' expression ']' )*
+        while true # decision 42
+          alt_42 = 2
+          look_42_0 = @input.peek( 1 )
 
-          if ( look_52_0 == T__67 )
-            alt_52 = 1
+          if ( look_42_0 == T__67 )
+            alt_42 = 1
 
           end
-          case alt_52
+          case alt_42
           when 1
-            # at line 321:4: '[' expression ']'
-            char_literal197 = match( T__67, TOKENS_FOLLOWING_T__67_IN_indexed_1902 )
+            # at line 314:4: '[' expression ']'
+            char_literal185 = match( T__67, TOKENS_FOLLOWING_T__67_IN_indexed_1786 )
 
-            tree_for_char_literal197 = @adaptor.create_with_payload( char_literal197 )
-            @adaptor.add_child( root_0, tree_for_char_literal197 )
+            tree_for_char_literal185 = @adaptor.create_with_payload( char_literal185 )
+            @adaptor.add_child( root_0, tree_for_char_literal185 )
 
-            @state.following.push( TOKENS_FOLLOWING_expression_IN_indexed_1904 )
-            expression198 = expression
+            @state.following.push( TOKENS_FOLLOWING_expression_IN_indexed_1788 )
+            expression186 = expression
             @state.following.pop
-            @adaptor.add_child( root_0, expression198.tree )
-            char_literal199 = match( T__68, TOKENS_FOLLOWING_T__68_IN_indexed_1906 )
+            @adaptor.add_child( root_0, expression186.tree )
+            char_literal187 = match( T__68, TOKENS_FOLLOWING_T__68_IN_indexed_1790 )
 
-            tree_for_char_literal199 = @adaptor.create_with_payload( char_literal199 )
-            @adaptor.add_child( root_0, tree_for_char_literal199 )
+            tree_for_char_literal187 = @adaptor.create_with_payload( char_literal187 )
+            @adaptor.add_child( root_0, tree_for_char_literal187 )
 
             # --> action
-            return_value.result = [IndexTree.new(return_value.result, ( expression198.nil? ? nil : expression198.result )),identified196.tree]
+            return_value.result = [IndexTree.new(return_value.result, ( expression186.nil? ? nil : expression186.result )),identified184.tree]
             # <-- action
 
           else
-            break # out of loop for decision 52
+            break # out of loop for decision 42
           end
-        end # loop for decision 52
+        end # loop for decision 42
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
 
@@ -4579,7 +4312,7 @@ module Giraffe
     # parser rule identified
     # 
     # (in Giraffe.g)
-    # 326:1: identified returns [result] : ID ;
+    # 319:1: identified returns [result] : ID ;
     # 
     def identified
       # -> uncomment the next line to manually enable rule tracing
@@ -4590,22 +4323,22 @@ module Giraffe
       return_value.start = @input.look
 
       root_0 = nil
-      __ID200__ = nil
+      __ID188__ = nil
 
-      tree_for_ID200 = nil
+      tree_for_ID188 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 327:4: ID
-        __ID200__ = match( ID, TOKENS_FOLLOWING_ID_IN_identified_1927 )
+        # at line 320:4: ID
+        __ID188__ = match( ID, TOKENS_FOLLOWING_ID_IN_identified_1811 )
 
-        tree_for_ID200 = @adaptor.create_with_payload( __ID200__ )
-        @adaptor.add_child( root_0, tree_for_ID200 )
+        tree_for_ID188 = @adaptor.create_with_payload( __ID188__ )
+        @adaptor.add_child( root_0, tree_for_ID188 )
 
         # --> action
-        return_value.result = [VarTree.new(__ID200__.text),tree_for_ID200]
+        return_value.result = [VarTree.new(__ID188__.text),tree_for_ID188]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -4634,7 +4367,7 @@ module Giraffe
     # parser rule assignment
     # 
     # (in Giraffe.g)
-    # 330:1: assignment returns [result] : indexed ASSIGN expression ;
+    # 323:1: assignment returns [result] : indexed ASSIGN expression ;
     # 
     def assignment
       # -> uncomment the next line to manually enable rule tracing
@@ -4645,32 +4378,32 @@ module Giraffe
       return_value.start = @input.look
 
       root_0 = nil
-      __ASSIGN202__ = nil
-      indexed201 = nil
-      expression203 = nil
+      __ASSIGN190__ = nil
+      indexed189 = nil
+      expression191 = nil
 
-      tree_for_ASSIGN202 = nil
+      tree_for_ASSIGN190 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 331:4: indexed ASSIGN expression
-        @state.following.push( TOKENS_FOLLOWING_indexed_IN_assignment_1944 )
-        indexed201 = indexed
+        # at line 324:4: indexed ASSIGN expression
+        @state.following.push( TOKENS_FOLLOWING_indexed_IN_assignment_1828 )
+        indexed189 = indexed
         @state.following.pop
-        @adaptor.add_child( root_0, indexed201.tree )
-        __ASSIGN202__ = match( ASSIGN, TOKENS_FOLLOWING_ASSIGN_IN_assignment_1946 )
+        @adaptor.add_child( root_0, indexed189.tree )
+        __ASSIGN190__ = match( ASSIGN, TOKENS_FOLLOWING_ASSIGN_IN_assignment_1830 )
 
-        tree_for_ASSIGN202 = @adaptor.create_with_payload( __ASSIGN202__ )
-        root_0 = @adaptor.become_root( tree_for_ASSIGN202, root_0 )
+        tree_for_ASSIGN190 = @adaptor.create_with_payload( __ASSIGN190__ )
+        root_0 = @adaptor.become_root( tree_for_ASSIGN190, root_0 )
 
-        @state.following.push( TOKENS_FOLLOWING_expression_IN_assignment_1949 )
-        expression203 = expression
+        @state.following.push( TOKENS_FOLLOWING_expression_IN_assignment_1833 )
+        expression191 = expression
         @state.following.pop
-        @adaptor.add_child( root_0, expression203.tree )
+        @adaptor.add_child( root_0, expression191.tree )
         # --> action
-         return_value.result = [AssignTree.new(( indexed201.nil? ? nil : indexed201.result ),( expression203.nil? ? nil : expression203.result )),indexed201.tree] 
+         return_value.result = [AssignTree.new(( indexed189.nil? ? nil : indexed189.result ),( expression191.nil? ? nil : expression191.result )),indexed189.tree] 
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -4699,7 +4432,7 @@ module Giraffe
     # parser rule bool
     # 
     # (in Giraffe.g)
-    # 334:1: fragment bool returns [result] : ( TRUE | FALSE );
+    # 327:1: fragment bool returns [result] : ( TRUE | FALSE );
     # 
     def bool
       # -> uncomment the next line to manually enable rule tracing
@@ -4710,34 +4443,34 @@ module Giraffe
       return_value.start = @input.look
 
       root_0 = nil
-      __TRUE204__ = nil
-      __FALSE205__ = nil
+      __TRUE192__ = nil
+      __FALSE193__ = nil
 
-      tree_for_TRUE204 = nil
-      tree_for_FALSE205 = nil
+      tree_for_TRUE192 = nil
+      tree_for_FALSE193 = nil
 
       begin
-        # at line 336:2: ( TRUE | FALSE )
-        alt_53 = 2
-        look_53_0 = @input.peek( 1 )
+        # at line 329:2: ( TRUE | FALSE )
+        alt_43 = 2
+        look_43_0 = @input.peek( 1 )
 
-        if ( look_53_0 == TRUE )
-          alt_53 = 1
-        elsif ( look_53_0 == FALSE )
-          alt_53 = 2
+        if ( look_43_0 == TRUE )
+          alt_43 = 1
+        elsif ( look_43_0 == FALSE )
+          alt_43 = 2
         else
-          raise NoViableAlternative( "", 53, 0 )
+          raise NoViableAlternative( "", 43, 0 )
         end
-        case alt_53
+        case alt_43
         when 1
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 336:4: TRUE
-          __TRUE204__ = match( TRUE, TOKENS_FOLLOWING_TRUE_IN_bool_1970 )
+          # at line 329:4: TRUE
+          __TRUE192__ = match( TRUE, TOKENS_FOLLOWING_TRUE_IN_bool_1854 )
 
-          tree_for_TRUE204 = @adaptor.create_with_payload( __TRUE204__ )
-          @adaptor.add_child( root_0, tree_for_TRUE204 )
+          tree_for_TRUE192 = @adaptor.create_with_payload( __TRUE192__ )
+          @adaptor.add_child( root_0, tree_for_TRUE192 )
 
           # --> action
           return_value.result = new AtomTree(1)
@@ -4747,11 +4480,11 @@ module Giraffe
           root_0 = @adaptor.create_flat_list
 
 
-          # at line 337:5: FALSE
-          __FALSE205__ = match( FALSE, TOKENS_FOLLOWING_FALSE_IN_bool_1978 )
+          # at line 330:5: FALSE
+          __FALSE193__ = match( FALSE, TOKENS_FOLLOWING_FALSE_IN_bool_1862 )
 
-          tree_for_FALSE205 = @adaptor.create_with_payload( __FALSE205__ )
-          @adaptor.add_child( root_0, tree_for_FALSE205 )
+          tree_for_FALSE193 = @adaptor.create_with_payload( __FALSE193__ )
+          @adaptor.add_child( root_0, tree_for_FALSE193 )
 
           # --> action
           return_value.result = new AtomTree(0)
@@ -4786,7 +4519,7 @@ module Giraffe
     # parser rule string
     # 
     # (in Giraffe.g)
-    # 340:1: string returns [result] : STRING ;
+    # 333:1: string returns [result] : STRING ;
     # 
     def string
       # -> uncomment the next line to manually enable rule tracing
@@ -4797,22 +4530,22 @@ module Giraffe
       return_value.start = @input.look
 
       root_0 = nil
-      __STRING206__ = nil
+      __STRING194__ = nil
 
-      tree_for_STRING206 = nil
+      tree_for_STRING194 = nil
 
       begin
         root_0 = @adaptor.create_flat_list
 
 
-        # at line 341:4: STRING
-        __STRING206__ = match( STRING, TOKENS_FOLLOWING_STRING_IN_string_1999 )
+        # at line 334:4: STRING
+        __STRING194__ = match( STRING, TOKENS_FOLLOWING_STRING_IN_string_1883 )
 
-        tree_for_STRING206 = @adaptor.create_with_payload( __STRING206__ )
-        @adaptor.add_child( root_0, tree_for_STRING206 )
+        tree_for_STRING194 = @adaptor.create_with_payload( __STRING194__ )
+        @adaptor.add_child( root_0, tree_for_STRING194 )
 
         # --> action
-        return_value.result = __STRING206__.text[1..-2]
+        return_value.result = __STRING194__.text[1..-2]
         # <-- action
         # - - - - - - - rule clean up - - - - - - - -
         return_value.stop = @input.look( -1 )
@@ -4839,20 +4572,18 @@ module Giraffe
 
     # - - - - - - - - - - DFA definitions - - - - - - - - - - -
     class DFA10 < ANTLR3::DFA
-      EOT = unpack( 15, -1 )
-      EOF = unpack( 15, -1 )
-      MIN = unpack( 1, 4, 1, 10, 13, -1 )
-      MAX = unpack( 1, 66, 1, 67, 13, -1 )
-      ACCEPT = unpack( 2, -1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 7, 1, 8, 
-                       1, 9, 1, 11, 1, 12, 1, 13, 1, 10, 1, 1 )
-      SPECIAL = unpack( 15, -1 )
+      EOT = unpack( 13, -1 )
+      EOF = unpack( 13, -1 )
+      MIN = unpack( 1, 4, 1, 12, 11, -1 )
+      MAX = unpack( 1, 66, 1, 67, 11, -1 )
+      ACCEPT = unpack( 2, -1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 7, 1, 9, 
+                       1, 10, 1, 11, 1, 8, 1, 1 )
+      SPECIAL = unpack( 13, -1 )
       TRANSITION = [
-        unpack( 2, 12, 1, -1, 1, 9, 1, 7, 1, 8, 5, -1, 1, 6, 1, -1, 1, 3, 
-                1, -1, 1, 12, 3, -1, 1, 4, 1, 5, 1, 2, 1, 1, 14, -1, 1, 
-                10, 3, -1, 1, 11, 19, -1, 2, 12 ),
-        unpack( 1, 13, 37, -1, 1, 14, 18, -1, 1, 14 ),
-        unpack(  ),
-        unpack(  ),
+        unpack( 2, 10, 1, -1, 1, 7, 3, -1, 1, 6, 3, -1, 1, 3, 1, -1, 1, 
+                10, 3, -1, 1, 4, 1, 5, 1, 2, 1, 1, 13, -1, 1, 8, 3, -1, 
+                1, 9, 22, -1, 2, 10 ),
+        unpack( 1, 11, 32, -1, 1, 12, 21, -1, 1, 12 ),
         unpack(  ),
         unpack(  ),
         unpack(  ),
@@ -4877,50 +4608,7 @@ module Giraffe
 
       def description
         <<-'__dfa_description__'.strip!
-          99:1: instruction returns [result] : ( assignment | forCycle | ifInstruction | whileCycle | doCycle | printInstruction | returnInstruction | exitInstruction | breakInstruction | aloneCall | closeFile | writeFile | );
-        __dfa_description__
-      end
-    end
-    class DFA46 < ANTLR3::DFA
-      EOT = unpack( 14, -1 )
-      EOF = unpack( 14, -1 )
-      MIN = unpack( 1, 6, 1, 4, 12, -1 )
-      MAX = unpack( 1, 67, 1, 68, 12, -1 )
-      ACCEPT = unpack( 2, -1, 1, 2, 1, 3, 1, 5, 1, 6, 1, 7, 1, 8, 1, 9, 
-                       1, 10, 1, 11, 1, 12, 1, 4, 1, 1 )
-      SPECIAL = unpack( 14, -1 )
-      TRANSITION = [
-        unpack( 1, 6, 3, -1, 1, 2, 3, -1, 1, 3, 11, -1, 1, 1, 15, -1, 1, 
-                9, 1, 10, 1, 11, 1, -1, 1, 8, 1, 5, 3, -1, 1, 7, 15, -1, 
-                1, 4 ),
-        unpack( 2, 13, 4, -1, 1, 12, 3, 13, 2, -1, 1, 13, 1, -1, 2, 13, 
-                 9, -1, 2, 13, 1, -1, 9, 13, 24, -1, 4, 13 ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  ),
-        unpack(  )
-      ].freeze
-      
-      ( 0 ... MIN.length ).zip( MIN, MAX ) do | i, a, z |
-        if a > 0 and z < 0
-          MAX[ i ] %= 0x10000
-        end
-      end
-      
-      @decision = 46
-      
-
-      def description
-        <<-'__dfa_description__'.strip!
-          290:1: arrayIndexTarget returns [result] : ( ID | LB expression RB | INT | call | array | alloc | readInstruction | string | NULL | openFile | sizeOf | readNumber );
+          96:1: instruction returns [result] : ( assignment | forCycle | ifInstruction | whileCycle | doCycle | printInstruction | returnInstruction | aloneCall | closeFile | writeFileA | );
         __dfa_description__
       end
     end
@@ -4931,7 +4619,6 @@ module Giraffe
     def initialize_dfas
       super rescue nil
       @dfa10 = DFA10.new( self, 10 )
-      @dfa46 = DFA46.new( self, 46 )
 
     end
     TOKENS_FOLLOWING_functions_IN_program_52 = Set[ 1 ]
@@ -4940,15 +4627,15 @@ module Giraffe
     TOKENS_FOLLOWING_functionsRest_IN_functions_106 = Set[ 1 ]
     TOKENS_FOLLOWING_COMMENT_IN_functionsRest_132 = Set[ 65, 66 ]
     TOKENS_FOLLOWING_T__65_IN_functionsRest_136 = Set[ 66 ]
-    TOKENS_FOLLOWING_T__66_IN_functionsRest_140 = Set[ 4, 5, 26, 27, 65, 66 ]
-    TOKENS_FOLLOWING_SEMICOLON_IN_functionsRest_146 = Set[ 4, 5, 26, 27, 65, 66 ]
+    TOKENS_FOLLOWING_T__66_IN_functionsRest_140 = Set[ 4, 5, 24, 25, 65, 66 ]
+    TOKENS_FOLLOWING_SEMICOLON_IN_functionsRest_146 = Set[ 4, 5, 24, 25, 65, 66 ]
     TOKENS_FOLLOWING_functions_IN_functionsRest_153 = Set[ 1 ]
     TOKENS_FOLLOWING_instruction_IN_block_187 = Set[ 4, 5, 65, 66 ]
     TOKENS_FOLLOWING_instructionRest_IN_block_197 = Set[ 1 ]
     TOKENS_FOLLOWING_COMMENT_IN_instructionRest_223 = Set[ 65, 66 ]
     TOKENS_FOLLOWING_T__65_IN_instructionRest_227 = Set[ 66 ]
-    TOKENS_FOLLOWING_T__66_IN_instructionRest_231 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
-    TOKENS_FOLLOWING_SEMICOLON_IN_instructionRest_237 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
+    TOKENS_FOLLOWING_T__66_IN_instructionRest_231 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
+    TOKENS_FOLLOWING_SEMICOLON_IN_instructionRest_237 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
     TOKENS_FOLLOWING_block_IN_instructionRest_244 = Set[ 1 ]
     TOKENS_FOLLOWING_assignment_IN_instruction_273 = Set[ 1 ]
     TOKENS_FOLLOWING_forCycle_IN_instruction_280 = Set[ 1 ]
@@ -4957,229 +4644,211 @@ module Giraffe
     TOKENS_FOLLOWING_doCycle_IN_instruction_301 = Set[ 1 ]
     TOKENS_FOLLOWING_printInstruction_IN_instruction_308 = Set[ 1 ]
     TOKENS_FOLLOWING_returnInstruction_IN_instruction_315 = Set[ 1 ]
-    TOKENS_FOLLOWING_exitInstruction_IN_instruction_323 = Set[ 1 ]
-    TOKENS_FOLLOWING_breakInstruction_IN_instruction_330 = Set[ 1 ]
-    TOKENS_FOLLOWING_aloneCall_IN_instruction_337 = Set[ 1 ]
-    TOKENS_FOLLOWING_closeFile_IN_instruction_344 = Set[ 1 ]
-    TOKENS_FOLLOWING_writeFile_IN_instruction_351 = Set[ 1 ]
-    TOKENS_FOLLOWING_READ_IN_readInstruction_374 = Set[ 1 ]
-    TOKENS_FOLLOWING_BREAK_IN_breakInstruction_391 = Set[ 1 ]
-    TOKENS_FOLLOWING_RETURN_IN_returnInstruction_408 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_returnInstruction_411 = Set[ 1 ]
-    TOKENS_FOLLOWING_EXIT_IN_exitInstruction_428 = Set[ 1, 10, 12, 13, 14 ]
-    TOKENS_FOLLOWING_LB_IN_exitInstruction_433 = Set[ 12, 13, 14 ]
-    TOKENS_FOLLOWING_statusCode_IN_exitInstruction_438 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_exitInstruction_440 = Set[ 1 ]
-    TOKENS_FOLLOWING_statusCode_IN_exitInstruction_453 = Set[ 1 ]
-    TOKENS_FOLLOWING_PLUS_IN_statusCode_478 = Set[ 14 ]
-    TOKENS_FOLLOWING_MINUS_IN_statusCode_482 = Set[ 14 ]
-    TOKENS_FOLLOWING_INT_IN_statusCode_488 = Set[ 1 ]
-    TOKENS_FOLLOWING_PRINT_IN_printInstruction_509 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_printInstruction_512 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_printText_IN_printInstruction_515 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_printInstruction_517 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_printText_542 = Set[ 1, 16 ]
-    TOKENS_FOLLOWING_COMMA_IN_printText_549 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_printText_IN_printText_553 = Set[ 1 ]
-    TOKENS_FOLLOWING_IF_IN_ifInstruction_577 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_ifInstruction_580 = Set[ 6, 10, 12, 13, 14, 26, 31, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_condition_IN_ifInstruction_583 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_ifInstruction_585 = Set[ 18 ]
-    TOKENS_FOLLOWING_LCB_IN_ifInstruction_588 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
-    TOKENS_FOLLOWING_block_IN_ifInstruction_591 = Set[ 19 ]
-    TOKENS_FOLLOWING_RCB_IN_ifInstruction_593 = Set[ 20, 21, 22 ]
-    TOKENS_FOLLOWING_ifRest_IN_ifInstruction_596 = Set[ 1 ]
-    TOKENS_FOLLOWING_ELSE_IN_ifRest_615 = Set[ 18 ]
-    TOKENS_FOLLOWING_LCB_IN_ifRest_617 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
-    TOKENS_FOLLOWING_block_IN_ifRest_620 = Set[ 19 ]
-    TOKENS_FOLLOWING_RCB_IN_ifRest_622 = Set[ 1 ]
-    TOKENS_FOLLOWING_set_IN_ifRest_630 = Set[ 6, 10, 12, 13, 14, 26, 31, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_condition_IN_ifRest_638 = Set[ 18 ]
-    TOKENS_FOLLOWING_LCB_IN_ifRest_640 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
-    TOKENS_FOLLOWING_block_IN_ifRest_643 = Set[ 19 ]
-    TOKENS_FOLLOWING_RCB_IN_ifRest_645 = Set[ 20, 21, 22 ]
-    TOKENS_FOLLOWING_ifRest_IN_ifRest_650 = Set[ 1 ]
-    TOKENS_FOLLOWING_WHILE_IN_whileCycle_677 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_whileCycle_679 = Set[ 6, 10, 12, 13, 14, 26, 31, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_condition_IN_whileCycle_681 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_whileCycle_683 = Set[ 18 ]
-    TOKENS_FOLLOWING_LCB_IN_whileCycle_685 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
-    TOKENS_FOLLOWING_block_IN_whileCycle_688 = Set[ 19 ]
-    TOKENS_FOLLOWING_RCB_IN_whileCycle_690 = Set[ 1 ]
-    TOKENS_FOLLOWING_DO_IN_doCycle_712 = Set[ 18 ]
-    TOKENS_FOLLOWING_LCB_IN_doCycle_714 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
-    TOKENS_FOLLOWING_block_IN_doCycle_717 = Set[ 19 ]
-    TOKENS_FOLLOWING_RCB_IN_doCycle_719 = Set[ 23 ]
-    TOKENS_FOLLOWING_WHILE_IN_doCycle_722 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_doCycle_724 = Set[ 6, 10, 12, 13, 14, 26, 31, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_condition_IN_doCycle_726 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_doCycle_728 = Set[ 1 ]
-    TOKENS_FOLLOWING_FOR_IN_forCycle_749 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_forCycle_751 = Set[ 26 ]
-    TOKENS_FOLLOWING_assignment_IN_forCycle_755 = Set[ 4, 5, 65, 66 ]
-    TOKENS_FOLLOWING_COMMENT_IN_forCycle_760 = Set[ 65, 66 ]
-    TOKENS_FOLLOWING_T__65_IN_forCycle_764 = Set[ 66 ]
-    TOKENS_FOLLOWING_T__66_IN_forCycle_768 = Set[ 6, 10, 12, 13, 14, 26, 31, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_SEMICOLON_IN_forCycle_774 = Set[ 6, 10, 12, 13, 14, 26, 31, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_condition_IN_forCycle_779 = Set[ 4, 5, 65, 66 ]
-    TOKENS_FOLLOWING_COMMENT_IN_forCycle_784 = Set[ 65, 66 ]
-    TOKENS_FOLLOWING_T__65_IN_forCycle_788 = Set[ 66 ]
-    TOKENS_FOLLOWING_T__66_IN_forCycle_792 = Set[ 26 ]
-    TOKENS_FOLLOWING_SEMICOLON_IN_forCycle_798 = Set[ 26 ]
-    TOKENS_FOLLOWING_assignment_IN_forCycle_805 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_forCycle_807 = Set[ 18 ]
-    TOKENS_FOLLOWING_LCB_IN_forCycle_809 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
-    TOKENS_FOLLOWING_block_IN_forCycle_812 = Set[ 19 ]
-    TOKENS_FOLLOWING_RCB_IN_forCycle_814 = Set[ 1 ]
-    TOKENS_FOLLOWING_ID_IN_func_836 = Set[ 10, 18 ]
-    TOKENS_FOLLOWING_LB_IN_func_839 = Set[ 11, 26 ]
-    TOKENS_FOLLOWING_params_IN_func_842 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_func_844 = Set[ 18 ]
-    TOKENS_FOLLOWING_LCB_IN_func_849 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
-    TOKENS_FOLLOWING_block_IN_func_852 = Set[ 19 ]
-    TOKENS_FOLLOWING_RCB_IN_func_854 = Set[ 1 ]
-    TOKENS_FOLLOWING_MAIN_IN_func_864 = Set[ 18 ]
-    TOKENS_FOLLOWING_LCB_IN_func_867 = Set[ 4, 5, 7, 8, 9, 15, 17, 23, 24, 25, 26, 41, 45, 65, 66 ]
-    TOKENS_FOLLOWING_block_IN_func_870 = Set[ 19 ]
-    TOKENS_FOLLOWING_RCB_IN_func_872 = Set[ 1 ]
-    TOKENS_FOLLOWING_ID_IN_params_892 = Set[ 16 ]
-    TOKENS_FOLLOWING_paramRest_IN_params_894 = Set[ 1 ]
-    TOKENS_FOLLOWING_COMMA_IN_paramRest_919 = Set[ 26 ]
-    TOKENS_FOLLOWING_params_IN_paramRest_922 = Set[ 1 ]
-    TOKENS_FOLLOWING_ID_IN_aloneCall_950 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_aloneCall_953 = Set[ 6, 10, 11, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_args_IN_aloneCall_958 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_aloneCall_961 = Set[ 1, 28 ]
-    TOKENS_FOLLOWING_DOT_IN_aloneCall_972 = Set[ 26 ]
-    TOKENS_FOLLOWING_ID_IN_aloneCall_976 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_aloneCall_978 = Set[ 6, 10, 11, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_args_IN_aloneCall_983 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_aloneCall_986 = Set[ 1, 28 ]
-    TOKENS_FOLLOWING_ID_IN_call_1009 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_call_1012 = Set[ 6, 10, 11, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_args_IN_call_1017 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_call_1020 = Set[ 1, 28 ]
-    TOKENS_FOLLOWING_DOT_IN_call_1031 = Set[ 26 ]
-    TOKENS_FOLLOWING_ID_IN_call_1035 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_call_1037 = Set[ 6, 10, 11, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_args_IN_call_1042 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_call_1045 = Set[ 1, 28 ]
-    TOKENS_FOLLOWING_expression_IN_args_1067 = Set[ 16 ]
-    TOKENS_FOLLOWING_argsRest_IN_args_1069 = Set[ 1 ]
-    TOKENS_FOLLOWING_COMMA_IN_argsRest_1088 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_args_IN_argsRest_1091 = Set[ 1 ]
-    TOKENS_FOLLOWING_orOperand_IN_condition_1117 = Set[ 1, 29 ]
-    TOKENS_FOLLOWING_OR_IN_condition_1124 = Set[ 6, 10, 12, 13, 14, 26, 31, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_condition_IN_condition_1129 = Set[ 1 ]
-    TOKENS_FOLLOWING_boolOperand_IN_orOperand_1150 = Set[ 1, 30 ]
-    TOKENS_FOLLOWING_AND_IN_orOperand_1157 = Set[ 6, 10, 12, 13, 14, 26, 31, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_orOperand_IN_orOperand_1162 = Set[ 1 ]
-    TOKENS_FOLLOWING_bool_IN_boolOperand_1181 = Set[ 1 ]
-    TOKENS_FOLLOWING_NOT_IN_boolOperand_1188 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_boolOperand_1190 = Set[ 6, 10, 12, 13, 14, 26, 31, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_condition_IN_boolOperand_1193 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_boolOperand_1195 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_boolOperand_1205 = Set[ 32, 33, 34, 35, 36, 37 ]
-    TOKENS_FOLLOWING_EQ_IN_boolOperand_1208 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_bool_IN_boolOperand_1215 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_boolOperand_1221 = Set[ 1 ]
-    TOKENS_FOLLOWING_NE_IN_boolOperand_1232 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_bool_IN_boolOperand_1239 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_boolOperand_1245 = Set[ 1 ]
-    TOKENS_FOLLOWING_LT_IN_boolOperand_1256 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_bool_IN_boolOperand_1263 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_boolOperand_1269 = Set[ 1 ]
-    TOKENS_FOLLOWING_GT_IN_boolOperand_1280 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_bool_IN_boolOperand_1287 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_boolOperand_1293 = Set[ 1 ]
-    TOKENS_FOLLOWING_LE_IN_boolOperand_1304 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_bool_IN_boolOperand_1311 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_boolOperand_1317 = Set[ 1 ]
-    TOKENS_FOLLOWING_GE_IN_boolOperand_1328 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 49, 50, 51, 67 ]
-    TOKENS_FOLLOWING_bool_IN_boolOperand_1335 = Set[ 1 ]
-    TOKENS_FOLLOWING_expression_IN_boolOperand_1341 = Set[ 1 ]
-    TOKENS_FOLLOWING_addOperand_IN_expression_1366 = Set[ 1, 12, 13 ]
-    TOKENS_FOLLOWING_PLUS_IN_expression_1377 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_expression_1382 = Set[ 1 ]
-    TOKENS_FOLLOWING_MINUS_IN_expression_1390 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_expression_1395 = Set[ 1 ]
-    TOKENS_FOLLOWING_mulOperand_IN_addOperand_1417 = Set[ 1, 38, 39, 40 ]
-    TOKENS_FOLLOWING_MUL_IN_addOperand_1428 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_addOperand_IN_addOperand_1433 = Set[ 1 ]
-    TOKENS_FOLLOWING_DIV_IN_addOperand_1441 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_addOperand_IN_addOperand_1446 = Set[ 1 ]
-    TOKENS_FOLLOWING_MOD_IN_addOperand_1454 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_addOperand_IN_addOperand_1459 = Set[ 1 ]
-    TOKENS_FOLLOWING_PLUS_IN_mulOperand_1481 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1483 = Set[ 1 ]
-    TOKENS_FOLLOWING_MINUS_IN_mulOperand_1490 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1492 = Set[ 1 ]
-    TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1499 = Set[ 1 ]
-    TOKENS_FOLLOWING_arrayIndexTarget_IN_mulOperandRest_1516 = Set[ 1, 67 ]
-    TOKENS_FOLLOWING_T__67_IN_mulOperandRest_1524 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_mulOperandRest_1526 = Set[ 68 ]
-    TOKENS_FOLLOWING_T__68_IN_mulOperandRest_1528 = Set[ 1, 67 ]
-    TOKENS_FOLLOWING_CLOSEFILE_IN_closeFile_1549 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_closeFile_1551 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_closeFile_1554 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_closeFile_1556 = Set[ 1 ]
-    TOKENS_FOLLOWING_OPENFILE_IN_openFile_1577 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_openFile_1579 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_openFile_1584 = Set[ 16 ]
-    TOKENS_FOLLOWING_COMMA_IN_openFile_1586 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_openFile_1590 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_openFile_1592 = Set[ 1 ]
-    TOKENS_FOLLOWING_SIZEOF_IN_sizeOf_1612 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_sizeOf_1614 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_sizeOf_1617 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_sizeOf_1619 = Set[ 1 ]
-    TOKENS_FOLLOWING_READNUMBER_IN_readNumber_1640 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_readNumber_1642 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_readNumber_1645 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_readNumber_1647 = Set[ 1 ]
-    TOKENS_FOLLOWING_WRITEFILE_IN_writeFile_1668 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_writeFile_1670 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_writeFile_1675 = Set[ 16 ]
-    TOKENS_FOLLOWING_COMMA_IN_writeFile_1677 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_writeFile_1681 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_writeFile_1683 = Set[ 1 ]
-    TOKENS_FOLLOWING_ID_IN_arrayIndexTarget_1706 = Set[ 1 ]
-    TOKENS_FOLLOWING_LB_IN_arrayIndexTarget_1713 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_arrayIndexTarget_1716 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_arrayIndexTarget_1718 = Set[ 1 ]
-    TOKENS_FOLLOWING_INT_IN_arrayIndexTarget_1726 = Set[ 1 ]
-    TOKENS_FOLLOWING_call_IN_arrayIndexTarget_1733 = Set[ 1 ]
-    TOKENS_FOLLOWING_array_IN_arrayIndexTarget_1740 = Set[ 1 ]
-    TOKENS_FOLLOWING_alloc_IN_arrayIndexTarget_1747 = Set[ 1 ]
-    TOKENS_FOLLOWING_readInstruction_IN_arrayIndexTarget_1754 = Set[ 1 ]
-    TOKENS_FOLLOWING_string_IN_arrayIndexTarget_1761 = Set[ 1 ]
-    TOKENS_FOLLOWING_NULL_IN_arrayIndexTarget_1768 = Set[ 1 ]
-    TOKENS_FOLLOWING_openFile_IN_arrayIndexTarget_1775 = Set[ 1 ]
-    TOKENS_FOLLOWING_sizeOf_IN_arrayIndexTarget_1782 = Set[ 1 ]
-    TOKENS_FOLLOWING_readNumber_IN_arrayIndexTarget_1789 = Set[ 1 ]
-    TOKENS_FOLLOWING_T__67_IN_array_1806 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 66, 67, 68 ]
-    TOKENS_FOLLOWING_T__66_IN_array_1813 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_array_1818 = Set[ 16, 66, 68 ]
-    TOKENS_FOLLOWING_COMMA_IN_array_1825 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 66, 67 ]
-    TOKENS_FOLLOWING_T__66_IN_array_1827 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_array_1832 = Set[ 16, 66, 68 ]
-    TOKENS_FOLLOWING_T__66_IN_array_1843 = Set[ 68 ]
-    TOKENS_FOLLOWING_T__68_IN_array_1846 = Set[ 1 ]
-    TOKENS_FOLLOWING_ALLOC_IN_alloc_1862 = Set[ 10 ]
-    TOKENS_FOLLOWING_LB_IN_alloc_1864 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_alloc_1867 = Set[ 11 ]
-    TOKENS_FOLLOWING_RB_IN_alloc_1869 = Set[ 1 ]
-    TOKENS_FOLLOWING_identified_IN_indexed_1892 = Set[ 1, 67 ]
-    TOKENS_FOLLOWING_T__67_IN_indexed_1902 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_indexed_1904 = Set[ 68 ]
-    TOKENS_FOLLOWING_T__68_IN_indexed_1906 = Set[ 1, 67 ]
-    TOKENS_FOLLOWING_ID_IN_identified_1927 = Set[ 1 ]
-    TOKENS_FOLLOWING_indexed_IN_assignment_1944 = Set[ 48 ]
-    TOKENS_FOLLOWING_ASSIGN_IN_assignment_1946 = Set[ 6, 10, 12, 13, 14, 26, 42, 43, 44, 46, 47, 51, 67 ]
-    TOKENS_FOLLOWING_expression_IN_assignment_1949 = Set[ 1 ]
-    TOKENS_FOLLOWING_TRUE_IN_bool_1970 = Set[ 1 ]
-    TOKENS_FOLLOWING_FALSE_IN_bool_1978 = Set[ 1 ]
-    TOKENS_FOLLOWING_STRING_IN_string_1999 = Set[ 1 ]
+    TOKENS_FOLLOWING_aloneCall_IN_instruction_323 = Set[ 1 ]
+    TOKENS_FOLLOWING_closeFile_IN_instruction_330 = Set[ 1 ]
+    TOKENS_FOLLOWING_writeFileA_IN_instruction_337 = Set[ 1 ]
+    TOKENS_FOLLOWING_READ_IN_readInstruction_360 = Set[ 1 ]
+    TOKENS_FOLLOWING_RETURN_IN_returnInstruction_377 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_returnInstruction_380 = Set[ 1 ]
+    TOKENS_FOLLOWING_PLUS_IN_statusCode_402 = Set[ 10 ]
+    TOKENS_FOLLOWING_MINUS_IN_statusCode_406 = Set[ 10 ]
+    TOKENS_FOLLOWING_INT_IN_statusCode_412 = Set[ 1 ]
+    TOKENS_FOLLOWING_PRINT_IN_printInstruction_433 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_printInstruction_436 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_printText_IN_printInstruction_439 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_printInstruction_441 = Set[ 1 ]
+    TOKENS_FOLLOWING_expression_IN_printText_466 = Set[ 1, 14 ]
+    TOKENS_FOLLOWING_COMMA_IN_printText_473 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_printText_IN_printText_477 = Set[ 1 ]
+    TOKENS_FOLLOWING_IF_IN_ifInstruction_501 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_ifInstruction_504 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_ifInstruction_507 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_ifInstruction_509 = Set[ 16 ]
+    TOKENS_FOLLOWING_LCB_IN_ifInstruction_512 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
+    TOKENS_FOLLOWING_block_IN_ifInstruction_515 = Set[ 17 ]
+    TOKENS_FOLLOWING_RCB_IN_ifInstruction_517 = Set[ 18, 19, 20 ]
+    TOKENS_FOLLOWING_ifRest_IN_ifInstruction_520 = Set[ 1 ]
+    TOKENS_FOLLOWING_ELSE_IN_ifRest_539 = Set[ 16 ]
+    TOKENS_FOLLOWING_LCB_IN_ifRest_541 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
+    TOKENS_FOLLOWING_block_IN_ifRest_544 = Set[ 17 ]
+    TOKENS_FOLLOWING_RCB_IN_ifRest_546 = Set[ 1 ]
+    TOKENS_FOLLOWING_set_IN_ifRest_554 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_ifRest_562 = Set[ 16 ]
+    TOKENS_FOLLOWING_LCB_IN_ifRest_564 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
+    TOKENS_FOLLOWING_block_IN_ifRest_567 = Set[ 17 ]
+    TOKENS_FOLLOWING_RCB_IN_ifRest_569 = Set[ 18, 19, 20 ]
+    TOKENS_FOLLOWING_ifRest_IN_ifRest_574 = Set[ 1 ]
+    TOKENS_FOLLOWING_WHILE_IN_whileCycle_601 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_whileCycle_603 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_whileCycle_605 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_whileCycle_607 = Set[ 16 ]
+    TOKENS_FOLLOWING_LCB_IN_whileCycle_609 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
+    TOKENS_FOLLOWING_block_IN_whileCycle_612 = Set[ 17 ]
+    TOKENS_FOLLOWING_RCB_IN_whileCycle_614 = Set[ 1 ]
+    TOKENS_FOLLOWING_DO_IN_doCycle_636 = Set[ 16 ]
+    TOKENS_FOLLOWING_LCB_IN_doCycle_638 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
+    TOKENS_FOLLOWING_block_IN_doCycle_641 = Set[ 17 ]
+    TOKENS_FOLLOWING_RCB_IN_doCycle_643 = Set[ 21 ]
+    TOKENS_FOLLOWING_WHILE_IN_doCycle_646 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_doCycle_648 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_doCycle_650 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_doCycle_652 = Set[ 1 ]
+    TOKENS_FOLLOWING_FOR_IN_forCycle_673 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_forCycle_675 = Set[ 24 ]
+    TOKENS_FOLLOWING_assignment_IN_forCycle_679 = Set[ 4, 5, 65, 66 ]
+    TOKENS_FOLLOWING_COMMENT_IN_forCycle_684 = Set[ 65, 66 ]
+    TOKENS_FOLLOWING_T__65_IN_forCycle_688 = Set[ 66 ]
+    TOKENS_FOLLOWING_T__66_IN_forCycle_692 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_SEMICOLON_IN_forCycle_698 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_forCycle_703 = Set[ 4, 5, 65, 66 ]
+    TOKENS_FOLLOWING_COMMENT_IN_forCycle_708 = Set[ 65, 66 ]
+    TOKENS_FOLLOWING_T__65_IN_forCycle_712 = Set[ 66 ]
+    TOKENS_FOLLOWING_T__66_IN_forCycle_716 = Set[ 24 ]
+    TOKENS_FOLLOWING_SEMICOLON_IN_forCycle_722 = Set[ 24 ]
+    TOKENS_FOLLOWING_assignment_IN_forCycle_729 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_forCycle_731 = Set[ 16 ]
+    TOKENS_FOLLOWING_LCB_IN_forCycle_733 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
+    TOKENS_FOLLOWING_block_IN_forCycle_736 = Set[ 17 ]
+    TOKENS_FOLLOWING_RCB_IN_forCycle_738 = Set[ 1 ]
+    TOKENS_FOLLOWING_ID_IN_func_760 = Set[ 12, 16 ]
+    TOKENS_FOLLOWING_LB_IN_func_763 = Set[ 13, 24 ]
+    TOKENS_FOLLOWING_params_IN_func_766 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_func_768 = Set[ 16 ]
+    TOKENS_FOLLOWING_LCB_IN_func_773 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
+    TOKENS_FOLLOWING_block_IN_func_776 = Set[ 17 ]
+    TOKENS_FOLLOWING_RCB_IN_func_778 = Set[ 1 ]
+    TOKENS_FOLLOWING_MAIN_IN_func_788 = Set[ 16 ]
+    TOKENS_FOLLOWING_LCB_IN_func_791 = Set[ 4, 5, 7, 11, 15, 21, 22, 23, 24, 38, 42, 65, 66 ]
+    TOKENS_FOLLOWING_block_IN_func_794 = Set[ 17 ]
+    TOKENS_FOLLOWING_RCB_IN_func_796 = Set[ 1 ]
+    TOKENS_FOLLOWING_ID_IN_params_816 = Set[ 14 ]
+    TOKENS_FOLLOWING_paramRest_IN_params_818 = Set[ 1 ]
+    TOKENS_FOLLOWING_COMMA_IN_paramRest_843 = Set[ 24 ]
+    TOKENS_FOLLOWING_params_IN_paramRest_846 = Set[ 1 ]
+    TOKENS_FOLLOWING_ID_IN_aloneCall_874 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_aloneCall_877 = Set[ 6, 8, 9, 10, 12, 13, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_args_IN_aloneCall_882 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_aloneCall_885 = Set[ 1 ]
+    TOKENS_FOLLOWING_ID_IN_callVar_905 = Set[ 1, 12 ]
+    TOKENS_FOLLOWING_LB_IN_callVar_916 = Set[ 6, 8, 9, 10, 12, 13, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_args_IN_callVar_920 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_callVar_923 = Set[ 1 ]
+    TOKENS_FOLLOWING_expression_IN_args_950 = Set[ 14 ]
+    TOKENS_FOLLOWING_argsRest_IN_args_952 = Set[ 1 ]
+    TOKENS_FOLLOWING_COMMA_IN_argsRest_971 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_args_IN_argsRest_974 = Set[ 1 ]
+    TOKENS_FOLLOWING_orOperand_IN_expression_1002 = Set[ 1, 26 ]
+    TOKENS_FOLLOWING_OR_IN_expression_1009 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_expression_1014 = Set[ 1 ]
+    TOKENS_FOLLOWING_andOperand_IN_orOperand_1037 = Set[ 1, 27 ]
+    TOKENS_FOLLOWING_AND_IN_orOperand_1044 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_orOperand_IN_orOperand_1049 = Set[ 1 ]
+    TOKENS_FOLLOWING_compareOperand_IN_andOperand_1070 = Set[ 1, 28, 29, 30, 31, 32, 33 ]
+    TOKENS_FOLLOWING_EQ_IN_andOperand_1080 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_andOperand_IN_andOperand_1085 = Set[ 1 ]
+    TOKENS_FOLLOWING_NE_IN_andOperand_1094 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_andOperand_IN_andOperand_1099 = Set[ 1 ]
+    TOKENS_FOLLOWING_LT_IN_andOperand_1108 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_andOperand_IN_andOperand_1113 = Set[ 1 ]
+    TOKENS_FOLLOWING_GT_IN_andOperand_1122 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_andOperand_IN_andOperand_1127 = Set[ 1 ]
+    TOKENS_FOLLOWING_LE_IN_andOperand_1136 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_andOperand_IN_andOperand_1141 = Set[ 1 ]
+    TOKENS_FOLLOWING_GE_IN_andOperand_1150 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_andOperand_IN_andOperand_1155 = Set[ 1 ]
+    TOKENS_FOLLOWING_NOT_IN_andOperand_1170 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_andOperand_1173 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_andOperand_1178 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_andOperand_1180 = Set[ 1 ]
+    TOKENS_FOLLOWING_addOperand_IN_compareOperand_1203 = Set[ 1, 8, 9 ]
+    TOKENS_FOLLOWING_PLUS_IN_compareOperand_1211 = Set[ 6, 8, 9, 10, 12, 24, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_compareOperand_IN_compareOperand_1216 = Set[ 1 ]
+    TOKENS_FOLLOWING_MINUS_IN_compareOperand_1224 = Set[ 6, 8, 9, 10, 12, 24, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_compareOperand_IN_compareOperand_1229 = Set[ 1 ]
+    TOKENS_FOLLOWING_mulOperand_IN_addOperand_1253 = Set[ 1, 35, 36, 37 ]
+    TOKENS_FOLLOWING_MUL_IN_addOperand_1261 = Set[ 6, 8, 9, 10, 12, 24, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_addOperand_IN_addOperand_1266 = Set[ 1 ]
+    TOKENS_FOLLOWING_DIV_IN_addOperand_1274 = Set[ 6, 8, 9, 10, 12, 24, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_addOperand_IN_addOperand_1279 = Set[ 1 ]
+    TOKENS_FOLLOWING_MOD_IN_addOperand_1287 = Set[ 6, 8, 9, 10, 12, 24, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_addOperand_IN_addOperand_1292 = Set[ 1 ]
+    TOKENS_FOLLOWING_PLUS_IN_mulOperand_1314 = Set[ 6, 8, 9, 10, 12, 24, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1316 = Set[ 1 ]
+    TOKENS_FOLLOWING_MINUS_IN_mulOperand_1323 = Set[ 6, 8, 9, 10, 12, 24, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1325 = Set[ 1 ]
+    TOKENS_FOLLOWING_mulOperandRest_IN_mulOperand_1332 = Set[ 1 ]
+    TOKENS_FOLLOWING_arrayIndexTarget_IN_mulOperandRest_1349 = Set[ 1, 67 ]
+    TOKENS_FOLLOWING_T__67_IN_mulOperandRest_1357 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_mulOperandRest_1359 = Set[ 68 ]
+    TOKENS_FOLLOWING_T__68_IN_mulOperandRest_1361 = Set[ 1, 67 ]
+    TOKENS_FOLLOWING_CLOSEFILE_IN_closeFile_1382 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_closeFile_1384 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_closeFile_1387 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_closeFile_1389 = Set[ 1 ]
+    TOKENS_FOLLOWING_OPENFILE_IN_openFile_1410 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_openFile_1412 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_openFile_1417 = Set[ 14 ]
+    TOKENS_FOLLOWING_COMMA_IN_openFile_1419 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_openFile_1423 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_openFile_1425 = Set[ 1 ]
+    TOKENS_FOLLOWING_SIZEOF_IN_sizeOf_1445 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_sizeOf_1447 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_sizeOf_1450 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_sizeOf_1452 = Set[ 1 ]
+    TOKENS_FOLLOWING_READNUMBER_IN_readNumber_1473 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_readNumber_1475 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_readNumber_1478 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_readNumber_1480 = Set[ 1 ]
+    TOKENS_FOLLOWING_WRITEFILE_IN_writeFile_1501 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_writeFile_1503 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_writeFile_1508 = Set[ 14 ]
+    TOKENS_FOLLOWING_COMMA_IN_writeFile_1510 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_writeFile_1514 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_writeFile_1516 = Set[ 1 ]
+    TOKENS_FOLLOWING_WRITEFILE_IN_writeFileA_1539 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_writeFileA_1541 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_writeFileA_1546 = Set[ 14 ]
+    TOKENS_FOLLOWING_COMMA_IN_writeFileA_1548 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_writeFileA_1552 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_writeFileA_1554 = Set[ 1 ]
+    TOKENS_FOLLOWING_subexpression_IN_arrayIndexTarget_1575 = Set[ 1 ]
+    TOKENS_FOLLOWING_INT_IN_arrayIndexTarget_1582 = Set[ 1 ]
+    TOKENS_FOLLOWING_callVar_IN_arrayIndexTarget_1589 = Set[ 1 ]
+    TOKENS_FOLLOWING_array_IN_arrayIndexTarget_1596 = Set[ 1 ]
+    TOKENS_FOLLOWING_alloc_IN_arrayIndexTarget_1603 = Set[ 1 ]
+    TOKENS_FOLLOWING_readInstruction_IN_arrayIndexTarget_1610 = Set[ 1 ]
+    TOKENS_FOLLOWING_string_IN_arrayIndexTarget_1617 = Set[ 1 ]
+    TOKENS_FOLLOWING_NULL_IN_arrayIndexTarget_1624 = Set[ 1 ]
+    TOKENS_FOLLOWING_openFile_IN_arrayIndexTarget_1631 = Set[ 1 ]
+    TOKENS_FOLLOWING_sizeOf_IN_arrayIndexTarget_1638 = Set[ 1 ]
+    TOKENS_FOLLOWING_readNumber_IN_arrayIndexTarget_1645 = Set[ 1 ]
+    TOKENS_FOLLOWING_writeFile_IN_arrayIndexTarget_1652 = Set[ 1 ]
+    TOKENS_FOLLOWING_LB_IN_subexpression_1669 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_subexpression_1671 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_subexpression_1673 = Set[ 1 ]
+    TOKENS_FOLLOWING_T__67_IN_array_1690 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 66, 67, 68 ]
+    TOKENS_FOLLOWING_T__66_IN_array_1697 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_array_1702 = Set[ 14, 66, 68 ]
+    TOKENS_FOLLOWING_COMMA_IN_array_1709 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 66, 67 ]
+    TOKENS_FOLLOWING_T__66_IN_array_1711 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_array_1716 = Set[ 14, 66, 68 ]
+    TOKENS_FOLLOWING_T__66_IN_array_1727 = Set[ 68 ]
+    TOKENS_FOLLOWING_T__68_IN_array_1730 = Set[ 1 ]
+    TOKENS_FOLLOWING_ALLOC_IN_alloc_1746 = Set[ 12 ]
+    TOKENS_FOLLOWING_LB_IN_alloc_1748 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_alloc_1751 = Set[ 13 ]
+    TOKENS_FOLLOWING_RB_IN_alloc_1753 = Set[ 1 ]
+    TOKENS_FOLLOWING_identified_IN_indexed_1776 = Set[ 1, 67 ]
+    TOKENS_FOLLOWING_T__67_IN_indexed_1786 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_indexed_1788 = Set[ 68 ]
+    TOKENS_FOLLOWING_T__68_IN_indexed_1790 = Set[ 1, 67 ]
+    TOKENS_FOLLOWING_ID_IN_identified_1811 = Set[ 1 ]
+    TOKENS_FOLLOWING_indexed_IN_assignment_1828 = Set[ 45 ]
+    TOKENS_FOLLOWING_ASSIGN_IN_assignment_1830 = Set[ 6, 8, 9, 10, 12, 24, 34, 39, 40, 41, 42, 43, 44, 48, 67 ]
+    TOKENS_FOLLOWING_expression_IN_assignment_1833 = Set[ 1 ]
+    TOKENS_FOLLOWING_TRUE_IN_bool_1854 = Set[ 1 ]
+    TOKENS_FOLLOWING_FALSE_IN_bool_1862 = Set[ 1 ]
+    TOKENS_FOLLOWING_STRING_IN_string_1883 = Set[ 1 ]
 
   end # class Parser < ANTLR3::Parser
 

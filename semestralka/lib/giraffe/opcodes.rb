@@ -47,6 +47,7 @@ module Opcodes
     # bool operace
     OR      =   0x2b
     AND     =   0x2c
+    NOT     =   0x17
     
     # porovnavani
     NE      =   0x2f
@@ -60,7 +61,7 @@ module Opcodes
     OUT     =   0x12
     FO      =   0x13
     RN      =   0x14
-    WF     =   0x16
     FC      =   0x15
+    WF      =   0x16
 
 end

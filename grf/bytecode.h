@@ -113,6 +113,9 @@ void ior();
 // iand 0x2c
 void iand();
 
+// not 0x17
+void inot();
+
 // POROVNAVANI
 // -- 4B operace
 

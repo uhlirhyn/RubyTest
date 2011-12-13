@@ -434,6 +434,12 @@ void iand() {
     push(create_boolean(return_boolean(op2) & return_boolean(op1)));
 }
 
+// not 0x17
+void inot() {
+    vm_val op = pop();
+    push(create_boolean(return_boolean(op) == 1 ? 0 : 1));
+}
+
 // POROVNAVANI
 // -- 4B operace
 
