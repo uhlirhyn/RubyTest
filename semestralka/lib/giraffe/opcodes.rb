@@ -60,6 +60,7 @@ module Opcodes
     OUT     =   0x12
     FO      =   0x13
     RN      =   0x14
+    WF     =   0x16
     FC      =   0x15
 
 end

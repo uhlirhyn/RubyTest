@@ -1,11 +1,21 @@
 main {
  
-    int sum
-    sum = 4
-    int i
+    sum = 2
     for (i = 5; i < 10; i = i + 1) {
         sum = sum + 1
         print(sum)
     }
+
+    while (i < 50) {
+        i = i + 5
+        print(i)
+    }
+
+    i = 100
+    do {
+        print(i)
+        i = i * 10
+    } while (i < 100000)
+
     return 1
 }

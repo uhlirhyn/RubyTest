@@ -22,7 +22,7 @@ module Giraffe
             
             # Giraffe zatim s nicim jinym
             # nez s cisly neumi pracovat
-            return :number, nil
+            return nil, nil
         end
 
     end

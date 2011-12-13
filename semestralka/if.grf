@@ -1,4 +1,4 @@
-main {
+iftest() {
     
     if (1 == 1) {  
         return 1  
@@ -10,6 +10,12 @@ main {
         }
     }
 
+    # tady sice return 
+    # vsude neni, ale 
+    # to nevadi, protoze
+    # v predchozim vetveni
+    # je v kazde vetvi, takze
+    # main return ma
     if (1 == 1) {  
         if (1 == 1) {  
             return 1  
@@ -18,4 +24,12 @@ main {
         }
     } else {
     }
+}
+
+main {
+
+    iftest()
+
+    return 1
+
 }

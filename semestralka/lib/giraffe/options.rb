@@ -16,13 +16,14 @@ module Giraffe
 
     class Options
 
-        attr_reader :interactive, :colors, :debug
+        attr_reader :interactive, :colors, :debug, :output
 
         def initialize
 
             @interactive = false
             @colors = true
             @debug = false
+            @output = "out.grfc"
 
             @theme = [  10, 32, 32, 32, 32, 32, 32, 32, 
                 32, 32, 32, 46, 46, 10, 32, 32, 32, 32, 32, 32, 32, 32, 32, 
@@ -66,12 +67,6 @@ module Giraffe
                 # co ma option paser vypisovat
                 opts.banner = "Usage:  giraffe [ options ] source1.grf source2.grf ... sourceN.grf"
 
-                # pokud je zadana moznost interaktivniho zpracovani, 
-                # zapni moznost i
-                opts.on("-i", "--interactive", "Interactive mode") do 
-                    @interactive = true
-                end
-
                 # pokud je help, vypis tyto moznosti a ukonci program
                 opts.on("-h", "--help", "Show this message") do
                     puts opts
@@ -88,18 +83,17 @@ module Giraffe
                     @debug = true
                 end
 
+                # vystupni soubor
+                opts.on("-o","--output [FILE]",String, "Name of the output file") do |file|
+                    @output = file + ".grfc"
+                end
+
                 opts.on("-v", "--version", "Info about program version") do
                     for c in @theme
                         printf c.chr
                     end
 
-                    puts "    This Giraffe ..."
-                    puts
-                    puts "\t- is 0.1 version old"
-                    puts "\t- has multiple inner functions"
-                    puts "\t- has objects and inheritance"
-                    puts "\t- has conditions, cycles and other common stuff ..."
-                    puts
+                    puts "    This Giraffe is 0.1 version old\n\n"
 
                     exit
                 end

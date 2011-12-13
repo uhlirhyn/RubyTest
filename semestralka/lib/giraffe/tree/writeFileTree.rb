@@ -3,30 +3,29 @@ require './lib/giraffe/opcodes.rb'
 
 module Giraffe
 
-    class OpenFileTree
+    class WriteFileTree
 
         include Debug
         include Opcodes
         
-        def initialize(expression, mode)
+        def initialize(fd,expression)
+            @fd = fd
             @expression = expression
-            @mode = mode
         end
 
         def run(env, tree)
 
-            dbg("run",:OpenFileTree)
-            dbg("expression '#{@expression}'",:OpenFileTree)
+            dbg("run",:WriteFileTree)
 
             # nech vyhodnotit ten obsah
             return_value, msg = @expression[0].run(env,@expression[1])
             return return_value, msg if msg != nil
             
-            # nech vyhodnotit ten mod
-            return_value, msg = @mode[0].run(env,@mode[1])
+            # nech vyhodnotit FD
+            return_value, msg = @fd[0].run(env,@fd[1])
             return return_value, msg if msg != nil
-
-            env.write_opcode(FO)
+            
+            env.write_opcode(WN)
 
             return nil, nil
         end

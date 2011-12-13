@@ -391,6 +391,7 @@ module Giraffe
 
         # zakladam funkci
         def func!(id, params)
+
             function = @@functions[id]
             if function == :undeclared 
 

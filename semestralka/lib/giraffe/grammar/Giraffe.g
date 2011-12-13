@@ -29,15 +29,29 @@ require './lib/giraffe/tree/readTree.rb'
 require './lib/giraffe/tree/stringTree.rb'
 require './lib/giraffe/tree/openFileTree.rb'
 require './lib/giraffe/tree/closeFileTree.rb'
+require './lib/giraffe/tree/writeFileTree.rb'
 require './lib/giraffe/tree/readNumberTree.rb'
 require './lib/giraffe/tree/nilTree.rb'
 require './lib/giraffe/tree/allocTree.rb'
 require './lib/giraffe/tree/sizeofTree.rb'
 require './lib/giraffe/operators.rb'
+require './lib/giraffe/debug.rb'
 }
 
 @members {
 
+include Debug
+
+def emit_error_message(message) 
+	#@syntax_error = :error
+	puts red("Error: ") + orange(message)
+	#@error_output.puts( message ) if @error_output
+
+                puts red("\n BUILD FAILED ...\n")
+	exit
+end
+
+attr_reader :syntax_error
 }
 
 // Do pole -result-,-tree- se smi obalovat pouze -X-Tree.new
@@ -94,6 +108,7 @@ instruction returns [result]
 	|	breakInstruction {$result = $breakInstruction.result}
 	|	aloneCall {$result = $aloneCall.result}
 	|	closeFile {$result = $closeFile.result}
+	|	writeFile {$result = $writeFile.result}
 	|	{$result = nil} 
 	;
 
@@ -257,7 +272,7 @@ closeFile returns [result]
 	; 
 	
 openFile returns [result]
-	:	OPENFILE LB! expression RB! {$result = [OpenFileTree.new($expression.result),$OPENFILE.tree]} 
+	:	OPENFILE LB! what=expression COMMA mode=expression RB! {$result = [OpenFileTree.new($what.result, $mode.result),$OPENFILE.tree]} 
 	; 
 
 sizeOf returns [result]
@@ -266,11 +281,15 @@ sizeOf returns [result]
 
 readNumber returns [result]
 	:	READNUMBER LB! expression RB! {$result = [ReadNumberTree.new($expression.result),$READNUMBER.tree]} 
-	; 			
+	; 	
+
+writeFile returns [result]
+	:	WRITEFILE LB! where=expression COMMA what=expression RB! {$result = [WriteFileTree.new($where.result, $what.result),$WRITEFILE.tree]} 
+	; 		
 	
 arrayIndexTarget returns [result]
 	:	ID {$result = [VarTree.new($ID.text),$ID.tree]}
-	|	LB! expression RB! {$result = $expression.result}
+	|	subexpression {$result = $subexpression.result}
 	|	INT {$result = [AtomTree.new($INT.text.to_i),$INT.tree]}
 	|	call {$result = $call.result}
 	|	array {$result = [ArrayTree.new($array.result),$array.tree]}
@@ -281,6 +300,10 @@ arrayIndexTarget returns [result]
 	|	openFile {$result = $openFile.result}
 	|	sizeOf {$result = $sizeOf.result}
 	|	readNumber {$result = $readNumber.result}
+	;
+
+subexpression returns [result]
+	:	LB! expression RB! {$result = $expression.result}
 	;
 
 array returns [result]
@@ -351,6 +374,7 @@ UNICODE_ESC
 SIZEOF	:	'sizeof';
 ALLOC 	:	'alloc';
 READNUMBER:	'readNumber';
+WRITEFILE:	'writeFile';
 CLOSEFILE
 	:	'closeFile';
 OPENFILE:	'openFile';
