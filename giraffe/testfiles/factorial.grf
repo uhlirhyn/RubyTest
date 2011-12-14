@@ -1,0 +1,13 @@
+fact (num) {
+    print(num)
+    if (num == 0 || num == 1) {
+        return 1
+    } else {
+        return num*fact(num-1)
+    }
+}
+
+main {
+    print (fact(6))
+    return 1 
+}

@@ -1,0 +1,16 @@
+main {
+
+    print(5)                    # 5
+    print(2 * 5)                # 10
+    print(4 + 5 * 5)            # 29
+    print((4 + 5) * 5)          # 45
+    print((4 + 5) * 5 / 2)      # 9 * 2 = 22
+    print(((4 + 5) * 5) / 2)    # 9 * 2 = 18
+    print((4 + 5) * 5 % 2)      # 9 * 1 = 9
+
+    print(1 == 1 && 1 < 2)          # true
+    print(!(1 == 1) || 1 < 2)       # true
+    print(!(1 == 1) || !(1 < 2))    # false
+    
+    return 1
+}

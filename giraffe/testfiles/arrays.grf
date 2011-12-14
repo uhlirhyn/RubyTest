@@ -1,0 +1,41 @@
+space() {
+    return [11,22,33,44,55,66]
+}
+
+main {
+   
+    # vytvor pole ve kterem bude 
+    # pole a pak cislo 5
+    a = [space(),5]
+    
+    # vypis velikost pole a
+    print(sizeof(a))
+
+    # vypis pole a
+    print(a)
+
+    v = a[0][2]
+
+    print(v)
+
+    b = [[1,5],[7,8]]  
+
+    print(b)
+
+    c = a[0][3] + b[0][1]
+
+    print(c)
+
+    # vytvor pole o 5 prvcich,
+    # ktere inicializujes na 
+    # hodnotu NIL
+    d = alloc(5)
+
+    print(d)
+
+    d[2] = 78
+
+    print(d)
+
+    return 1
+}

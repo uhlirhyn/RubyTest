@@ -1,0 +1,35 @@
+isodd(number) {
+    return (number % 2) == 0
+}
+
+main {    
+
+    file1_name = "tfile"
+    file2_name = "tfile2"
+
+    # openFile(-co-,-jak-)
+    # 0 - read
+    # 1 - write (vytvori soubor, prepise)
+    # 2 - append (pripoji k souboru)
+    # 3 - read, write (na existujicim)
+    # 4 - read, write (vytvori, prepise)
+    # 5 - read, write (pripisuje na existujici)
+    f1 = openFile(file1_name,0)
+    f2 = openFile(file2_name,1)
+
+    if (f1 == nil) {
+        print("failed to open")
+        print(file1_name)
+        return -1
+    }
+
+    do {
+        num = readNumber(f1)
+        if (isodd(num) == 1) { writeFile(f2,num); writeFile(f2," ") }
+    } while (num != nil)
+
+    closeFile(f1)
+    closeFile(f2)
+
+    return 1
+}
