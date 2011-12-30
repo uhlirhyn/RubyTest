@@ -343,6 +343,7 @@ module Giraffe
         end
 
         # zakladam argumenty pro funkci
+        # pri deklaraci funkce
         def register_params(params)
             dbg("registering params #{params}",:Env)
             return if params == nil
