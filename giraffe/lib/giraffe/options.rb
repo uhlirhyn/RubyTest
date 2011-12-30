@@ -65,7 +65,7 @@ module Giraffe
             @op = OptionParser.new do |opts|
 
                 # co ma option paser vypisovat
-                opts.banner = "Usage:  giraffe [ options ] source1.grf source2.grf ... sourceN.grf"
+                opts.banner = "Usage:  giraffe [ options ] -source-.grf"
 
                 # pokud je help, vypis tyto moznosti a ukonci program
                 opts.on("-h", "--help", "Show this message") do

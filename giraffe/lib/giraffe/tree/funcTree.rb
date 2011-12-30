@@ -29,14 +29,11 @@ module Giraffe
             env.func!(@id, @params)
             
             # zaloz si nove izolovane prostredi
-            env = Env.new
+            env = Env.new(env)
 
             # registruj nazvy parametru
             env.register_params(@params)
            
-            # jsem v root casti
-            env.return_branch_root
- 
             for i in @instructions do 
                 return_value, msg = i[0].run(env,i[1]) 
                 return return_value, msg if msg == :error
@@ -51,12 +48,12 @@ module Giraffe
 
             end
 
-            dbg("return status '#{env.return}'",:FuncTree)
+            dbg("return status '#{env.is_return?}'",:FuncTree)
 
             # bylo nejake return ?
             return red(" Error: ") + 
                 orange("Missing return statement") + 
-                where(tree), :error if env.return != true
+                where(tree), :error if env.is_return? != true
 
             # uzavre generovani bytecodu funkce
             # presype temp_bytecode do ostreho

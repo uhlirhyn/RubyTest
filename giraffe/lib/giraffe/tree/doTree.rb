@@ -25,9 +25,6 @@ module Giraffe
             # vloz kotvu navesti
             env.insert_anchor(true_label)
 
-            # vnoruju se
-            env.return_dive
-
             # jsem v cykl casti
             env.return_branch_cycle
 
@@ -46,7 +43,6 @@ module Giraffe
 
             # vynoril jsem se
             env.return_rise
-
 
             return nil, nil
         end

@@ -25,7 +25,7 @@ module Giraffe
 
             @tree = tree
 
-            dbg("run",:VarTree)
+            dbg("run '#{@id}'",:VarTree)
 
             # bude se tato promenna cist ? (prava strana)
             if direction == :load

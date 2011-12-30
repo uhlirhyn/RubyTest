@@ -28,11 +28,10 @@ module Giraffe
                 parser = Parser.new( input )
                 program = parser.program
 
-                bytecode, msg = program.result.run
+                codegen, msg = program.result.run
 
                 if msg != :error 
-                    codegen = Codegen.new
-                    codegen.generate(bytecode, options.output)
+                    codegen.generate(options.output)
                     puts green("\n BUILD SUCCESS ...\n")
                 else 
                     puts red("\n BUILD FAILED ...\n")

@@ -10,7 +10,7 @@ module Giraffe
         def initialize(functions)
             dbg("ProgramTree initialized",:ProgramTree)
             @functions = functions
-            @env = Env.new # program vzdy vraci number (exit x)
+            @env = Env.new 
         end
 
         def run
@@ -32,7 +32,7 @@ module Giraffe
             end
 
             dbg("out of instructions - success",:ProgramTree)
-            return Env::bytecode, nil
+            return @env.codegen, nil
         end
 
     end

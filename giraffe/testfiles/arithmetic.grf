@@ -8,9 +8,12 @@ main {
     print(((4 + 5) * 5) / 2)    # 9 * 2 = 18
     print((4 + 5) * 5 % 2)      # 9 * 1 = 9
 
+    print(655-700)              # -45
+
     print(1 == 1 && 1 < 2)          # true
     print(!(1 == 1) || 1 < 2)       # true
     print(!(1 == 1) || !(1 < 2))    # false
+    print(!(1 == 2))
     
     return 1
 }

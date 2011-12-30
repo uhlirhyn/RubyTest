@@ -60,9 +60,6 @@ module Giraffe
             false_label = env.next_label
             env.insert_hook(false_label)
             
-            # vnoruju se
-            env.return_dive
-
             # jsem v cykl casti
             env.return_branch_cycle
 

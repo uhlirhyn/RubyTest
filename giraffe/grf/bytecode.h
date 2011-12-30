@@ -21,9 +21,9 @@ vm_val create_character(unsigned int data);
 
 unsigned int return_character(vm_val value);
 
-vm_val create_boolean(char data);
+vm_val create_boolean(int data);
 
-char return_boolean(vm_val value);
+int return_boolean(vm_val value);
 
 vm_val create_slot_id(unsigned int data); 
 

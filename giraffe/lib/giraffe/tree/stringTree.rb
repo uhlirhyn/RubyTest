@@ -26,30 +26,15 @@ module Giraffe
             # a vloz je na stack - je to pozpatku
             # aby se dalo ze stacku vybirat v poradi
             for char in @string.reverse.each_char do
-               
-                # umim jenom znaky do 4B
-                if char.bytesize > 4 
+                              
+                # zapis do bytecodu
+                env.write_opcode(PUSH)
+                return_value, msg = env.write_character(char)
+                if msg != nil
                     puts red(" Error: ") + 
                         orange(">4B character") + 
                         where()
-                    return nil,:error
                 end
-
-                output = []
-
-                # nejprve dopln nulove byty
-                (4-char.bytesize).times do
-                    output << 0x00
-                end
-
-                # pro kazdej jeho byte to vypis
-                for byte in char.bytes do
-                    output << byte
-                end
-
-                # zapis do bytecodu
-                env.write_opcode(PUSH)
-                env.write_character(output)
 
             end
 

@@ -296,7 +296,7 @@ int main ( int argc, char **argv ) {
 
     // kontrola parametru
     if (argc < 2) { 
-        fprintf(stderr, "\e[33mMissing parameter(s) - please enter the input and output file:\e[39m\n\n\tgrf INPUTFILE OUTPUTFILE\n\n");
+        fprintf(stderr, "\e[33mMissing parameter(s) - please enter the input and output file:\e[39m\n\n\tgrf [INPUTFILE]\n\n");
         exit (0);
     }
 

@@ -87,16 +87,16 @@ unsigned int return_character(vm_val value) {
     return value.body.it;
 }
 
-vm_val create_boolean(char data) {
+vm_val create_boolean(int data) {
     vm_val value; 
     value.head.type = BOOLEAN;
-    value.body.bl = data;
+    value.body.it = data;
     return value;
 }
 
-char return_boolean(vm_val value) {
+int return_boolean(vm_val value) {
     type_checker(value, BOOLEAN);
-    return value.body.bl;
+    return value.body.it;
 }
 
 vm_val create_slot_id(unsigned int data) {
@@ -583,7 +583,7 @@ void psa(vm_val slot_val) {
     st_check(st->fp - slot - stepback);  
     vm_val value = pop();                    // tady mne nezajima co to je
     dbg(" 0x%02x -> A%d", value.body.it, slot);
-    st->fp[- slot - stepback] = value;
+    *(st->fp - slot - stepback) = value;
 }
 
 // push argument to stack 0x2e
@@ -594,7 +594,7 @@ void pas(vm_val slot_val) {
     // na zacatek parametru
     int stepback = 3;
     st_check(st->fp - slot - stepback); 
-    push(st->fp[- slot - stepback]);
+    push(*(st->fp - slot - stepback));
 }
 
 // printer
