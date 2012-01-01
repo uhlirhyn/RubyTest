@@ -1,6 +1,6 @@
-require './lib/giraffe/env.rb'
-require './lib/giraffe/debug.rb'
-require './lib/giraffe/opcodes.rb'
+require_relative '../env.rb'
+require_relative '../debug.rb'
+require_relative '../opcodes.rb'
 
 module Giraffe
 
@@ -25,21 +25,16 @@ module Giraffe
             dbg("run #{tree.line},#{tree.column}",:CallTree)
 
             # proved push argumentu pro funkci
-            # a zaroven si registruj jejich typy
-            arg_types = []
             for a in @args
                 
                 return_value, msg = a[0].run(env,a[1])
                 return return_value, msg if msg != nil
 
-                # jinak si zapis jeho typ
-                arg_types << return_value
-
             end if @args != nil
 
             # vyzvedni deklaraci funkce
             # a vloz instrukci volani
-            return_value, msg = env.func(@id,arg_types)
+            return_value, msg = env.func(@id,@args == nil ? 0 : @args.size)
             if msg == :error 
                 puts return_value + where
                 return nil, :error

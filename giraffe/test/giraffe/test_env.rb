@@ -288,13 +288,13 @@ module Giraffe
             return_value, msg = env.func!("fce1",["a","b","c"])
             assert_equal(msg, :error)
 
-            return_value, msg = env.func("fce1",[4,5])
+            return_value, msg = env.func("fce1",2)
             assert_equal(msg, :error)
 
-            return_value, msg = env.func("fce2",[4,5])
+            return_value, msg = env.func("fce2",2)
             assert_equal(msg, :error)
             
-            return_value, msg = env.func("fce1",[4,5,6])
+            return_value, msg = env.func("fce1",3)
             assert_equal(msg, nil)
 
             # CALL + 4B address + 3x POP args + RER

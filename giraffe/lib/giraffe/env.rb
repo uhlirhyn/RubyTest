@@ -292,9 +292,9 @@ module Giraffe
             end
 
             # ma stejny pocet argumentu ?
-            if args.size != function.args_size
+            if args != function.args_size
                 return red("Error: ") + 
-                    orange("Function '#{id}' with #{args.size} arguments is not declared"), :error
+                    orange("Function '#{id}' with #{args} arguments is not declared"), :error
             end
 
             # zavolej funkci
@@ -306,7 +306,7 @@ module Giraffe
             # je potreba uklidit po sobe parametry
             # navratovou hodnotu tim nemazu, ta je
             # uklizena do navratoveho registru ;)
-            args.size.times do
+            args.times do
                 write_opcode(POP)
             end
 

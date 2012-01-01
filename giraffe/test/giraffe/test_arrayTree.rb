@@ -45,7 +45,7 @@ module Giraffe
             return_value, msg = tree.run(env, dummy_AST)
 
             assert_equal(return_value, "err")
-            assert_equal(msg, :err)
+            assert_equal(msg, :error)
 
         end
 

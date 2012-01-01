@@ -1,4 +1,4 @@
-require './lib/giraffe/debug.rb'
+require_relative '../debug.rb'
 
 module Giraffe
 
