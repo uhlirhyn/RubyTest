@@ -86,11 +86,6 @@ module Giraffe
         def write_character(char) 
             write_bytecode_to(CHARACTER, @temp_bytecode)
 
-            # umim jenom znaky do 4B
-            if char.bytesize > 4 
-                return nil,:error
-            end
-
             output = []
 
             # nejprve dopln nulove byty

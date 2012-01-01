@@ -1,5 +1,5 @@
-require './lib/giraffe/debug.rb'
-require './lib/giraffe/opcodes.rb'
+require_relative '../debug.rb'
+require_relative '../opcodes.rb'
 
 module Giraffe
 
@@ -41,10 +41,7 @@ module Giraffe
                 env.write_opcode(ST)
             end
             
-            # TODO ... zkontrolovat
-            # tohle je zatím silnej
-            # hack ...
-            return :number, nil
+            return nil, nil
         end
 
     end

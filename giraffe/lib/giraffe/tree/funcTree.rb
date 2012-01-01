@@ -1,6 +1,6 @@
-require './lib/giraffe/env.rb'
-require './lib/giraffe/debug.rb'
-require './lib/giraffe/opcodes.rb'
+require_relative '../env.rb'
+require_relative '../debug.rb'
+require_relative '../opcodes.rb'
 
 module Giraffe
 

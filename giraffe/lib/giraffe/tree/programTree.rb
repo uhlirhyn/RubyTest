@@ -1,5 +1,5 @@
-require './lib/giraffe/env.rb'
-require './lib/giraffe/debug.rb'
+require_relative '../env.rb'
+require_relative '../debug.rb'
 
 module Giraffe
 
@@ -21,14 +21,7 @@ module Giraffe
 
             for i in @functions do 
                 return_value, msg = i[0].run(@env,i[1]) 
-                case msg 
-                when :break 
-                    puts red("Error: ") + "Unexpected break"
-                    return nil, :error
-                when :error 
-                    puts return_value
-                    return nil, :error
-                end
+                return return_value, msg if msg == :error
             end
 
             dbg("out of instructions - success",:ProgramTree)

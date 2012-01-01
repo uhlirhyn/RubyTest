@@ -4,6 +4,11 @@ class DummyTree
     def initialize(err=nil,retval=nil)
         @err = err
         @retval = retval
+        @set_return = false
+    end
+
+    def set_return=(value)
+        @set_return = value
     end
 
     def run(env,tree,method=:load)
@@ -11,6 +16,7 @@ class DummyTree
         @method = method
         @tree = tree
         @env = env
+        env.return_found if @set_return
         if @err
             return "err", :error
         else

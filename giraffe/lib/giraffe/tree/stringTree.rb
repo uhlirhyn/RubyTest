@@ -1,5 +1,5 @@
-require './lib/giraffe/debug.rb'
-require './lib/giraffe/opcodes.rb'
+require_relative '../debug.rb'
+require_relative '../opcodes.rb'
 
 module Giraffe
 
@@ -29,12 +29,7 @@ module Giraffe
                               
                 # zapis do bytecodu
                 env.write_opcode(PUSH)
-                return_value, msg = env.write_character(char)
-                if msg != nil
-                    puts red(" Error: ") + 
-                        orange(">4B character") + 
-                        where()
-                end
+                env.write_character(char)
 
             end
 
