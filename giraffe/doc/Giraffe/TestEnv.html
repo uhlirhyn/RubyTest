@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Giraffe::TestEnv</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../test/giraffe/test_env_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="test/giraffe/test_env.rb">test/giraffe/test_env.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Test::Unit::TestCase</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-i-test_func">#test_func</a></li>
+					
+					<li><a href="#method-i-test_main">#test_main</a></li>
+					
+					<li><a href="#method-i-test_params">#test_params</a></li>
+					
+					<li><a href="#method-i-test_return">#test_return</a></li>
+					
+					<li><a href="#method-i-test_var_call">#test_var_call</a></li>
+					
+					<li><a href="#method-i-test_var_declare">#test_var_declare</a></li>
+					
+					<li><a href="#method-i-test_var_use">#test_var_use</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../codegen_test_file.html">codegen_test_file</a></li>
+				
+					<li class="file"><a href="../grf/Makefile.html">Makefile</a></li>
+				
+					<li class="file"><a href="../test/giraffe/codegen_test_file.html">codegen_test_file</a></li>
+				
+					<li class="file"><a href="../tfile.html">tfile</a></li>
+				
+					<li class="file"><a href="../tfile2.html">tfile2</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../Giraffe.html">Giraffe</a></li>
+				
+					<li><a href="../Giraffe/AllocTree.html">Giraffe::AllocTree</a></li>
+				
+					<li><a href="../Giraffe/ArrayTree.html">Giraffe::ArrayTree</a></li>
+				
+					<li><a href="../Giraffe/AssignTree.html">Giraffe::AssignTree</a></li>
+				
+					<li><a href="../Giraffe/AtomTree.html">Giraffe::AtomTree</a></li>
+				
+					<li><a href="../Giraffe/BinaryOperatorTree.html">Giraffe::BinaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/Byte.html">Giraffe::Byte</a></li>
+				
+					<li><a href="../Giraffe/CallTree.html">Giraffe::CallTree</a></li>
+				
+					<li><a href="../Giraffe/CloseFileTree.html">Giraffe::CloseFileTree</a></li>
+				
+					<li><a href="../Giraffe/Codegen.html">Giraffe::Codegen</a></li>
+				
+					<li><a href="../Giraffe/DoTree.html">Giraffe::DoTree</a></li>
+				
+					<li><a href="../Giraffe/Env.html">Giraffe::Env</a></li>
+				
+					<li><a href="../Giraffe/Env/Func.html">Giraffe::Env::Func</a></li>
+				
+					<li><a href="../Giraffe/ForTree.html">Giraffe::ForTree</a></li>
+				
+					<li><a href="../Giraffe/FuncTree.html">Giraffe::FuncTree</a></li>
+				
+					<li><a href="../Giraffe/Hook.html">Giraffe::Hook</a></li>
+				
+					<li><a href="../Giraffe/IfTree.html">Giraffe::IfTree</a></li>
+				
+					<li><a href="../Giraffe/IndexTree.html">Giraffe::IndexTree</a></li>
+				
+					<li><a href="../Giraffe/Launcher.html">Giraffe::Launcher</a></li>
+				
+					<li><a href="../Giraffe/NilTree.html">Giraffe::NilTree</a></li>
+				
+					<li><a href="../Giraffe/OpenFileTree.html">Giraffe::OpenFileTree</a></li>
+				
+					<li><a href="../Giraffe/Options.html">Giraffe::Options</a></li>
+				
+					<li><a href="../Giraffe/PrintTree.html">Giraffe::PrintTree</a></li>
+				
+					<li><a href="../Giraffe/ProgramTree.html">Giraffe::ProgramTree</a></li>
+				
+					<li><a href="../Giraffe/ReadNumberTree.html">Giraffe::ReadNumberTree</a></li>
+				
+					<li><a href="../Giraffe/ReturnTree.html">Giraffe::ReturnTree</a></li>
+				
+					<li><a href="../Giraffe/SizeofTree.html">Giraffe::SizeofTree</a></li>
+				
+					<li><a href="../Giraffe/StringTree.html">Giraffe::StringTree</a></li>
+				
+					<li><a href="../Giraffe/TestAllocTree.html">Giraffe::TestAllocTree</a></li>
+				
+					<li><a href="../Giraffe/TestArrayTree.html">Giraffe::TestArrayTree</a></li>
+				
+					<li><a href="../Giraffe/TestAssignTree.html">Giraffe::TestAssignTree</a></li>
+				
+					<li><a href="../Giraffe/TestAtomTree.html">Giraffe::TestAtomTree</a></li>
+				
+					<li><a href="../Giraffe/TestBinaryOperatorTree.html">Giraffe::TestBinaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/TestCallTree.html">Giraffe::TestCallTree</a></li>
+				
+					<li><a href="../Giraffe/TestCloseFileTree.html">Giraffe::TestCloseFileTree</a></li>
+				
+					<li><a href="../Giraffe/TestCodegen.html">Giraffe::TestCodegen</a></li>
+				
+					<li><a href="../Giraffe/TestDoTree.html">Giraffe::TestDoTree</a></li>
+				
+					<li><a href="../Giraffe/TestEnv.html">Giraffe::TestEnv</a></li>
+				
+					<li><a href="../Giraffe/TestEnvVals.html">Giraffe::TestEnvVals</a></li>
+				
+					<li><a href="../Giraffe/TestForTree.html">Giraffe::TestForTree</a></li>
+				
+					<li><a href="../Giraffe/TestFuncTree.html">Giraffe::TestFuncTree</a></li>
+				
+					<li><a href="../Giraffe/TestIfTree.html">Giraffe::TestIfTree</a></li>
+				
+					<li><a href="../Giraffe/TestIndexTree.html">Giraffe::TestIndexTree</a></li>
+				
+					<li><a href="../Giraffe/TestNilTree.html">Giraffe::TestNilTree</a></li>
+				
+					<li><a href="../Giraffe/TestOpenFileTree.html">Giraffe::TestOpenFileTree</a></li>
+				
+					<li><a href="../Giraffe/TestPrintTree.html">Giraffe::TestPrintTree</a></li>
+				
+					<li><a href="../Giraffe/TestProgramTree.html">Giraffe::TestProgramTree</a></li>
+				
+					<li><a href="../Giraffe/TestReadNumberTree.html">Giraffe::TestReadNumberTree</a></li>
+				
+					<li><a href="../Giraffe/TestReturnTree.html">Giraffe::TestReturnTree</a></li>
+				
+					<li><a href="../Giraffe/TestSizeofTree.html">Giraffe::TestSizeofTree</a></li>
+				
+					<li><a href="../Giraffe/TestStringTree.html">Giraffe::TestStringTree</a></li>
+				
+					<li><a href="../Giraffe/TestUnaryOperatorTree.html">Giraffe::TestUnaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/TestVarTree.html">Giraffe::TestVarTree</a></li>
+				
+					<li><a href="../Giraffe/TestWhileTree.html">Giraffe::TestWhileTree</a></li>
+				
+					<li><a href="../Giraffe/TestWriteFileTree.html">Giraffe::TestWriteFileTree</a></li>
+				
+					<li><a href="../Giraffe/UnaryOperatorTree.html">Giraffe::UnaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/VarTree.html">Giraffe::VarTree</a></li>
+				
+					<li><a href="../Giraffe/WhileTree.html">Giraffe::WhileTree</a></li>
+				
+					<li><a href="../Giraffe/WriteFileTree.html">Giraffe::WriteFileTree</a></li>
+				
+					<li><a href="../Debug.html">Debug</a></li>
+				
+					<li><a href="../DummyAST.html">DummyAST</a></li>
+				
+					<li><a href="../DummyTree.html">DummyTree</a></li>
+				
+					<li><a href="../Opcodes.html">Opcodes</a></li>
+				
+					<li><a href="../Operators.html">Operators</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Giraffe::TestEnv</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="test-func-method" class="method-detail ">
+				<a name="method-i-test_func"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_func</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-func-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_env.rb, line 282</span>
+282:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_func</span>
+283:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+284:             <span class="ruby-identifier">cdg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">codegen</span>
+285:             
+286:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">func!</span>(<span class="ruby-value str">&quot;fce1&quot;</span>,[<span class="ruby-value str">&quot;a&quot;</span>,<span class="ruby-value str">&quot;b&quot;</span>,<span class="ruby-value str">&quot;c&quot;</span>])
+287: 
+288:             <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">func!</span>(<span class="ruby-value str">&quot;fce1&quot;</span>,[<span class="ruby-value str">&quot;a&quot;</span>,<span class="ruby-value str">&quot;b&quot;</span>,<span class="ruby-value str">&quot;c&quot;</span>])
+289:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-value">:error</span>)
+290: 
+291:             <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">func</span>(<span class="ruby-value str">&quot;fce1&quot;</span>,<span class="ruby-value">2</span>)
+292:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-value">:error</span>)
+293: 
+294:             <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">func</span>(<span class="ruby-value str">&quot;fce2&quot;</span>,<span class="ruby-value">2</span>)
+295:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-value">:error</span>)
+296:             
+297:             <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">func</span>(<span class="ruby-value str">&quot;fce1&quot;</span>,<span class="ruby-value">3</span>)
+298:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-keyword kw">nil</span>)
+299: 
+300:             <span class="ruby-comment cmt"># CALL + 4B address + 3x POP args + RER</span>
+301:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>, <span class="ruby-value">4</span> <span class="ruby-operator">+</span> <span class="ruby-value">5</span> <span class="ruby-operator">+</span> <span class="ruby-value">3</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+302: 
+303:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+304: 
+305:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">CALL</span>)
+306:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+307:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+308:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+309:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">4</span>)
+310:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">9</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">POP</span>)
+311:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">10</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">POP</span>)
+312:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">11</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">POP</span>)
+313:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">12</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">RER</span>)
+314: 
+315:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-main-method" class="method-detail ">
+				<a name="method-i-test_main"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_main</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-main-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_env.rb, line 317</span>
+317:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_main</span>
+318:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+319:             <span class="ruby-identifier">cdg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">codegen</span>
+320: 
+321:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">func!</span>(<span class="ruby-value str">&quot;main&quot;</span>,[])
+322:             
+323:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+324:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+325:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+326:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">4</span>)
+327:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-params-method" class="method-detail ">
+				<a name="method-i-test_params"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_params</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-params-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_env.rb, line 329</span>
+329:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_params</span>
+330:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+331:             <span class="ruby-identifier">cdg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">codegen</span>
+332: 
+333:             <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">var</span>(<span class="ruby-value str">&quot;a&quot;</span>)
+334:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-value">:error</span>)
+335: 
+336:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">register_params</span>([<span class="ruby-value str">&quot;a&quot;</span>,<span class="ruby-value str">&quot;b&quot;</span>,<span class="ruby-value str">&quot;c&quot;</span>])
+337: 
+338:             <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">var</span>(<span class="ruby-value str">&quot;a&quot;</span>)
+339:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-keyword kw">nil</span>)
+340: 
+341:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+342: 
+343:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PAS</span>)
+344:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+345:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+346:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+347:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">2</span>)
+348:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-return-method" class="method-detail ">
+				<a name="method-i-test_return"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_return</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-return-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_env.rb, line 11</span>
+ 11:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_return</span> 
+ 12: 
+ 13:             <span class="ruby-comment cmt"># jednoducha funkce</span>
+ 14:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+ 15:             <span class="ruby-comment cmt"># bez return</span>
+ 16:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 17: 
+ 18:             <span class="ruby-comment cmt"># return nalezen</span>
+ 19:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+ 20:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">true</span>)
+ 21: 
+ 22:             <span class="ruby-comment cmt"># jednoduchy if</span>
+ 23:             <span class="ruby-comment cmt"># if - bez return </span>
+ 24:             <span class="ruby-comment cmt"># bez else</span>
+ 25:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+ 26:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+ 27:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 28:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+ 29:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 30:             
+ 31:             <span class="ruby-comment cmt"># jednoduchy if</span>
+ 32:             <span class="ruby-comment cmt"># if - bez return </span>
+ 33:             <span class="ruby-comment cmt"># else - bez return</span>
+ 34:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+ 35:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+ 36:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 37:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+ 38:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 39:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+ 40:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 41:       
+ 42:             <span class="ruby-comment cmt"># jednoduchy if</span>
+ 43:             <span class="ruby-comment cmt"># if - s return </span>
+ 44:             <span class="ruby-comment cmt"># bez else</span>
+ 45:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+ 46:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+ 47:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+ 48:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 49:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+ 50:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 51:                   
+ 52:             <span class="ruby-comment cmt"># jednoduchy if</span>
+ 53:             <span class="ruby-comment cmt"># if - s return </span>
+ 54:             <span class="ruby-comment cmt"># else - bez return</span>
+ 55:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+ 56:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+ 57:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+ 58:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 59:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+ 60:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 61:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+ 62:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 63:  
+ 64:             <span class="ruby-comment cmt"># jednoduchy if</span>
+ 65:             <span class="ruby-comment cmt"># if - bez return </span>
+ 66:             <span class="ruby-comment cmt"># else - s return</span>
+ 67:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+ 68:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+ 69:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 70:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+ 71:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+ 72:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 73:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+ 74:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 75:             
+ 76:             <span class="ruby-comment cmt"># jednoduchy if</span>
+ 77:             <span class="ruby-comment cmt"># if - s return </span>
+ 78:             <span class="ruby-comment cmt"># else - s return</span>
+ 79:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+ 80:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+ 81:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+ 82:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+ 83:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+ 84:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+ 85:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)   
+ 86:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span> <span class="ruby-comment cmt"># az zde se to uzavre na true</span>
+ 87:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">true</span>)
+ 88: 
+ 89:             <span class="ruby-comment cmt"># vnoreny if v casti if</span>
+ 90:             <span class="ruby-comment cmt"># vnoreni nema return</span>
+ 91:             <span class="ruby-comment cmt"># if nema return</span>
+ 92:             <span class="ruby-comment cmt"># else nema return</span>
+ 93:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+ 94:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+ 95:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+ 96:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+ 97:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+ 98:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+ 99:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+100: 
+101:             <span class="ruby-comment cmt"># vnoreny if v casti if</span>
+102:             <span class="ruby-comment cmt"># vnoreni nema return</span>
+103:             <span class="ruby-comment cmt"># if nema return</span>
+104:             <span class="ruby-comment cmt"># else ma return</span>
+105:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+106:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+107:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+108:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+109:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+110:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+111:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+112:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+113: 
+114:             <span class="ruby-comment cmt"># vnoreny if v casti if</span>
+115:             <span class="ruby-comment cmt"># vnoreni nema return</span>
+116:             <span class="ruby-comment cmt"># if ma return</span>
+117:             <span class="ruby-comment cmt"># else ma return</span>
+118:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+119:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+120:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+121:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+122:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+123:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+124:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+125:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+126:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">true</span>)
+127: 
+128:             <span class="ruby-comment cmt"># vnoreny if v casti if</span>
+129:             <span class="ruby-comment cmt"># vnoreni ma return v if</span>
+130:             <span class="ruby-comment cmt"># if nema return</span>
+131:             <span class="ruby-comment cmt"># else ma return</span>
+132:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+133:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+134:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+135:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+136:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+137:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+138:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+139:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+140:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+141: 
+142:             <span class="ruby-comment cmt"># vnoreny if v casti if</span>
+143:             <span class="ruby-comment cmt"># vnoreni ma return v else</span>
+144:             <span class="ruby-comment cmt"># if nema return</span>
+145:             <span class="ruby-comment cmt"># else ma return</span>
+146:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+147:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+148:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+149:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+150:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+151:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+152:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+153:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+154:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+155:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">nil</span>)
+156: 
+157:             <span class="ruby-comment cmt"># vnoreny if v casti if</span>
+158:             <span class="ruby-comment cmt"># vnoreni ma return v else i v if</span>
+159:             <span class="ruby-comment cmt"># if nema return</span>
+160:             <span class="ruby-comment cmt"># else ma return</span>
+161:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+162:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+163:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_if</span>
+164:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+165:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+166:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+167:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+168:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_branch_else</span>
+169:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_found</span>
+170:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">return_rise</span>
+171:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span>, <span class="ruby-keyword kw">true</span>)
+172: 
+173:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-var-call-method" class="method-detail ">
+				<a name="method-i-test_var_call"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_var_call</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-var-call-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_env.rb, line 247</span>
+247:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_var_call</span>
+248:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+249:             <span class="ruby-identifier">cdg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">codegen</span>
+250:             <span class="ruby-identifier">current_byte</span> = <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span> 
+251: 
+252:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">var!</span>(<span class="ruby-value str">&quot;a&quot;</span>)           
+253:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">locals</span>, <span class="ruby-value">1</span>)
+254:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>, <span class="ruby-identifier">current_byte</span> <span class="ruby-operator">+</span> <span class="ruby-value">5</span>)
+255:            
+256:             <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">var</span>(<span class="ruby-value str">&quot;a&quot;</span>)
+257:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-keyword kw">nil</span>)
+258:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">locals</span>, <span class="ruby-value">1</span>)
+259:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>, <span class="ruby-identifier">current_byte</span> <span class="ruby-operator">+</span> <span class="ruby-value">10</span>)
+260: 
+261:             <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">var</span>(<span class="ruby-value str">&quot;b&quot;</span>)
+262:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-value">:error</span>)
+263: 
+264:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">locals</span>, <span class="ruby-value">1</span>)
+265:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>, <span class="ruby-identifier">current_byte</span> <span class="ruby-operator">+</span> <span class="ruby-value">10</span>)
+266:             
+267:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+268: 
+269:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PUSH</span>)
+270:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">INTEGER</span>)
+271:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+272:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+273:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+274:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">9</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+275:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">10</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PSL</span>)
+276:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">11</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+277:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">12</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+278:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">13</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+279:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">14</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+280:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-var-declare-method" class="method-detail ">
+				<a name="method-i-test_var_declare"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_var_declare</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-var-declare-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_env.rb, line 175</span>
+175:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_var_declare</span>
+176:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+177:             <span class="ruby-identifier">cdg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">codegen</span>
+178:             <span class="ruby-identifier">current_byte</span> = <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span> 
+179: 
+180:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">var!</span>(<span class="ruby-value str">&quot;a&quot;</span>)           
+181:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">locals</span>, <span class="ruby-value">1</span>)
+182:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>, <span class="ruby-identifier">current_byte</span> <span class="ruby-operator">+</span> <span class="ruby-value">5</span>)
+183: 
+184:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">var!</span>(<span class="ruby-value str">&quot;b&quot;</span>)           
+185:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">locals</span>, <span class="ruby-value">2</span>)
+186:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>, <span class="ruby-identifier">current_byte</span> <span class="ruby-operator">+</span> <span class="ruby-value">10</span>)
+187:             
+188:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+189: 
+190:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PUSH</span>)
+191:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">INTEGER</span>)
+192:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+193:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+194:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+195:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">9</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+196:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">10</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PUSH</span>)
+197:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">11</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">INTEGER</span>)
+198:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">12</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+199:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">13</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+200:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">14</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+201:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">15</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+202:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">16</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PSL</span>)
+203:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">17</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+204:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">18</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+205:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">19</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+206:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">20</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+207:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">21</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PSL</span>)
+208:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">22</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+209:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">23</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+210:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">24</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+211:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">25</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">1</span>)
+212:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-var-use-method" class="method-detail ">
+				<a name="method-i-test_var_use"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_var_use</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-var-use-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_env.rb, line 214</span>
+214:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_var_use</span>
+215:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>
+216:             <span class="ruby-identifier">cdg</span> = <span class="ruby-identifier">env</span>.<span class="ruby-identifier">codegen</span>
+217:             <span class="ruby-identifier">current_byte</span> = <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span> 
+218: 
+219:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">var!</span>(<span class="ruby-value str">&quot;a&quot;</span>)           
+220:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">locals</span>, <span class="ruby-value">1</span>)
+221:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>, <span class="ruby-identifier">current_byte</span> <span class="ruby-operator">+</span> <span class="ruby-value">5</span>)
+222: 
+223:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">var!</span>(<span class="ruby-value str">&quot;a&quot;</span>)           
+224:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">locals</span>, <span class="ruby-value">1</span>)
+225:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>, <span class="ruby-identifier">current_byte</span> <span class="ruby-operator">+</span> <span class="ruby-value">10</span>)
+226:             
+227:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+228: 
+229:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PUSH</span>)
+230:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">INTEGER</span>)
+231:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+232:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+233:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+234:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">9</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+235:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">10</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PSL</span>)
+236:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">11</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+237:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">12</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+238:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">13</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+239:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">14</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+240:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">15</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">PSL</span>)
+241:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">16</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+242:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">17</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+243:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">18</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+244:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">19</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+245:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

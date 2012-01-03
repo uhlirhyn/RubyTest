@@ -1,14 +1,21 @@
+# encoding: utf-8
+
 require_relative '../env.rb'
 require_relative '../debug.rb'
 require_relative '../opcodes.rb'
 
 module Giraffe
 
+    # Generuje bytecode for cyklu
     class ForTree
 
         include Debug
         include Opcodes
 
+        # * <tt>assignment1</tt> AST inicializační přiřazení 
+        # * <tt>condition</tt> AST podmínky
+        # * <tt>assignment2</tt> AST přiřazení iterace
+        # * <tt>instructions</tt> pole AST instrukcí
         def initialize(assignment1,condition,assignment2,instructions)
             dbg("run",:ForTree)
             @assignment1 = assignment1           
@@ -17,6 +24,9 @@ module Giraffe
             @instructions = instructions            
         end
 
+        # Provede traverzaci AST a vygeneruje bytecode
+        # * <tt>env</tt> je předávané prostředí Env
+        # * <tt>tree</tt> je soubor informací z parsersu (line, column)
         def run(env,tree)
 
             @tree = tree
@@ -24,12 +34,13 @@ module Giraffe
             return return_value, msg
         end
 
+        # vrátí popis místa kde došlo k chybě
         private 
-        
         def where
             "\n\tin for cycle on line #{@tree.line}, column #{@tree.column}"
         end
 
+        # helper funkce pro výpis bytecodu z AST
         def innerRun(env)
 
             dbg("run",:ForTree)

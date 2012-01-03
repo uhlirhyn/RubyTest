@@ -1,24 +1,36 @@
+# encoding: utf-8
+
 require_relative '../env.rb'
 require_relative '../debug.rb'
 require_relative '../opcodes.rb'
 
 module Giraffe
 
+    # Generuje bytecode těla funkce
     class FuncTree
     
         include Debug
         include Opcodes
 
+        # * <tt>id</tt> název funkce
+        # * <tt>params</tt> jména argumentů
+        # * <tt>instructions</tt> pole AST instrukcí
         def initialize(id,params,instructions)
             @id = id
             @params = params
             @instructions = instructions
         end
 
+        # vrátí popis místa kde došlo k chybě
+        private
         def where(place)
             "\n\tin function '#{@id}' on line #{place.line}, column #{place.column}\n"
         end
         
+        # Provede traverzaci AST a vygeneruje bytecode
+        # * <tt>env</tt> je předávané prostředí Env
+        # * <tt>tree</tt> je soubor informací z parsersu (line, column)
+        public
         def run(env,tree)
 
             dbg("run #{@id} #{tree.line},#{tree.column}",:FuncTree)

@@ -1,18 +1,26 @@
+# encoding: utf-8
+
 require_relative '../debug.rb'
 require_relative '../opcodes.rb'
 
 module Giraffe
 
+    # Generuje bytecode cyklu while
     class WhileTree
 
         include Debug
         include Opcodes
 
+        # * <tt>condition</tt> AST podmínky
+        # * <tt>instructions</tt> pole AST instrukcí
         def initialize(condition,instructions)
             @condition = condition
             @instructions = instructions
         end
 
+        # Provede traverzaci AST a vygeneruje bytecode
+        # * <tt>env</tt> je předávané prostředí Env
+        # * <tt>tree</tt> je soubor informací z parsersu (line, column)
         def run(env, tree)
 
             dbg("run",:WhileTree)

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Giraffe::FuncTree</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/giraffe/tree/funcTree_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/giraffe/tree/funcTree.rb">lib/giraffe/tree/funcTree.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Object</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-run">#run</a></li>
+					
+					<li><a href="#method-i-where">#where</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><a class="include" href="../Debug.html">Debug</a></li>
+				
+				
+				
+					<li><a class="include" href="../Opcodes.html">Opcodes</a></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../codegen_test_file.html">codegen_test_file</a></li>
+				
+					<li class="file"><a href="../grf/Makefile.html">Makefile</a></li>
+				
+					<li class="file"><a href="../tfile.html">tfile</a></li>
+				
+					<li class="file"><a href="../tfile2.html">tfile2</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../Giraffe.html">Giraffe</a></li>
+				
+					<li><a href="../Giraffe/AllocTree.html">Giraffe::AllocTree</a></li>
+				
+					<li><a href="../Giraffe/ArrayTree.html">Giraffe::ArrayTree</a></li>
+				
+					<li><a href="../Giraffe/AssignTree.html">Giraffe::AssignTree</a></li>
+				
+					<li><a href="../Giraffe/AtomTree.html">Giraffe::AtomTree</a></li>
+				
+					<li><a href="../Giraffe/BinaryOperatorTree.html">Giraffe::BinaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/Byte.html">Giraffe::Byte</a></li>
+				
+					<li><a href="../Giraffe/CallTree.html">Giraffe::CallTree</a></li>
+				
+					<li><a href="../Giraffe/CloseFileTree.html">Giraffe::CloseFileTree</a></li>
+				
+					<li><a href="../Giraffe/Codegen.html">Giraffe::Codegen</a></li>
+				
+					<li><a href="../Giraffe/DoTree.html">Giraffe::DoTree</a></li>
+				
+					<li><a href="../Giraffe/Env.html">Giraffe::Env</a></li>
+				
+					<li><a href="../Giraffe/Env/Func.html">Giraffe::Env::Func</a></li>
+				
+					<li><a href="../Giraffe/ForTree.html">Giraffe::ForTree</a></li>
+				
+					<li><a href="../Giraffe/FuncTree.html">Giraffe::FuncTree</a></li>
+				
+					<li><a href="../Giraffe/Hook.html">Giraffe::Hook</a></li>
+				
+					<li><a href="../Giraffe/IfTree.html">Giraffe::IfTree</a></li>
+				
+					<li><a href="../Giraffe/IndexTree.html">Giraffe::IndexTree</a></li>
+				
+					<li><a href="../Giraffe/Launcher.html">Giraffe::Launcher</a></li>
+				
+					<li><a href="../Giraffe/NilTree.html">Giraffe::NilTree</a></li>
+				
+					<li><a href="../Giraffe/OpenFileTree.html">Giraffe::OpenFileTree</a></li>
+				
+					<li><a href="../Giraffe/Options.html">Giraffe::Options</a></li>
+				
+					<li><a href="../Giraffe/PrintTree.html">Giraffe::PrintTree</a></li>
+				
+					<li><a href="../Giraffe/ProgramTree.html">Giraffe::ProgramTree</a></li>
+				
+					<li><a href="../Giraffe/ReadNumberTree.html">Giraffe::ReadNumberTree</a></li>
+				
+					<li><a href="../Giraffe/ReturnTree.html">Giraffe::ReturnTree</a></li>
+				
+					<li><a href="../Giraffe/SizeofTree.html">Giraffe::SizeofTree</a></li>
+				
+					<li><a href="../Giraffe/StringTree.html">Giraffe::StringTree</a></li>
+				
+					<li><a href="../Giraffe/UnaryOperatorTree.html">Giraffe::UnaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/VarTree.html">Giraffe::VarTree</a></li>
+				
+					<li><a href="../Giraffe/WhileTree.html">Giraffe::WhileTree</a></li>
+				
+					<li><a href="../Giraffe/WriteFileTree.html">Giraffe::WriteFileTree</a></li>
+				
+					<li><a href="../Debug.html">Debug</a></li>
+				
+					<li><a href="../Opcodes.html">Opcodes</a></li>
+				
+					<li><a href="../Operators.html">Operators</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Giraffe::FuncTree</h1>
+
+		<div id="description">
+			<p>
+Generuje bytecode těla funkce
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(id,params,instructions)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<ul>
+<li><p>
+<tt>id</tt> název funkce
+</p>
+</li>
+<li><p>
+<tt>params</tt> jména argumentů
+</p>
+</li>
+<li><p>
+<tt>instructions</tt> pole AST instrukcí
+</p>
+</li>
+</ul>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/tree/funcTree.rb, line 18</span>
+18:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">id</span>,<span class="ruby-identifier">params</span>,<span class="ruby-identifier">instructions</span>)
+19:             <span class="ruby-ivar">@id</span> = <span class="ruby-identifier">id</span>
+20:             <span class="ruby-ivar">@params</span> = <span class="ruby-identifier">params</span>
+21:             <span class="ruby-ivar">@instructions</span> = <span class="ruby-identifier">instructions</span>
+22:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="run-method" class="method-detail ">
+				<a name="method-i-run"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">run</span><span
+						class="method-args">(env,tree)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Provede traverzaci AST a vygeneruje bytecode
+</p>
+<ul>
+<li><p>
+<tt>env</tt> je předávané prostředí <a href="Env.html">Env</a>
+</p>
+</li>
+<li><p>
+<tt>tree</tt> je soubor informací z parsersu (line, column)
+</p>
+</li>
+</ul>
+					
+
+					
+					<div class="method-source-code"
+						id="run-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/tree/funcTree.rb, line 34</span>
+34:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">env</span>,<span class="ruby-identifier">tree</span>)
+35: 
+36:             <span class="ruby-identifier">dbg</span>(<span class="ruby-node">&quot;run #{@id} #{tree.line},#{tree.column}&quot;</span>,<span class="ruby-value">:FuncTree</span>)
+37:                 
+38:             <span class="ruby-identifier">dbg</span>(<span class="ruby-node">&quot;params '#{@params}'&quot;</span>,<span class="ruby-value">:FuncTree</span>)
+39: 
+40:             <span class="ruby-comment cmt"># probehla deklarace funkce</span>
+41:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">func!</span>(<span class="ruby-ivar">@id</span>, <span class="ruby-ivar">@params</span>)
+42:             
+43:             <span class="ruby-comment cmt"># zaloz si nove izolovane prostredi</span>
+44:             <span class="ruby-identifier">env</span> = <span class="ruby-constant">Env</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">env</span>)
+45: 
+46:             <span class="ruby-comment cmt"># registruj nazvy parametru</span>
+47:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">register_params</span>(<span class="ruby-ivar">@params</span>)
+48:            
+49:             <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@instructions</span> <span class="ruby-keyword kw">do</span> 
+50:                 <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">i</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">run</span>(<span class="ruby-identifier">env</span>,<span class="ruby-identifier">i</span>[<span class="ruby-value">1</span>]) 
+51:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">return_value</span>, <span class="ruby-identifier">msg</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span> <span class="ruby-operator">==</span> <span class="ruby-value">:error</span>
+52: 
+53:                 <span class="ruby-comment cmt"># tady break nema co delat</span>
+54:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span> <span class="ruby-operator">==</span> <span class="ruby-value">:break</span>
+55:                     <span class="ruby-identifier">puts</span> <span class="ruby-identifier">red</span>(<span class="ruby-value str">&quot; Error: &quot;</span>) <span class="ruby-operator">+</span> 
+56:                         <span class="ruby-identifier">orange</span>(<span class="ruby-value str">&quot;Unexpected break&quot;</span>) <span class="ruby-operator">+</span> 
+57:                         <span class="ruby-identifier">where</span>(<span class="ruby-identifier">i</span>[<span class="ruby-value">1</span>])
+58:                     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">return_value</span>, <span class="ruby-value">:error</span>
+59:                 <span class="ruby-keyword kw">end</span>
+60: 
+61:             <span class="ruby-keyword kw">end</span>
+62: 
+63:             <span class="ruby-identifier">dbg</span>(<span class="ruby-node">&quot;return status '#{env.is_return?}'&quot;</span>,<span class="ruby-value">:FuncTree</span>)
+64: 
+65:             <span class="ruby-comment cmt"># bylo nejake return ?</span>
+66:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">red</span>(<span class="ruby-value str">&quot; Error: &quot;</span>) <span class="ruby-operator">+</span> 
+67:                 <span class="ruby-identifier">orange</span>(<span class="ruby-value str">&quot;Missing return statement&quot;</span>) <span class="ruby-operator">+</span> 
+68:                 <span class="ruby-identifier">where</span>(<span class="ruby-identifier">tree</span>), <span class="ruby-value">:error</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">env</span>.<span class="ruby-identifier">is_return?</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">true</span>
+69: 
+70:             <span class="ruby-comment cmt"># uzavre generovani bytecodu funkce</span>
+71:             <span class="ruby-comment cmt"># presype temp_bytecode do ostreho</span>
+72:             <span class="ruby-comment cmt"># bytecodu, a da pred nej prostor</span>
+73:             <span class="ruby-comment cmt"># pro lokalni promenne</span>
+74:             <span class="ruby-identifier">env</span>.<span class="ruby-identifier">seal_function</span>
+75:                 
+76:             <span class="ruby-comment cmt"># deklarace funkce nic nevraci </span>
+77:             <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>
+78:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="where-method" class="method-detail ">
+				<a name="method-i-where"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">where</span><span
+						class="method-args">(place)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+vrátí popis místa kde došlo k chybě
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="where-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/tree/funcTree.rb, line 26</span>
+26:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">where</span>(<span class="ruby-identifier">place</span>)
+27:             <span class="ruby-node">&quot;\n\tin function '#{@id}' on line #{place.line}, column #{place.column}\n&quot;</span>
+28:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

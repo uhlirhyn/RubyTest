@@ -1,26 +1,32 @@
+# encoding: utf-8
+
 require_relative '../debug.rb'
 
 module Giraffe
 
+    # Spravuje veci kolem lokalnich
+    # promennych a argumentu - jeho
+    # ucel je vkladat na stack id
+    # lokalni promenne nebo argumentu
     class VarTree
 
         include Debug
 
+        # * <tt>id</tt> jméno proměnné
         def initialize(id)
             @id = id
         end
 
+        # vrátí popis místa kde došlo k chybě
+        private
         def where
             "\n\tin variable '#{@id}' on line #{@tree.line}, column #{@tree.column}\n"
         end
 
-        # VarTree
-        #
-        # Spravuje veci kolem lokalnich
-        # promennych a argumentu - jeho
-        # ucel je vkladat na stack id
-        # lokalni promenne nebo argumentu
-        # 
+        # Provede traverzaci AST a vygeneruje bytecode
+        # * <tt>env</tt> je předávané prostředí Env
+        # * <tt>tree</tt> je soubor informací z parsersu (line, column)
+        public
         def run(env,tree,direction=:load)
 
             @tree = tree

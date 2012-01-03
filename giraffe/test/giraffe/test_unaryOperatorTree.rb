@@ -10,8 +10,8 @@ module Giraffe
 
     class TestUnaryOperatorTree < Test::Unit::TestCase
 
-        def operator_method(op1)
-            op1 + 2
+        def operator_method
+            :output
         end
 
         def test_run            
@@ -32,7 +32,7 @@ module Giraffe
             
             env.codegen.seal_function
 
-            assert_equal(env.codegen.bytecode[4].value, 0x07)
+            assert_equal(env.codegen.bytecode[4].value, :output)
 
             dummy = DummyTree.new(true)
             tree = UnaryOperatorTree.new([dummy,"ast"],dummy_operator)

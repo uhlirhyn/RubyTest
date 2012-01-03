@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: Opcodes</title>
+
+	<link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+	<script src="./js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="./lib/giraffe/opcodes_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/giraffe/opcodes.rb">lib/giraffe/opcodes.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="./README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="./codegen_test_file.html">codegen_test_file</a></li>
+				
+					<li class="file"><a href="./grf/Makefile.html">Makefile</a></li>
+				
+					<li class="file"><a href="./tfile.html">tfile</a></li>
+				
+					<li class="file"><a href="./tfile2.html">tfile2</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="./images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="./Giraffe.html">Giraffe</a></li>
+				
+					<li><a href="./Giraffe/AllocTree.html">Giraffe::AllocTree</a></li>
+				
+					<li><a href="./Giraffe/ArrayTree.html">Giraffe::ArrayTree</a></li>
+				
+					<li><a href="./Giraffe/AssignTree.html">Giraffe::AssignTree</a></li>
+				
+					<li><a href="./Giraffe/AtomTree.html">Giraffe::AtomTree</a></li>
+				
+					<li><a href="./Giraffe/BinaryOperatorTree.html">Giraffe::BinaryOperatorTree</a></li>
+				
+					<li><a href="./Giraffe/Byte.html">Giraffe::Byte</a></li>
+				
+					<li><a href="./Giraffe/CallTree.html">Giraffe::CallTree</a></li>
+				
+					<li><a href="./Giraffe/CloseFileTree.html">Giraffe::CloseFileTree</a></li>
+				
+					<li><a href="./Giraffe/Codegen.html">Giraffe::Codegen</a></li>
+				
+					<li><a href="./Giraffe/DoTree.html">Giraffe::DoTree</a></li>
+				
+					<li><a href="./Giraffe/Env.html">Giraffe::Env</a></li>
+				
+					<li><a href="./Giraffe/Env/Func.html">Giraffe::Env::Func</a></li>
+				
+					<li><a href="./Giraffe/ForTree.html">Giraffe::ForTree</a></li>
+				
+					<li><a href="./Giraffe/FuncTree.html">Giraffe::FuncTree</a></li>
+				
+					<li><a href="./Giraffe/Hook.html">Giraffe::Hook</a></li>
+				
+					<li><a href="./Giraffe/IfTree.html">Giraffe::IfTree</a></li>
+				
+					<li><a href="./Giraffe/IndexTree.html">Giraffe::IndexTree</a></li>
+				
+					<li><a href="./Giraffe/Launcher.html">Giraffe::Launcher</a></li>
+				
+					<li><a href="./Giraffe/NilTree.html">Giraffe::NilTree</a></li>
+				
+					<li><a href="./Giraffe/OpenFileTree.html">Giraffe::OpenFileTree</a></li>
+				
+					<li><a href="./Giraffe/Options.html">Giraffe::Options</a></li>
+				
+					<li><a href="./Giraffe/PrintTree.html">Giraffe::PrintTree</a></li>
+				
+					<li><a href="./Giraffe/ProgramTree.html">Giraffe::ProgramTree</a></li>
+				
+					<li><a href="./Giraffe/ReadNumberTree.html">Giraffe::ReadNumberTree</a></li>
+				
+					<li><a href="./Giraffe/ReturnTree.html">Giraffe::ReturnTree</a></li>
+				
+					<li><a href="./Giraffe/SizeofTree.html">Giraffe::SizeofTree</a></li>
+				
+					<li><a href="./Giraffe/StringTree.html">Giraffe::StringTree</a></li>
+				
+					<li><a href="./Giraffe/UnaryOperatorTree.html">Giraffe::UnaryOperatorTree</a></li>
+				
+					<li><a href="./Giraffe/VarTree.html">Giraffe::VarTree</a></li>
+				
+					<li><a href="./Giraffe/WhileTree.html">Giraffe::WhileTree</a></li>
+				
+					<li><a href="./Giraffe/WriteFileTree.html">Giraffe::WriteFileTree</a></li>
+				
+					<li><a href="./Debug.html">Debug</a></li>
+				
+					<li><a href="./Opcodes.html">Opcodes</a></li>
+				
+					<li><a href="./Operators.html">Operators</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">Opcodes</h1>
+
+		<div id="description">
+			<p>
+Operační znaky a hodnoty v bytecodu
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="BOOLEAN">BOOLEAN</a></dt>
+				
+				<dd class="description"><p>
+Boolean hodnota
+</p></dd>
+				
+			
+				<dt><a name="INTEGER">INTEGER</a></dt>
+				
+				<dd class="description"><p>
+Celé číslo 32b
+</p></dd>
+				
+			
+				<dt><a name="CHARACTER">CHARACTER</a></dt>
+				
+				<dd class="description"><p>
+Znak 32b
+</p></dd>
+				
+			
+				<dt><a name="POINTER">POINTER</a></dt>
+				
+				<dd class="description"><p>
+Reference
+</p></dd>
+				
+			
+				<dt><a name="S_POINTER">S_POINTER</a></dt>
+				
+				<dd class="description"><p>
+Systémový ukazatel (pozice na stacku, &#8230;)
+</p></dd>
+				
+			
+				<dt><a name="NULL">NULL</a></dt>
+				
+				<dd class="description"><p>
+Nic :)
+</p></dd>
+				
+			
+				<dt><a name="JEQ">JEQ</a></dt>
+				
+				<dd class="description"><p>
+Skoč pokud je údaj na stacku true
+</p></dd>
+				
+			
+				<dt><a name="JNEQ">JNEQ</a></dt>
+				
+				<dd class="description"><p>
+Skoč pokud údaj na stacku není false
+</p></dd>
+				
+			
+				<dt><a name="JMP">JMP</a></dt>
+				
+				<dd class="description"><p>
+Skoč na adresu na stacku
+</p></dd>
+				
+			
+				<dt><a name="RET">RET</a></dt>
+				
+				<dd class="description"><p>
+Ukonči průběh funkce
+</p></dd>
+				
+			
+				<dt><a name="CALL">CALL</a></dt>
+				
+				<dd class="description"><p>
+Proveď volání funkce na adrese, co je na stacku
+</p></dd>
+				
+			
+				<dt><a name="RER">RER</a></dt>
+				
+				<dd class="description"><p>
+Nahraj na stack návratovou hodnotu z registru návratových hodnot
+</p></dd>
+				
+			
+				<dt><a name="ALLOC">ALLOC</a></dt>
+				
+				<dd class="description"><p>
+Naalokuj pole a vlož do něj hodnoty ze zásobníku
+</p></dd>
+				
+			
+				<dt><a name="ST">ST</a></dt>
+				
+				<dd class="description"><p>
+Ulož hodnoty ze zásobníku na určenou adresu
+</p></dd>
+				
+			
+				<dt><a name="LD">LD</a></dt>
+				
+				<dd class="description"><p>
+Nahraj hodnoty z paměti na zásobník
+</p></dd>
+				
+			
+				<dt><a name="CALLOC">CALLOC</a></dt>
+				
+				<dd class="description"><p>
+Alokuj prázdné pole o určené velikosti 
+</p></dd>
+				
+			
+				<dt><a name="SZOF">SZOF</a></dt>
+				
+				<dd class="description"><p>
+Vrať velikost pole na dané adrese 
+</p></dd>
+				
+			
+				<dt><a name="PSL">PSL</a></dt>
+				
+				<dd class="description"><p>
+Push Stack To Local
+</p></dd>
+				
+			
+				<dt><a name="PLS">PLS</a></dt>
+				
+				<dd class="description"><p>
+Push Local To Stack
+</p></dd>
+				
+			
+				<dt><a name="PSA">PSA</a></dt>
+				
+				<dd class="description"><p>
+Push Stack To Argument
+</p></dd>
+				
+			
+				<dt><a name="PAS">PAS</a></dt>
+				
+				<dd class="description"><p>
+Push Argument To Stack
+</p></dd>
+				
+			
+				<dt><a name="PUSH">PUSH</a></dt>
+				
+				<dd class="description"><p>
+Vlož na zásobník
+</p></dd>
+				
+			
+				<dt><a name="POP">POP</a></dt>
+				
+				<dd class="description"><p>
+Použij hodnotu ze zásobníku a odeber ji
+</p></dd>
+				
+			
+				<dt><a name="DUP">DUP</a></dt>
+				
+				<dd class="description"><p>
+Duplikuj vrchol zásobníku
+</p></dd>
+				
+			
+				<dt><a name="ADD">ADD</a></dt>
+				
+				<dd class="description"><p>
+Součet
+</p></dd>
+				
+			
+				<dt><a name="SUB">SUB</a></dt>
+				
+				<dd class="description"><p>
+Rozdíl
+</p></dd>
+				
+			
+				<dt><a name="MUL">MUL</a></dt>
+				
+				<dd class="description"><p>
+Násobení
+</p></dd>
+				
+			
+				<dt><a name="DIV">DIV</a></dt>
+				
+				<dd class="description"><p>
+Dělení celých čísel
+</p></dd>
+				
+			
+				<dt><a name="MOD">MOD</a></dt>
+				
+				<dd class="description"><p>
+Zbytek po dělení
+</p></dd>
+				
+			
+				<dt><a name="NEG">NEG</a></dt>
+				
+				<dd class="description"><p>
+Násobení -1
+</p></dd>
+				
+			
+				<dt><a name="OR">OR</a></dt>
+				
+				<dd class="description"><p>
+Logický sočet
+</p></dd>
+				
+			
+				<dt><a name="AND">AND</a></dt>
+				
+				<dd class="description"><p>
+Logický součin
+</p></dd>
+				
+			
+				<dt><a name="NOT">NOT</a></dt>
+				
+				<dd class="description"><p>
+Negace 
+</p></dd>
+				
+			
+				<dt><a name="NE">NE</a></dt>
+				
+				<dd class="description"><p>
+Není rovno
+</p></dd>
+				
+			
+				<dt><a name="GT">GT</a></dt>
+				
+				<dd class="description"><p>
+Větší než
+</p></dd>
+				
+			
+				<dt><a name="GE">GE</a></dt>
+				
+				<dd class="description"><p>
+Větší rovno
+</p></dd>
+				
+			
+				<dt><a name="LT">LT</a></dt>
+				
+				<dd class="description"><p>
+Menší než
+</p></dd>
+				
+			
+				<dt><a name="LE">LE</a></dt>
+				
+				<dd class="description"><p>
+Menší rovno
+</p></dd>
+				
+			
+				<dt><a name="EQ">EQ</a></dt>
+				
+				<dd class="description"><p>
+Rovno
+</p></dd>
+				
+			
+				<dt><a name="OUT">OUT</a></dt>
+				
+				<dd class="description"><p>
+Výpis
+</p></dd>
+				
+			
+				<dt><a name="FO">FO</a></dt>
+				
+				<dd class="description"><p>
+Otevření souboru
+</p></dd>
+				
+			
+				<dt><a name="RN">RN</a></dt>
+				
+				<dd class="description"><p>
+Přečtení čísla ze souboru 
+</p></dd>
+				
+			
+				<dt><a name="FC">FC</a></dt>
+				
+				<dd class="description"><p>
+Uzavření souboru
+</p></dd>
+				
+			
+				<dt><a name="WF">WF</a></dt>
+				
+				<dd class="description"><p>
+Zápis do souboru
+</p></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

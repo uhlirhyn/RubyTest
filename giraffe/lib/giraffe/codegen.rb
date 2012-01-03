@@ -1,14 +1,20 @@
+# encoding: utf-8
+
 require_relative 'opcodes.rb'
 require_relative 'debug.rb'
 require_relative "codegen_vals.rb"
 
 module Giraffe
 
+    # Třída pro generování bytecodu, zastřešuje vkládání jedno i více-bytových hodnot,
+    # kontroluje celistvost bytecodu, počítá id lokálních proměnných, mapování návěští 
+    # na adresy a výpis finálního bytecodu do výstupního souboru .grfc
     class Codegen 
 
         include Debug
         include Opcodes
         
+        # založí instanci generátoru
         def initialize            
             @bytecode = [nil,nil,nil,nil]   # prvni 4byte je adresa funkce main
             @current_byte = 4               # aktualni cislo bytu ktery se bude zapisovat  
@@ -17,7 +23,7 @@ module Giraffe
 
         end
 
-        # inicializuj pocitadla
+        # inicializuj pocitadla lokálních proměnných, návěští a jejich háků
         def init_function 
             @temp_bytecode = []             # bytecode pro funkce (bude se presypavat
                                             # do vysledneho bytecode, protoze funkce dopredu
@@ -29,6 +35,7 @@ module Giraffe
 
         attr_reader :current_byte, :locals, :bytecode
 
+        # zvysi pocet pouzitych lokalnich promennych
         def increment_locals
             @locals += 1
         end
@@ -40,6 +47,7 @@ module Giraffe
             @current_byte += 1     # pricti k celkove delce
         end
 
+        # zapíše 4B do zvoleného úložiště bytecodu (dočasné/finální)
         def write_4B_to(value,target)
             write_bytecode_to(value >> 24 & 0xFF, target)
             write_bytecode_to(value >> 16 & 0xFF, target)
@@ -176,6 +184,7 @@ module Giraffe
             init_function
         end
 
+        # vypíše výsledný bytecode do výstupního souboru
         def generate(file)
 
             File.open(file, "wb") do

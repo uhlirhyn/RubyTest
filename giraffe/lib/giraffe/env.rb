@@ -1,21 +1,31 @@
+# encoding: utf-8
+
 require_relative 'debug.rb'
 require_relative 'codegen.rb'
 require_relative 'opcodes.rb'
 
 module Giraffe
 
+    # Centrální objekt překladače, třída environment, která je předávána a vrstvena 
+    # mezi AST uzly, které s ní komunikují za účelem deklarace proměnných a argumnetů,
+    # zápisu opcodu a hodnot do bytecodu, kontrola přítomnosti return statementů a 
+    # správce názvů funkcí 
     class Env
 
         include Debug
         include Opcodes
        
-        # funkce 
+        # Položka tabulky deklarovaných funkcí 
         class Func
+            # Založí položku funkce
+            # * <tt>id</tt> název funkce
+            # * <tt>args</tt> pole názvů argumentů
             def initialize(id,args)
                 @id = id        # jeji adresy v BC
                 @args = args    # argumenty
             end
 
+            # Vrátí počet argumentů funkce
             def args_size 
                 @args == nil ? 0 : @args.size
             end
@@ -23,6 +33,7 @@ module Giraffe
             attr_reader :id, :args
         end
 
+        # založí nové prostředí, popř. ho naváže jako novou vrstvu na nadřazené prostředí 
         def initialize(super_env=nil)
             dbg("initialize (envID: #{self.object_id})",:Env)
             dbg("super_envID #{super_env.object_id}",:Env) if super_env != nil
@@ -110,6 +121,7 @@ module Giraffe
             @codegen.seal_function
         end
 
+        # Vrátí pole funkcí
         protected
         def functions
             @functions
@@ -177,6 +189,7 @@ module Giraffe
             dbg("return_rise #{@return_depth}",:Env)
         end
 
+        # byl nalezen return
         def return_found
             case @return_code_part[@return_depth]    # jsem v if, else ...
             when nil # root - return je primo na urovni kodu funkce

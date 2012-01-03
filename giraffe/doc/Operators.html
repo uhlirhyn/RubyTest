@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: Operators</title>
+
+	<link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+	<script src="./js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="./js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="./lib/giraffe/operators_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/giraffe/operators.rb">lib/giraffe/operators.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-add">::add</a></li>
+					
+					<li><a href="#method-c-and">::and</a></li>
+					
+					<li><a href="#method-c-div">::div</a></li>
+					
+					<li><a href="#method-c-eq">::eq</a></li>
+					
+					<li><a href="#method-c-ge">::ge</a></li>
+					
+					<li><a href="#method-c-gt">::gt</a></li>
+					
+					<li><a href="#method-c-le">::le</a></li>
+					
+					<li><a href="#method-c-lt">::lt</a></li>
+					
+					<li><a href="#method-c-mod">::mod</a></li>
+					
+					<li><a href="#method-c-mul">::mul</a></li>
+					
+					<li><a href="#method-c-ne">::ne</a></li>
+					
+					<li><a href="#method-c-neg">::neg</a></li>
+					
+					<li><a href="#method-c-not">::not</a></li>
+					
+					<li><a href="#method-c-or">::or</a></li>
+					
+					<li><a href="#method-c-sub">::sub</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><a class="include" href="Debug.html">Debug</a></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="./README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="./codegen_test_file.html">codegen_test_file</a></li>
+				
+					<li class="file"><a href="./grf/Makefile.html">Makefile</a></li>
+				
+					<li class="file"><a href="./tfile.html">tfile</a></li>
+				
+					<li class="file"><a href="./tfile2.html">tfile2</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="./images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="./Giraffe.html">Giraffe</a></li>
+				
+					<li><a href="./Giraffe/AllocTree.html">Giraffe::AllocTree</a></li>
+				
+					<li><a href="./Giraffe/ArrayTree.html">Giraffe::ArrayTree</a></li>
+				
+					<li><a href="./Giraffe/AssignTree.html">Giraffe::AssignTree</a></li>
+				
+					<li><a href="./Giraffe/AtomTree.html">Giraffe::AtomTree</a></li>
+				
+					<li><a href="./Giraffe/BinaryOperatorTree.html">Giraffe::BinaryOperatorTree</a></li>
+				
+					<li><a href="./Giraffe/Byte.html">Giraffe::Byte</a></li>
+				
+					<li><a href="./Giraffe/CallTree.html">Giraffe::CallTree</a></li>
+				
+					<li><a href="./Giraffe/CloseFileTree.html">Giraffe::CloseFileTree</a></li>
+				
+					<li><a href="./Giraffe/Codegen.html">Giraffe::Codegen</a></li>
+				
+					<li><a href="./Giraffe/DoTree.html">Giraffe::DoTree</a></li>
+				
+					<li><a href="./Giraffe/Env.html">Giraffe::Env</a></li>
+				
+					<li><a href="./Giraffe/Env/Func.html">Giraffe::Env::Func</a></li>
+				
+					<li><a href="./Giraffe/ForTree.html">Giraffe::ForTree</a></li>
+				
+					<li><a href="./Giraffe/FuncTree.html">Giraffe::FuncTree</a></li>
+				
+					<li><a href="./Giraffe/Hook.html">Giraffe::Hook</a></li>
+				
+					<li><a href="./Giraffe/IfTree.html">Giraffe::IfTree</a></li>
+				
+					<li><a href="./Giraffe/IndexTree.html">Giraffe::IndexTree</a></li>
+				
+					<li><a href="./Giraffe/Launcher.html">Giraffe::Launcher</a></li>
+				
+					<li><a href="./Giraffe/NilTree.html">Giraffe::NilTree</a></li>
+				
+					<li><a href="./Giraffe/OpenFileTree.html">Giraffe::OpenFileTree</a></li>
+				
+					<li><a href="./Giraffe/Options.html">Giraffe::Options</a></li>
+				
+					<li><a href="./Giraffe/PrintTree.html">Giraffe::PrintTree</a></li>
+				
+					<li><a href="./Giraffe/ProgramTree.html">Giraffe::ProgramTree</a></li>
+				
+					<li><a href="./Giraffe/ReadNumberTree.html">Giraffe::ReadNumberTree</a></li>
+				
+					<li><a href="./Giraffe/ReturnTree.html">Giraffe::ReturnTree</a></li>
+				
+					<li><a href="./Giraffe/SizeofTree.html">Giraffe::SizeofTree</a></li>
+				
+					<li><a href="./Giraffe/StringTree.html">Giraffe::StringTree</a></li>
+				
+					<li><a href="./Giraffe/UnaryOperatorTree.html">Giraffe::UnaryOperatorTree</a></li>
+				
+					<li><a href="./Giraffe/VarTree.html">Giraffe::VarTree</a></li>
+				
+					<li><a href="./Giraffe/WhileTree.html">Giraffe::WhileTree</a></li>
+				
+					<li><a href="./Giraffe/WriteFileTree.html">Giraffe::WriteFileTree</a></li>
+				
+					<li><a href="./Debug.html">Debug</a></li>
+				
+					<li><a href="./Opcodes.html">Opcodes</a></li>
+				
+					<li><a href="./Operators.html">Operators</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">Operators</h1>
+
+		<div id="description">
+			<p>
+Funkce operátorů - generují opcode dle funkce
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="add-method" class="method-detail ">
+				<a name="method-c-add"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">add</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Sčítání
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="add-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 12</span>
+12:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">add</span>
+13:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">ADD</span>, <span class="ruby-keyword kw">nil</span>
+14:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="and-method" class="method-detail ">
+				<a name="method-c-and"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">and</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Logický součin
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="and-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 72</span>
+72:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-keyword kw">and</span>
+73:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">AND</span>, <span class="ruby-keyword kw">nil</span>
+74:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="div-method" class="method-detail ">
+				<a name="method-c-div"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">div</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Dělení (celočíselné)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="div-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 27</span>
+27:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">div</span>
+28:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">DIV</span>, <span class="ruby-keyword kw">nil</span>
+29:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="eq-method" class="method-detail ">
+				<a name="method-c-eq"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">eq</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Porovnání - rovno
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="eq-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 62</span>
+62:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">eq</span>
+63:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">EQ</span>, <span class="ruby-keyword kw">nil</span>
+64:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="ge-method" class="method-detail ">
+				<a name="method-c-ge"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">ge</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Porovnání - větší rovno
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="ge-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 47</span>
+47:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">ge</span>
+48:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">GE</span>, <span class="ruby-keyword kw">nil</span>
+49:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="gt-method" class="method-detail ">
+				<a name="method-c-gt"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">gt</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Porovnání - větší než
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="gt-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 42</span>
+42:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">gt</span>
+43:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">GT</span>, <span class="ruby-keyword kw">nil</span>
+44:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="le-method" class="method-detail ">
+				<a name="method-c-le"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">le</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Porovnání - menší rovno
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="le-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 57</span>
+57:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">le</span>
+58:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">LE</span>, <span class="ruby-keyword kw">nil</span>
+59:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="lt-method" class="method-detail ">
+				<a name="method-c-lt"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">lt</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Porovnání - menší než
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="lt-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 52</span>
+52:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">lt</span>
+53:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">LT</span>, <span class="ruby-keyword kw">nil</span>
+54:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="mod-method" class="method-detail ">
+				<a name="method-c-mod"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">mod</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Zbytek po dělení
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="mod-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 32</span>
+32:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">mod</span>
+33:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">MOD</span>, <span class="ruby-keyword kw">nil</span>
+34:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="mul-method" class="method-detail ">
+				<a name="method-c-mul"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">mul</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Násobení
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="mul-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 22</span>
+22:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">mul</span>
+23:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">MUL</span>, <span class="ruby-keyword kw">nil</span>
+24:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="ne-method" class="method-detail ">
+				<a name="method-c-ne"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">ne</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Porovnání - není rovno
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="ne-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 37</span>
+37:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">ne</span>
+38:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">NE</span>, <span class="ruby-keyword kw">nil</span>
+39:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="neg-method" class="method-detail ">
+				<a name="method-c-neg"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">neg</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Záporné číslo - násobení -1
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="neg-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 77</span>
+77:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">neg</span>
+78:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">NEG</span>, <span class="ruby-keyword kw">nil</span>
+79:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="not-method" class="method-detail ">
+				<a name="method-c-not"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">not</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Negace
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="not-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 82</span>
+82:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-keyword kw">not</span>
+83:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">NOT</span>, <span class="ruby-keyword kw">nil</span>
+84:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="or-method" class="method-detail ">
+				<a name="method-c-or"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">or</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Logický součet
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="or-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 67</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-keyword kw">or</span>
+68:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">OR</span>, <span class="ruby-keyword kw">nil</span>
+69:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="sub-method" class="method-detail ">
+				<a name="method-c-sub"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">sub</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Odčítání
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="sub-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/giraffe/operators.rb, line 17</span>
+17:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Operators</span>.<span class="ruby-identifier">sub</span>
+18:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">SUB</span>, <span class="ruby-keyword kw">nil</span>
+19:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

@@ -1,18 +1,24 @@
+# encoding: utf-8
+
 require_relative '../env.rb'
 require_relative '../debug.rb'
 
+# Hlavní modul celého překladače
 module Giraffe
 
+    # Hlavní AST, kořen programu 
     class ProgramTree
 
         include Debug
 
+        # * <tt>functions</tt> pole AST funkcí
         def initialize(functions)
             dbg("ProgramTree initialized",:ProgramTree)
             @functions = functions
             @env = Env.new 
         end
 
+        # spustí generování bytecodu z AST
         def run
             dbg("run",:ProgramTree)
 

@@ -1,67 +1,85 @@
+# encoding: utf-8
+
 require './lib/giraffe/debug.rb'
 require './lib/giraffe/opcodes.rb'
 
+# Funkce operátorů - generují opcode dle funkce
 module Operators
 
     include Debug
 
-    def Operators.add(x,y)
+    # Sčítání
+    def Operators.add
         return Opcodes::ADD, nil
     end
 
-    def Operators.sub(x,y)
+    # Odčítání
+    def Operators.sub
         return Opcodes::SUB, nil
     end
 
-    def Operators.mul(x,y)
+    # Násobení
+    def Operators.mul
         return Opcodes::MUL, nil
     end
 
-    def Operators.div(x,y)
+    # Dělení (celočíselné)
+    def Operators.div
         return Opcodes::DIV, nil
     end
 
-    def Operators.mod(x,y)
+    # Zbytek po dělení
+    def Operators.mod
         return Opcodes::MOD, nil
     end
 
-    def Operators.ne(x,y)
+    # Porovnání - není rovno
+    def Operators.ne
         return Opcodes::NE, nil
     end
 
-    def Operators.gt(x,y)
+    # Porovnání - větší než
+    def Operators.gt
         return Opcodes::GT, nil
     end
 
-    def Operators.ge(x,y)
+    # Porovnání - větší rovno
+    def Operators.ge
         return Opcodes::GE, nil
     end
 
-    def Operators.lt(x,y)
+    # Porovnání - menší než
+    def Operators.lt
         return Opcodes::LT, nil
     end
 
-    def Operators.le(x,y)
+    # Porovnání - menší rovno
+    def Operators.le
         return Opcodes::LE, nil
     end
 
-    def Operators.eq(x,y)
+    # Porovnání - rovno
+    def Operators.eq
         return Opcodes::EQ, nil
     end
 
-    def Operators.or(x,y)
+    # Logický součet
+    def Operators.or
         return Opcodes::OR, nil
     end
 
-    def Operators.and(x,y)
+    # Logický součin
+    def Operators.and
         return Opcodes::AND, nil
     end
 
-    def Operators.neg(x)
+    # Záporné číslo - násobení -1
+    def Operators.neg
         return Opcodes::NEG, nil
     end
 
-    def Operators.not(x)
+    # Negace
+    def Operators.not
         return Opcodes::NOT, nil
     end
 

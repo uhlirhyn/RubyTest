@@ -1,21 +1,31 @@
+# encoding: utf-8
+
 require_relative '../debug.rb'
 require_relative '../opcodes.rb'
 
 module Giraffe
 
+    # Generuje bytecode pro zápis řetězce do paměti
     class StringTree
     
         include Debug
         include Opcodes
         
+        # * <tt>string</tt> řetězec
         def initialize(string)
             @string = string
         end
 
+        # vrátí popis místa kde došlo k chybě
+        private 
         def where
             "\n\tin string on line #{@tree.line}, column #{@tree.column}\n"
         end
         
+        # Provede traverzaci AST a vygeneruje bytecode
+        # * <tt>env</tt> je předávané prostředí Env
+        # * <tt>tree</tt> je soubor informací z parsersu (line, column)
+        public
         def run(env,tree)
 
             @tree = tree

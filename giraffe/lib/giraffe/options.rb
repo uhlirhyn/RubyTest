@@ -1,26 +1,21 @@
-#
-# options.rb
-#
-# Parsuje vstup (OptionParser se nadefinuje prehled
-# moznych vstupu a jak je ma zpracovat (opts) a pak
-# se na nej zavola .parse! ktery vezme parametr a 
-# zpracuje ho (pri zpracovani ho modifikuje) 
-#
-# Documentation:
-# http://www.ruby-doc.org/stdlib-1.9.3/libdoc/optparse/rdoc/OptionParser.html
-#
-
 require 'optparse'
 
 module Giraffe
 
+    # Parsuje vstup (OptionParser se nadefinuje prehled
+    # moznych vstupu a jak je ma zpracovat (opts) a pak
+    # se na nej zavola .parse! ktery vezme parametr a 
+    # zpracuje ho (pri zpracovani ho modifikuje) 
+    #
+    # Documentation:
+    # http://www.ruby-doc.org/stdlib-1.9.3/libdoc/optparse/rdoc/OptionParser.html
     class Options
 
-        attr_reader :interactive, :colors, :debug, :output
+        attr_reader :colors, :debug, :output
 
+        # založí optionst parser
         def initialize
 
-            @interactive = false
             @colors = true
             @debug = false
             @output = "out.grfc"
@@ -101,6 +96,7 @@ module Giraffe
             end
         end
 
+        # spustí parsování přepínačů
         def parse!(args)
 
             # pokud nejsou zadane zadne vstupy, pridej tam vstup -h
@@ -115,8 +111,6 @@ module Giraffe
             end
 
         end
-
-        attr_reader :interactive
 
     end
 

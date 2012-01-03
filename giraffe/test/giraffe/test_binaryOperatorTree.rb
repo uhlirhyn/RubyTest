@@ -10,8 +10,8 @@ module Giraffe
 
     class TestBinaryOperatorTree < Test::Unit::TestCase
 
-        def operator_method(op1, op2)
-            op1 + op2
+        def operator_method
+            :output
         end
 
         def test_run            
@@ -36,7 +36,7 @@ module Giraffe
             
             env.codegen.seal_function
 
-            assert_equal(env.codegen.bytecode[4].value, 0x0A)
+            assert_equal(env.codegen.bytecode[4].value, :output)
 
             dummy = DummyTree.new(true)
             tree = BinaryOperatorTree.new([dummy,"ast"],dummy_op2,dummy_operator)

@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+# encoding: utf-8
 
 require './lib/giraffe/grammar/GiraffeParser'
 require './lib/giraffe/options.rb'
@@ -7,10 +8,14 @@ require './lib/giraffe/codegen.rb'
 
 module Giraffe
 
+    # Hlavní startovací objekt překladače,
+    # načte přepínače, vstupní soubor k přeložení,
+    # inicializuje parser a nechá vygenerovat bytecode z AST
     class Launcher 
 
         include Debug
 
+        # Provede překlad
         def launch
 
             begin

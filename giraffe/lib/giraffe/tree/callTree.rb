@@ -1,24 +1,36 @@
+# encoding: utf-8
+
 require_relative '../env.rb'
 require_relative '../debug.rb'
 require_relative '../opcodes.rb'
 
 module Giraffe
 
+    # Generuje bytecode volání funkce
     class CallTree
 
         include Debug
         include Opcodes
 
+        # * <tt>id</tt> je jméno funkce, která je volána
+        # * <tt>args</tt> je pole AST argumentů, se kterými se funkce volá
+        # * <tt>alone</tt> je flag, udávající, zda se má po provedení funkce čistit zásobník (návratovou hodnotu nikdo neodebírá - překážela by na stacku)
         def initialize(id,args,alone)
             @id = id
             @args = args
             @alone = alone  # bude nekdo brat vysledek funkce ?
         end
 
+        # vrátí popis místa kde došlo k chybě
+        private
         def where
             "\n\tin call of function '#{@id}' on line #{@tree.line}, column #{@tree.column}\n"
         end
 
+        # Provede traverzaci AST a vygeneruje bytecode
+        # * <tt>env</tt> je předávané prostředí Env
+        # * <tt>tree</tt> je soubor informací z parsersu (line, column)
+        public
         def run(env,tree)
             @tree = tree
 

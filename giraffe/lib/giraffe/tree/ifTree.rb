@@ -1,23 +1,35 @@
+# encoding: utf-8
+
 require_relative '../debug.rb'
 require_relative '../opcodes.rb'
 
 module Giraffe
 
+    # Generuje bytecodu podmínky if-else
     class IfTree
 
         include Debug
         include Opcodes
 
+        # * <tt>condition</tt> AST podmínky if
+        # * <tt>instructions</tt> pole AST instrukcí 
+        # * <tt>blockElse</tt> AST IfTree (elseIf) nebo pole AST instrukcí (else)
         def initialize(condition,instructions,blockElse=nil)
             @condition = condition
             @instructions = instructions
             @blockElse = blockElse
         end
 
+        # vrátí popis místa kde došlo k chybě
+        private
         def where
             "\n\tin if on line #{@tree.line}, column #{@tree.column}"
         end
 
+        # Provede traverzaci AST a vygeneruje bytecode
+        # * <tt>env</tt> je předávané prostředí Env
+        # * <tt>tree</tt> je soubor informací z parsersu (line, column)
+        public
         def run(env,tree)
 
             @tree = tree

@@ -1,17 +1,24 @@
+# encoding: utf-8
+
 require_relative '../debug.rb'
 require_relative '../opcodes.rb'
 
 module Giraffe
 
+    # Alokace pole pro dané prvky
     class ArrayTree
     
         include Debug
         include Opcodes
         
+        # * <tt>elements</tt> je pole AST, které generují bytecode elementů alokovaného pole
         def initialize(elements)
             @elements = elements
         end
-
+        
+        # Provede traverzaci AST a vygeneruje bytecode
+        # * <tt>env</tt> je předávané prostředí Env
+        # * <tt>tree</tt> je soubor informací z parsersu (line, column)
         def run(env,tree)
 
             dbg("run",:ArrayTree)

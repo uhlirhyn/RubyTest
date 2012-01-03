@@ -1,19 +1,28 @@
+# encoding: utf-8
+
 require_relative '../debug.rb'
 require_relative '../opcodes.rb'
 
 module Giraffe
 
+    # Generuje bytecode pro získání adresy prvku pole a jeho následné čtení nebo zápis
     class IndexTree
     
         include Debug
         include Opcodes
 
+        # * <tt>target</tt> AST adresy pole
+        # * <tt>index</tt> AST indexu prvku v poli
         def initialize(target,index)
             @target = target
             @index = index      # to muze byt expression
             dbg("init",:IndexTree)            
         end
 
+        # Provede traverzaci AST a vygeneruje bytecode
+        # * <tt>env</tt> je předávané prostředí Env
+        # * <tt>tree</tt> je soubor informací z parsersu (line, column)
+        # * <tt>direction</tt> směr - :load odpovídá čtení prvku, :store zápisu
         def run(env,tree,direction=:load)
 
             dbg("run",:IndexTree) 

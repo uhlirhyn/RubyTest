@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Giraffe::TestCodegen</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../test/giraffe/test_codegen_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="test/giraffe/test_codegen.rb">test/giraffe/test_codegen.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">Test::Unit::TestCase</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-i-test_generate">#test_generate</a></li>
+					
+					<li><a href="#method-i-test_hooks">#test_hooks</a></li>
+					
+					<li><a href="#method-i-test_hooks2">#test_hooks2</a></li>
+					
+					<li><a href="#method-i-test_next_label">#test_next_label</a></li>
+					
+					<li><a href="#method-i-test_write_4B">#test_write_4B</a></li>
+					
+					<li><a href="#method-i-test_write_bool">#test_write_bool</a></li>
+					
+					<li><a href="#method-i-test_write_character">#test_write_character</a></li>
+					
+					<li><a href="#method-i-test_write_int">#test_write_int</a></li>
+					
+					<li><a href="#method-i-test_write_main">#test_write_main</a></li>
+					
+					<li><a href="#method-i-test_write_nil">#test_write_nil</a></li>
+					
+					<li><a href="#method-i-test_write_opcode">#test_write_opcode</a></li>
+					
+					<li><a href="#method-i-test_write_pointer">#test_write_pointer</a></li>
+					
+					<li><a href="#method-i-test_write_s_pointer">#test_write_s_pointer</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../codegen_test_file.html">codegen_test_file</a></li>
+				
+					<li class="file"><a href="../grf/Makefile.html">Makefile</a></li>
+				
+					<li class="file"><a href="../test/giraffe/codegen_test_file.html">codegen_test_file</a></li>
+				
+					<li class="file"><a href="../tfile.html">tfile</a></li>
+				
+					<li class="file"><a href="../tfile2.html">tfile2</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../Giraffe.html">Giraffe</a></li>
+				
+					<li><a href="../Giraffe/AllocTree.html">Giraffe::AllocTree</a></li>
+				
+					<li><a href="../Giraffe/ArrayTree.html">Giraffe::ArrayTree</a></li>
+				
+					<li><a href="../Giraffe/AssignTree.html">Giraffe::AssignTree</a></li>
+				
+					<li><a href="../Giraffe/AtomTree.html">Giraffe::AtomTree</a></li>
+				
+					<li><a href="../Giraffe/BinaryOperatorTree.html">Giraffe::BinaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/Byte.html">Giraffe::Byte</a></li>
+				
+					<li><a href="../Giraffe/CallTree.html">Giraffe::CallTree</a></li>
+				
+					<li><a href="../Giraffe/CloseFileTree.html">Giraffe::CloseFileTree</a></li>
+				
+					<li><a href="../Giraffe/Codegen.html">Giraffe::Codegen</a></li>
+				
+					<li><a href="../Giraffe/DoTree.html">Giraffe::DoTree</a></li>
+				
+					<li><a href="../Giraffe/Env.html">Giraffe::Env</a></li>
+				
+					<li><a href="../Giraffe/Env/Func.html">Giraffe::Env::Func</a></li>
+				
+					<li><a href="../Giraffe/ForTree.html">Giraffe::ForTree</a></li>
+				
+					<li><a href="../Giraffe/FuncTree.html">Giraffe::FuncTree</a></li>
+				
+					<li><a href="../Giraffe/Hook.html">Giraffe::Hook</a></li>
+				
+					<li><a href="../Giraffe/IfTree.html">Giraffe::IfTree</a></li>
+				
+					<li><a href="../Giraffe/IndexTree.html">Giraffe::IndexTree</a></li>
+				
+					<li><a href="../Giraffe/Launcher.html">Giraffe::Launcher</a></li>
+				
+					<li><a href="../Giraffe/NilTree.html">Giraffe::NilTree</a></li>
+				
+					<li><a href="../Giraffe/OpenFileTree.html">Giraffe::OpenFileTree</a></li>
+				
+					<li><a href="../Giraffe/Options.html">Giraffe::Options</a></li>
+				
+					<li><a href="../Giraffe/PrintTree.html">Giraffe::PrintTree</a></li>
+				
+					<li><a href="../Giraffe/ProgramTree.html">Giraffe::ProgramTree</a></li>
+				
+					<li><a href="../Giraffe/ReadNumberTree.html">Giraffe::ReadNumberTree</a></li>
+				
+					<li><a href="../Giraffe/ReturnTree.html">Giraffe::ReturnTree</a></li>
+				
+					<li><a href="../Giraffe/SizeofTree.html">Giraffe::SizeofTree</a></li>
+				
+					<li><a href="../Giraffe/StringTree.html">Giraffe::StringTree</a></li>
+				
+					<li><a href="../Giraffe/TestAllocTree.html">Giraffe::TestAllocTree</a></li>
+				
+					<li><a href="../Giraffe/TestArrayTree.html">Giraffe::TestArrayTree</a></li>
+				
+					<li><a href="../Giraffe/TestAssignTree.html">Giraffe::TestAssignTree</a></li>
+				
+					<li><a href="../Giraffe/TestAtomTree.html">Giraffe::TestAtomTree</a></li>
+				
+					<li><a href="../Giraffe/TestBinaryOperatorTree.html">Giraffe::TestBinaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/TestCallTree.html">Giraffe::TestCallTree</a></li>
+				
+					<li><a href="../Giraffe/TestCloseFileTree.html">Giraffe::TestCloseFileTree</a></li>
+				
+					<li><a href="../Giraffe/TestCodegen.html">Giraffe::TestCodegen</a></li>
+				
+					<li><a href="../Giraffe/TestDoTree.html">Giraffe::TestDoTree</a></li>
+				
+					<li><a href="../Giraffe/TestEnv.html">Giraffe::TestEnv</a></li>
+				
+					<li><a href="../Giraffe/TestEnvVals.html">Giraffe::TestEnvVals</a></li>
+				
+					<li><a href="../Giraffe/TestForTree.html">Giraffe::TestForTree</a></li>
+				
+					<li><a href="../Giraffe/TestFuncTree.html">Giraffe::TestFuncTree</a></li>
+				
+					<li><a href="../Giraffe/TestIfTree.html">Giraffe::TestIfTree</a></li>
+				
+					<li><a href="../Giraffe/TestIndexTree.html">Giraffe::TestIndexTree</a></li>
+				
+					<li><a href="../Giraffe/TestNilTree.html">Giraffe::TestNilTree</a></li>
+				
+					<li><a href="../Giraffe/TestOpenFileTree.html">Giraffe::TestOpenFileTree</a></li>
+				
+					<li><a href="../Giraffe/TestPrintTree.html">Giraffe::TestPrintTree</a></li>
+				
+					<li><a href="../Giraffe/TestProgramTree.html">Giraffe::TestProgramTree</a></li>
+				
+					<li><a href="../Giraffe/TestReadNumberTree.html">Giraffe::TestReadNumberTree</a></li>
+				
+					<li><a href="../Giraffe/TestReturnTree.html">Giraffe::TestReturnTree</a></li>
+				
+					<li><a href="../Giraffe/TestSizeofTree.html">Giraffe::TestSizeofTree</a></li>
+				
+					<li><a href="../Giraffe/TestStringTree.html">Giraffe::TestStringTree</a></li>
+				
+					<li><a href="../Giraffe/TestUnaryOperatorTree.html">Giraffe::TestUnaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/TestVarTree.html">Giraffe::TestVarTree</a></li>
+				
+					<li><a href="../Giraffe/TestWhileTree.html">Giraffe::TestWhileTree</a></li>
+				
+					<li><a href="../Giraffe/TestWriteFileTree.html">Giraffe::TestWriteFileTree</a></li>
+				
+					<li><a href="../Giraffe/UnaryOperatorTree.html">Giraffe::UnaryOperatorTree</a></li>
+				
+					<li><a href="../Giraffe/VarTree.html">Giraffe::VarTree</a></li>
+				
+					<li><a href="../Giraffe/WhileTree.html">Giraffe::WhileTree</a></li>
+				
+					<li><a href="../Giraffe/WriteFileTree.html">Giraffe::WriteFileTree</a></li>
+				
+					<li><a href="../Debug.html">Debug</a></li>
+				
+					<li><a href="../DummyAST.html">DummyAST</a></li>
+				
+					<li><a href="../DummyTree.html">DummyTree</a></li>
+				
+					<li><a href="../Opcodes.html">Opcodes</a></li>
+				
+					<li><a href="../Operators.html">Operators</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Giraffe::TestCodegen</h1>
+
+		<div id="description">
+			
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="test-generate-method" class="method-detail ">
+				<a name="method-i-test_generate"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_generate</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-generate-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 138</span>
+138:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_generate</span>
+139:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+140: 
+141:             <span class="ruby-identifier">main_add</span> = <span class="ruby-value">0x12345678</span>
+142:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_main</span>(<span class="ruby-identifier">main_add</span>)
+143:                 
+144:             <span class="ruby-identifier">testfile</span> = <span class="ruby-value str">&quot;codegen_test_file&quot;</span>
+145:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">generate</span>(<span class="ruby-identifier">testfile</span>)
+146: 
+147:             <span class="ruby-identifier">bytes</span> = []
+148:             <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">testfile</span>, <span class="ruby-value str">&quot;rb&quot;</span>) <span class="ruby-keyword kw">do</span> 
+149:                 <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+150:                 <span class="ruby-identifier">f</span>.<span class="ruby-identifier">each_byte</span> <span class="ruby-keyword kw">do</span>
+151:                     <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span>
+152:                     <span class="ruby-identifier">bytes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">b</span>
+153:                 <span class="ruby-keyword kw">end</span>
+154:             <span class="ruby-keyword kw">end</span>
+155:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">bytes</span>,[<span class="ruby-value">0x12</span>,<span class="ruby-value">0x34</span>,<span class="ruby-value">0x56</span>,<span class="ruby-value">0x78</span>])
+156:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-hooks-method" class="method-detail ">
+				<a name="method-i-test_hooks"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_hooks</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-hooks-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 112</span>
+112:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_hooks</span>
+113:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+114:             <span class="ruby-identifier">label</span> = <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">next_label</span>
+115:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">insert_hook</span>(<span class="ruby-identifier">label</span>)
+116:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>,<span class="ruby-value">8</span>)
+117:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">insert_anchor</span>(<span class="ruby-identifier">label</span>)
+118:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+119:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+120:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+121:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+122:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">8</span>)
+123:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-hooks--method" class="method-detail ">
+				<a name="method-i-test_hooks2"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_hooks2</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-hooks--source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 125</span>
+125:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_hooks2</span>
+126:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+127:             <span class="ruby-identifier">label</span> = <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">next_label</span>
+128:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">insert_anchor</span>(<span class="ruby-identifier">label</span>)
+129:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">insert_hook</span>(<span class="ruby-identifier">label</span>)
+130:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">current_byte</span>,<span class="ruby-value">8</span>)
+131:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+132:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+133:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+134:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+135:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">4</span>)
+136:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-next-label-method" class="method-detail ">
+				<a name="method-i-test_next_label"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_next_label</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-next-label-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 103</span>
+103:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_next_label</span>
+104:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+105:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">next_label</span>,<span class="ruby-value">0</span>)
+106:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">next_label</span>,<span class="ruby-value">1</span>)
+107:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">next_label</span>,<span class="ruby-value">2</span>)
+108:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+109:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">next_label</span>,<span class="ruby-value">0</span>)
+110:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-write--method" class="method-detail ">
+				<a name="method-i-test_write_4B"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_write_4B</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-write--source">
+<pre>
+    <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 29</span>
+29:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_write_4B</span>
+30:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+31:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_4B</span>(<span class="ruby-value">0x12345678</span>)
+32:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+33:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x12</span>)
+34:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x34</span>)
+35:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x56</span>)
+36:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x78</span>)
+37:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-write-bool-method" class="method-detail ">
+				<a name="method-i-test_write_bool"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_write_bool</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-write-bool-source">
+<pre>
+     <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 92</span>
+ 92:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_write_bool</span>
+ 93:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+ 94:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_bool</span>(<span class="ruby-value">305419896</span>)
+ 95:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+ 96:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">BOOLEAN</span>)
+ 97:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x12</span>)
+ 98:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x34</span>)
+ 99:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x56</span>)
+100:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x78</span>)
+101:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-write-character-method" class="method-detail ">
+				<a name="method-i-test_write_character"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_write_character</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-write-character-source">
+<pre>
+    <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 39</span>
+39:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_write_character</span>
+40:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+41:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_character</span>(<span class="ruby-value str">'”'</span>)
+42:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+43:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">CHARACTER</span>)
+44:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0</span>)
+45:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">226</span>)
+46:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">128</span>)
+47:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">157</span>)
+48:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-write-int-method" class="method-detail ">
+				<a name="method-i-test_write_int"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_write_int</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-write-int-source">
+<pre>
+    <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 59</span>
+59:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_write_int</span>
+60:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+61:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_int</span>(<span class="ruby-value">305419896</span>)
+62:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+63:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">INTEGER</span>)
+64:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x12</span>)
+65:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x34</span>)
+66:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x56</span>)
+67:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x78</span>)
+68:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-write-main-method" class="method-detail ">
+				<a name="method-i-test_write_main"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_write_main</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-write-main-source">
+<pre>
+    <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 50</span>
+50:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_write_main</span>
+51:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+52:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_main</span>(<span class="ruby-value">0x12345678</span>)
+53:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x12</span>)
+54:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x34</span>)
+55:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x56</span>)
+56:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x78</span>)
+57:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-write-nil-method" class="method-detail ">
+				<a name="method-i-test_write_nil"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_write_nil</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-write-nil-source">
+<pre>
+    <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 18</span>
+18:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_write_nil</span>
+19:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+20:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_nil</span>
+21:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+22:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">NULL</span>)
+23:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x00</span>)
+24:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x00</span>)
+25:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x00</span>)
+26:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x00</span>)
+27:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-write-opcode-method" class="method-detail ">
+				<a name="method-i-test_write_opcode"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_write_opcode</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-write-opcode-source">
+<pre>
+    <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 11</span>
+11:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_write_opcode</span>
+12:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+13:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_opcode</span>(<span class="ruby-value">0x13</span>)
+14:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+15:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x13</span>)
+16:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-write-pointer-method" class="method-detail ">
+				<a name="method-i-test_write_pointer"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_write_pointer</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-write-pointer-source">
+<pre>
+    <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 81</span>
+81:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_write_pointer</span>
+82:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+83:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_pointer</span>(<span class="ruby-value">305419896</span>)
+84:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+85:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">POINTER</span>)
+86:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x12</span>)
+87:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x34</span>)
+88:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x56</span>)
+89:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x78</span>)
+90:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="test-write-s-pointer-method" class="method-detail ">
+				<a name="method-i-test_write_s_pointer"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">test_write_s_pointer</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="test-write-s-pointer-source">
+<pre>
+    <span class="ruby-comment cmt"># File test/giraffe/test_codegen.rb, line 70</span>
+70:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_write_s_pointer</span>
+71:             <span class="ruby-identifier">cdg</span> = <span class="ruby-constant">Codegen</span>.<span class="ruby-identifier">new</span>
+72:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">write_s_pointer</span>(<span class="ruby-value">305419896</span>)
+73:             <span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">seal_function</span>
+74:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">4</span>].<span class="ruby-identifier">value</span>,<span class="ruby-constant">Opcodes</span><span class="ruby-operator">::</span><span class="ruby-constant">S_POINTER</span>)
+75:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x12</span>)
+76:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x34</span>)
+77:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">7</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x56</span>)
+78:             <span class="ruby-identifier">assert_equal</span>(<span class="ruby-identifier">cdg</span>.<span class="ruby-identifier">bytecode</span>[<span class="ruby-value">8</span>].<span class="ruby-identifier">value</span>,<span class="ruby-value">0x78</span>)
+79:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+
