@@ -9,6 +9,9 @@ module Pentomino
             @desk = Desk.new(d_w,d_h)
             @w = b_w
             @h = b_h
+            # pokud ma kosticka stejne dlouhe strany
+            # nema vyznam ji otacet ...
+            @variants = @w == @h ? [0] : [0,1]
         end
 
         def pputs(what)
@@ -21,35 +24,26 @@ module Pentomino
 
             x,y = desk.find_free
 
-            puts "SEARCH LEVEL: #{id} Trying #{x},#{y}" 
+            #puts "SEARCH LEVEL: #{id} Trying #{x},#{y}" 
 
-            puts "SEARCH LEVEL: #{id} LT"
-            if (new_desk = desk.clone).insert(Brick.new(@w,@h,id,:lt),x,y)
-                new_desk.show
-                return new_desk if new_desk.done
-                if (result = search(new_desk,id)) != :failed then return result end
-            end
-            puts "SEARCH LEVEL: #{id} RT"
-            if (new_desk = desk.clone).insert(Brick.new(@w,@h,id,:rt),x,y) 
-                new_desk.show
-                return new_desk if new_desk.done
-                if (result = search(new_desk,id)) != :failed then return result end
-            end
-            puts "SEARCH LEVEL: #{id} LB"
-            if (new_desk = desk.clone).insert(Brick.new(@w,@h,id,:lb),x,y)
-                new_desk.show
-                return new_desk if new_desk.done
-                if (result = search(new_desk,id)) != :failed then return result end
-            end
-            # ten posuv je tam proto, aby se prisunula kostka primo tam, kde chybi
-            puts "SEARCH LEVEL: #{id} RB"
-            if x >= @w && (new_desk = desk.clone).insert(Brick.new(@w,@h,id,:rb),x-@w+1,y)
-                new_desk.show
-                return new_desk if new_desk.done
-                if (result = search(new_desk,id)) != :failed then return result end
+            for variant in @variants do
+                w = variant == 1 ? @w : @h
+                h = variant == 1 ? @h : @w
+                for mode in [:lt,:rt,:lb,:rb] do
+                    # ten posuv je tam proto, aby se prisunula kostka primo tam, kde chybi
+                    if (mode != :rb || x >= w) && 
+                        (new_desk = desk.clone).insert(
+                            Brick.new(w,h,id,mode),
+                            mode == :rb ? x-w+1 : x, 
+                            y)
+                        new_desk.show
+                        return new_desk if new_desk.done
+                        if (result = search(new_desk,id)) != :failed then return result end
+                    end
+                end
             end
 
-            puts "SEARCH LEVEL: #{id} failed "
+            #puts "SEARCH LEVEL: #{id} failed "
             return :failed
 
         end
